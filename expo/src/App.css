@@ -1,7 +1,16 @@
 .App {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 nav {
-  background-color: #333;
+  /*background-color: #333;*/
+  background-color: #ff7bac;
+}
+
+a {
+  color:#00ffff;
+}
+
+a:hover {
+  color:#9DFFFE;
 }
