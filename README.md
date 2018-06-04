@@ -1,4 +1,15 @@
-# Technica Expo App
+# Technica Hackathon Expo App
+
+A beautiful and intuitive web app to display hackathon projects for expo attendees, hackers, and sponsors to locate or learn more info about a hack. This web app also provides powerful admin and sponsor features beyond a basic display website, including:
+* Admin dashboard
+    * Import project data from .csv files (from Devpost)
+    * Automatically or manually assign table numbers to projects
+    * CRUD project data on the fly
+* Sponsor winner selection
+    * Access code secure login
+    * Sponsors can select projects as winner(s) for their challenges (so the organizing team can have a record of winners)
+    * UI warning if a project is winning too many challenges (to avoid one project sweeping all prizes)
+
 
 ## Contribution Guidelines
 
