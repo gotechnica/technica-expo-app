@@ -1,1 +1,1 @@
-# Database access
+# Handles database operations (connecting, reading, writing)
