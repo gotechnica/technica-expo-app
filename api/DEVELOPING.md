@@ -12,15 +12,15 @@ We use Flask as an API for the expo app. It mainly interfaces with the database,
 
 # Setup
 ## Virtualenv
-We use virtualenv. To use it, run `source venv/bin/activate` on Linix/MacOS, and `.\venv\Scripts\activate` on Windows.
+We use virtualenv. To install on Linux/MacOS, run `sudo pip install virtualenv` and then run `virtualenv venv`. To use it, cd into this directory and run `source venv/bin/activate` on Linux/MacOS or `.\venv\Scripts\activate` on Windows.
 
-Run `deactivate` to exit the virtual enviroment.
+Run `deactivate` to exit the virtual environment.
 
 ## Installation
 Once in the virtualenv, run `pip install -r requirements.txt`. This installs the required packages.
 
 # Running
-To run the server, just run `python server.py`. The Flask server is then accessible from http://127.0.0.1:5000/
+To run the server, just run `python server.py`. The Flask server is then accessible from http://127.0.0.1:5000/.
 
 # Devloping
 Each file uses *blueprints*. See http://flask.pocoo.org/docs/1.0/blueprints/ for more details - it works mostly the same normal Flask, and gives us modularity.
