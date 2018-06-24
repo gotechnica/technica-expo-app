@@ -1,1 +1,3 @@
-# Example config file. Copy to config.py, fill in keys/info, and then import in the other scripts
+# Config file. Rename as config.py and fill in keys/variables
+MONGO_DBNAME = 'your-db-name-here'
+MONGO_HOST = 'uri-to-connect-to-your-db-including-username-and-password'
