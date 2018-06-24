@@ -22,8 +22,8 @@ Once in the virtualenv, run `pip install -r requirements.txt`. This installs the
 # Running
 To run the server, just run `python server.py`. The Flask server is then accessible from http://127.0.0.1:5000/.
 
-# Devloping
-Each file uses *blueprints*. See http://flask.pocoo.org/docs/1.0/blueprints/ for more details - it works mostly the same normal Flask, and gives us modularity.
+# Developing
+The server file is separated out into database, public, and private CRUD routes. When adding endpoints, make sure it goes into the right section. If you need to create a new section, please feel free to.
 
 ## Adding packages
 To install new packages, just run `pip install <package>`, and then to save it, run `pip freeze > requirements.txt`

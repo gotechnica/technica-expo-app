@@ -11,16 +11,17 @@ def hello():
     return "Hello World!"
 
 
-# Database CRUD routes
+# Database CRUD routes #########################################################
 
 
 
-# Public CRUD routes
+# Public CRUD routes ###########################################################
+# All end points under the public routes should not require any authentication.
 
 
 
-# Private CRUD routes
-
+# Private CRUD routes ##########################################################
+# All end points under the private routes should require the access token.
 
 
 
