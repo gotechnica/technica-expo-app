@@ -13,21 +13,21 @@ We use Flask as an API for the expo app. It mainly interfaces with the database,
 
 # Setup
 ## Virtualenv
-We use virtualenv. To install on Linux/MacOS, run `sudo pip install virtualenv` and then run `virtualenv venv`. To use it, cd into this directory and run `source venv/bin/activate` on Linux/MacOS or `.\venv\Scripts\activate` on Windows.
+We use virtualenv. To install on Linux/MacOS, make sure you have `python3`, `python3-pip`, and `python3-venv` are installed. Run `python3 -m venv venv` to create a virtual environment called `venv` in this directory. To use it, cd into this directory and run `source venv/bin/activate` on Linux/MacOS or `.\venv\Scripts\activate` on Windows.
 
 Run `deactivate` to exit the virtual environment.
 
 ## Installation
-Once in the virtualenv, run `pip install -r requirements.txt`. This installs the required packages.
+Once in the virtualenv, run `pip3 install -r requirements.txt`. This installs the required packages.
 
 # Running
-To run the server, just run `python server.py`. The Flask server is then accessible from http://127.0.0.1:5000/.
+To run the server, just run `python3 server.py`. The Flask server is then accessible from http://127.0.0.1:5000/.
 
 # Developing
 The server file is separated out into database, public, and private CRUD routes. When adding endpoints, make sure it goes into the right section. If you need to create a new section, please feel free to.
 
 ## Adding packages
-To install new packages, just run `pip install <package>`, and then to save it, run `pip freeze > requirements.txt`
+To install new packages, just run `pip3 install <package>`, and then to save it, run `pip3 freeze > requirements.txt`
 
 # Testing
 [Coming soon]
