@@ -6,7 +6,7 @@ We use Flask as an API for the expo app. It mainly interfaces with the database,
 
 * Make sure your code follows [PEP8](https://www.python.org/dev/peps/pep-0008/).
 * Try to keep features in their own file, i.e. any database access should go through db.py
-* Flask has patterns on their [website](http://flask.pocoo.org/docs/0.12/patterns/). We do'nt strictly follow these, but they're good to keep in mind.
+* Flask has patterns on their [website](http://flask.pocoo.org/docs/0.12/patterns/). We don't strictly follow these, but they're good to keep in mind.
 * Write tests! More on this further down!
 
 
