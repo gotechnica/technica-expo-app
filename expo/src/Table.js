@@ -3,6 +3,9 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Table.css';
 
 class Table extends Component {
+  constructor(props){
+    super(props)
+  }
   render() {
     return (
       <div class="card">
@@ -17,12 +20,19 @@ class Table extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>proj name</td>
-                <td>url</td>
-                <td>table number</td>
-                <td>challenges sub</td>
+            {
+            this.props.data.map((object)=>{
+              return(
+                <tr>
+                <td>{object.project}</td>
+                <td><a href="#">{object.url}</a></td>
+                <td>{object.table}</td>
+                <td>{object.challenges.join()}</td>
               </tr>
+              )
+            })
+            
+          }
             </tbody>
           </table>
         </div>
