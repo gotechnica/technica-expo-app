@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
+import json
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -57,12 +58,14 @@ def get_all_projects():
 @app.route('/api/projects/add', methods=['POST'])
 def add_project():
     projects = mongo.db.projects
+   # project_data = json.loads(request.data.decode('utf8').replace("'", '"'))
+    project_data = json.loads(request.data.decode('utf8'))
 
-    table_number = request.json['table_number']
-    project_name = request.json['project_name']
-    project_url = request.json['project_url']
-    attempted_challenges = request.json['attempted_challenges']
-    challenges_won = request.json['challenges_won']
+    table_number = project_data['table_number']
+    project_name = project_data['project_name']
+    project_url = project_data['project_url']
+    attempted_challenges = project_data['attempted_challenges']
+    challenges_won = project_data['challenges_won']
 
     temp_project = {
         'table_number': table_number,
@@ -71,6 +74,7 @@ def add_project():
         'attempted_challenges': attempted_challenges,
         'challenges_won': challenges_won
     }
+
     project_id = projects.insert(temp_project)
 
     new_project = projects.find_one({'_id': project_id})
