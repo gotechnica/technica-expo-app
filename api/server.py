@@ -3,11 +3,12 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 import json
+import hashlib
 
 app = Flask(__name__)
 app.config.from_object('config')
 mongo = PyMongo(app)
-
+password = "860982837d50e33a2433ba84aab9b29c"
 
 @app.route('/')
 def hello():
@@ -58,14 +59,13 @@ def get_all_projects():
 @app.route('/api/projects/add', methods=['POST'])
 def add_project():
     projects = mongo.db.projects
-   # project_data = json.loads(request.data.decode('utf8').replace("'", '"'))
-    project_data = json.loads(request.data.decode('utf8'))
+#    project_data = json.loads(request.data.decode('utf8'))
 
-    table_number = project_data['table_number']
-    project_name = project_data['project_name']
-    project_url = project_data['project_url']
-    attempted_challenges = project_data['attempted_challenges']
-    challenges_won = project_data['challenges_won']
+    table_number = request.json['table_number']
+    project_name = request.json['project_name']
+    project_url = request.json['project_url']
+    attempted_challenges = request.json['attempted_challenges']
+    challenges_won = request.json['challenges_won']
 
     temp_project = {
         'table_number': table_number,
@@ -144,7 +144,31 @@ def get_all_companies():
 
     return jsonify({'All Companies' : output})
 
+@app.route('/api/projects/delete', methods=['DELETE'])
+def delete_project():
+    projects = mongo.db.projects
 
+    project_name = request.json['project_name']
+    plaintext = request.json['password']
+    passwd = hashlib.md5(plaintext.encode('utf-8')).hexdigest()
+
+    if passwd == password:
+        projects.delete_one({'project_name': project_name})
+
+
+@app.route('/api/projects/deleteAll', methods=['DELETE'])
+def delete_all_projects():
+    projects = mongo.db.projects
+
+    plaintext = request.json['password']
+    output = 'failed'
+    passwd = hashlib.md5(plaintext.encode('utf-8')).hexdigest()
+
+    if passwd == password:
+        output = 'success'
+        projects.delete_many({})
+
+    return jsonify({'Delete all' : output})
 
 
 
