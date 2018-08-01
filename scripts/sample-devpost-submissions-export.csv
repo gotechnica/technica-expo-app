@@ -1,4 +1,5 @@
-Submission Title,Submission Url,Plain Description,Website,Desired Prizes,"Does Your Hack Need To Stay At Your Current Table? (I.E. Hardware, Vr/Ar Hacks). If So, What Table Number Are You At?",...,,Anarchypedia,http://bitcamp2018.devpost.com/submissions/92175-anarchypedia,"Inspiration
+Submission Title,Submission Url,Plain Description,Website,Desired Prizes,"Does Your Hack Need To Stay At Your Current Table? (I.E. Hardware, Vr/Ar Hacks). If So, What Table Number Are You At?",...,,
+Anarchypedia,http://bitcamp2018.devpost.com/submissions/92175-anarchypedia,"Inspiration
 
 Everyone has, at some point, tried and failed to edit a Wikipedia article. There's a reason not just anyone can make changes - or else anarchy would ensue, right? Well... hmmm ....
 
@@ -44,7 +45,8 @@ Responsive design
 Fetch/Save full Wikipedia articles instead of only main content
 Full edit history tracking
 
-",http://anarchypedia.org,"Best Domain Name from Domain.com, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,,,Becorum - Robust Universal Mobility App,http://bitcamp2018.devpost.com/submissions/92182-becorum-robust-universal-mobility-app,"Inspiration
+",http://anarchypedia.org,"Best Domain Name - Domain.com, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,,,
+Becorum - Robust Universal Mobility App,http://bitcamp2018.devpost.com/submissions/92182-becorum-robust-universal-mobility-app,"Inspiration
 
 A smarter way to travel and connect user to robust, organized and universal mobility throughout the US.
 
@@ -65,8 +67,10 @@ We ran into installs and overcoming the learning curve of Android Studio.
 What's next for Becorum
 
 Continue as a startup project.
-",https://github.com/ShannonCanTech/BitcampBecorum,"Best Domain Name from Domain.com, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",R4,,,Slionel Messi,http://bitcamp2018.devpost.com/submissions/92207-slionel-messi,"Slime Soccer bot made with OpenAI gym
-",https://github.com/keller-mark/slime-soccer-bot,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,,,ScheduLit,http://bitcamp2018.devpost.com/submissions/92229-schedulit,"Inspiration
+",https://github.com/ShannonCanTech/BitcampBecorum,"Best Domain Name - Domain.com, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",R4,,,
+Slionel Messi,http://bitcamp2018.devpost.com/submissions/92207-slionel-messi,"Slime Soccer bot made with OpenAI gym
+",https://github.com/keller-mark/slime-soccer-bot,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,,,
+ScheduLit,http://bitcamp2018.devpost.com/submissions/92229-schedulit,"Inspiration
 
 What inspired our team to make ScheduLit was our work schedule as students. We often find ourselves with so many deadlines to meet, but with no clue how to partition our time efficiently. Which assignments have the highest priority? Will I get everything done in time? How will I meet multiple deadlines? These are all questions that ScheduLit answers.
 
@@ -114,7 +118,8 @@ We also learned that it's okay if we don't know how to do something, because Goo
 What's next for ScheduLit
 
 What's next for us is diving deeper into the User Interface for ScheduLit. We'd like to have a sleeker UI, with more options in the settings for inactive hours, preferred tasks over others, and pre-set tasks to include in our calendar. We would also like to improve the efficiency of the algorithm behind the scenes so that we can process a large number of tasks more quickly. After this extension is implemented, we'd like to explore making this into an actual calendar app. Combining our efforts with other CS students passionate about efficient scheduling, we are going to create a fantastic Calendar AI that will plan your week with no thought on your part.
-",https://github.com/Andrewjeska/autoscheduler,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook","We will be able to move around. D7 if we're at the assigned table, though.",rzehrung,,PillBug: The Smarter PillBox,http://bitcamp2018.devpost.com/submissions/92264-pillbug-the-smarter-pillbox,"Inspiration
+",https://github.com/Andrewjeska/autoscheduler,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook","We will be able to move around. D7 if we're at the assigned table, though.",rzehrung,,
+PillBug: The Smarter PillBox,http://bitcamp2018.devpost.com/submissions/92264-pillbug-the-smarter-pillbox,"Inspiration
 
 When brainstorming for hackathon ideas, we all wanted to create a product or service that would be helpful to many people. While there are countless hacks aimed towards millennials, we wanted to take this hackathon as an opportunity to create a useful hack for the elderly. One of our team members recalled a scary incident where his grandfather overdosed on medication after forgetting that he already took the medicine. The grandfather was taken to the ER as a result. Thankfully, while no permanent damage happened to grandpa, his grandson really want to create a product to prevent this from happening again. Meet - the smart pillbox.
 
@@ -141,7 +146,8 @@ Focus on developing the MVP given the time constraints. Bringing your own hardwa
 What's next for PillBug: The Smarter PillBox
 
 What's next for PillBug is a rotatable camera that to capture images of nearby surrounding. We also want to add LED lights to the pillbox to better interact with our patients.
-",https://github.com/anthonyc1/pillbug,"Best use of SparkPost API - SparkPost, Most Futuristic Hack - Paypal, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,tejashah88,aspitalny,Schedule Helper,http://bitcamp2018.devpost.com/submissions/92265-schedule-helper,"Inspiration
+",https://github.com/anthonyc1/pillbug,"Best use of SparkPost API - SparkPost, Most Futuristic Hack - Paypal, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,tejashah88,aspitalny,
+Schedule Helper,http://bitcamp2018.devpost.com/submissions/92265-schedule-helper,"Inspiration
 
 When creating a schedule, numeric reviews sometimes aren't enough when effectively gauging what to expect from a certain professor. We wanted to simplify the process of making a perfect schedule by gathering more available data across the web.
 
@@ -168,7 +174,8 @@ We learned a lot about the web development practice, including what resources ar
 What's next for Schedule Helper
 
 We definitely want to improve performance time, update the web application appearances, and add more functionality, especially adding more visual data, the ability to add/remove courses dynamically, and improving user navigation through the website.
-",https://github.com/adamwang97/Schedule-Helper,,,,,Sheng-Ke (The Tabletop Card Game),http://bitcamp2018.devpost.com/submissions/92269-sheng-ke-the-tabletop-card-game,"Inspiration
+",https://github.com/adamwang97/Schedule-Helper,,,,,
+Sheng-Ke (The Tabletop Card Game),http://bitcamp2018.devpost.com/submissions/92269-sheng-ke-the-tabletop-card-game,"Inspiration
 
 Unsure what to do at Bitcamp, I quickly made a friend who introduced me to a single-player, Japanese card game that is based on the player appreciating the dynamics of nature. Inspired by the ancient game's beautiful art, I began cutting out equal sized sheets of paper and drawing scenes on them whose art-style was reminiscent of the game's. I eventually decided to turn these sheets of paper into a card game, and based them off the Japanese cycles of creation and destruction. After some play testing, I finally designed a working, fun -to-play prototype of an easy-to-pick-up game.
 
@@ -195,7 +202,8 @@ How accomplishing it feels to know that you made a new game that can bring peopl
 What's next for Sheng-Ke (The Tabletop Card Game)
 
 I am going to print the cards on better card stock and assemble a team of skilled artists to turn the game into an official product. I will have a printing company produce the cards and packaging and sell them at local tabletop gaming shops to other passionate and casual gamers.
-",,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",No,,,Meme Relief,http://bitcamp2018.devpost.com/submissions/92270-meme-relief,"Inspiration
+",,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",No,,,
+Meme Relief,http://bitcamp2018.devpost.com/submissions/92270-meme-relief,"Inspiration
 
 All of us being the spiciest of meme connoisseurs, wanted a way to stop ourselves from seeing overused memes while casually browsing the internet.  Although the original basis for this project did not have practical applications, we found that this software tool could be utilized by teachers or employers to increase productivity in the workplaces and schools by preventing employees/students from seeing the majority of inappropriate images.
 
@@ -222,14 +230,16 @@ We are incredibly proud of our team of mostly beginners being able to code and i
 What's next for Meme Relief
 
 We learned how to build applications that use computer vision API's. We learned about the Fourier Transformation and sound packet collection. Many of us figured out how to use Unity for the first time. One learned how to use MS Paint as a professional artist as well.     
-",https://github.com/agathaturya/freaky-phobias,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,ajiroun96,rchoe67,Testudo Course Monitor,http://bitcamp2018.devpost.com/submissions/92273-testudo-course-monitor,"Testudo Course Monitor
+",https://github.com/agathaturya/freaky-phobias,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,ajiroun96,rchoe67,
+Testudo Course Monitor,http://bitcamp2018.devpost.com/submissions/92273-testudo-course-monitor,"Testudo Course Monitor
 
 One of the most stressful parts of the semester for undergraduate students at most universities is the process of registering for classes. The uncertainties of not knowing whether or not you can get the schedule that you want can be very nerve-wracking and can add unnecessary stress on an already overstressed student. This project should help students better prepare for their registration.
 
 This is a web scraper for the University of Maryland Schedule of Classes that gathers information about course professor, section, and available seats relative to total number of seats. While there are several applications that can check how many seats are available in a certain class at any given point in time, the data about the rate at which seats are taken is not stored from semester to semester. The web scraper stores the data on a daily basis and is ultimately able to plot as a function of time, the number of available seats in a certain section of a class. 
 
 In the future, the web scraper should be able to make extrapolations and be able to predict whether or not a certain class will be full by a certain date. 
-",https://github.com/benjib2214/Testudo,,No,benjib2214,,To DoGether,http://bitcamp2018.devpost.com/submissions/92274-to-dogether,"Inspiration: I get frustrated doing boring tasks alone when I could be doing them with friends. So what if there was an app that could auto sync tasks such as rating, shopping, and laundry with your friends.
+",https://github.com/benjib2214/Testudo,,No,benjib2214,,
+To DoGether,http://bitcamp2018.devpost.com/submissions/92274-to-dogether,"Inspiration: I get frustrated doing boring tasks alone when I could be doing them with friends. So what if there was an app that could auto sync tasks such as rating, shopping, and laundry with your friends.
 
 What it does: It is a web app that allows you to add events to a calendar. If multiple people add the same event to the calendar than it adds them to each others events.
 
@@ -242,7 +252,8 @@ Accomplishments that I'm proud of: I'm proud that I attempted the task, put a lo
 What I learned: Facebook API, AWS EC2, ruby Sinatra, and mongodb
 
 What's next for To DoGether: finish the app
-",http://54.162.19.81:4567,,,,,TweetMap,http://bitcamp2018.devpost.com/submissions/92276-tweetmap,"Inspiration
+",http://54.162.19.81:4567,,,,,
+TweetMap,http://bitcamp2018.devpost.com/submissions/92276-tweetmap,"Inspiration
 
 I've worked with the Twitter API before and I really enjoy it, there's a lot of interesting data you can get out of it; in the past I've done projects with natural language processing on tweets, but this time I wanted to do something new.
 
@@ -269,7 +280,8 @@ I learned a lot about the Esri API and I really like it, it was perfect for this
 What's next for TweetMap
 
 I'll put it up on my website, and maybe spruce up the UI a bit.
-",https://github.com/r-best/Bitcamp2018-TweetMap,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",No,,,Pythagorean Triple Finder,http://bitcamp2018.devpost.com/submissions/92277-pythagorean-triple-finder,"Inspiration
+",https://github.com/r-best/Bitcamp2018-TweetMap,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",No,,,
+Pythagorean Triple Finder,http://bitcamp2018.devpost.com/submissions/92277-pythagorean-triple-finder,"Inspiration
 
 I enjoy math
 
@@ -290,7 +302,8 @@ Accomplishments that I'm proud of
 What I learned
 
 What's next for Pythagorean Triple Finder
-",,,,,,Procrastination Station,http://bitcamp2018.devpost.com/submissions/92278-procrastination-station,"Inspiration
+",,,,,,
+Procrastination Station,http://bitcamp2018.devpost.com/submissions/92278-procrastination-station,"Inspiration
 
 As four first time hackers, we met while searching for teams and decided to stick together as mutual beginners. Having never met before hailing from UMBC, UMD, and Nova, we spent time brainstorming a project that was feasible for all of us to complete but would still provide us with a challenge. While combining our want to make a game with the knowledge of a pre-existing app that requires one to answer math questions before one's alarm goes off, we decided to build a chrome extension that does something similar when you try to procrastinate. 
 
@@ -318,7 +331,8 @@ What's next for Procrastination Station
 
 We hope that many other University students will use the Procrastination Station extension to deter, if not, prevent them from procrastinating from their studies! 
 Also, our future goal is to include other popular social media to the Procrastination Station extension. 
-",https://chrome.google.com/webstore/detail/procrastinationstation/iogijohedmhahconojcpdbgedljphkmk?utm_source=gmail,"Best Domain Name from Domain.com, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",n/a,AdaUchendu,akendom,Represent Me,http://bitcamp2018.devpost.com/submissions/92279-represent-me,"Inspiration
+",https://chrome.google.com/webstore/detail/procrastinationstation/iogijohedmhahconojcpdbgedljphkmk?utm_source=gmail,"Best Domain Name - Domain.com, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",n/a,AdaUchendu,akendom,
+Represent Me,http://bitcamp2018.devpost.com/submissions/92279-represent-me,"Inspiration
 
 In light of recent elections and the significant lack of voter participation, we became curious about how to get the younger generation (but as old as 25) engaged in politics.
 
@@ -351,8 +365,10 @@ Preparing an idea before hand is the move.
 What's next for demurewolf.github.io
 
 We plan on expanding all of the features mentioned above, while also including a messaging system for authenticated users.
-",https://github.com/demurewolf/demurewolf.github.io,"Best use of SparkPost API - SparkPost, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook",V1,,,Ram Bars,http://bitcamp2018.devpost.com/submissions/92280-ram-bars,"We wanted to create one place to go to find the specials and addresses of all the bars in the area instead of visiting their individual websites.
-",http://34.239.224.150/,,No,,,Frankenstein's Monkey,http://bitcamp2018.devpost.com/submissions/92281-frankenstein-s-monkey,"Inspiration
+",https://github.com/demurewolf/demurewolf.github.io,"Best use of SparkPost API - SparkPost, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook",V1,,,
+Ram Bars,http://bitcamp2018.devpost.com/submissions/92280-ram-bars,"We wanted to create one place to go to find the specials and addresses of all the bars in the area instead of visiting their individual websites.
+",http://34.239.224.150/,,No,,,
+Frankenstein's Monkey,http://bitcamp2018.devpost.com/submissions/92281-frankenstein-s-monkey,"Inspiration
 
 For too long, humans have been unquestioning in the face of death itself. For too long, science has taken a backseat to superstition. That ends today.
 
@@ -379,7 +395,8 @@ People should not trust me with stuffed animals.
 What's next for Frankenstein's Monkey
 
 He will  walk, he will talk, everybody will gawk.
-",http://www.franken-monkey.com,"Best Domain Name from Domain.com, Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",Can move if absolutely needed. Would prefer to stay at Table S7.,,,Char(k)ity,http://bitcamp2018.devpost.com/submissions/92282-char-k-ity,"Inspiration
+",http://www.franken-monkey.com,"Best Domain Name - Domain.com, Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",Can move if absolutely needed. Would prefer to stay at Table S7.,,,
+Char(k)ity,http://bitcamp2018.devpost.com/submissions/92282-char-k-ity,"Inspiration
 
 Often times, stores or banks will allow users to round their transactions up on purchases in order to give to a good cause (for example, a total of $6.84 might round up to $7.00, and the extra 16 cents will be donated to a charity). We wanted to be able to bring the same idea into the cryptocurrency space, particularly on Ark's platform.
 
@@ -406,7 +423,8 @@ We learned a lot about how to use Ark's API, as well as Ark's general platform a
 What's next for Char(k)ity
 
 For the purposes of our demo, we created a static HTML application, but next steps would be to decouple the app into a functioning front and back end, with the back-end handling all of our users' sensitive data, and the front-end simply acting as an interface. Currently, Ark's APIs only support transactions with single outputs, so users must pay two transaction fees in order to give to charity. Once the API gets updated in the next core version, multiple output transactions will be supported, so we will change the structure of our application to put the normal recipient output and charity output in the same transaction, thereby saving on fees. Lastly, we would also consolidate users' Ark in a few wallets owned by the platform (similar to the way exchanges like Coinbase handle cryptocurrency), and simply update users' account balances, rather than issue each user their own unique address.
-",,Decentralise Everything: Blockchain challenge - Ark,,,,Alexa Startups,http://bitcamp2018.devpost.com/submissions/92283-alexa-startups,"Inspiration
+",,Decentralise Everything: Blockchain challenge - Ark,,,,
+Alexa Startups,http://bitcamp2018.devpost.com/submissions/92283-alexa-startups,"Inspiration
 
 We often hear about this idea of investing in your community, but almost as often we lack a way to truly execute upon such conviction. We were inspired by the idea of giving people a method to discover the types of businesses that are based out of your community and could, as a result, benefit the locale both directly and indirectly.
 
@@ -433,7 +451,8 @@ We learned that it's really important to spend the time to set up an efficient d
 What's next for Alexa Startups
 
 To add more ways to search the Crunchbase database that would allow users to find the startups they're looking for.
-",,"Amazon Web Services - Best Use of AWS, Best Financial Hack - Capital One, Best Designed Investor Education Product - Finra, Best Use of MongoDB Stitch - MongoDB",,dmizushima19,,Sketch Ya Later,http://bitcamp2018.devpost.com/submissions/92284-sketch-ya-later,"Inspiration
+",,"Amazon Web Services - Best Use of AWS, Best Financial Hack - Capital One, Best Designed Investor Education Product - Finra, Best Use of MongoDB Stitch - MongoDB",,dmizushima19,,
+Sketch Ya Later,http://bitcamp2018.devpost.com/submissions/92284-sketch-ya-later,"Inspiration
 
 We've all seen Toy Story, and our favorite part was when Woody dueled the Etch-a-Sketch, Western style. We sought to recreate that experience, but with our own pictures instead!
 
@@ -470,7 +489,8 @@ Heat is the true enemy
 What's next for Sketch Ya Later
 
 Storing processed images on the Arduino's static EEPROM memory to be drawn after processing.
-",https://github.com/viruslobster/sketch-ya-later,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",L13,mrr2019,,Gin Rummy Scorekeeper,http://bitcamp2018.devpost.com/submissions/92285-gin-rummy-scorekeeper,"Inspiration
+",https://github.com/viruslobster/sketch-ya-later,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",L13,mrr2019,,
+Gin Rummy Scorekeeper,http://bitcamp2018.devpost.com/submissions/92285-gin-rummy-scorekeeper,"Inspiration
 
 I enjoy playing card games, especially gin rummy. However, I am always frustrated when I can't keep score accurately during the game. The scoring in the game becomes tricky very quickly.
 
@@ -497,7 +517,8 @@ I learned how to design my own functions to make flexible calculations based on 
 What's Next for Gin Rummy Scorekeeper?
 
 I would like the program to offer the flexibility to score different types of Gin Rummy, and possibly allow custom rules. I possibly would like this to become an application that can be used on phones and other devices easily so that they don't need Python to run the module.
-",https://github.com/99atran/ginrummyscore.git,,No,,,CryptoPricePredictor-v0.01,http://bitcamp2018.devpost.com/submissions/92286-cryptopricepredictor-v0-01,"Inspiration
+",https://github.com/99atran/ginrummyscore.git,,No,,,
+CryptoPricePredictor-v0.01,http://bitcamp2018.devpost.com/submissions/92286-cryptopricepredictor-v0-01,"Inspiration
 
 we were day trading during the winter break and realized we can automate buying and selling if we have a good strategy 
 
@@ -524,7 +545,8 @@ rest API, different stock indicators, backend server design, database integratio
 What's next for CryptoPricePredictor-v0.01
 
 better UI, more indicators, more efficient database schema and operations, writing an installer, having a dedicated server, multiple points of sources for data collection,  predictive model.
-",,"Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund",No,csalaman,,Third Floor Planning,http://bitcamp2018.devpost.com/submissions/92287-third-floor-planning,"Inspiration
+",,"Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund",No,csalaman,,
+Third Floor Planning,http://bitcamp2018.devpost.com/submissions/92287-third-floor-planning,"Inspiration
 
 Floor plans are super expensive to have turned into a 3d model, like thousands of dollars.  If you're doing a renovation on your house and are given a pdf you probably want to know what that space will really look like. We can help, fast and cheap.
 
@@ -539,7 +561,8 @@ OpenCV in python. Ruby api in sketchup. exports to COLLADA for webr in aframe th
 Challenges I ran into
 
 OpenCV is hard. Sketchup is hard.
-",http://keasty.com/,"Best Domain Name from Domain.com, Most Unique Hack - 1517 Fund",,,,Close Call,http://bitcamp2018.devpost.com/submissions/92289-close-call,"Inspiration
+",http://keasty.com/,"Best Domain Name - Domain.com, Most Unique Hack - 1517 Fund",,,,
+Close Call,http://bitcamp2018.devpost.com/submissions/92289-close-call,"Inspiration
 
 Accidents are scary. They can happen to anyone to anyone at any time, when we least expect. The best we can do is to take measures to better prepare for these situations. Through our potentially life-saving service we hope to offer real-time alert of accidents as they happen to police and emergency care facilities. By dramatically reducing the time needed to contact first responders, we will greatly enhance a victimâ€™s chance of survival. CloseCall is an app thatâ€™s going to look out for you when no one else will.
 
@@ -574,7 +597,8 @@ Three out of four of our team members were first-time hackers. So this project w
 What's next for Close Call
 
 One of the most exciting parts about our project is that there is so much more that we can do to make our idea better. Our next-step goal is to integrate Fitbit trackers with the CloseCall application so that information about heart-rate can be tracked by medical personnel as they travel to the site. Live location updates can better inform hospitals when the patient will arrive so that they will be better prepared to start treatments. Camera integration and report generation can be used to provide official documentation useful for insurance claims and investigations (in the case of a crime). Once we have a solid system, we hope to become a successful startup and publish our service to Google Play and 
-",http://ec2-54-175-150-2.compute-1.amazonaws.com:3000/,"Amazon Web Services - Best Use of AWS, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri, Improving Healthcare with Mobile Technologies - Credible Behavioral Health",,vietman391,akshaya21042,Samaritan,http://bitcamp2018.devpost.com/submissions/92290-samaritan,"Inspiration
+",http://ec2-54-175-150-2.compute-1.amazonaws.com:3000/,"Amazon Web Services - Best Use of AWS, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri, Improving Healthcare with Mobile Technologies - Credible Behavioral Health",,vietman391,akshaya21042,
+Samaritan,http://bitcamp2018.devpost.com/submissions/92290-samaritan,"Inspiration
 
 When we saw that addressing the issues arising from natural disasters, an idea jumped immediately into our minds. 
 We've all heard about the problems facing Puerto Rico after the hurricane - and we've heard plenty about how little help they got. That inspired us to make something that might enable us to act up against that sort of helplessness: a way to give us some way to help.
@@ -603,7 +627,8 @@ We learned that user authentication is very difficult, as is website styling. We
 What's next for Samaritan
 
 For all our pride and glory, it's obvious that Samaritan is not ready for any sort of use. We would want to build a legitimate user system, with the main page tailoring location around that user's reported location. Originally, we also wanted tags of a sort in response to true natural disasters that would aggregate all requests directly related to whatever catastrophe had happened.
-",https://github.com/omivore/samaritan,"Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Best Use of MongoDB Stitch - MongoDB",,,,blockballot,http://bitcamp2018.devpost.com/submissions/92291-blockballot,"blockballot
+",https://github.com/omivore/samaritan,"Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Best Use of MongoDB Stitch - MongoDB",,,,
+blockballot,http://bitcamp2018.devpost.com/submissions/92291-blockballot,"blockballot
 
 Bitcamp 2018 Hack to create a blockchain voting system.
 
@@ -614,7 +639,8 @@ The main change between use cases is the reward per block for maintaining a node
 The illustrative case will be a UMD student group. For this group, members have to pay dues. They will pay the election administrator (genesis wallet owner) dues for the year to obtain a coin to vote and the administrator will be responsible for depositing these USD into the group treasury. As a reward for maintaining the nodes, the delegates for this group will not have to pay dues for the year. 
 
 The implemented solution does not rely on a dues paying organization. However, an organization that does pay dues could run the Names/Addresses file against their database of dues paying members.
-",https://github.com/cohringer/blockballot,Decentralise Everything: Blockchain challenge - Ark,No,,,Burnt,http://bitcamp2018.devpost.com/submissions/92292-burnt,"Inspiration
+",https://github.com/cohringer/blockballot,Decentralise Everything: Blockchain challenge - Ark,No,,,
+Burnt,http://bitcamp2018.devpost.com/submissions/92292-burnt,"Inspiration
 
 Melanoma is the deadliest and most common type of cancer in the US. Many times, the telling signs go unnoticed for years on end due to the nature of it's symptoms; a small blemish here, a spot there. These seemingly benign signs send the affected's life down a spiral of expensive and grueling treatment. The problem with the current UV Index is that it is a blanket measure that doesn't take into account the individual. So one may be at a higher risk of getting sunburned than the UV Index leads them to believe, possibly increasing their risk of Melanoma three times over. This is where our app comes in.
 
@@ -641,7 +667,8 @@ We learned a great deal about the implementation of APIs and using that data in 
 What's next for Burnt
 
 The next steps for our company are to expand our research and pinpoint an accurate measure for our predictive algorithm. At the moment, our research was very limited and the studies out there for this specific problem are sparse. We would like to run studies to find reliable data that could allow us to implement a machine learning implementation of this project.
-",https://github.com/CliffBakalian/bitcamp2018,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri, Improving Healthcare with Mobile Technologies - Credible Behavioral Health",No,CSackalosky,jugoodma,Paranoia,http://bitcamp2018.devpost.com/submissions/92293-paranoia,"Paranoia
+",https://github.com/CliffBakalian/bitcamp2018,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri, Improving Healthcare with Mobile Technologies - Credible Behavioral Health",No,CSackalosky,jugoodma,
+Paranoia,http://bitcamp2018.devpost.com/submissions/92293-paranoia,"Paranoia
 
 Bitcamp 2018 Project
 
@@ -661,7 +688,8 @@ Commands
 ""target_killed 'name'"": removes 's target from the game and awards  with points and assigns them a new target and word.
 ""quit"": exits the program
 
-",https://github.com/Vihul/Paranoia,,,mainesail3,,PharmerC,http://bitcamp2018.devpost.com/submissions/92294-pharmerc,"Inspiration
+",https://github.com/Vihul/Paranoia,,,mainesail3,,
+PharmerC,http://bitcamp2018.devpost.com/submissions/92294-pharmerc,"Inspiration
 
 Last summer, my sister worked at a pharmaceutical company for her Northeastern University co-op.  This experience opened her eyes up to the world of pharmacy, especially with respect to consumers.  She noticed that many customers do not have strong backgrounds in medicine, and as a result, many of them did not take the medications properly.  My sister wanted to help customers better understand their medicine, and that's where we came in!
 
@@ -688,12 +716,14 @@ We realized that there are so many ways to learn computer science, and knowledge
 What's next for PharmerC
 
 First, we want to integrate a much larger database that includes all FDA approved drugs into our application.  Furthermore, we want to improve our application's user experience and overall professional presentation by developing our front end design skills.  We also want to improve character detection accuracy when the camera detects a lot of noise.  
-",https://github.com/erlunlian/PharmerC,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Accessibility Hack - Microsoft",,,,Rally (Web App),http://bitcamp2018.devpost.com/submissions/92296-rally-web-app,"RallyApp
+",https://github.com/erlunlian/PharmerC,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Accessibility Hack - Microsoft",,,,
+Rally (Web App),http://bitcamp2018.devpost.com/submissions/92296-rally-web-app,"RallyApp
 
 A simple team creation facilitation and collaboration platform for the web. (Bitcamp 2018 Project)
 
 
-",http://www.rallyapp.org,"Best Domain Name from Domain.com, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook","Nope, it is all software.",,,GG 0G,http://bitcamp2018.devpost.com/submissions/92297-gg-0g,"Inspiration
+",http://www.rallyapp.org,"Best Domain Name - Domain.com, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook","Nope, it is all software.",,,
+GG 0G,http://bitcamp2018.devpost.com/submissions/92297-gg-0g,"Inspiration
 
 I am currently taking an honors class exploring possible missions to Mars. I decided to create a simulation to train astronauts and civilians about what it would be like to live and navigate in 0-gravity.
 
@@ -720,7 +750,8 @@ The capabilities of a team-centered, focused intuition.  Also, we strengthened o
 What's next for GG 0G
 
 We will continue to improve our simulation, especially our hand interaction. We will investigate the possibility of adding two handed movement in our simulation; additionally, we will explore using Oculus touch controllers for hand movement.
-",https://drive.google.com/open?id=12OIHh-XVC47QzluVOwYZaxoA6ZizdCEN,"Using Virtual Reality Technology Design the Best Manufacturing Facility - Lockheed Martin, Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook","yes, I17 ish",mgraber1,,Disaster Prevention,http://bitcamp2018.devpost.com/submissions/92300-disaster-prevention,"Inspiration
+",https://drive.google.com/open?id=12OIHh-XVC47QzluVOwYZaxoA6ZizdCEN,"Using Virtual Reality Technology Design the Best Manufacturing Facility - Lockheed Martin, Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook","yes, I17 ish",mgraber1,,
+Disaster Prevention,http://bitcamp2018.devpost.com/submissions/92300-disaster-prevention,"Inspiration
 
 Notification alerts for emergencies.
 
@@ -747,7 +778,8 @@ We learned a lot about web development.
 What's next for Disaster Prevention
 
 We are trying to implement a way to forward data from other websites to update specifically how much stock is left for distinct products on our website.
-",https://disprev.github.io/,Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton,No,noahgriff99,michaelye956,Fruit | Invest in your future,http://bitcamp2018.devpost.com/submissions/92301-fruit-invest-in-your-future,"Inspiration
+",https://disprev.github.io/,Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton,No,noahgriff99,michaelye956,
+Fruit | Invest in your future,http://bitcamp2018.devpost.com/submissions/92301-fruit-invest-in-your-future,"Inspiration
 
 Build a Financial Educational Tool for a user persona of a 58 year old male who is looking to retire in the next few years and is concerned with paying off debt, having enough money when he retires, and ending well/providing for his family when he passes. I was inspired by the UX/UI design workshops and implemented what I took from those along with the Intro to Web Design and asking mentors!
 
@@ -774,7 +806,8 @@ Not only did I learn how to use Visual Studio Code (and some of the extensions t
 What's next for Fruit | Invest in your future
 
 To build upon the idea and produce/gather curriculum to implement into the program (especially videos!)
-",https://github.com/Bicket/specialitycommunications,,,,,Cards Against Humanity,http://bitcamp2018.devpost.com/submissions/92302-cards-against-humanity,"Inspiration
+",https://github.com/Bicket/specialitycommunications,,,,,
+Cards Against Humanity,http://bitcamp2018.devpost.com/submissions/92302-cards-against-humanity,"Inspiration
 
 Well talk about in the morning ;)
 
@@ -789,7 +822,8 @@ Accomplishments that I'm proud of
 What I learned
 
 What's next for Cards Against Humanity
-",,Best Domain Name from Domain.com,no,,,multiplA.R.,http://bitcamp2018.devpost.com/submissions/92303-multipla-r,"Inspiration
+",,Best Domain Name - Domain.com,no,,,
+multiplA.R.,http://bitcamp2018.devpost.com/submissions/92303-multipla-r,"Inspiration
 
 With rising technologies like Augmented Reality making headlines, the one drawback that prevents it from truly becoming revolutionary is the lack multi-user support. Right now, there are no easy, accurate ways to sync multiple users in the same real-space environment without hassles such as QR codes or manually aligning virtual objects with other users. We wanted to build something that would streamline the process. No dedicated servers, no QR codes, no hassle. Just something that works  
 
@@ -816,12 +850,14 @@ We learned about an entirely new medium of software development, how peer to pee
 What's next for multiplA.R.
 
 Any future multiplayer game or collaborative experience that can be enhanced with AR can be implemented with this framework, allowing many people to experience the same virtual content in the same real space. We intend on testing these implementations soon as well as compressing this framework into a portable library for clients to easily incorporate in their applications
-",https://github.com/brennyD/multiplA.R.,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",no,,,C++ Vending Machine,http://bitcamp2018.devpost.com/submissions/92304-c-vending-machine,"Inspiration
+",https://github.com/brennyD/multiplA.R.,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",no,,,
+C++ Vending Machine,http://bitcamp2018.devpost.com/submissions/92304-c-vending-machine,"Inspiration
 
 
 I had hw to finish
 
-",,,,,,Bitnana,http://bitcamp2018.devpost.com/submissions/92306-bitnana,"Bitnanas
+",,,,,,
+Bitnana,http://bitcamp2018.devpost.com/submissions/92306-bitnana,"Bitnanas
 
 FINRA Investors protection challenge for Bitcamp 2018.
 
@@ -866,9 +902,12 @@ Steven Lao - Assets - laosteven
 Jin Liu - Research - 5871jin
 Zidan Luo - Tutorials - VioletLuo
 
-",https://github.com/laosteven/bitnanas,Best Designed Investor Education Product - Finra,,5871jin,,CrowdPlay,http://bitcamp2018.devpost.com/submissions/92307-crowdplay,"We wanted a better way for giving groups the power to control music being played at events by letting them submit songs for event playlists in real time. The application we created lets users submit song suggestions via Slack, which adds the songs to a Spotify playlist in real time to be played during events and gatherings. This application has the option sensor song suggestions that are explicit, so that this can be used at a variety of occasions for users of all ages.
-",https://github.com/Fysac/CrowdPlay,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,HarryVancao,,Flag Practice,http://bitcamp2018.devpost.com/submissions/92308-flag-practice,"I wanted to build a website for the first time so I decided to base it upon one of my interests, vexillology. I find flags cool because something which can seem so insignificant can be used to identify a country or give someone information about that country simple off colors included in a rectangle(unless its Nepal which is a weird triangle shape). I learned basic HTML, CSS, and javascript for this project. The project displays flags and lists the country the flag represents below it. Users can click on the flag to display the next flag in the series of flags. I hosted the site of github as it would be easy to see versions of the site I used and that it was free to host my site there.
-",https://seanwaxman.github.io/,Most Unique Hack - 1517 Fund,No,,,Vote Code,http://bitcamp2018.devpost.com/submissions/92309-vote-code,"Inspiration
+",https://github.com/laosteven/bitnanas,Best Designed Investor Education Product - Finra,,5871jin,,
+CrowdPlay,http://bitcamp2018.devpost.com/submissions/92307-crowdplay,"We wanted a better way for giving groups the power to control music being played at events by letting them submit songs for event playlists in real time. The application we created lets users submit song suggestions via Slack, which adds the songs to a Spotify playlist in real time to be played during events and gatherings. This application has the option sensor song suggestions that are explicit, so that this can be used at a variety of occasions for users of all ages.
+",https://github.com/Fysac/CrowdPlay,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,HarryVancao,,
+Flag Practice,http://bitcamp2018.devpost.com/submissions/92308-flag-practice,"I wanted to build a website for the first time so I decided to base it upon one of my interests, vexillology. I find flags cool because something which can seem so insignificant can be used to identify a country or give someone information about that country simple off colors included in a rectangle(unless its Nepal which is a weird triangle shape). I learned basic HTML, CSS, and javascript for this project. The project displays flags and lists the country the flag represents below it. Users can click on the flag to display the next flag in the series of flags. I hosted the site of github as it would be easy to see versions of the site I used and that it was free to host my site there.
+",https://seanwaxman.github.io/,Most Unique Hack - 1517 Fund,No,,,
+Vote Code,http://bitcamp2018.devpost.com/submissions/92309-vote-code,"Inspiration
 
 As a member of several organizations, there are always times when a quick vote needs to be made, so to solve this problem we built Vote Code to be a simple and intuitive solution.
 
@@ -895,10 +934,12 @@ How powerful MongoDB Stitch is!
 What's next for Vote Code
 
 It's public source, so I'd love to iterate on it and maybe find some other contributors out there to help me a little bit too.
-",https://schuylerc.github.io/vote-code/,"Amazon Web Services - Best Use of AWS, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,,,fold x fold,http://bitcamp2018.devpost.com/submissions/92310-fold-x-fold,"Read more about it at:
+",https://schuylerc.github.io/vote-code/,"Amazon Web Services - Best Use of AWS, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,,,
+fold x fold,http://bitcamp2018.devpost.com/submissions/92310-fold-x-fold,"Read more about it at:
 
 https://medium.com/@jasteiner11/fold-x-fold-aa9e6eaae74d
-",https://medium.com/@jasteiner11/fold-x-fold-aa9e6eaae74d,,,,,Lumify,http://bitcamp2018.devpost.com/submissions/92312-lumify,"Inspiration
+",https://medium.com/@jasteiner11/fold-x-fold-aa9e6eaae74d,,,,,
+Lumify,http://bitcamp2018.devpost.com/submissions/92312-lumify,"Inspiration
 
 I purchased a cheap LED strip kit of Amazon that came with a basic IR controller. I immediately found myself losing the remote and wondering if I could connect it to my Echo dot. I knew there were IoT LED strips available such as the Philips Hue or LIFX but both were very expensive from 60-80 per meter of LEDs. Both Philips and LIFX didn't allow any other LED strips to connect. The only WiFi connected controller I could find was 30$ with a really bad IOS app with a terrible user interface and it wouldn't connect with any other IoT devices or even Alexa. Then I thought I could make a product better, cheaper, and more customizable than any current one.
 
@@ -925,19 +966,22 @@ We learned much of React-Native and Node.js. We also learned how to program good
 What's next for Lumify
 
 We will create a Zigbee version of the Arduino so that users who already have hubs such as Smart Thing can connect their LED strips without using WiFi which can have limited range, be overcrowded, and unreliable. Lumify will also have an option for users to load their own custom patterns and effects. Lastly, Lumify team will add strip sync so multiple controllers can be sync to create a truly unique and connected smart home. Once these features are added we will have the hardware finalized and mass produced for market.
-",https://github.com/yellgreniff/led_light,"Amazon Web Services - Best Use of AWS, Best Domain Name from Domain.com, Most Futuristic Hack - Paypal, Best Designed Investor Education Product - Finra, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,abeldelpino,hollyvacc,CareMode,http://bitcamp2018.devpost.com/submissions/92313-caremode,"CareMode
+",https://github.com/yellgreniff/led_light,"Amazon Web Services - Best Use of AWS, Best Domain Name - Domain.com, Most Futuristic Hack - Paypal, Best Designed Investor Education Product - Finra, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,abeldelpino,hollyvacc,
+CareMode,http://bitcamp2018.devpost.com/submissions/92313-caremode,"CareMode
 
 Approximately 34.2 million Americans serve as caregivers to adults age 50 or older. Knowing a loved one who suffers from dementia can be mentally, emotionally, and physically tolling. Our goal is to connect you with the right doctors that can help you, along with the reliable information and resources you need to better understand how to help your loved one. With all the resources you need one click away, you can go back to being there for your loved one, without the added stress. We believe in the power of caregivers - after all, caregivers save lives.
 
 Research has even found on average, that patients under high mental health caregivers live two years longer than patients under low mental health caregivers
 
 Some of us on the team have been personally affected by Alzheimer's and two of us are working on a project to improve Alzheimer's diagnosis, and we wanted to bring our passion to bitcamp.
-",https://github.com/lookcw/CareMode,"Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,HanwenYang,mvguggari,Against_The_Clock,http://bitcamp2018.devpost.com/submissions/92314-against_the_clock,"Against_The_Clock
+",https://github.com/lookcw/CareMode,"Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,HanwenYang,mvguggari,
+Against_The_Clock,http://bitcamp2018.devpost.com/submissions/92314-against_the_clock,"Against_The_Clock
 
 Dreamweaver Project 2
 
 
-",https://github.com/sshahrier/Against_The_Clock,,,,,Potato...The Game,http://bitcamp2018.devpost.com/submissions/92315-potato-the-game,"Inspiration
+",https://github.com/sshahrier/Against_The_Clock,,,,,
+Potato...The Game,http://bitcamp2018.devpost.com/submissions/92315-potato-the-game,"Inspiration
 
 All of us have a passion for developing interactive games. We started with an idea to build a cool game involving some sort of leveling up system that rewards players for playing the game. That transitioned into an idea for our first simple game: a game where all you do is peel potatoes! 
 
@@ -964,7 +1008,8 @@ Firstly, we learned to choose technologies that the entire group is comfortable 
 What's next for Potato...The Game
 
 A spinoff in which you peel more vegetables, for sure. Cucumbers?
-",https://github.com/shyampujara/Potato...The-Game,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",No,TrevorSmith,emilygee1,Tanks!,http://bitcamp2018.devpost.com/submissions/92316-tanks,"Inspiration
+",https://github.com/shyampujara/Potato...The-Game,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",No,TrevorSmith,emilygee1,
+Tanks!,http://bitcamp2018.devpost.com/submissions/92316-tanks,"Inspiration
 
 At first we were considering game using image processing and real-life components that the user was able to create themselves.
 
@@ -991,7 +1036,8 @@ From this experience, we learned a lot about Git, Android Studio, XML, and espec
 What's next for Tanks!
 
 In the future, we plan on submitting it to the Google Play Store with new features such as power-ups, rubber bullets that ricochet, and different game modes.
-",https://github.com/bencarlisle15/Tanks,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,Michaellin250,ramansingh-umd,How to Adult,http://bitcamp2018.devpost.com/submissions/92317-how-to-adult,"Inspiration
+",https://github.com/bencarlisle15/Tanks,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,Michaellin250,ramansingh-umd,
+How to Adult,http://bitcamp2018.devpost.com/submissions/92317-how-to-adult,"Inspiration
 
 We wanted to see what we could do in 36 hours with 3 hours of sleep.
 
@@ -1018,7 +1064,8 @@ Market research is very, very important.
 What's next for How to Adult
 
 Submission to iOS App Store
-",https://github.com/MattMMarks/how-to-adult,Best Designed Investor Education Product - Finra,,,,Nutribrain,http://bitcamp2018.devpost.com/submissions/92318-nutribrain,"Inspiration
+",https://github.com/MattMMarks/how-to-adult,Best Designed Investor Education Product - Finra,,,,
+Nutribrain,http://bitcamp2018.devpost.com/submissions/92318-nutribrain,"Inspiration
 
 As foodies and lovers of travel, we both share a love of adventurous food. The less pronounceable the name, the better. We dive right in without a second thought. But many of our friends are subject to dietary restrictions - be it allergies, diabetes, or simply due to moral or religious reasons. We wanted to empower them to join us as culinary pioneers without having to worry themselves about staying with known safe dishes.
 
@@ -1041,7 +1088,8 @@ This was our first major iOS app, and it was incredibly gratifying to see our ow
 What's next for Nutribrain
 
 In the future, we'd like to polish the app quite a bit and perhaps train a more versatile model. After which, we'd add support for additional nutrition stats and dietary restrictions. From there, we may do some form of nutrition logging before releasing it to the world.
-",,"Best Philanthropic Hack - Bloomberg, Best Accessibility Hack - Microsoft",No,,,Swype,http://bitcamp2018.devpost.com/submissions/92319-swype,"Inspiration: The whole reason why cards were introduced was so that people avoid carrying cash and having bulky wallets. We have been successful in trying to eliminate cash, however, these days we have wallets filled with cards defeating its purpose. I wanted to build a device which would combine all the cards into one single device!
+",,"Best Philanthropic Hack - Bloomberg, Best Accessibility Hack - Microsoft",No,,,
+Swype,http://bitcamp2018.devpost.com/submissions/92319-swype,"Inspiration: The whole reason why cards were introduced was so that people avoid carrying cash and having bulky wallets. We have been successful in trying to eliminate cash, however, these days we have wallets filled with cards defeating its purpose. I wanted to build a device which would combine all the cards into one single device!
 
 What it does: My device is able to simulate multiple cards just by a click of a button
 
@@ -1054,7 +1102,8 @@ Accomplishments that I'm proud of: I am glad I was able to prototype a compact d
 What I learned: I learned a lot about electronics and especially how magnetic stripe cards actually work!
 
 What's next for Swype: Something I would love to work on in the future, is to make the device more compact and more polished.
-",,"Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund, Best Digital Forensic Hack - Cipher Tech Solutions, Best Hack (be passionate) - Facebook",,,,Pianist,http://bitcamp2018.devpost.com/submissions/92320-pianist,"Inspiration
+",,"Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund, Best Digital Forensic Hack - Cipher Tech Solutions, Best Hack (be passionate) - Facebook",,,,
+Pianist,http://bitcamp2018.devpost.com/submissions/92320-pianist,"Inspiration
 
 We like both art and music, sometimes we think that when we are drawing, is it possible to have some music reflecting the emotion of line, graph, etc.? Therefore, we want to do a painting tools that can produce music at the same time, and there will be a music for the overall picture. It is very Interesting and it can be applied in lots of areas.
 
@@ -1082,7 +1131,8 @@ Some advanced java API, how to team coding, Designing User Interface, how to use
 What's next for Pianist
 
 Making animations, improving UI, functions, and remake the algorithm of transform paint into music so it will be produce better music, etc. Also, improve the users experience of using it by implement reading files, also implementing some demos for this app, with some designed drawing which can produce great music. In the future, we can even make drawing and music game based on this.
-",https://github.com/lian9997/pianist,"Most Futuristic Hack - Paypal, Best Designed Investor Education Product - Finra, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,leoliu,bjiang10,Media-Documentation For Repository,http://bitcamp2018.devpost.com/submissions/92321-media-documentation-for-repository,"Demo : https://sachinbiradar9.github.io/media-doc/
+",https://github.com/lian9997/pianist,"Most Futuristic Hack - Paypal, Best Designed Investor Education Product - Finra, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,leoliu,bjiang10,
+Media-Documentation For Repository,http://bitcamp2018.devpost.com/submissions/92321-media-documentation-for-repository,"Demo : https://sachinbiradar9.github.io/media-doc/
 
 Inspiration
 
@@ -1113,7 +1163,8 @@ We learned how to utilize MongoDB stitch to develop a web application effectivel
 What's next for MediaDoc
 
 We would like to integrate the application with twilio and send a text to the user whenever the user commits a file to the repository or makes any changes to the repository which would help the user notify that he/she has to submit any kind of media that might be related to the commit
-",https://sachinbiradar9.github.io/media-doc/,"Amazon Web Services - Best Use of AWS, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook",,sachinbiradar9,,InfoLane,http://bitcamp2018.devpost.com/submissions/92322-infolane,"Inspiration - After receiving many parking tickets, my friend and I figured that we should create an app where drivers can connect and share the parking specifications of a certain location.  At times, especially during a rush or a panic mode we don't really focus on the signs or where we park.
+",https://sachinbiradar9.github.io/media-doc/,"Amazon Web Services - Best Use of AWS, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook",,sachinbiradar9,,
+InfoLane,http://bitcamp2018.devpost.com/submissions/92322-infolane,"Inspiration - After receiving many parking tickets, my friend and I figured that we should create an app where drivers can connect and share the parking specifications of a certain location.  At times, especially during a rush or a panic mode we don't really focus on the signs or where we park.
 
 What it does - It uses the smartphone's GPS location tracker to determine which street you are on and gives information about the parking laws in the area.  This also allows the user to take a pic of the general vicinity of the car.  With this pic the program reads the sign and recognizes certain parking features, and clarifies to the user what the parking situation is.  Such as in DC there are certain parking zones, and this app iterates to the user what these signs mean.  Like 2 hour parking except permit 2, or if parking isn't allowed during a certain day or time.
 
@@ -1126,7 +1177,8 @@ Accomplishments that we're proud of - Completing the APP InfoLane.
 What we learned - to prepare before hand, and create a product with something you are familiar with.
 
 What's next for InfoLane - Adding bigger database to save more traffic data, such as the laws and traffic regulations.
-",https://github.com/wakandaforever1/infoLane,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,javaplanet17,,Twitter Emotion/Sentiment Analysis,http://bitcamp2018.devpost.com/submissions/92324-twitter-emotion-sentiment-analysis,"Inspiration
+",https://github.com/wakandaforever1/infoLane,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,javaplanet17,,
+Twitter Emotion/Sentiment Analysis,http://bitcamp2018.devpost.com/submissions/92324-twitter-emotion-sentiment-analysis,"Inspiration
 
 We wanted to do something hard, and in my honors they recommended a project similar to this, and I thought it would be fun. We thought it would be a good way to learn about applying our skills for the  first time.
 
@@ -1153,7 +1205,8 @@ We learned to implement APIs and parsers.
 What's next for Twitter Emotion/Sentiment Analysis
 
 I want to clean it up and get emojis to work. I want to get Tweepy to actually work like it is supposed to. Also, get a UI.
-",https://github.com/mouctar19/emotionReaderBitCamp2018#bitcamp-2018---twitter-emotionsentiment-analysis,Best Hack (be passionate) - Facebook,,,,Cyber Bully Identifier,http://bitcamp2018.devpost.com/submissions/92325-cyber-bully-identifier,"Inspiration
+",https://github.com/mouctar19/emotionReaderBitCamp2018#bitcamp-2018---twitter-emotionsentiment-analysis,Best Hack (be passionate) - Facebook,,,,
+Cyber Bully Identifier,http://bitcamp2018.devpost.com/submissions/92325-cyber-bully-identifier,"Inspiration
 
 When trying to think of a way to make a difference with the UMBC Psychology departments, we discovered this (relatively) simple idea that could really help parents protect their children.
 
@@ -1189,7 +1242,8 @@ What's next for Cyber Bully Identifier
 We have a lot of plans to expand the identifier. We found much better (much less callous) datasets online that we would like to train a more suitable network architecture on. As it turns out, training neural networks requires a lot of performance and LOTS of data. Many of the architectures we initially planned on testing were infeasible in the amount of time we had.
 
 We also plan on working on the app much more. Developing the app was tedious but worth it. We want to implement the full functionality (along with some aesthetic tweaks).
-",https://github.com/erictg/cyber_bully_detector,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",no,BradOdenath,,Bitcamp2018,http://bitcamp2018.devpost.com/submissions/92327-bitcamp2018,"Bitcamp2018
+",https://github.com/erictg/cyber_bully_detector,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",no,BradOdenath,,
+Bitcamp2018,http://bitcamp2018.devpost.com/submissions/92327-bitcamp2018,"Bitcamp2018
 
 PUDUI Project for Bitcamp 2018
 
@@ -1213,7 +1267,8 @@ The patient will want to use this service because it provides them with a convie
 
 Running production server uwsgi --http :8000 --module PUDUI.wsgi*
 
-",https://github.com/harsh1498/Bitcamp2018,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Accessibility Hack - Microsoft",N/A,,,Renewable Energy and Policy,http://bitcamp2018.devpost.com/submissions/92328-renewable-energy-and-policy,"Inspiration
+",https://github.com/harsh1498/Bitcamp2018,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Accessibility Hack - Microsoft",N/A,,,
+Renewable Energy and Policy,http://bitcamp2018.devpost.com/submissions/92328-renewable-energy-and-policy,"Inspiration
 
 At first, we wanted to do a small research project. Collect data, analyze it and present it. Our main goal was to look at renewable energy policies.
 
@@ -1240,7 +1295,8 @@ Data, collecting data, understanding normalization in data, etc.
 What's next for Renewable Energy and Policy
 
 Being able to predict more reasons why some states are less interested into clean energy.
-",http://www.renewableenergyandpolicy.com/,Most Unique Hack - 1517 Fund,No,sarahfjackson,AndrewCho58,StoryBoard,http://bitcamp2018.devpost.com/submissions/92332-storyboard,"Inspiration
+",http://www.renewableenergyandpolicy.com/,Most Unique Hack - 1517 Fund,No,sarahfjackson,AndrewCho58,
+StoryBoard,http://bitcamp2018.devpost.com/submissions/92332-storyboard,"Inspiration
 
 MLH stopped providing Photo-booths at hackathons :(
 
@@ -1267,7 +1323,8 @@ it was lit
 What's next for StoryBoard
 
 Gif, custom events ..
-",,"Best use of SparkPost API - SparkPost, Amazon Web Services - Best Use of AWS, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",N/A,darkfader,,Tilted,http://bitcamp2018.devpost.com/submissions/92334-tilted,"Inspiration
+",,"Best use of SparkPost API - SparkPost, Amazon Web Services - Best Use of AWS, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",N/A,darkfader,,
+Tilted,http://bitcamp2018.devpost.com/submissions/92334-tilted,"Inspiration
 
 Being ""tilted"" is a (formerly) nonspecific adjective attributed to League of Legends players that have a 
 ""lose-more"" attitude; you lose once, you get upset, you're more likely to lose again. We wanted to know how accurate this notion really is, and whether it can be measured for the average player. 
@@ -1295,7 +1352,8 @@ How to set up a proxy server to communicate with an API, as well as performing J
 What's next for Tilted
 
 Increased amount of data visualization using chartlist.js and make this available to the general majority of League of Legends players. We would also like to fine-tune the algorithm. 
-",https://github.com/TomerKrayzman/Tiltulator,"Amazon Web Services - Best Use of AWS, Best Domain Name from Domain.com, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",No,saeberg,,Watch as Words,http://bitcamp2018.devpost.com/submissions/92335-watch-as-words,"Inspiration
+",https://github.com/TomerKrayzman/Tiltulator,"Amazon Web Services - Best Use of AWS, Best Domain Name - Domain.com, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",No,saeberg,,
+Watch as Words,http://bitcamp2018.devpost.com/submissions/92335-watch-as-words,"Inspiration
 
 While closed captioning (auto-generated or not) is an available option on YouTube, it is not accessible for every video (ex: older videos). Some people prefer to have captioning on, whether they are learning a language, are hard-hearing, or just prefer to read subtitles along with the video. Others may be situated in loud environments, or maybe they left their earbuds at home; either way, they want to know the contents of the video they want to watch. That's where the video transcription idea came in -- so you can watch your video through words.
 
@@ -1322,11 +1380,14 @@ Neither of us knew C# nor did we have experience with implementing APIs prior to
 What's next for Watch as Words
 
 The next steps would be to move it to the web, and possibly add in a feature to take YouTube links as an input. Some other great add-ons would be to have the option to send the transcript to an e-mail address.
-",https://github.com/WinstonMoh/Watch-as-Words,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,,,middleOutSubscriptions,http://bitcamp2018.devpost.com/submissions/92337-middleoutsubscriptions,"middleOutSubscriptions
+",https://github.com/WinstonMoh/Watch-as-Words,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,,,
+middleOutSubscriptions,http://bitcamp2018.devpost.com/submissions/92337-middleoutsubscriptions,"middleOutSubscriptions
 
 
-",https://github.com/kakorrhaphio/middleOutSubscriptions,"Best use of SparkPost API - SparkPost, Amazon Web Services - Best Use of AWS, Best Domain Name from Domain.com, Most Unique Hack - 1517 Fund",,,,https://medium.com/@pixelyunicorn/title-e9c5bc245104,http://bitcamp2018.devpost.com/submissions/92338-https-medium-com-pixelyunicorn-title-e9c5bc245104,"https://medium.com/@pixelyunicorn/title-e9c5bc245104
-",,,,,,ShadowSound,http://bitcamp2018.devpost.com/submissions/92339-shadowsound,"Inspiration
+",https://github.com/kakorrhaphio/middleOutSubscriptions,"Best use of SparkPost API - SparkPost, Amazon Web Services - Best Use of AWS, Best Domain Name - Domain.com, Most Unique Hack - 1517 Fund",,,,
+https://medium.com/@pixelyunicorn/title-e9c5bc245104,http://bitcamp2018.devpost.com/submissions/92338-https-medium-com-pixelyunicorn-title-e9c5bc245104,"https://medium.com/@pixelyunicorn/title-e9c5bc245104
+",,,,,,
+ShadowSound,http://bitcamp2018.devpost.com/submissions/92339-shadowsound,"Inspiration
 
 The idea of building a secret network between phones using hypersonic frequencies to avoid human detection.
 
@@ -1353,7 +1414,8 @@ Three fourths of the team has never worked audio or audio processing. Together w
 What's next for ShadowSound
 
 The team plans to make the transmissions much more discrete. The team would also like to optimize the rate at which bits can be transmitted. As the transmission of data through an audible, publicly projected, source unnoticeably is the purpose of ShadowSound, making it harder to find, and faster is its main goals. 
-",https://github.com/naterenegar/ShadowSound,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund",No,,,Hand-in-Hand,http://bitcamp2018.devpost.com/submissions/92348-hand-in-hand,"Crowd Sourcing Humanitarian Relief
+",https://github.com/naterenegar/ShadowSound,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund",No,,,
+Hand-in-Hand,http://bitcamp2018.devpost.com/submissions/92348-hand-in-hand,"Crowd Sourcing Humanitarian Relief
 
 Hand in Hand is a platform that connects individuals directly to relief organizations with maximum transparency
 
@@ -1405,7 +1467,8 @@ Resources
 [1] http://insidedisaster.com/haiti/response/relief-challenges
 [2] https://www.cbsnews.com/news/best-intentions-when-disaster-relief-brings-anything-but-relief/
 
-",https://github.com/hmkiesel/Hand-in-Hand,"Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",no,WillyWonkaCocoa,,Flock,http://bitcamp2018.devpost.com/submissions/92352-flock,"Inspiration
+",https://github.com/hmkiesel/Hand-in-Hand,"Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",no,WillyWonkaCocoa,,
+Flock,http://bitcamp2018.devpost.com/submissions/92352-flock,"Inspiration
 
 Health Insurance in the United States is dominated by four companies that provide 84% of all coverage. These companies hire extensively and seek to grow their business(like almost all businesses). The cost of this desire is that the consumers pay much above what they should be paying for health insurance. Public misconceptions about treatment costs, health insurance companies, and centralized authority, enable these companies to charge exorbitant amounts of money for coverage.
 
@@ -1432,7 +1495,8 @@ We learned that pushing a focus on user acquisition rather than emergent technol
 What's next for Flock
 
 Flock's smart contracts will most likely be revised to support more customization in Flocks/Clusters. Afterwards we'll do a rewrite on our frontend before seeking some form of venture capital to hold us over while we build it out. We still want to use Ark's systems, so getting ACES nodes setup is also a priority.
-",https://github.com/matt33n/Flock,"Decentralise Everything: Blockchain challenge - Ark, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,Matt33n,cstacho,Konnex,http://bitcamp2018.devpost.com/submissions/92357-konnex,"Inspiration
+",https://github.com/matt33n/Flock,"Decentralise Everything: Blockchain challenge - Ark, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,Matt33n,cstacho,
+Konnex,http://bitcamp2018.devpost.com/submissions/92357-konnex,"Inspiration
 
 Career fairs, Difficult to obtain a job with current system.
 
@@ -1464,7 +1528,8 @@ Working in a real development team
 What's next for Konnex
 
 Seed funding! 
-",https://www.konnex.co,Best Designed Investor Education Product - Finra,No,Darkhelm,rarguet1,D&D Town Tool,http://bitcamp2018.devpost.com/submissions/92359-d-d-town-tool,"Inspiration
+",https://www.konnex.co,Best Designed Investor Education Product - Finra,No,Darkhelm,rarguet1,
+D&D Town Tool,http://bitcamp2018.devpost.com/submissions/92359-d-d-town-tool,"Inspiration
 
 We like playing D&D with our friends, but if the party disagrees on something, it often results in one half of us doing something while the other does nothing. This tool allows the DM in charge to multitask and manage multiple different sub-groups at once.
 
@@ -1491,7 +1556,8 @@ How to manage our time/prepare better.
 What's next for D&D Town Tool
 
 More features based on practical tests with the program.
-",https://github.com/BitCamp2018-zmjteam/2018-project,,,Brunswick-Khorasan,,Smile,http://bitcamp2018.devpost.com/submissions/92360-smile,"Smile App
+",https://github.com/BitCamp2018-zmjteam/2018-project,,,Brunswick-Khorasan,,
+Smile,http://bitcamp2018.devpost.com/submissions/92360-smile,"Smile App
 
 Inspiration
 
@@ -1531,7 +1597,8 @@ Using Google Cloud Vision API to do sentiment analysis on a picture of a person
 What's next for Smile
 
 The next step for our application is to use common interview questions in order to make the interviewee more comfortable at the real interview. For instance, we can use the â€œCracking the coding interviewâ€ù questions to make CS students more comfortable and ready for the interview questions. Furthermore, this app can help students and employees ready for presentations by giving tips according to their results that did estimate by Smile app. We are going to use heartbeat data, gesture data models, speech emotion recognition, text recognition and face recognition data to analyze the interviewee performance.
-",https://github.com/mmohades/Smile,"Most Futuristic Hack - Paypal, Best Designed Investor Education Product - Finra, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,yonaadug,,CardFree,http://bitcamp2018.devpost.com/submissions/92362-cardfree,"Inspiration
+",https://github.com/mmohades/Smile,"Most Futuristic Hack - Paypal, Best Designed Investor Education Product - Finra, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,yonaadug,,
+CardFree,http://bitcamp2018.devpost.com/submissions/92362-cardfree,"Inspiration
 
 What if there was some way to simplify the process of getting into our dorms? Wouldn't it be easier if you could swipe into your building with something attached to your keys? What if you could replace all magstripe style cards in your wallet with a single keyfob? Our CardFree project was inspired by our interest in Samsung's MST technology and our desire to build something that might improve the convenience of an action taken by students multiple times a day.
 
@@ -1594,7 +1661,8 @@ Add a larger battery.
 Improve reliability and range.
 Better activation button.
 
-",https://github.com/wesley27/cardfree,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Digital Forensic Hack - Cipher Tech Solutions, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,wesleyw978,,Limacon,http://bitcamp2018.devpost.com/submissions/92365-limacon,"Inspiration
+",https://github.com/wesley27/cardfree,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Digital Forensic Hack - Cipher Tech Solutions, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,wesleyw978,,
+Limacon,http://bitcamp2018.devpost.com/submissions/92365-limacon,"Inspiration
 
 Domestic violence is a preventable public health problem that does not discriminate and can happen to anyone regardless of age, race, gender, education, wealth, or sexuality. Often, barriers to healthcare or lack of a support system prevents victims from connecting to the resources that already exist. Other times, the resources are not presented or advertised in a way that is accessible to the people who need it the most.
 
@@ -1644,7 +1712,8 @@ What's next for Limacon
 Developing the 'Learning' section of the website with data visualization to present the scope of the problem 
 Getting a domain name to host the website 
 
-",,"Best Philanthropic Hack - Bloomberg, Best Accessibility Hack - Microsoft",,,,Acred,http://bitcamp2018.devpost.com/submissions/92366-acred,"Inspiration
+",,"Best Philanthropic Hack - Bloomberg, Best Accessibility Hack - Microsoft",,,,
+Acred,http://bitcamp2018.devpost.com/submissions/92366-acred,"Inspiration
 
 Read about a farmer who received numerous microloans, still turned away by banks. He owned land and made money from his harvest. He was financially excluded, trapped her in a debt repayment cycle
 
@@ -1675,7 +1744,8 @@ Blockchain and why microloans are important
 What's next for Acred
 
 Possibilities are endless
-",,"Decentralise Everything: Blockchain challenge - Ark, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook",,,,OpticTrace,http://bitcamp2018.devpost.com/submissions/92368-optictrace,"Inspiration
+",,"Decentralise Everything: Blockchain challenge - Ark, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook",,,,
+OpticTrace,http://bitcamp2018.devpost.com/submissions/92368-optictrace,"Inspiration
 
 The inspiration for this project came from our common interest in computer vision and in robotics. When we came together for Bitcamp we knew that we wanted to work in one or both of those objectives so we began sharing ideas and I pitched the idea to work with openCV since it has caught my attention with it's current popularity. Since computer vision is a very fresh and growing market we agreed to work using this idea and collaborated on creating an infrastructure that is built upon using openCV to give the user the ability to track any object as long as it is equipped with the specific tracking marker provided by us.
 
@@ -1702,7 +1772,8 @@ All of us learned a lot about how to send live signals to an Arduino (serially) 
 What's next for OpticTrace
 
 Although the important framework behind our project is complete, our project has a variety of specific applications. In order to be able to perform the tasks for these application, there has to be other components that will have to be added on to our base. These components will perform using the same structure as the already build framework, but will perform specific tasks like launch a football or a projectile at a certain target for a certain amount of time, or a pressured sensitive button that will disable the object tracking for a certain duration of time.
-",https://github.com/RoboRiot/RGBview,"Best Digital Forensic Hack - Cipher Tech Solutions, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,jyang254,Rudedaisy,Un/Biased,http://bitcamp2018.devpost.com/submissions/92369-un-biased,"Bitcamp
+",https://github.com/RoboRiot/RGBview,"Best Digital Forensic Hack - Cipher Tech Solutions, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,jyang254,Rudedaisy,
+Un/Biased,http://bitcamp2018.devpost.com/submissions/92369-un-biased,"Bitcamp
 
 Bitcamp 2018 Submission
 Used the Google Cloud Natural Language API to do Sentimental and Categorical Analysis on a Person's name and his text given the name (Scrapes information from Wikipedia)
@@ -1722,7 +1793,8 @@ A better relation to find bias.
 All due credits to:
 Jonathan Goldsmith for the Wikipedia scraping library and
 to Google for Google APIs
-",https://github.com/gandhi-21/Bitcamp,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",No,,,CleanShot,http://bitcamp2018.devpost.com/submissions/92371-cleanshot,"Inspiration
+",https://github.com/gandhi-21/Bitcamp,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",No,,,
+CleanShot,http://bitcamp2018.devpost.com/submissions/92371-cleanshot,"Inspiration
 
 We wanted to build a roomba with local vision processing for real time targeting
 
@@ -1757,7 +1829,8 @@ What we learned
 The Kinect is an older piece of hardware, and has outdated libraries to match. Getting old libraries to work takes a lot of leg work.
 
 What's next for CleanShot
-",https://github.com/jonaylor89/Bitcamp2018,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,Sarmentoaj,jonaylor89,AirDJ,http://bitcamp2018.devpost.com/submissions/92372-airdj,"Air DJ
+",https://github.com/jonaylor89/Bitcamp2018,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,Sarmentoaj,jonaylor89,
+AirDJ,http://bitcamp2018.devpost.com/submissions/92372-airdj,"Air DJ
 
 Leap Motion Hackathon Bitcamp 2018
 by Pranav Maniktala,
@@ -1771,7 +1844,8 @@ https://www.youtube.com/watch?v=KBGZVMRyLz0
 
 
 Within AirDJ is a hand sign based application called the meme machine
-",https://github.com/Saajidf/Bitcamp_2018,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",no,pranav-manik,,future-funk-generator,http://bitcamp2018.devpost.com/submissions/92375-future-funk-generator,"Future Funk Generator
+",https://github.com/Saajidf/Bitcamp_2018,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",no,pranav-manik,,
+future-funk-generator,http://bitcamp2018.devpost.com/submissions/92375-future-funk-generator,"Future Funk Generator
 
 generates an artist, album, song titles, and album art to help you start your future funk soundcloud career
 
@@ -1782,11 +1856,13 @@ run npm install once this repo is downloaded
 then hop into a terminal and run node index.js
 
 finally open a browser and head to localhost:3000
-",https://github.com/sbower213/future-funk-generator,,,,,VocaLearn,http://bitcamp2018.devpost.com/submissions/92376-vocalearn,"clone repo
+",https://github.com/sbower213/future-funk-generator,,,,,
+VocaLearn,http://bitcamp2018.devpost.com/submissions/92376-vocalearn,"clone repo
 then exec:
 
 npm install
-",https://github.com/christian-rncl/VocaLearn,"Amazon Web Services - Best Use of AWS, Best Domain Name from Domain.com, Best Designed Investor Education Product - Finra, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,mahirsjhaveri,shane-miller,Rally (iOS app),http://bitcamp2018.devpost.com/submissions/92377-rally-ios-app,"Inspiration
+",https://github.com/christian-rncl/VocaLearn,"Amazon Web Services - Best Use of AWS, Best Domain Name - Domain.com, Best Designed Investor Education Product - Finra, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,mahirsjhaveri,shane-miller,
+Rally (iOS app),http://bitcamp2018.devpost.com/submissions/92377-rally-ios-app,"Inspiration
 
 Seeing everyone who didn't have a team at the beginning of Bitcamp made us realize that there is a need for an app that connects people with groups. People need groups in companies to develop projects, people need groups to travel to different countries, people need groups to go to a different city (for break for example). ** Need a team? Rally up! **
 
@@ -1813,7 +1889,8 @@ I learnt some swift and more about GUI's in iOS
 What's next for Rally (iOS app)
 
 Make it a fully functional, cross platform app with a user friendly GUI, used by everyone
-",,"Best Domain Name from Domain.com, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",no,,,HOW TO HACK A COMPUTER: REMOTE CODE EXECUTION,http://bitcamp2018.devpost.com/submissions/92378-how-to-hack-a-computer-remote-code-execution,"Inspiration
+",,"Best Domain Name - Domain.com, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",no,,,
+HOW TO HACK A COMPUTER: REMOTE CODE EXECUTION,http://bitcamp2018.devpost.com/submissions/92378-how-to-hack-a-computer-remote-code-execution,"Inspiration
 
 What it does
 
@@ -1849,7 +1926,8 @@ Step 8: username of the account: spring2018
  use the command â€˜net user spring2018 spring2018 /addâ€™
 
 We just owned a machine!!!!!!!
-",,"Most Unique Hack - 1517 Fund, Best Digital Forensic Hack - Cipher Tech Solutions",R1-6,,,Color Clicker,http://bitcamp2018.devpost.com/submissions/92380-color-clicker,"Inspiration
+",,"Most Unique Hack - 1517 Fund, Best Digital Forensic Hack - Cipher Tech Solutions",R1-6,,,
+Color Clicker,http://bitcamp2018.devpost.com/submissions/92380-color-clicker,"Inspiration
 
 We simply wanted to make our first app. Even though its simple, we wanted to create a game that showed what we know currently. I personally didn't know anything about coding with android studio but I learned in those 3 days because I wanted to.
 
@@ -1876,8 +1954,10 @@ We learned about android studio, new functionality with it, and how awesome havi
 What's next for Color Clicker
 
 We are considering adding more game modes such as casual and arcade modes.
-",,,No,,,Mistake,http://bitcamp2018.devpost.com/submissions/92381-mistake,"Accidentally created this, how do I delete this?
-",,,,,,Art with Python - Exploration with Random Loops,http://bitcamp2018.devpost.com/submissions/92382-art-with-python-exploration-with-random-loops,"Inspiration
+",,,No,,,
+Mistake,http://bitcamp2018.devpost.com/submissions/92381-mistake,"Accidentally created this, how do I delete this?
+",,,,,,
+Art with Python - Exploration with Random Loops,http://bitcamp2018.devpost.com/submissions/92382-art-with-python-exploration-with-random-loops,"Inspiration
 
 I was inspired by the art and tech show ""Immersive Atoms."" I wanted to learn a language (python) by creating art with it. I was also fascinated by the idea of randomness when creating art. I wanted to include as many random components as possible while still ensuring that the end result is aesthetically interesting. I love the fact that the computer is the one to ""make"" the art and ""make"" the decisions within a set of parameters. 
 
@@ -1904,10 +1984,12 @@ I learned python! I am much more comfortable with coding in general as well. Exc
 What's next for Art with Python - Exploration with Random Loops
 
 I would like to have some sort of user interface with the art. 
-",https://github.com/esadikova/artwpython,,,,,Racing Yeti Simulator,http://bitcamp2018.devpost.com/submissions/92383-racing-yeti-simulator,"So I came into this hackathon with absolutely zero programming knowledge. I watched a bunch of online tutorials and this is the culmination of what I have learned this hackathon. A lot of fooling around, but it was fun!
+",https://github.com/esadikova/artwpython,,,,,
+Racing Yeti Simulator,http://bitcamp2018.devpost.com/submissions/92383-racing-yeti-simulator,"So I came into this hackathon with absolutely zero programming knowledge. I watched a bunch of online tutorials and this is the culmination of what I have learned this hackathon. A lot of fooling around, but it was fun!
 
 This is a very simple text game where you start with $100 and can bet money on a Yeti each round. A short text animation is displayed for each race, and you can play until you run out of money or want to leave!
-",,,"please don't make me ""demo"" this i am a noob",,,MotOBDII,http://bitcamp2018.devpost.com/submissions/92384-motobdii,"Inspiration
+",,,"please don't make me ""demo"" this i am a noob",,,
+MotOBDII,http://bitcamp2018.devpost.com/submissions/92384-motobdii,"Inspiration
 
 Inspired by Vinli a platform that turns older cars into smart cars plugging IoT devices in to their ODBII port, bringing them in to the realm of smart devices. MotODBII seeks to accomplish this for motorcycles as well, allowing Motocycles to receive the same data for preventative diagnostics and giving drivers a blockchain.
 
@@ -1931,7 +2013,8 @@ What I learned
 What's next for MotOBDII
 
 Possibly prototyping a device to get data from a Motocycles computer
-",https://github.com/coderrick/bitcamp-spring-2018/,"Decentralise Everything: Blockchain challenge - Ark, Amazon Web Services - Best Use of AWS, Best Domain Name from Domain.com, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",YES,jcweaver,BryannaNicholeGrant,Augmented Reality Presentation Tool,http://bitcamp2018.devpost.com/submissions/92385-augmented-reality-presentation-tool,"ARPT
+",https://github.com/coderrick/bitcamp-spring-2018/,"Decentralise Everything: Blockchain challenge - Ark, Amazon Web Services - Best Use of AWS, Best Domain Name - Domain.com, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",YES,jcweaver,BryannaNicholeGrant,
+Augmented Reality Presentation Tool,http://bitcamp2018.devpost.com/submissions/92385-augmented-reality-presentation-tool,"ARPT
 
 Created by Harrison Linowes and Mike Bartner
 
@@ -1976,7 +2059,8 @@ We ran into challenges related to transferring data on the server.
 Accomplishments that we're proud of
 
 We are excited that we were able to connect devices and properly update elements of the model for all users.
-",https://github.com/MBartner/bitcamp2018,Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton,No,,,DareDevil,http://bitcamp2018.devpost.com/submissions/92386-daredevil,"Inspiration
+",https://github.com/MBartner/bitcamp2018,Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton,No,,,
+DareDevil,http://bitcamp2018.devpost.com/submissions/92386-daredevil,"Inspiration
 
 We believe in power in unity.
 
@@ -2003,7 +2087,8 @@ Human - Aware Artificial Intelligence's Importance and Challenges associated wit
 What's next for DareDevils
 
 Build this product for the production level with the integration of command requires for better UX.
-",,"Most Futuristic Hack - Paypal, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",Not Necessary,SANCHITNARANG,shuchirinamdar, Serendipity,http://bitcamp2018.devpost.com/submissions/92387-serendipity,"Inspiration
+",,"Most Futuristic Hack - Paypal, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",Not Necessary,SANCHITNARANG,shuchirinamdar,
+ Serendipity,http://bitcamp2018.devpost.com/submissions/92387-serendipity,"Inspiration
 
 With growing number of recent data privacy incidents such as Facebook's data scandal, we wanted to introduce a newly renovated design of decentralized social media platform. With this model, there is no central entity that controls your information. Instead, each users will have a total control over his/her database and how the data will be shared among friends. 
 
@@ -2052,7 +2137,8 @@ User Authentication/Authorization
 Data privacy per post
 Blocked lists
 
-",https://gitlab.com/team-serendipity/serendipity,,,clcain,,Shotradar,http://bitcamp2018.devpost.com/submissions/92388-shotradar,"Inspiration
+",https://gitlab.com/team-serendipity/serendipity,,,clcain,,
+Shotradar,http://bitcamp2018.devpost.com/submissions/92388-shotradar,"Inspiration
 
 With the recent mass shooting events that are occurring throughout the United States, we wanted to help keep people safe and know what to do during this event. We realize that there is not much training that is occurring, and even if someone is trained in a situation, there is generally a fight or flight response due to panic. Therefore, this app will give advice based on the location of the shooter and where they are in a building. 
 
@@ -2088,7 +2174,8 @@ To reset the app on the server side: https://floating-gorge-79216.herokuapp.com/
 
 
 We will also see determine if there are other use cases for the app because we see the geolocation being useful for natural disaster relief and preparation.
-",https://github.com/mwittner2/shotradar,"Amazon Web Services - Best Use of AWS, Best Domain Name from Domain.com, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,shonkaga,,Make it Rain,http://bitcamp2018.devpost.com/submissions/92389-make-it-rain,"Inspiration
+",https://github.com/mwittner2/shotradar,"Amazon Web Services - Best Use of AWS, Best Domain Name - Domain.com, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,shonkaga,,
+Make it Rain,http://bitcamp2018.devpost.com/submissions/92389-make-it-rain,"Inspiration
 
 Fighting forest fires. Saving trees. 
 
@@ -2115,10 +2202,12 @@ How to use React-native, javascript, HTML, and ESRI API
 What's next for Make it Rain
 
 Integrating with Ark.io to make it rain with ark coins
-",https://arkham.localtunnel.me,"Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",no,scao,,UNICOMP,http://bitcamp2018.devpost.com/submissions/92391-unicomp,"Link to the updated project: 
+",https://arkham.localtunnel.me,"Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",no,scao,,
+UNICOMP,http://bitcamp2018.devpost.com/submissions/92391-unicomp,"Link to the updated project: 
 
 https://devpost.com/software/unicomp
-",,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,saagarwal13,,EURECA,http://bitcamp2018.devpost.com/submissions/92396-eureca,"Inspiration
+",,"Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,saagarwal13,,
+EURECA,http://bitcamp2018.devpost.com/submissions/92396-eureca,"Inspiration
 
 It's spring, and cherry blossom bloom. I asked myself what if I could create and move cherry blossom leaves with my hands; moreover, what if I can create art? what if anyone can create art? That would help so much people out since there are so many great things about art! 
    I connected to my own experience of getting scared at fireworks. So to overcome the fear of fireworks, I thought this way of approach in therapy would have been great for me, and obviously someone else who were also scared at fireworks.
@@ -2145,7 +2234,8 @@ That there are way too much people in need of therapy, but the there's too small
 What's next for EURECA
 
 more experiences and effects, user specified experience ex) for people who lost home by flood, calm rain effect for trauma curing.
-",,"Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook","No but out hack needs space on the corner of the hacking space since it's interactive one, and it takes some space",yoonachoi,haleylee328,Flow,http://bitcamp2018.devpost.com/submissions/92398-flow,"Inspiration
+",,"Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Unique Hack - 1517 Fund, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook","No but out hack needs space on the corner of the hacking space since it's interactive one, and it takes some space",yoonachoi,haleylee328,
+Flow,http://bitcamp2018.devpost.com/submissions/92398-flow,"Inspiration
 
 The inspiration for our project began when the three of us were tired of massive parking lot queues 
 
@@ -2180,7 +2270,8 @@ Accomplishments that we're proud of
 What we learned
 
 What's next for Flow
-",https://github.com/justinmay/bitcamp2018,"Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft","Yes, A5",ananduri9,vpuli98,Invest Me,http://bitcamp2018.devpost.com/submissions/92399-invest-me,"Inspiration
+",https://github.com/justinmay/bitcamp2018,"Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft","Yes, A5",ananduri9,vpuli98,
+Invest Me,http://bitcamp2018.devpost.com/submissions/92399-invest-me,"Inspiration
 
 What it does
 
@@ -2197,7 +2288,8 @@ We followed every step for a UX design. We learned the importance of wireframing
 What's next for Invest Me
 
 The next step for Invest Me is more usability testing. We may have been able to create a final prototype that we are happy with but this doesn't mean that our users would be happy with the product. Having more Usability testing will give us more feedback on our product allowing us to make changes till we are even more happier with our design. Finally would come prototyping for the design to see it in working action.
-",http://prezi.com/5rmmmj1s80pq/?utm_campaign=share&utm_medium=copy,Best Designed Investor Education Product - Finra,No,,,HawkEye,http://bitcamp2018.devpost.com/submissions/92404-hawkeye,"Inspiration
+",http://prezi.com/5rmmmj1s80pq/?utm_campaign=share&utm_medium=copy,Best Designed Investor Education Product - Finra,No,,,
+HawkEye,http://bitcamp2018.devpost.com/submissions/92404-hawkeye,"Inspiration
 
 Traveling alone, whether in a familiar region or not can often be dangerous and frightening. You often only hear about criminal activity well after it has occurred, so there is generally no way of knowing if the area you are venturing towards will be safe or not. One of our group members, Trulee, expressed that her mom often reiterated the dangers of traveling alone and feared for her safety, whether she was away for college or out with her friends. Thus we came to the conclusions that if there was a way of keeping track of dangerous or suspicious activity in real time, everyone could travel more safely and with more peace of mind. 
 
@@ -2224,7 +2316,8 @@ We learned a lot about Esri's API and software development tools. More specifica
 What's next for HawkEye
 
 We hope to fully flesh out the location based notification feature. Essentially, based on the location of each pin, users who enter a 1-2 mile radius of the reported activity should get notified of the danger so that they do not have to check the app at all times to ensure their safety. We also want to complete the backend for the project so that a server can host the data and it can be shared and be up to date for all users of the app. This is obviously a vital component for this to work at it's fullest and we are already in the process of making this happen!
-",https://github.com/amank98/HawkEye_BitCamp/tree/master/MyApplication,"Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",,AbiSri,truleeriley,TownHall 2.0,http://bitcamp2018.devpost.com/submissions/92405-townhall-2-0,"Inspiration: I always wanted to contribute to my community, but always despised town hall meetings
+",https://github.com/amank98/HawkEye_BitCamp/tree/master/MyApplication,"Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri",,AbiSri,truleeriley,
+TownHall 2.0,http://bitcamp2018.devpost.com/submissions/92405-townhall-2-0,"Inspiration: I always wanted to contribute to my community, but always despised town hall meetings
 
 What it does: Create digital communities where members of a school, region, or relief effort can come together and discuss/collaborate on certain issues or how their community should be developed.
 
@@ -2237,7 +2330,8 @@ Accomplishments that I'm proud of: The design has received much praise overall f
 What I learned: It is very important to get a team first and try pitching your idea to them instead of trying to recruit people after team formation.
 
 What's next for TownHall 2.0: Creating the website, of course
-",,"Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Unique Hack - 1517 Fund, Best Accessibility Hack - Microsoft",No,,,tensorscript compiler,http://bitcamp2018.devpost.com/submissions/92408-tensorscript-compiler,"Imagine a framework-agnostic DSL with strong typing, dimension and ownership checking and lots of syntax sugar. What would it be like? As interesting as it is, here is why there needs to a langauge for neural network:
+",,"Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Most Unique Hack - 1517 Fund, Best Accessibility Hack - Microsoft",No,,,
+tensorscript compiler,http://bitcamp2018.devpost.com/submissions/92408-tensorscript-compiler,"Imagine a framework-agnostic DSL with strong typing, dimension and ownership checking and lots of syntax sugar. What would it be like? As interesting as it is, here is why there needs to a langauge for neural network:
 
 
 Multi-target. Write once, run everywhere(interpreted in PyTorch or compiled to Tensorflow MetaGraphDef).
@@ -2317,7 +2411,8 @@ class Mnist(nn.Module):
         x = F.dropout(x, training=self.training)
         x = self.fc2(x)
         return F.log_softmax(x, dim=1)
-",https://github.com/rickyhan/tensorscript-compiler,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,,,"Bono - Invest Safe, Invest Smart",http://bitcamp2018.devpost.com/submissions/92413-bono-invest-safe-invest-smart,"Inspiration
+",https://github.com/rickyhan/tensorscript-compiler,"Most Futuristic Hack - Paypal, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook",,,,
+"Bono - Invest Safe, Invest Smart",http://bitcamp2018.devpost.com/submissions/92413-bono-invest-safe-invest-smart,"Inspiration
 
 Finance seems to seem like a foreign language, how then do you learn something that is so alien to you. This is a problem statement that Duolingo has mastered. We too inspirational guides from the concept and user experience of the app.
 
@@ -2347,7 +2442,8 @@ All it takes it a mindless activity to breakout from that ideation block
 What's next for Bono - Invest Safe, Invest Smart
 
 Our hi-fidelity prototype remains incomplete and will be completed and perfected once we recover our sleep.
-",https://sketch.cloud/s/0Yp02,"Best Financial Hack - Capital One, Best Designed Investor Education Product - Finra",No,,,PlopTab,http://bitcamp2018.devpost.com/submissions/92416-ploptab,"Inspiration
+",https://sketch.cloud/s/0Yp02,"Best Financial Hack - Capital One, Best Designed Investor Education Product - Finra",No,,,
+PlopTab,http://bitcamp2018.devpost.com/submissions/92416-ploptab,"Inspiration
 
 I previously been to at least 4 other hackathons in the past, all of which I have failed to learn something. This is the first time i ever felt like I actually learned something I can take with me.
 
@@ -2377,7 +2473,8 @@ Java script, html
 What's next for PlopTab
 
 creating a UI and adding certain buttons.
-",https://github.com/Mighty-Mango/PlopTab,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,,,eko,http://bitcamp2018.devpost.com/submissions/92417-eko,"Inspiration
+",https://github.com/Mighty-Mango/PlopTab,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,,,
+eko,http://bitcamp2018.devpost.com/submissions/92417-eko,"Inspiration
 
 To provide a mechanism for people to see the holistic costs of their investments
 
@@ -2404,7 +2501,8 @@ I learned new things about scraping data from web sites, I got my first hands on
 What's next for eko
 
 One thing we all are interested in implementing (and actually how this idea started in the first place) is making an environmentally conscious SIMS game. We could essentially use this as a template to demonstrate in an exaggerated manner the impact of these investments
-",https://github.com/umterp/bitcamp-2018,,,ayeh01,,Mapifier,http://bitcamp2018.devpost.com/submissions/92421-mapifier,"Inspiration
+",https://github.com/umterp/bitcamp-2018,,,ayeh01,,
+Mapifier,http://bitcamp2018.devpost.com/submissions/92421-mapifier,"Inspiration
 
 What it does
 
@@ -2419,7 +2517,8 @@ Accomplishments that we're proud of
 What we learned
 
 What's next for Mapifier
-",,"Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Accessibility Hack - Microsoft",,,,busten_fakes,http://bitcamp2018.devpost.com/submissions/92435-busten_fakes,"Inspiration
+",,"Best Use of MongoDB Stitch - MongoDB, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Accessibility Hack - Microsoft",,,,
+busten_fakes,http://bitcamp2018.devpost.com/submissions/92435-busten_fakes,"Inspiration
 
 One of my mentors was listing to NPR . Me about most of the verification site software does this by having you determining if we were humans and able to read and look at information an process considering that computers are bad at multitasking. It started out being something like that, but then what I got from th is that it would make sense to try and build should do build a tool that would look for data manipulations within jpg  to see if the data had been manipulated. 
 
@@ -2446,7 +2545,8 @@ Where that  go has similarity between several different languages , an can be a 
 What's next for busten_fakes
 
 I would say that trying to expand it do a sweet of things. Including reading an iinterrupting the meta-data and being capable of see whether there have been changes. Is allowing the user to look at more then one photo and letting them be capable of determining whether or not they agree with the service that we have provided. We are going to have to add in a either our own meta-data analysis tool or perhaps call another one from code that exist. 
-",https://github.com/yuriprym/busten-fakes-,Best Digital Forensic Hack - Cipher Tech Solutions,No,,,SeniorBot,http://bitcamp2018.devpost.com/submissions/92440-seniorbot,"Inspiration
+",https://github.com/yuriprym/busten-fakes-,Best Digital Forensic Hack - Cipher Tech Solutions,No,,,
+SeniorBot,http://bitcamp2018.devpost.com/submissions/92440-seniorbot,"Inspiration
 
 Our parents are all overseas and mostly above 60s of age. Most of the time we would like to share multiple pictures through either emails or social media or share our thoughts about some new tech device. Currently, we would try to show our parents how to set up the accounts by calling them on the phone or in video calls. However, the explanatory process takes a lot of time and is quite confusing due to the multiple account setting-up steps and without visual description. This chatbot helps making the explanation process more time efficient and more intuitive to follow, therefore, narrowing the bridge between generations and promoting the up-to-date technical knowledge to senior citizens. 
 
@@ -2475,7 +2575,8 @@ We learned to develop and integrate multiple language and API platforms together
 What's next for SeniorBot
 
 We will further train and develop our bot to extend its topics to other tasks such as booking flights, or expand to other new tech device searching. Moreover, we want to establish a connection database among the near-by experts so they can track each other schedules and marked down status of each case to speed up the helping process.
-",https://github.com/ga12ece/seniorBot_Bitcamp18,"Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Accessibility Hack - Microsoft",No,HanhLe,,DivCoin,http://bitcamp2018.devpost.com/submissions/92441-divcoin,"What it does
+",https://github.com/ga12ece/seniorBot_Bitcamp18,"Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Hack with Esri APIs and SDKs - Esri, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Accessibility Hack - Microsoft",No,HanhLe,,
+DivCoin,http://bitcamp2018.devpost.com/submissions/92441-divcoin,"What it does
 
 DivCoin allows users to trade stocks in a peer-to-peer fashion avoiding excess fees and unnecessary 3rd party interactions.
 
@@ -2490,7 +2591,8 @@ Have a fully implemented blockchain application that is interacted with through 
 What's next for DivCoin
 
 The moon.
-",,"Decentralise Everything: Blockchain challenge - Ark, Best Financial Hack - Capital One, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,Breadcrumbs,http://bitcamp2018.devpost.com/submissions/92448-breadcrumbs,"Inspiration
+",,"Decentralise Everything: Blockchain challenge - Ark, Best Financial Hack - Capital One, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,
+Breadcrumbs,http://bitcamp2018.devpost.com/submissions/92448-breadcrumbs,"Inspiration
 
 I always lose stuff
 
@@ -2517,7 +2619,8 @@ nn
 What's next for Breadcrumbs
 
 object recognition and better geospatial tracking
-",https://github.com/naitian/BreadCrumbs,"Best Hack with Esri APIs and SDKs - Esri, Most Futuristic Hack - Paypal, Best Domain Name from Domain.com, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,andrewxiaoyu,edman124,wwll7UNICOMP,http://bitcamp2018.devpost.com/submissions/92449-unicomp,"Inspiration--> Every High School graduate goes through the dilemma of College selection. Being a group of freshmen people, the college application process is still fresh in our minds. Thus, taking into account all the factors,we thought would be helpful for comparing two top choice colleges, we created UNICOMP, which basically is supposed to compare two given colleges and thus also provide the major determining factors to help students in their college selection process.
+",https://github.com/naitian/BreadCrumbs,"Best Hack with Esri APIs and SDKs - Esri, Most Futuristic Hack - Paypal, Best Domain Name - Domain.com, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,andrewxiaoyu,edman124,wwll7
+UNICOMP,http://bitcamp2018.devpost.com/submissions/92449-unicomp,"Inspiration--> Every High School graduate goes through the dilemma of College selection. Being a group of freshmen people, the college application process is still fresh in our minds. Thus, taking into account all the factors,we thought would be helpful for comparing two top choice colleges, we created UNICOMP, which basically is supposed to compare two given colleges and thus also provide the major determining factors to help students in their college selection process.
 
 What it does--> Helps one choose between two colleges by comparing the data from the stored database.
 How we built it--> We built it with some basic java code and very basic HTML5 code. By using the mentioned software.
@@ -2529,7 +2632,8 @@ Accomplishments that we're proud of--> Creating a web page from scratch and addi
 What we learned--> Linking text file to the our program(back-end) and a very basic web page design using HTML5.
 
 What's next for UNICOMP--> To increase the amount of stored data and improved code for a more efficient comparison. To create a complete functioning website with added features of College comparison represented in a better, and efficiently organized manner along with a 'best fit college' function, which would indicate the best fit college for the particular student.
-",https://github.com/atharvakadam/UNICOMP,"Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,saagarwal13,,HovAR,http://bitcamp2018.devpost.com/submissions/92452-hovar,"Inspiration
+",https://github.com/atharvakadam/UNICOMP,"Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,saagarwal13,,
+HovAR,http://bitcamp2018.devpost.com/submissions/92452-hovar,"Inspiration
 
 We were inspired to create the HovAR tricopter because of a little idea- how can we make augmented reality fit seamlessly- and usefully- into our lives? Disillusioned with bulky headsets and strapping phones to our heads, we wondered if there was a way to bring AR experiences directly into the real world.
 
@@ -2560,7 +2664,8 @@ What's next for HovAR
 Some minor changes would be investing in a better projector with a brighter, higher resolution display, improving the power configuration to reduce weight and improve battery life, and creating more custom housing components to clean up the physical look of the drone.
 
 The biggest limitation in HovAR is that we can only squeeze out around a dozen minutes of continuous flight time, limiting it's feasibility for real world applications- for now. While HovAR is only intended as a proof of concept, we're hopeful that in the (near) future, we'll see AR drones flying around and changing the way we experience the world.
-",https://github.com/traviho/drone-projector,"Most Futuristic Hack - Paypal, Amazon Web Services - Best Use of AWS, Best Philanthropic Hack - Bloomberg, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",Nope,PeterRyseck,,Bitfolio for eko,http://bitcamp2018.devpost.com/submissions/92454-bitfolio-for-eko,"Inspiration
+",https://github.com/traviho/drone-projector,"Most Futuristic Hack - Paypal, Amazon Web Services - Best Use of AWS, Best Philanthropic Hack - Bloomberg, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",Nope,PeterRyseck,,
+Bitfolio for eko,http://bitcamp2018.devpost.com/submissions/92454-bitfolio-for-eko,"Inspiration
 
 Our group noticed that sustainability for business practices is highly important for the future of our environment and wanted to make a service that makes people more conscious of their carbon footprint
 
@@ -2587,7 +2692,8 @@ I learn new ways for collaborating with teammates. From mentors, I also learned 
 What's next for Bitfolio for eko
 
 We are hoping to learn what people think at our demo session.
-",,Best Designed Investor Education Product - Finra,No,,,finabanana,http://bitcamp2018.devpost.com/submissions/92456-finabanana,"Inspiration
+",,Best Designed Investor Education Product - Finra,No,,,
+finabanana,http://bitcamp2018.devpost.com/submissions/92456-finabanana,"Inspiration
 
 Inspired by the difficulties that college students face in managing their asset. As a college student themselves, they find that it's necessary to have a platform that manages their asset actively.
 
@@ -2614,7 +2720,8 @@ Material design, improve UX/UI design experience
 What's next for finabanana
 
 Start full stack development.
-",https://invis.io/ZGGQJP5NHD6#/289882944_Start_Up_Flash_Page,Best Designed Investor Education Product - Finra,NO,,,Inbox Analysis,http://bitcamp2018.devpost.com/submissions/92459-inbox-analysis,"Inspiration
+",https://invis.io/ZGGQJP5NHD6#/289882944_Start_Up_Flash_Page,Best Designed Investor Education Product - Finra,NO,,,
+Inbox Analysis,http://bitcamp2018.devpost.com/submissions/92459-inbox-analysis,"Inspiration
 
 As long as I stop checking my email inbox for a while, it will be flooded with all kinds of junk information: newsletters, subscriptions, notifications, etc. Even though I keep these kinds of subscription emails to the minimum, I still sometimes find it annoying when I receive constant email notifications about things I don't care about. Therefore, I want to find a way to identify these spam information and keep my inbox distraction-free.
 
@@ -2641,7 +2748,8 @@ how to do basic web and gui programming, and familiarity with python programming
 What's next for Inbox Analysis
 
 In the current implementation, the querying speed is super slow. It may take over twenty minutes to load the complete history of my inbox. I can implement a multithreaded querying to speed up the process. I also want to implement some linguistic analysis of emails' content to identify the repetitiveness of information. It may help me further reduce unnecessary emails.
-",https://paste.ee/p/eMFMV#0NvfASkuKCGSBXWfZlahZpGHASqo6oc7,,No,,,Augmented Reality Scavenger Hunt,http://bitcamp2018.devpost.com/submissions/92463-augmented-reality-scavenger-hunt,"Inspiration
+",https://paste.ee/p/eMFMV#0NvfASkuKCGSBXWfZlahZpGHASqo6oc7,,No,,,
+Augmented Reality Scavenger Hunt,http://bitcamp2018.devpost.com/submissions/92463-augmented-reality-scavenger-hunt,"Inspiration
 
 .The simple game of treasure hunt played by every kid, should also reflect all the technological developments that have taken place. Incorporating such a change is the use of AR.
 
@@ -2669,14 +2777,16 @@ C## commands in unity and also learned about debugging in Microsoft visual studi
 What's next for Augmented Reality Scavenger Hunt
 
 To allow the user to upload the images such that their choice of projections can be created on target images of their choice. This is particularly advantageous for Businesses and parents seeking to improve knowledge about their company and teach their children important concepts respectively.
-",,,,msidhu520,,Furious George,http://bitcamp2018.devpost.com/submissions/92468-furious-george,"Inspiration:
+",,,,msidhu520,,
+Furious George,http://bitcamp2018.devpost.com/submissions/92468-furious-george,"Inspiration:
 Casey has an interest in embedded systems and decided to come to BitCamp with the idea to build something that represented a turret (as used in the military). Because of his interest in learning more about the C programming language, he has decided to explore the applications of what C can do with hardware. Noah also has a wide range of interest in software development and continues to explore new avenues of coding on an everyday basis.
 
 How is it built?: 
 
 B is for Bananas:
 The name of the game is to try to take the banana from furious George. Unfortunately, George is constantly watching out for pesky humans who might want to steal his banana. As George's head moves around, try to avoid being seen by him and go for that banana. If George catches you in the act, he will shoot his laser at you and let out a horrid scream for all who dare to to take away his one true love. If you can manage to take the banana from George without him spotting you, you will win all of the glory and all of the banana! Just don't eat the banana, he might not forgive you for that... 
-",,Most Unique Hack - 1517 Fund,,,,Pluto,http://bitcamp2018.devpost.com/submissions/92469-pluto,"Inspiration
+",,Most Unique Hack - 1517 Fund,,,,
+Pluto,http://bitcamp2018.devpost.com/submissions/92469-pluto,"Inspiration
 
 Apple is our muse.
 
@@ -2703,7 +2813,8 @@ It was our first time working with Alexa so it was pretty hard to make progress.
 What's next for Pluto
 
 More functionalities for both the web app and the Alexa skill so as to increase accessibility.
-",https://github.com/Meridiam/Pluto,"Best Designed Investor Education Product - Finra, Amazon Web Services - Best Use of AWS, Best Use of MongoDB Stitch - MongoDB, Best Accessibility Hack - Microsoft",No,mayenkar,,Reflextion,http://bitcamp2018.devpost.com/submissions/92472-reflextion,"Inspiration:
+",https://github.com/Meridiam/Pluto,"Best Designed Investor Education Product - Finra, Amazon Web Services - Best Use of AWS, Best Use of MongoDB Stitch - MongoDB, Best Accessibility Hack - Microsoft",No,mayenkar,,
+Reflextion,http://bitcamp2018.devpost.com/submissions/92472-reflextion,"Inspiration:
 
 Our inspiration was to create a means for people to step into the spotlight with their idols and learn to move as they do. To shake and pound it like a hip-hop master, to strike blows like an elite martial artist, and learn to dribble a basketball like an NBA baller. Reflextion allows someone to see how they match up to the best.  
 
@@ -2741,7 +2852,8 @@ What's next for Reflextion:
 
 The next step for Reflextion is to introduce a means for the data that is currently stored locally to stored in a globally accessible database. This way anyone with a Myoâ„¢ would be able to access and learn how anyone from across the world performs in almost all water-free activities. 
 Additionally, we want to incorporate multiple Myoâ„¢s so that users would be able to map all motions from the arms and legs to make it an incredibly comprehensive way to mimic motion. As well, we plan on making a mobile application for Reflextion.
-",,"Most Futuristic Hack - Paypal, Best Domain Name from Domain.com, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,acs3ss,AbhishekShinde,Holey Moley!,http://bitcamp2018.devpost.com/submissions/92475-holey-moley,"Inspiration
+",,"Most Futuristic Hack - Paypal, Best Domain Name - Domain.com, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,acs3ss,AbhishekShinde,
+Holey Moley!,http://bitcamp2018.devpost.com/submissions/92475-holey-moley,"Inspiration
 
 We really wanted to put our skills to the limit this hackathon. We wanted to see if we could use image classification to identify potholes, send that information to the city, and assign that work onto a worker's phone.
 
@@ -2752,7 +2864,8 @@ It sends video feed from the front of the car to IBM Watson, then based on wheth
 How we built it
 
 Using python, we take instant video, turn them into image frame that are sent into an image classification model. Then depending on degree of certainty, we send that data to Argcis, which allows all of that data to be displayed and manipulated. Then we created a client app which facilitates a service that allows them to ""complete the job"".
-",,"Best Hack with Esri APIs and SDKs - Esri, Best use of SparkPost API - SparkPost, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Most Futuristic Hack - Paypal, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,BitLamp,http://bitcamp2018.devpost.com/submissions/92477-bitlamp,"Inspiration: It all started when we were working on a project where we were soldering ton of boards and moving all around the table for grabbing tools for designing the robot and adjusting the lamp for perfect brightness on the parts where we needed our focus. Hence we came up with the idea of developing the Lamp which follows your tools
+",,"Best Hack with Esri APIs and SDKs - Esri, Best use of SparkPost API - SparkPost, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Most Futuristic Hack - Paypal, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,
+BitLamp,http://bitcamp2018.devpost.com/submissions/92477-bitlamp,"Inspiration: It all started when we were working on a project where we were soldering ton of boards and moving all around the table for grabbing tools for designing the robot and adjusting the lamp for perfect brightness on the parts where we needed our focus. Hence we came up with the idea of developing the Lamp which follows your tools
 
 What it does: It captures your tool on click of a button and follows where ever you move your tool.
 
@@ -2793,7 +2906,8 @@ Voice Recognition.
 Gesture Recognition.
 Multiple Tools tracking
 
-",https://github.com/mayankpathak10/Bit-Lamp,"Housing insights â€œin-betweenâ€ù Datasets - Fannie Mae, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",Yes. Table number M11.,DarshanShah,,FindMe,http://bitcamp2018.devpost.com/submissions/92478-findme,"Inspiration
+",https://github.com/mayankpathak10/Bit-Lamp,"Housing insights â€œin-betweenâ€ù Datasets - Fannie Mae, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",Yes. Table number M11.,DarshanShah,,
+FindMe,http://bitcamp2018.devpost.com/submissions/92478-findme,"Inspiration
 
 ensuring drunk friends reach home safe
 
@@ -2820,7 +2934,8 @@ not to underestimate your own stupidity and believe in Murphy's Law
 What's next for FindMe
 
 most visited places, heat maps, history with friends, history visualization
-",https://github.com/omi23vaidya/FindMe,"Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook",,omi23vaidya,karandalvi,MyClimate,http://bitcamp2018.devpost.com/submissions/92480-myclimate,"Inspiration
+",https://github.com/omi23vaidya/FindMe,"Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook",,omi23vaidya,karandalvi,
+MyClimate,http://bitcamp2018.devpost.com/submissions/92480-myclimate,"Inspiration
 
 After a long cold winter, we want to know when the warm weather is coming, and so we can go out and enjoy dates. When we use weather maps, Siri, and Google, it's really tiring to scroll down to the expected weather or Siri and Google do not remind as if our expected weather is coming. Now, here is MyClimate which solves those hassle.
 
@@ -2847,7 +2962,8 @@ Creating a real-world problem solving app needs to go beyond the class lectures.
 What's next for MyClimate
 
 We will add the speech recognition feature to be more hassle-free in user input and develop GUIs. 
-",https://github.com/ssoemoe/myclimate,,No,DavidAhmed,VenkatPraveen,BitCampUA,http://bitcamp2018.devpost.com/submissions/92483-bitcampua,"Inspiration
+",https://github.com/ssoemoe/myclimate,,No,DavidAhmed,VenkatPraveen,
+BitCampUA,http://bitcamp2018.devpost.com/submissions/92483-bitcampua,"Inspiration
 
 We wanted to create website that would help people of all ages learn and plan their financial future.
 
@@ -2874,7 +2990,8 @@ News aggregations is hard as well as getting dynamic stock and foreign market st
 What's next
 
 Improving accessibility for all people as well as increasing the knowledge base to help and suit more people.
-",https://github.com/silverstar085/BitCamp,"Best Designed Investor Education Product - Finra, Best Financial Hack - Capital One, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,Gandham96,neilshah19,Porcupine,http://bitcamp2018.devpost.com/submissions/92485-porcupine,"Inspiration
+",https://github.com/silverstar085/BitCamp,"Best Designed Investor Education Product - Finra, Best Financial Hack - Capital One, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,Gandham96,neilshah19,
+Porcupine,http://bitcamp2018.devpost.com/submissions/92485-porcupine,"Inspiration
 
 I got the idea for this project in high school when I was coming up with web platform ideas to build. I never thought I'd actually pursue this idea.
 
@@ -2902,7 +3019,8 @@ More about the git tool.
 What's next for Porcupine
 
 Linking the filesystem to Github.
-",https://alugocp.github.io/porcupine,Best Use of MongoDB Stitch - MongoDB,No,,,Immersive Atoms,http://bitcamp2018.devpost.com/submissions/92486-immersive-atoms,"Inspiration
+",https://alugocp.github.io/porcupine,Best Use of MongoDB Stitch - MongoDB,No,,,
+Immersive Atoms,http://bitcamp2018.devpost.com/submissions/92486-immersive-atoms,"Inspiration
 
 Immersive Atoms is an artist collective at UMD focused on creating Art with Technology. We came to Bitcamp intent on shaking things up and challenging the norms of a hackathon.  Our work focused around four innovative mixed media projects which we then synthesized into a single composed work. 
 
@@ -2943,8 +3061,10 @@ We learned how to hack an Old TV and use them in future projects. For some of us
 What's next for Immersive Atoms
 
 We are having a huge Exhibition April 26th-29 at Rm. 3306 Art Soc!!!  This piece will be in the show, along with other incredible Art x Tech work by UMD students.  As we move forward we are going to continue building this incredible community around the intersection of Art and Technology, and keep building and hacking together.
-",,"Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund","Yes, Table V7",esadikova,,Letter of Credit using BlockChain,http://bitcamp2018.devpost.com/submissions/92489-letter-of-credit-using-blockchain,"Using blockchain to streamline and fasten the process & eliminate the hassles involved in process of purchase, import/export and issuance of Letter of Credit.
-",,"Decentralise Everything: Blockchain challenge - Ark, Best Financial Hack - Capital One",,,,Geotify,http://bitcamp2018.devpost.com/submissions/92491-geotify,"Inspiration
+",,"Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund","Yes, Table V7",esadikova,,
+Letter of Credit using BlockChain,http://bitcamp2018.devpost.com/submissions/92489-letter-of-credit-using-blockchain,"Using blockchain to streamline and fasten the process & eliminate the hassles involved in process of purchase, import/export and issuance of Letter of Credit.
+",,"Decentralise Everything: Blockchain challenge - Ark, Best Financial Hack - Capital One",,,,
+Geotify,http://bitcamp2018.devpost.com/submissions/92491-geotify,"Inspiration
 
 Inspired by the Credible HealthCare Innovation Challenge, Geotify is a geofencing iOS9 application that tracks a user's location and sends warnings via SMS when the user enters or exits a ""trigger"" location.
 
@@ -2985,7 +3105,8 @@ Sanna Madan
 Kyle Liu
 
 Spencer Michalski
-",https://github.com/kylefirst/Bitcamp-2018,"Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,,,bitAlert,http://bitcamp2018.devpost.com/submissions/92492-bitalert,"Inspiration
+",https://github.com/kylefirst/Bitcamp-2018,"Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,,,
+bitAlert,http://bitcamp2018.devpost.com/submissions/92492-bitalert,"Inspiration
 
 Our inspiration was the lack of notification platforms for streamers streaming on twitch who were willing to accept Bitcoin. Our application attempts to ameliorate the blatant need for the decentralization of donations on platforms such as the streaming platforms twitch and mixer by allowing streamers to accept BTC without sacrificing the notification the would otherwise receive if sticking with Paypal. Moreover, our app allows streamers to use another avenue for accepting donations such as cryptocurrency seamlessly instead of relying on platforms such as Paypal which have very few restrictions against ""charge backs"": an occurrence all entertainers are all too familiar with on streaming platforms.
 
@@ -3012,12 +3133,14 @@ Everything about blockchain, and how the technology actually functions.
 What's next for bitAlert
 
 We will probably facilitate the transference of BTC through our website one way or another.
-",,"Decentralise Everything: Blockchain challenge - Ark, Best use of SparkPost API - SparkPost, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook",No.,owenluo,patrickcao,The Irate Primate.,http://bitcamp2018.devpost.com/submissions/92493-the-irate-primate,"Inspiration: Casey has an interest in embedded systems and decided to come to BitCamp with the idea to build something that represented a turret (as used in the military). Because of his interest in learning more about the C programming language, he has decided to explore the applications of what C can do with hardware. Noah also has a wide range of interest in software development and continues to explore new avenues of coding on an everyday basis.
+",,"Decentralise Everything: Blockchain challenge - Ark, Best use of SparkPost API - SparkPost, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook",No.,owenluo,patrickcao,
+The Irate Primate.,http://bitcamp2018.devpost.com/submissions/92493-the-irate-primate,"Inspiration: Casey has an interest in embedded systems and decided to come to BitCamp with the idea to build something that represented a turret (as used in the military). Because of his interest in learning more about the C programming language, he has decided to explore the applications of what C can do with hardware. Noah also has a wide range of interest in software development and continues to explore new avenues of coding on an everyday basis.
 
 How is it built?:
 
 B is for Bananas: The name of the game is to try to take the banana from furious George. Unfortunately, George is constantly watching out for pesky humans who might want to steal his banana. As George's head moves around, try to avoid being seen by him and go for that banana. If George catches you in the act, he will shoot his laser at you and let out a horrid scream for all who dare to to take away his one true love. If you can manage to take the banana from George without him spotting you, you will win all of the glory and all of the banana! Just don't eat the banana, he might not forgive you for that...
-",,Most Unique Hack - 1517 Fund,,,,Moochacho,http://bitcamp2018.devpost.com/submissions/92494-moochacho,"CURRENTLY AT TABLE H2
+",,Most Unique Hack - 1517 Fund,,,,
+Moochacho,http://bitcamp2018.devpost.com/submissions/92494-moochacho,"CURRENTLY AT TABLE H2
 
 Inspiration
 
@@ -3042,7 +3165,8 @@ Learned a lot about utilizing different APIs and chaining commands in order to e
 What's next for Moochacho
 
 I plan to edit it some more, and actually roll it out into production.
-",,"Best use of SparkPost API - SparkPost, Best Domain Name from Domain.com, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,how_to_survive_a_hackathon,http://bitcamp2018.devpost.com/submissions/92495-how_to_survive_a_hackathon,"Inspiration
+",,"Best use of SparkPost API - SparkPost, Best Domain Name - Domain.com, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,
+how_to_survive_a_hackathon,http://bitcamp2018.devpost.com/submissions/92495-how_to_survive_a_hackathon,"Inspiration
 
 We wanted to make a game about the hackathon experience because it would be really meta
 
@@ -3069,7 +3193,8 @@ Don't get too ahead of yourself with ideas when making a game
 What's next for how_to_survive_a_hackathon
 
 More features and gameplay to incorporate from more hackathons we attend
-",https://github.com/MasterMilkX/how_to_survive_a_hackathon,"Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,FINFREE,http://bitcamp2018.devpost.com/submissions/92496-finfree,"Inspiration
+",https://github.com/MasterMilkX/how_to_survive_a_hackathon,"Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,
+FINFREE,http://bitcamp2018.devpost.com/submissions/92496-finfree,"Inspiration
 
 Design an investor education product for a specific audience
 
@@ -3089,12 +3214,14 @@ Amount heâ€™s willing to invest
 The application generates real-time a hypothetical savings and estimated years to be debt-free before and after he makes an investment. The app is smart to derive cost of living figures (tax, housing, food etc.) based on the city input and is also able to update calculations based on the indicated risk appetite.
 
 Furthermore, a bar graph (savings across time) and pie graph (financial proportions) are generated to visualize the data. Userâ€™s can â€œplayâ€ù with his data (What-ifs) and the projections and visualization are updating real-time to the latest set parameters. Lastly, the app also has educational data regarding various investments a user can make.
-",https://medium.com/@vijitbhati/bitcamp-2018-finra-design-challenge-9bd6d862455e,Best Designed Investor Education Product - Finra,,,,TravelBud,http://bitcamp2018.devpost.com/submissions/92497-travelbud,"TravelBud
+",https://medium.com/@vijitbhati/bitcamp-2018-finra-design-challenge-9bd6d862455e,Best Designed Investor Education Product - Finra,,,,
+TravelBud,http://bitcamp2018.devpost.com/submissions/92497-travelbud,"TravelBud
 
 Vacation planner, given your budget, dates and people travelling. Plans travel, food, places to visit all under the specified budget. 
 
 **
-",https://github.com/aduggirala28/TravelBud,Most Unique Hack - 1517 Fund,No,,,Hackathon Scrapes,http://bitcamp2018.devpost.com/submissions/92498-hackathon-scrapes,"Inspiration
+",https://github.com/aduggirala28/TravelBud,Most Unique Hack - 1517 Fund,No,,,
+Hackathon Scrapes,http://bitcamp2018.devpost.com/submissions/92498-hackathon-scrapes,"Inspiration
 
 Our Team is made up of 4 Stony Brook students interested in hackathons. We have noticed the obvious lack of student-run hackathons on our campus. The history of student-run hackathons at Stony Brook has been something not as successful as most of us students would like it to be. In a pursuit to learn and understand more about how students/hacakthon enthusiasts can create long lasting hackathons, we have decided to visualize the history of hackathons in the past few years and relate it to geo-location, and to analyze.
 
@@ -3134,7 +3261,8 @@ Different esri feature layers for more analysis
 Integrate more non-MLH hackathons into the mix
 Develop a better API to help share hackathon data for other users to use
 
-",,"Best Hack with Esri APIs and SDKs - Esri, Amazon Web Services - Best Use of AWS, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",No,jastworld,jkunzmann41,Beep Me,http://bitcamp2018.devpost.com/submissions/92499-beep-me,"Inspiration
+",,"Best Hack with Esri APIs and SDKs - Esri, Amazon Web Services - Best Use of AWS, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",No,jastworld,jkunzmann41,
+Beep Me,http://bitcamp2018.devpost.com/submissions/92499-beep-me,"Inspiration
 
 Philippines, our culture, how can we as students make an impact with the use of technology in a 3rd world country
 
@@ -3172,7 +3300,8 @@ What's next for Beep Me
 using data mined through our application to be used in improving other public modes of transportation. 
 A more descriptive interface for Drivers and Users.
 
-",,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,,,Banana Market,http://bitcamp2018.devpost.com/submissions/92500-banana-market,"Inspiration
+",,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,,,
+Banana Market,http://bitcamp2018.devpost.com/submissions/92500-banana-market,"Inspiration
 
 Have you ever lost hundreds or thousands of dollars to the stock market?  Well, unfortunately we have.  Our group has spent countless dollars, hoping, and sadly failing in crypto currencies and stocks.  It would have been nice to receive some simple easy way to experiment with them before delving in.  This is where the banana market comes into play...  Since everyone is either on a computer or phone these days we have developed our application for both.  We hope this simple application serves as a tool to teach young children and teenagers (or anyone just starting out) of the dangers or beauty of the market.
 
@@ -3199,7 +3328,8 @@ We learned that persistence and patience is key and always update your applicati
 What's next for our Banana Market
 
 The java version of the game is great for kids and can be used as a great teaching tool.  The IOS version we hope to actually publish.  It needs to be spruced up a little bit and needs some funds for Apple's Costs but it can definitely be put on the store.  Since this is our first ever app we hope to see it there soon.
-",https://github.com/zactham/FruitGamblingJavaApp,"Best Designed Investor Education Product - Finra, Best Financial Hack - Capital One",,aponnama,,Impulse,http://bitcamp2018.devpost.com/submissions/92501-impulse,"Impulse
+",https://github.com/zactham/FruitGamblingJavaApp,"Best Designed Investor Education Product - Finra, Best Financial Hack - Capital One",,aponnama,,
+Impulse,http://bitcamp2018.devpost.com/submissions/92501-impulse,"Impulse
 
 Impulse is a platform that mitigates impulsive spending and brings consciousness to consumerism. 
 Note: The chrome extension's repo can be found here. The web app's repo can be found here
@@ -3431,7 +3561,8 @@ Flaticon - Icon assets
 The guys at the MongoDB booth. They were super friendly and helped us with some issues. We <3 you.
 Ben - You made a really sexy readme. Good job.
 
-",https://github.com/bephrem1/impulse,"Best Designed Investor Education Product - Finra, Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",No,bephrem1,,ResQueue,http://bitcamp2018.devpost.com/submissions/92502-resqueue,"Inspiration
+",https://github.com/bephrem1/impulse,"Best Designed Investor Education Product - Finra, Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",No,bephrem1,,
+ResQueue,http://bitcamp2018.devpost.com/submissions/92502-resqueue,"Inspiration
 
 Both of us came into Bitcamp this year solo, but after realizing similarities in our ideas we decided to team up to build an app about preparing for natural disasters and extreme weather events.
 
@@ -3458,7 +3589,8 @@ We became very familiar with programming in Java in Android Studio. Specifically
 What's next for ResQueue
 
 We hope to perfect the functionality that we weren't able to fully flush out. We would like to increase the efficiency of the code, as well as the readability and organization. This could definitely be useful to the public, and if not directly used, at least it could inspire others to create effective solutions to natural disasters.
-",,"Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Philanthropic Hack - Bloomberg, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton",No,,,pepsi obituary ,http://bitcamp2018.devpost.com/submissions/92503-pepsi-obituary,"Inspiration
+",,"Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Philanthropic Hack - Bloomberg, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton",No,,,
+pepsi obituary ,http://bitcamp2018.devpost.com/submissions/92503-pepsi-obituary,"Inspiration
 
 i was riding a boosted board indoors. i accidentally sent the board shooting towards a table and ended up knocking a pepsi can over.
 
@@ -3485,7 +3617,8 @@ not all heroes wear capes..
 What's next for pepsi obituary
 
 perpetual reminder of fallen pepsi cans all throughout the world
-",,,,,,Arkmo,http://bitcamp2018.devpost.com/submissions/92504-arkmo,"Inspiration
+",,,,,,
+Arkmo,http://bitcamp2018.devpost.com/submissions/92504-arkmo,"Inspiration
 
 This december, when the price of bitcoin was skyrocketing, there was also an influx of people who don't understand how blockchains work to entering the cryptocurrency space. Then as the price started to fall, people seemingly lost what they had once seen in cryptocurrency, as if it's only purpose was an investment. The finance world is on the verge of a complete transformation, but the systems created by coders for coders are holding back the entire cryptocurrency ecosystem from being widely adopted.
 
@@ -3496,7 +3629,8 @@ More specifically we looked at the hurdles that discourage people from diving de
 We designed and implemented a request blockchain that allows users to create a transaction that has to be confirmed by the receiving party, where the transaction can be revoked before the receiving party confirms. This layer seemingly adds complexity, but it has parallels to how we physically interact with money, as well as prevents users from losing funds forever due to a typo.  This as well as an intuitive naming system allows for a much more approachable cryptocurrency experience 
 
 Our blockchain was designed to be cryptocurrency agnostic so that any cryptocurrency could add a layer on top to  that any cryptocurrency can use it, leaving no excuse for leading cryptocurrencies to continue to be prohibitive to newcomers.
-",https://github.com/CharlesBradshaw/arkmo-chain,"Decentralise Everything: Blockchain challenge - Ark, Most Futuristic Hack - Paypal, Amazon Web Services - Best Use of AWS, Best Financial Hack - Capital One, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,Market Vote,http://bitcamp2018.devpost.com/submissions/92505-market-vote,"Inspiration
+",https://github.com/CharlesBradshaw/arkmo-chain,"Decentralise Everything: Blockchain challenge - Ark, Most Futuristic Hack - Paypal, Amazon Web Services - Best Use of AWS, Best Financial Hack - Capital One, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,
+Market Vote,http://bitcamp2018.devpost.com/submissions/92505-market-vote,"Inspiration
 
 x
 
@@ -3511,7 +3645,8 @@ Accomplishments that I'm proud of
 What I learned
 
 What's next for Market Vote
-",,Decentralise Everything: Blockchain challenge - Ark,,,,Finra Design Challenge,http://bitcamp2018.devpost.com/submissions/92506-finra-design-challenge,"Inspiration
+",,Decentralise Everything: Blockchain challenge - Ark,,,,
+Finra Design Challenge,http://bitcamp2018.devpost.com/submissions/92506-finra-design-challenge,"Inspiration
 
 What it does
 
@@ -3530,7 +3665,8 @@ Accomplishments that we're proud of
 What we learned
 
 What's next for Finra Design Challenge
-",https://drive.google.com/file/d/1XVYwgutwF2HsEHYP26EIDi3fg5yx7HtZ/view?usp=sharing,Best Designed Investor Education Product - Finra,,,,Interactive Projection Mapping,http://bitcamp2018.devpost.com/submissions/92508-interactive-projection-mapping,"Inspiration
+",https://drive.google.com/file/d/1XVYwgutwF2HsEHYP26EIDi3fg5yx7HtZ/view?usp=sharing,Best Designed Investor Education Product - Finra,,,,
+Interactive Projection Mapping,http://bitcamp2018.devpost.com/submissions/92508-interactive-projection-mapping,"Inspiration
 
 I've loved the idea of projection mapping forever, seeing giant buildings pulse and move like they were cg in real life. Iw wanted to try and recreate it 
 
@@ -3555,7 +3691,8 @@ Pretty much everything, Processing was new to me, and kind of the design process
 What's next for Interactive Projection Mapping
 
 Gotta make it bigger 
-",,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook","Yes, behind walmart's table but table B8",,,BitByBit,http://bitcamp2018.devpost.com/submissions/92509-bitbybit,"Inspiration
+",,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook","Yes, behind walmart's table but table B8",,,
+BitByBit,http://bitcamp2018.devpost.com/submissions/92509-bitbybit,"Inspiration
 
 Chrome's Dino game and Super Mario Bros.  
 
@@ -3582,7 +3719,8 @@ That vectors are super convenient, and much less annoying than arrays.  Also tha
 What's next for BitByBit
 
 bug fixesâ€“especially better stability
-",https://github.com/fyang9297/Platform,Best Hack (be passionate) - Facebook,,,,ChromaAR,http://bitcamp2018.devpost.com/submissions/92510-chromaar,"Inspiration
+",https://github.com/fyang9297/Platform,Best Hack (be passionate) - Facebook,,,,
+ChromaAR,http://bitcamp2018.devpost.com/submissions/92510-chromaar,"Inspiration
 
 Five percent of people in the world suffer from some kind of colorblindness, including one of our close friends. Being colorblind introduces inconveniences into modern life, making some of the easiest tasks impossible. We realized that these inconveniences could be addressed with augmented reality. 
 
@@ -3609,7 +3747,8 @@ We both came in with the intent of learning new software, which we accomplished.
 What's next for Chroma
 
 Now that the base filter functionality is developed, there are several next steps. First, the AR mode can be improved with support for external cameras and further work in reducing distortion. Next, the filters can be improved by reducing noise detection as well as increasing edge fidelity. Development for Chroma will be continued on Google Play.
-",https://play.google.com/store/apps/details?id=qian.ninja.chroma,"Using Virtual Reality Technology Design the Best Manufacturing Facility - Lockheed Martin, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Most Futuristic Hack - Paypal, Best Domain Name from Domain.com, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund","Yes, O4",,,KruskalMadness,http://bitcamp2018.devpost.com/submissions/92511-kruskalmadness,"There comes a day when every young computer science major must face great challenges, and rise to the occasion of their newfound responsibility.  But few ever suspect that the day could come so soon.
+",https://play.google.com/store/apps/details?id=qian.ninja.chroma,"Using Virtual Reality Technology Design the Best Manufacturing Facility - Lockheed Martin, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Most Futuristic Hack - Paypal, Best Domain Name - Domain.com, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund","Yes, O4",,,
+KruskalMadness,http://bitcamp2018.devpost.com/submissions/92511-kruskalmadness,"There comes a day when every young computer science major must face great challenges, and rise to the occasion of their newfound responsibility.  But few ever suspect that the day could come so soon.
 
 Imagine.  You are a fresh computer science undergraduate, full of hope, and with a bright future ahead of you.  You sign up for this exciting class, CMSC 351, algorithms with Kruskal.  The man, the myth, the legend.  Kruskal.  
 
@@ -3622,7 +3761,8 @@ Ahead of you lies what can only be described as a war zone.  Papers and old bott
 He beacons you over, waiting as if to give you an important message.  With great trepidation, you begin your trek across the hallowed ground. 
 
 May god have mercy on your soul.
-",https://github.com/abrassel/KruskalMadness,"Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",No,,,Badger AR,http://bitcamp2018.devpost.com/submissions/92512-badger-ar,"Inspiration
+",https://github.com/abrassel/KruskalMadness,"Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",No,,,
+Badger AR,http://bitcamp2018.devpost.com/submissions/92512-badger-ar,"Inspiration
 
 We are participants in a augmented reality/virtual reality research program and wanted to gain experience using Unity to develop AR applications.
 
@@ -3649,7 +3789,8 @@ C#, Unity, Blender, Vuforia, etc.
 What's next for Badger AR
 
 Abstracting our UI so that users can import their own models and image targets for design.
-",,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",It does not,ishans1999,eschwe333,Pres.io,http://bitcamp2018.devpost.com/submissions/92513-pres-io,"Inspiration
+",,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",It does not,ishans1999,eschwe333,
+Pres.io,http://bitcamp2018.devpost.com/submissions/92513-pres-io,"Inspiration
 
 Plays a game of Pres between 4 different people
 
@@ -3662,7 +3803,8 @@ Creating a node.js game in less than 6 hours
 How to use node.js for backend
 
 Probably going to become a standalone website and maybe a mobile app
-",http://127.0.0.1:1337/,Best Hack (be passionate) - Facebook,Tabel 13,,,Everybody Hates Chris,http://bitcamp2018.devpost.com/submissions/92514-everybody-hates-chris,"Inspiration
+",http://127.0.0.1:1337/,Best Hack (be passionate) - Facebook,Tabel 13,,,
+Everybody Hates Chris,http://bitcamp2018.devpost.com/submissions/92514-everybody-hates-chris,"Inspiration
 
 Most demographic data, such as from the census, focuses focuses on objectively verifiable facts, but we think it is equally important to analyze trends in public perception. We picked the representative question ""how much does the nation hate Chris?"" and tried to analyze variations in public sentiment over time.
 
@@ -3689,7 +3831,8 @@ All of us gained experience designing a scalable implementation of our idea, and
 What's next for Everyone Hates Chris
 
 We want to scale this up into a more general sentiment analyzer - given a question, we wish to have a database of datasets from which we can automatically extract trends.
-",https://nathan-kesavan.maps.arcgis.com/apps/TimeAware/index.html?appid=3748ef1daf7543658a2fc88d1ccaaec3,"Best Hack with Esri APIs and SDKs - Esri, Most Unique Hack - 1517 Fund",No,alimanan1525,09wakharet,HomefromHome: Housing Market GIS,http://bitcamp2018.devpost.com/submissions/92515-homefromhome-housing-market-gis,"Login Information:
+",https://nathan-kesavan.maps.arcgis.com/apps/TimeAware/index.html?appid=3748ef1daf7543658a2fc88d1ccaaec3,"Best Hack with Esri APIs and SDKs - Esri, Most Unique Hack - 1517 Fund",No,alimanan1525,09wakharet,
+HomefromHome: Housing Market GIS,http://bitcamp2018.devpost.com/submissions/92515-homefromhome-housing-market-gis,"Login Information:
 
 Username: navalmonga
 
@@ -3726,7 +3869,8 @@ I have learned that software development can expand whole markets and industries
 What's next for HomefromHome: Housing Market GIS
 
 We plan on expanding the web application to run with ReactNative. This will allow users of all platforms to experience the visualization and gain more insight on the housing market's current status.
-",https://mongatech.maps.arcgis.com/apps/webappviewer/index.html?id=d387c2abff7e4668b9d2a834eeae2edd,"Best Hack with Esri APIs and SDKs - Esri, Housing insights â€œin-betweenâ€ù Datasets - Fannie Mae, Best Hack (be passionate) - Facebook",,,,Stock Racer,http://bitcamp2018.devpost.com/submissions/92516-stock-racer,"How this idea came about
+",https://mongatech.maps.arcgis.com/apps/webappviewer/index.html?id=d387c2abff7e4668b9d2a834eeae2edd,"Best Hack with Esri APIs and SDKs - Esri, Housing insights â€œin-betweenâ€ù Datasets - Fannie Mae, Best Hack (be passionate) - Facebook",,,,
+Stock Racer,http://bitcamp2018.devpost.com/submissions/92516-stock-racer,"How this idea came about
 
 As we were throwing together ideas, we realized a lot of companies wanted to see a project involving finance. A large aspect of finance in modern society is the stock market. It also quickly became clear how little we knew about this topic. It also sounded like a lot of other people had similar lack of knowledge in this area.  After researching for a little while, we had an idea to create an educational web app that could help the average person learn to become more comfortable choosing and investing in stock without the fear of losing their real money. The more that people are educated on the different aspects of finance, particularly stocks, the faster they can achieve financial security.
 
@@ -3749,7 +3893,8 @@ We learned how to use MongoDB-Stitch to provide a database for a web app.
 What's next for Stock Racer
 
 Next would be to polish out the UX till it gleams and debug the code to seamlessly pull information from real-time stock prices.
-",http://www.stockracer.net,"Best Designed Investor Education Product - Finra, Best Domain Name from Domain.com, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",we can move,EricMGao,robbieguy98,ByteTheBudget,http://bitcamp2018.devpost.com/submissions/92517-bytethebudget,"Inspiration
+",http://www.stockracer.net,"Best Designed Investor Education Product - Finra, Best Domain Name - Domain.com, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",we can move,EricMGao,robbieguy98,
+ByteTheBudget,http://bitcamp2018.devpost.com/submissions/92517-bytethebudget,"Inspiration
 
 As students, we have been put through boring types of learning in a day to day basis. We found games to be engaging and the best way for us to focus while learning. So we believed this application was an attempt to gamify learning about money management to make it not only entertaining for students but of people of all ages.
 
@@ -3776,7 +3921,8 @@ We learned how to use databases, web development languages and apis such as java
 What's next for ByteTheBudget
 
 Next step is hopefully to implement levels so player feel more of an incentive to play. This will also come with the addition of more scenarios to make it more entertaining aswell as difficulty. We will see about adding upgrades players can purchase for sense of progress. Lastly would be to balance the game fairly.
-",http://bytethebudget.com/,"Best Designed Investor Education Product - Finra, Amazon Web Services - Best Use of AWS, Best Domain Name from Domain.com, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,yang573,,NextUp,http://bitcamp2018.devpost.com/submissions/92518-nextup,"Inspiration
+",http://bytethebudget.com/,"Best Designed Investor Education Product - Finra, Amazon Web Services - Best Use of AWS, Best Domain Name - Domain.com, Best Financial Hack - Capital One, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,yang573,,
+NextUp,http://bitcamp2018.devpost.com/submissions/92518-nextup,"Inspiration
 
 When a healthcare physician has a cancellation, money is lost. Our product aims to fill this gap by easily making cancellations into availabilities for others.
 
@@ -3803,7 +3949,8 @@ We learned a lot of UX and UI, and a lot of backend technologies
 Whatâ€™s next for NextUp
 
 This coming Monday, one of our teammates will be presenting this idea to a person from industry. The idea came from a need that this guy pointed out.
-",,"Best use of SparkPost API - SparkPost, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,BlakeJoynes,esteininger,Sign language to text,http://bitcamp2018.devpost.com/submissions/92519-sign-language-to-text,"Inspiration
+",,"Best use of SparkPost API - SparkPost, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,BlakeJoynes,esteininger,
+Sign language to text,http://bitcamp2018.devpost.com/submissions/92519-sign-language-to-text,"Inspiration
 
 Create a sign language interpreter.
 
@@ -3814,7 +3961,8 @@ changes ASL to text.
 How I built it
 
 Uses the leap motion to track hand motions and translate them into text. 
-",https://github.com/DannyRong/bitcamp2018,,,,,Myracle,http://bitcamp2018.devpost.com/submissions/92520-myracle,"Inspiration
+",https://github.com/DannyRong/bitcamp2018,,,,,
+Myracle,http://bitcamp2018.devpost.com/submissions/92520-myracle,"Inspiration
 
 We all love music, we love singing along even more
 
@@ -3842,7 +3990,8 @@ The most basic fundamentals can take ridiculous amounts of time in java if the p
 What's next for Myracle
 
 Audio stream fingerprint integration! Our program will recognize the audio played around the device, and then provide the user lyrics for ease of access plus adding a different realm of functionality.
-",,,,John46,fuzzymohammad,PostL8r,http://bitcamp2018.devpost.com/submissions/92521-postl8r,"Inspiration
+",,,,John46,fuzzymohammad,
+PostL8r,http://bitcamp2018.devpost.com/submissions/92521-postl8r,"Inspiration
 
 Idea was brought out by necessity
 
@@ -3869,7 +4018,8 @@ A new web framework
 What's next for PostL8r
 
 Full email service? More features?
-",https://github.com/Mr-Wonbot/PostL8r,Best use of SparkPost API - SparkPost,,,,Face 2 Recommendation ,http://bitcamp2018.devpost.com/submissions/92522-face-2-recommendation,"Inspiration
+",https://github.com/Mr-Wonbot/PostL8r,Best use of SparkPost API - SparkPost,,,,
+Face 2 Recommendation ,http://bitcamp2018.devpost.com/submissions/92522-face-2-recommendation,"Inspiration
 
 Try searching ""Movies for age 25 Female/Male"" on search engine or ""Clothes for Women of age 30"" on E-commerce websites . The search results will contradicts with your query like you will see results of baby dress instead of women of age 25. This was the seed for our idea. We did research on our first day of Bitcamp for recommendations based on gender and age. We later came across a recent case study conducted in January 2018 - Face Based Advertisement Recommendation with Deep Learning: A Case Study. According to the paper a Face Based Advertisement Recommendation System (FBARS) could raise the accuracy 4 times.
 
@@ -3896,7 +4046,8 @@ The facial features such as age, gender, can help us classify consumers intuitiv
 What's next for Face 2 Recommendation
 
 More squeezed Neural Network that can be deployed on iPhone or Android devices. A more robust model can be developed to recommend Clothing, Life-style, Music, Restaurants, Travel Destinations, etc.
-",https://github.com/dk67604/face_recommendation,"Housing insights â€œin-betweenâ€ù Datasets - Fannie Mae, Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,RakeshBhavsar,,Gift It: An iOS and Android Native Platform for Gifts,http://bitcamp2018.devpost.com/submissions/92523-gift-it-an-ios-and-android-native-platform-for-gifts,"Inspiration
+",https://github.com/dk67604/face_recommendation,"Housing insights â€œin-betweenâ€ù Datasets - Fannie Mae, Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,RakeshBhavsar,,
+Gift It: An iOS and Android Native Platform for Gifts,http://bitcamp2018.devpost.com/submissions/92523-gift-it-an-ios-and-android-native-platform-for-gifts,"Inspiration
 
 This idea spawned off of our passion to do better at the exchange of gifts. I have always been a last minute gift buyer and I know that I can do better. Thus, Eric and I started a mobile platform to address this issue and have come to tackle and implement interesting features along the way
 
@@ -3927,7 +4078,8 @@ Have fun, this is a hackathon after all.
 What's next for Gift It: An iOS and Android Native Platform for Gifts
 
 We plan to continue our efforts and develop a go-to market plan.
-",,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,Bunny Atsume,http://bitcamp2018.devpost.com/submissions/92524-bunny-atsume,"Inspiration
+",,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,
+Bunny Atsume,http://bitcamp2018.devpost.com/submissions/92524-bunny-atsume,"Inspiration
 
 Neko Atsume is one of the greatest games in the whole wide iOS universe and I'm a first time iOS developer and wanted to replicate the game but with bunnies. 
 
@@ -3954,7 +4106,8 @@ Swift and macOS
 What's next for Bunny Atsume
 
 World domination
-",,,,,,Career-Connectzy,http://bitcamp2018.devpost.com/submissions/92525-career-connectzy,"Inspiration
+",,,,,,
+Career-Connectzy,http://bitcamp2018.devpost.com/submissions/92525-career-connectzy,"Inspiration
 
 Our application simply helps students reach out to employers a little easier and more efficiently to land up in a dream company. 
 
@@ -4001,7 +4154,8 @@ We are really happy that we learned to integrate MongoDB Stitch (Beta) and Shark
 What's next for Career-Connectzy
 
 We feel Career Connectzy could be a really useful application and benefit students finding right jobs and internships during college studies. This application is not limited just for career fair implementation but also for out business tech expos who wish to collect statistical data. We are interested in bringing forward this solution and venture into other possibilities in todayâ€™s market. 
-",https://github.com/Aswinnatesh/Career-Connectzy,"Best use of SparkPost API - SparkPost, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Domain Name from Domain.com, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,Viper,http://bitcamp2018.devpost.com/submissions/92526-viper,"Inspiration
+",https://github.com/Aswinnatesh/Career-Connectzy,"Best use of SparkPost API - SparkPost, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Domain Name - Domain.com, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,
+Viper,http://bitcamp2018.devpost.com/submissions/92526-viper,"Inspiration
 
 Jupyter Notebooks have brought data science visualization to everyone. The breadth of frameworks and modules available to python developers for data science allows anyone to analyze data, but there exists a gap when it comes time to scale your data science pipeline.
 
@@ -4022,7 +4176,8 @@ Join the cluster!
 A viper market place is coming soon! With this new feature, you can get paid for your extra compute power!
 
 https://github.com/jpurviance/viper
-",,,,,,PlanetTerp Scheduler,http://bitcamp2018.devpost.com/submissions/92527-planetterp-scheduler,"Inspiration
+",,,,,,
+PlanetTerp Scheduler,http://bitcamp2018.devpost.com/submissions/92527-planetterp-scheduler,"Inspiration
 
 Last November, I started a website called PlanetTerp, with the goal of creating a website that would help students at the University of Maryland â€” College Park make informed decisions. The website includes professor & TA reviews, a discussion board, grade data, and various tools.
 
@@ -4045,7 +4200,8 @@ I built the tool using the Python web framework web.py. The tool uses MySQL to s
 Challenges I ran into
 
 Creating an algorithm to generate all possible schedules. The algorithm still isn't perfect -- inputting many courses with many sections makes the tool take a long time to run. I'm working on improving the speed of generating schedules.
-",,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook",,,,politiscribe,http://bitcamp2018.devpost.com/submissions/92528-politiscribe,"Inspiration
+",,"Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook",,,,
+politiscribe,http://bitcamp2018.devpost.com/submissions/92528-politiscribe,"Inspiration
 
 We are disappointed in the current state of affairs and wish that there was an easier way to get involved in politic. Campaigning is not only requires time but a lot of resources. This often put the little man at a significant disadvantage. As a result, most are discourage from even trying, so we want to build something to even the playing field.
 
@@ -4074,7 +4230,8 @@ We learned how to utilized MongoDB Stitch as backend API. Used Ark Client to lea
 What's next for politiscribe
 
 We will continue to develop our platform and explore it potential using Blockchain technology. Our goal is to have a political social media platform that guarantee transparency.
-",https://github.com/tlrwgnr/politiscribe_api,"Decentralise Everything: Blockchain challenge - Ark, Most Futuristic Hack - Paypal, Amazon Web Services - Best Use of AWS, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook",No,xli28,Ishroom,EZ-Cal,http://bitcamp2018.devpost.com/submissions/92529-ez-cal,"Inspiration
+",https://github.com/tlrwgnr/politiscribe_api,"Decentralise Everything: Blockchain challenge - Ark, Most Futuristic Hack - Paypal, Amazon Web Services - Best Use of AWS, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook",No,xli28,Ishroom,
+EZ-Cal,http://bitcamp2018.devpost.com/submissions/92529-ez-cal,"Inspiration
 
 What it does
 
@@ -4087,7 +4244,8 @@ Accomplishments that we're proud of
 What we learned
 
 What's next for EZ-Cal
-",https://github.com/chasew/EZ_Time_Bitcamp,,,samiso443,,GeoChain,http://bitcamp2018.devpost.com/submissions/92530-geochain,"Inspiration
+",https://github.com/chasew/EZ_Time_Bitcamp,,,samiso443,,
+GeoChain,http://bitcamp2018.devpost.com/submissions/92530-geochain,"Inspiration
 
 Satoshi
 
@@ -4121,7 +4279,8 @@ We see many possible use cases for this tech in the future, some of which includ
 Businesses and events driving more customers to their locations through incentive rewards
 50/50 style raffles that often already occur at large events to draw more customers
 Applications in online dating, and meeting people online, to create trust if you plan a meeting in the physical world
-",https://rinkeby.etherscan.io/tx/0xd3d529e959fa330db30da61b430b5b229eba6d934c981890bec0bfbf18f49b77,"Decentralise Everything: Blockchain challenge - Ark, Best Hack (be passionate) - Facebook",No,,,P2P Microfinance,http://bitcamp2018.devpost.com/submissions/92531-p2p-microfinance,"Inspiration
+",https://rinkeby.etherscan.io/tx/0xd3d529e959fa330db30da61b430b5b229eba6d934c981890bec0bfbf18f49b77,"Decentralise Everything: Blockchain challenge - Ark, Best Hack (be passionate) - Facebook",No,,,
+P2P Microfinance,http://bitcamp2018.devpost.com/submissions/92531-p2p-microfinance,"Inspiration
 
 Last semester in our Entrepreneurship and Innovation class, we participated in an activity called the GumBall challenge. The GumBall challenge was a micro-financing activity where teams of 4 students were provided $27 and 27 gumballs and told to make as much money as they could in a week. Micro-financing was originally formulated by Muhammad Yunus, the founder of the Grameen Bank. The micro-financing scheme helps people in these third world countries build small businesses in the scope of their village by providing them with the capital to jump start their businesses. We wanted this chance to be available to more people so we came up with the idea of crowdsourcing the money required for microfinancing.
 
@@ -4148,7 +4307,8 @@ We learned alot about NoSQL database creation
 What's next for P2P Microfinance
 
 Move the database to a blockchain ledger along with implementing actual financial transfer protocols.
-",https://github.com/adharsh/P2PMicrofinanceBorrower.git,"Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,,,Mr. Don't Blink,http://bitcamp2018.devpost.com/submissions/92532-mr-don-t-blink,"How the team formed
+",https://github.com/adharsh/P2PMicrofinanceBorrower.git,"Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,,,
+Mr. Don't Blink,http://bitcamp2018.devpost.com/submissions/92532-mr-don-t-blink,"How the team formed
 
 We all met near the campfire site during Team Formation. I came with a friend, and the both of us are the most indecisive pair with a ton of different ideas we want to implement, so we were holding the white sticky notes for the random, just-for-fun ideas to find others who would be interested to integrate their skills to build a web application (or a VR game? Or a race car VR game?) We met another pair of people who were just as lost as to what exactly they wanted to do and negative + negative = positive! We clicked and stuck to an idea.
 
@@ -4179,7 +4339,8 @@ How important communication between team members is.
 What's next for Mr. Don't Blink
 
 Our application trains machines to detect minute changes in people's expressions (specifically, blinking).  This technology could be enhanced and expanded to include a variety of facial features and be used as a visual lie-detector during police interrogations, as part of a background check (along with polygraphs), or further used to study patients with mental complications.
-",http://getstartednode-shiny-porcupine.mybluemix.net/,"Best Digital Forensic Hack - Cipher Tech Solutions, Using Virtual Reality Technology Design the Best Manufacturing Facility - Lockheed Martin, Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",Table S4,,,Twitter to Physical Arduino Interface,http://bitcamp2018.devpost.com/submissions/92533-twitter-to-physical-arduino-interface,"Inspiration
+",http://getstartednode-shiny-porcupine.mybluemix.net/,"Best Digital Forensic Hack - Cipher Tech Solutions, Using Virtual Reality Technology Design the Best Manufacturing Facility - Lockheed Martin, Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",Table S4,,,
+Twitter to Physical Arduino Interface,http://bitcamp2018.devpost.com/submissions/92533-twitter-to-physical-arduino-interface,"Inspiration
 
 One of our biggest inspirations was Twitch Plays Pokemon. Ever since seeing other people controlling a single computer we have wanted to implement a similar system ourselves. With our Twitter to Arduino interface, we have been able to take a big step in achieving this goal!
 
@@ -4206,7 +4367,8 @@ Firstly, we learned Python! Before this project we did not know a single line of
 What's next for Twitter to Physical Arduino Interface
 
 Next up, we want to try and control an Arduino powered car, and possibly create our own version of Twitch Plays Pokemon, except with a robot instead of a Pokemon game!
-",https://twitter.com/_Blink_Bot_,,No,,,Art of Dance,http://bitcamp2018.devpost.com/submissions/92534-art-of-dance,"Inspiration
+",https://twitter.com/_Blink_Bot_,,No,,,
+Art of Dance,http://bitcamp2018.devpost.com/submissions/92534-art-of-dance,"Inspiration
 
 DANCE
 
@@ -4248,7 +4410,8 @@ How to use image generation tools like processing as well as neural network APIs
 What's next for Art of Dance
 
 We want to look more into training a neural network to process our images out of a mostly geometric scope into a more creative and abstract artistic perspective of beauty of motion. We would also like to look into developing our own machine learning algorithm that can detect when a particular image generation method is colorful enough and saves that as a valid option for data representation.
-",https://github.com/feteru/SMEGmark,"Best use of SparkPost API - SparkPost, Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",No,samslew,enorman1615,Resume Website,http://bitcamp2018.devpost.com/submissions/92535-resume-website,"Inspiration
+",https://github.com/feteru/SMEGmark,"Best use of SparkPost API - SparkPost, Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",No,samslew,enorman1615,
+Resume Website,http://bitcamp2018.devpost.com/submissions/92535-resume-website,"Inspiration
 
 What it does
 
@@ -4261,7 +4424,8 @@ Accomplishments that I'm proud of
 What I learned
 
 What's next for Resume Website
-",https://github.com/mercyspirit/ResumeBuilder.git,,,,,Rucksac,http://bitcamp2018.devpost.com/submissions/92538-rucksac,"Inspiration
+",https://github.com/mercyspirit/ResumeBuilder.git,,,,,
+Rucksac,http://bitcamp2018.devpost.com/submissions/92538-rucksac,"Inspiration
 
 Many times people want to travel together but have to use a plethora of apps such as Splitwise, Google Maps, Whatsapp etc., to aid them in their journey. When friends want to travel together, it is required to have all these different apps which might be cumbersome. Our aim is to solve this problem by incorporating all travel related activities in a single app that would benefit all travelers. 
 
@@ -4290,7 +4454,8 @@ We learned on how to use Firebase, Android Studio and Adobe XD for this app
 What's next for Rucksac
 
 We wish to make a fully functional app that includes all the features mentioned above and launch it in the playstore.
-",https://marvelapp.com/44bdi7b/,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",No,AkshayRajaraman,,Carify,http://bitcamp2018.devpost.com/submissions/92539-carify,"Inspiration
+",https://marvelapp.com/44bdi7b/,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",No,AkshayRajaraman,,
+Carify,http://bitcamp2018.devpost.com/submissions/92539-carify,"Inspiration
 
 We were looking at the Credible's challenge and we thought that why don't we create something so that the kids under 12 years old will never get lost
 
@@ -4315,7 +4480,8 @@ What I learned
 I learned how to use Node js
 
 What's next for Carify
-",,"Best use of SparkPost API - SparkPost, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Domain Name from Domain.com, Best Hack (be passionate) - Facebook",No,,,CrowdWings,http://bitcamp2018.devpost.com/submissions/92540-crowdwings,"Inspiration
+",,"Best use of SparkPost API - SparkPost, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Domain Name - Domain.com, Best Hack (be passionate) - Facebook",No,,,
+CrowdWings,http://bitcamp2018.devpost.com/submissions/92540-crowdwings,"Inspiration
 
 we found, from personal experience, it is super frustrating that there is a large barrier for investments in early-stage startups. These startups required angel investing in order to make the desired impact. However, this level of funding is not available for a normal person that is just excited to invest in a new startup and wants to see this startup succeed. Marketplaces such as Kickstarter allow startups to crowdfund but do not give the crowd a stake in the company, they only provide the finished product. The investors are not part of the decision making of the company. 
 
@@ -4346,7 +4512,8 @@ We learned about this new industry of crowdfunding equity. We also learned about
 What's next for Crowd Wings
 
 We will polish off the website from feedback during the demos. Then we plan to open CrowdWings up to a beta audience. Once we have a minimum viable product and real users we hope to obtain funding to quickly scale into this emerging industry.
-",http://crowdwings.eastus.cloudapp.azure.com/,"Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,PetersonJoshua,AlexandraKemper,YouTune,http://bitcamp2018.devpost.com/submissions/92542-youtune,"Inspiration: Blind people, Musicians
+",http://crowdwings.eastus.cloudapp.azure.com/,"Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,PetersonJoshua,AlexandraKemper,
+YouTune,http://bitcamp2018.devpost.com/submissions/92542-youtune,"Inspiration: Blind people, Musicians
 
 What it does: Finds out the orientation and position of fingers using leap motion and plays a sound based on it.
 
@@ -4359,7 +4526,8 @@ Accomplishments that I'm proud of: Multiple tones can be played when multiple fi
 What I learned: Importance of teamwork, innovation and consistent efforts.
 
 What's next for YouTune: Configure it with Cortana or Google assistant to help physically challenged people.
-",,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",No,granaj91,,InvestRobo,http://bitcamp2018.devpost.com/submissions/92544-investrobo,"Inspiration
+",,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",No,granaj91,,
+InvestRobo,http://bitcamp2018.devpost.com/submissions/92544-investrobo,"Inspiration
 
 A good investment leads to a promised future
 
@@ -4386,7 +4554,8 @@ We learned ScikitLearn and matplotlib in order to achieve the algorithm.
 What's next for InvestRobo
 
 To build upon the Graphical User Interface.
-",https://github.com/vardhanpatel/InvestRobo,"Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund",No,jonathanconn29,,VocalLearn,http://bitcamp2018.devpost.com/submissions/92545-vocallearn,"Inspiration
+",https://github.com/vardhanpatel/InvestRobo,"Best Financial Hack - Capital One, Most Unique Hack - 1517 Fund",No,jonathanconn29,,
+VocalLearn,http://bitcamp2018.devpost.com/submissions/92545-vocallearn,"Inspiration
 
 What it does
 
@@ -4401,8 +4570,10 @@ Accomplishments that we're proud of
 What we learned
 
 What's next for VocalLearn
-",https://github.com/christian-rncl/VocaLearn,"Amazon Web Services - Best Use of AWS, Best Domain Name from Domain.com, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,shane-miller,,One Percent Closer,http://bitcamp2018.devpost.com/submissions/92548-one-percent-closer,"This app will track your bank transactions and round up to the nearest dollar, donating your spare change to charities of your choice automatically.
-",http://54.237.223.80:3000/,"Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook",,,,Hospital Databases,http://bitcamp2018.devpost.com/submissions/92573-hospital-databases,"Inspiration
+",https://github.com/christian-rncl/VocaLearn,"Amazon Web Services - Best Use of AWS, Best Domain Name - Domain.com, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,shane-miller,,
+One Percent Closer,http://bitcamp2018.devpost.com/submissions/92548-one-percent-closer,"This app will track your bank transactions and round up to the nearest dollar, donating your spare change to charities of your choice automatically.
+",http://54.237.223.80:3000/,"Best Financial Hack - Capital One, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook",,,,
+Hospital Databases,http://bitcamp2018.devpost.com/submissions/92573-hospital-databases,"Inspiration
 
 We began with the challenge of Best Hack for Aiding Natural Disaster Recovery Efforts by Booz Allen Hamilton. We decided that one of the most important aspects of recovery efforts is being able to provide proper care for the wounded and dying. Often a lack of resources prevents hospitals from properly performing their job. To help fix this issue we wanted to create a database only accessible by hospitals. They would use this database to update their own inventory and view the inventory of nearby hospitals. This would allow them to find the resources that they need and request them from one of the hospitals in the database rather than placing an order with their provider and waiting for a shipment. The goal is that this database could help save lives of those affected specifically by natural disasters.
 
@@ -4435,7 +4606,8 @@ White-list IPs for security
 Verify that a username is available
 Verify that the ID and item name match
 Remove user option
-",https://github.com/lan99/Hospital-Database,"Best Philanthropic Hack - Bloomberg, Best Use of MongoDB Stitch - MongoDB, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton",no,sgarciabeech,,Augmented Reality to Overcome Dyslexia ,http://bitcamp2018.devpost.com/submissions/92588-augmented-reality-to-overcome-dyslexia,"The Problem
+",https://github.com/lan99/Hospital-Database,"Best Philanthropic Hack - Bloomberg, Best Use of MongoDB Stitch - MongoDB, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton",no,sgarciabeech,,
+Augmented Reality to Overcome Dyslexia ,http://bitcamp2018.devpost.com/submissions/92588-augmented-reality-to-overcome-dyslexia,"The Problem
 
 1 out of 10 people worldwide are affected by learning disabilities and the most common one is dyslexiaâ€‹. Dyslexia lowers student self esteem and these students are 3 times more likely to drop out of school  and 2 times more likely to be suspended than that of their general education peers.â€‹ As well as making learning to read and write more difficult for individuals, it also affects their families and the surrounding community.
 
@@ -4459,3 +4631,5 @@ Timeline
 
 We came into BitCamp with the preliminary research done on this project. During our time here, we focused on learning how to best use Unity for the rendering we will need to do and Tesseract for the image processing component. Because we plan to continue working on this project over the next 2 years we are at UMD, we are willing to wait for customer feedback since it will ultimately better aid the design of the device. By the end of this semester, we are hoping to send out surveys to gather feedback from the target market. We will continue working to develop this device through all of next year and hope to test on participants in the year after. We plan to follow the iterative design process so we can continue to update and improve our deviceâ€™s performance during the testing stages. 
 ",,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,,,
+,,,,,,,,
+,,,,,,,,

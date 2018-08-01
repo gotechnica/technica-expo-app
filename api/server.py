@@ -10,6 +10,7 @@ app.config.from_object('config')
 mongo = PyMongo(app)
 password = "860982837d50e33a2433ba84aab9b29c"
 
+
 @app.route('/')
 def hello():
     return "Welcome to the Technica Expo App!"
@@ -143,6 +144,7 @@ def get_all_companies():
         output.append(temp_company)
 
     return jsonify({'All Companies' : output})
+
 
 @app.route('/api/projects/delete', methods=['DELETE'])
 def delete_project():

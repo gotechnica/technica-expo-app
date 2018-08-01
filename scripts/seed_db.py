@@ -51,23 +51,25 @@ def number_to_table(number):
 
 # checks if hacker responds with a table number, so they can't move
 def needs_to_stay(response):
-    return re.search('(\w\d+)', response)
+    return re.search('([a-zA-Z]+\d+)', response)
 
 
 # best domain name......
 def format_challenges(attempted_challenges):
+    if attempted_challenges is "":
+        return ""
     output = []
     challenges = attempted_challenges.split(',')
     for challenge in challenges:
         data = challenge.split(' - ')
-        print(data)
         prize = {
             'company': data[1],
             'challenge': data[0],
             'winner': 'false'
         }
         output.append(prize)
-    return jsonify({'Attempted Challenges': output})
+        json_output = json.dumps(output)
+    return json_output
 
 
 def already_in_db():
@@ -80,33 +82,51 @@ def already_in_db():
 # parses devpost csv and separates hackers into two groups
 # can't move: assigns table and spot, adds notMoving list
 # can move: adds to moving list
-def parseCSV(reader):
+def parse_CSV(reader):
     already_stored = already_in_db()
     for row in reader:
         project_name = row["Submission Title"]
         project_url = row["Submission Url"]
-        #attempted_challenges = format_challenges(row["Desired Prizes"])
-        attempted_challenges = row["Desired Prizes"]
+        attempted_challenges = format_challenges(row["Desired Prizes"])
+        #attempted_challenges = row["Desired Prizes"]
+        response = row[gdi_devpost]
 
         name = row['Submission Title'].strip()
         if name not in already_stored:
-            staying = needs_to_stay(row[gdi_devpost])
-            if (staying is None):
-                moving[project_name] = Project(project_url, attempted_challenges)
-            else:
+            staying = needs_to_stay(response)
+            if staying is not None:
                 notMoving[project_name] = Project(project_url, attempted_challenges)
                 assignments[table_to_number(staying.group(0))] = name + " | "
                 notMoving[project_name].table_number = staying.group(0)
+            elif "No" not in response and \
+                 "no" not in response and \
+                 "NO" not in response and \
+                 response is not "":
+                print("Manually handle " + project_name)
+                print("Response: " + response)
+            else:
+                moving[project_name] = Project(project_url, attempted_challenges)
 
 
-def seedHackers():
+# fancy way of seeding
+def fancy_seed_hackers():
     place = 0
     skip = 391//len(moving)
     for hacker in moving:
         while (assignments[place] != "None | "):
             place = (place + 1) % 391
         assignments[place] = hacker + " | "
+        moving[hacker].table_number = number_to_table(place)
         place = (place + skip) % 391
+
+
+# normal seeding
+def seed_hackers():
+    place = 0
+    for hacker in moving:
+        while (assignments[place] != "None | "):
+            place = place + 1
+        assignments[place] = hacker + " | "
         moving[hacker].table_number = number_to_table(place)
 
 
@@ -130,8 +150,9 @@ def main():
                    encoding='ANSI')
     reader = csv.DictReader(csvFile)
 
-    parseCSV(reader)
-    seedHackers()
+    parse_CSV(reader)
+    seed_hackers()
+    # fancy_seed_hackers()
     add_project(notMoving)
     add_project(moving)
 
