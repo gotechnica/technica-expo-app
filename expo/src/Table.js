@@ -4,6 +4,9 @@ import './Table.css';
 import Sponsor from './Sponsor.js';
 
 class Table extends Component {
+  constructor(props){
+    super(props)
+  }
   render() {
     const s = Sponsor();
     return (
@@ -19,15 +22,19 @@ class Table extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>proj name</td>
-                <td>url</td>
-                <td>table number</td>
-                <td>challenges sub</td>
+            {
+            this.props.data.map((object)=>{
+              return(
+                <tr>
+                <td>{object.project}</td>
+                <td><a href="#">{object.url}</a></td>
+                <td>{object.table}</td>
+                <td>{object.challenges.join()}</td>
+              </tr>
+              )
+            })
 
-              </tr>
-              <tr>
-              </tr>
+          }
             </tbody>
           </table>
         </div>
