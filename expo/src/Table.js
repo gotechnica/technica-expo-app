@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Table.css';
+import Sponsor from './Sponsor.js';
 
 class Table extends Component {
   constructor(props){
     super(props)
   }
   render() {
+    const s = Sponsor();
     return (
       <div class="card">
         <div class="card-body">
@@ -31,7 +33,7 @@ class Table extends Component {
               </tr>
               )
             })
-            
+
           }
             </tbody>
           </table>

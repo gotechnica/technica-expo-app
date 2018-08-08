@@ -9,6 +9,7 @@ import {
 /* custom components */
 import Card from './Card.js';
 import Table from './Table.js';
+import Sponsor from './Sponsor.js';
 import SiteWrapper from './SiteWrapper.js';
 import SearchandFilter from './SearchandFilter';
 
@@ -40,7 +41,7 @@ class Home extends React.Component{
           url: "https//",
           table: '4',
           challenges: ["google"]
-        }  
+        }
       ],
       workingdata:[],
       value:''
@@ -55,7 +56,7 @@ class Home extends React.Component{
     updatedList = updatedList.filter((item)=>{
       return item.project.toLowerCase().indexOf(val.toLowerCase()) !==-1;
     });
-    
+
     this.setState(()=>{
       return({
         workingdata: updatedList
@@ -104,7 +105,7 @@ class Home extends React.Component{
       workingdata: this.state.data
     })
   }
-  render(){ 
+  render(){
     return(
   SiteWrapper(
     <div class="Home">
