@@ -9,6 +9,7 @@ import {
 /* custom components */
 import Card from './Card.js';
 import Table from './Table.js';
+import Sponsor from './Sponsor.js';
 import SiteWrapper from './SiteWrapper.js';
 
 const Home = () => (

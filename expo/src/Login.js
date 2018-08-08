@@ -5,7 +5,6 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-
 /*
 Generic login component for Admins and Sponsors
 Required this.props
