@@ -13,23 +13,36 @@ class Table extends Component {
       <div class="card">
         <div class="card-body">
           <table class="table">
-            <thead>
               <tr>
                 <th scope="col">Project</th>
                 <th scope="col">URL</th>
                 <th scope="col">Table</th>
                 <th scope="col">Challenge(s)</th>
               </tr>
-            </thead>
             <tbody>
             {
             this.props.data.map((object)=>{
+              console.log(object);
               return(
                 <tr>
-                <td>{object.project}</td>
-                <td><a href="#">{object.url}</a></td>
-                <td>{object.table}</td>
-                <td>{object.challenges.join()}</td>
+                <td>{object.project_name}</td>
+                <td><a href="#">{object.project_url}</a></td>
+                <td>{object.table_number}</td>
+                <td>{object.challenges.map((item,index)=>{
+                  if(index !== object.challenges.length-1){
+                    //console.log(index);
+                    console.log(object.challenges.length)
+                    return(
+                      item.challenge_name +', '
+                    )
+                  }
+                  else{
+                    console.log(index);
+                    return(
+                      item.challenge_name
+                    )
+                  }
+                })}</td>
               </tr>
               )
             })

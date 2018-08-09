@@ -17,6 +17,7 @@ import '../node_modules/bootstrap/scss/_badge.scss';
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
 import { faExternalLinkAlt, faCaretRight, faCaretLeft } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import SearchandFilter from './SearchandFilter';
 library.add(faExternalLinkAlt);
 library.add(faCaretRight);
 library.add(faCaretLeft);
@@ -295,7 +296,7 @@ const Sponsor = () => (
     <div id="Sponsor">
       <div class="row">
         <div class="col">
-          <Card title="Search and Filter" content="replace this" />
+          <SearchandFilter data={PROJECTS}/>
         </div>
       </div>
       <div class="card">
