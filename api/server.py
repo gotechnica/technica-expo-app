@@ -60,7 +60,6 @@ def get_all_projects():
 @app.route('/api/projects/add', methods=['POST'])
 def add_project():
     projects = mongo.db.projects
-#    project_data = json.loads(request.data.decode('utf8'))
 
     table_number = request.json['table_number']
     project_name = request.json['project_name']
@@ -146,44 +145,26 @@ def get_all_companies():
     return jsonify({'All Companies' : output})
 
 
-@app.route('/api/projects/delete', methods=['DELETE'])
-def delete_project():
-    projects = mongo.db.projects
-
-    project_name = request.json['project_name']
-    plaintext = request.json['password']
-    passwd = hashlib.md5(plaintext.encode('utf-8')).hexdigest()
-
-    if passwd == password:
-        projects.delete_one({'project_name': project_name})
-
-
-@app.route('/api/projects/deleteAll', methods=['DELETE'])
-def delete_all_projects():
-    projects = mongo.db.projects
-
-    plaintext = request.json['password']
-    output = 'failed'
-    passwd = hashlib.md5(plaintext.encode('utf-8')).hexdigest()
-
-    if passwd == password:
-        output = 'success'
-        projects.delete_many({})
-
-    return jsonify({'Delete all' : output})
-
 
 
 # Private / sponsor routes #####################################################
 # All endpoints under the private routes should require the access token.
 
 
+@app.route('/api/projects/delete', methods=['DELETE'])
+def delete_project():
+    projects = mongo.db.projects
+
+    project_id = request.json['project_id']
+    projects.delete_one({'_id': project_id})
 
 
+@app.route('/api/projects/deleteAll', methods=['DELETE'])
+def delete_all_projects():
+    projects = mongo.db.projects
 
-
-
-
+    projects.delete_many({})
+    return jsonify({'Delete': 'all'})
 
 
 if __name__ == '__main__':

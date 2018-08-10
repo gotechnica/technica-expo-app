@@ -3,6 +3,9 @@ import re
 import requests
 import json
 import time
+import pymongo
+from pymongo import MongoClient
+
 
 # Assumption: Given A1 -> N15
 #  A1 ............ N15            1  16 ........ 196
@@ -15,14 +18,25 @@ import time
 
 # gdi_devpost -> csv is dumb lmao
 # moving -> list of projects that can move
-# notMoving -> list of projects that can't move
+# not_moving -> list of projects that can't move
 # spots -> dict that goes table number:hack name
 # assignments -> list of spots that are taken
 gdi_devpost = "Does Your Hack Need To Stay At Your Current Table? " \
               "(I.E. Hardware, Vr/Ar Hacks). If So, What Table" \
               " Number Are You At?"
-moving, notMoving = {}, {}
-assignments = ["None | "] * 391
+moving, not_moving = {}, {}
+
+
+# number of tables available
+# assume 10 spots per table
+num_tables = 26
+spots_per_table = 10
+assignments = ["None | "] * (num_tables * spots_per_table)
+
+
+# MONGO info
+MONGO_DB = 'expo-app'
+MONGO_HOST = 'mongodb://expo-app-user:an38N4o*121L4@ds261460.mlab.com:61460/expo-app'
 
 
 class Project:
@@ -35,17 +49,17 @@ class Project:
         return str(self.table_number) + " " + str(self.project_url)
 
 
-# table number to numeric value: A1 -> 1, N15 -> 210
+# table number to numeric value: A1 -> 1, O10 -> 150
 def table_to_number(table):
     letter = table[0].upper()
     num = table[1:]
-    return (ord(letter) - 65) * 15 + int(num)
+    return (ord(letter) - 65) * spots_per_table + int(num)
 
 
-# numeric value to table number: 210 -> N15, 1 -> A1
+# numeric value to table number: 150 -> O10, A1 -> 1
 def number_to_table(number):
-    letter = chr((int(number) - 1)//15 + 65)
-    num = int(number) - (int(number) - 1)//15 * 15
+    letter = chr((int(number) - 1)//spots_per_table + 65)
+    num = int(number) - (int(number) - 1)//spots_per_table * spots_per_table
     return str(letter) + str(num)
 
 
@@ -72,6 +86,7 @@ def format_challenges(attempted_challenges):
     return json_output
 
 
+# not used but just still here
 def already_in_db():
     r = requests.get("http://127.0.0.1:5000/api/projects")
     data = re.findall('\"project_name\": \"(.+)\"', r.text)
@@ -80,35 +95,35 @@ def already_in_db():
 
 
 # parses devpost csv and separates hackers into two groups
-# can't move: assigns table and spot, adds notMoving list
+# can't move: assigns table and spot, adds not_moving list
 # can move: adds to moving list
 def parse_CSV(reader):
-    already_stored = already_in_db()
+    #already_stored = already_in_db()
     for row in reader:
         project_name = row["Submission Title"]
         project_url = row["Submission Url"]
         attempted_challenges = format_challenges(row["Desired Prizes"])
-        #attempted_challenges = row["Desired Prizes"]
         response = row[gdi_devpost]
 
         name = row['Submission Title'].strip()
-        if name not in already_stored:
-            staying = needs_to_stay(response)
-            if staying is not None:
-                notMoving[project_name] = Project(project_url, attempted_challenges)
-                assignments[table_to_number(staying.group(0))] = name + " | "
-                notMoving[project_name].table_number = staying.group(0)
-            elif "No" not in response and \
-                 "no" not in response and \
-                 "NO" not in response and \
-                 response is not "":
-                print("Manually handle " + project_name)
-                print("Response: " + response)
-            else:
-                moving[project_name] = Project(project_url, attempted_challenges)
+        #if name not in already_stored:
+        staying = needs_to_stay(response)
+        if staying is not None:
+            not_moving[project_name] = Project(project_url, attempted_challenges)
+            print(staying.group(0), table_to_number(staying.group(0)))
+            assignments[table_to_number(staying.group(0))] = name + " | "
+            not_moving[project_name].table_number = staying.group(0)
+        elif "No" not in response and \
+             "no" not in response and \
+             "NO" not in response and \
+             response is not "":
+            print("Manually handle " + project_name)
+            print("Response: " + response)
+        else:
+            moving[project_name] = Project(project_url, attempted_challenges)
 
 
-# fancy way of seeding
+# evenly spreads out hackers amongst available seats
 def fancy_seed_hackers():
     place = 0
     skip = 391//len(moving)
@@ -132,9 +147,8 @@ def seed_hackers():
 
 def add_project(projects):
     url = "http://127.0.0.1:5000/api/projects/add"
-    count = 0
+
     for project_name in projects:
-        count += 1
         info = {
             'table_number': projects[project_name].table_number,
             'project_name': project_name,
@@ -145,6 +159,24 @@ def add_project(projects):
         r = requests.post(url, json=info)
 
 
+
+def bulk_add_projects(projects):
+    client = MongoClient(MONGO_HOST)
+    #projects = client.db.projects
+
+    project_data = []
+    for project_name in projects:
+        info = {
+            'table_number': projects[project_name].table_number,
+            'project_name': project_name,
+            'project_url': projects[project_name].project_url,
+            'attempted_challenges': projects[project_name].attempted_challenges,
+            'challenges_won': ""
+        }
+        print(info)
+        project_data.append(info)
+    print(project_data)
+
 def main():
     csvFile = open("sample-devpost-submissions-export.csv", 'rt',
                    encoding='ANSI')
@@ -153,8 +185,9 @@ def main():
     parse_CSV(reader)
     seed_hackers()
     # fancy_seed_hackers()
-    add_project(notMoving)
-    add_project(moving)
+    #add_project(not_moving)
+    #add_project(moving)
+    bulk_add_projects(not_moving)
 
 if __name__ == "__main__":
     main()
