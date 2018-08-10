@@ -8,7 +8,6 @@ import hashlib
 app = Flask(__name__)
 app.config.from_object('config')
 mongo = PyMongo(app)
-password = "860982837d50e33a2433ba84aab9b29c"
 
 
 @app.route('/')
@@ -87,6 +86,15 @@ def add_project():
     }
 
     return jsonify({'Newly created project': output})
+
+@app.route('/api/projects/bulk_add', methods=['POST'])
+def bulk_add_project():
+    projects = mongo.db.projects
+
+    packet = request.json['projects']
+    
+    result = projects.insert_many(packet)
+    return jsonify({'New IDs': "tmp"})
 
 
 @app.route('/api/companies/add', methods=['POST'])

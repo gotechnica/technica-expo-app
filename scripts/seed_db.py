@@ -3,8 +3,6 @@ import re
 import requests
 import json
 import time
-import pymongo
-from pymongo import MongoClient
 
 
 # Assumption: Given A1 -> N15
@@ -32,11 +30,6 @@ moving, not_moving = {}, {}
 num_tables = 26
 spots_per_table = 10
 assignments = ["None | "] * (num_tables * spots_per_table)
-
-
-# MONGO info
-MONGO_DB = 'expo-app'
-MONGO_HOST = 'mongodb://expo-app-user:an38N4o*121L4@ds261460.mlab.com:61460/expo-app'
 
 
 class Project:
@@ -110,7 +103,6 @@ def parse_CSV(reader):
         staying = needs_to_stay(response)
         if staying is not None:
             not_moving[project_name] = Project(project_url, attempted_challenges)
-            print(staying.group(0), table_to_number(staying.group(0)))
             assignments[table_to_number(staying.group(0))] = name + " | "
             not_moving[project_name].table_number = staying.group(0)
         elif "No" not in response and \
@@ -161,9 +153,7 @@ def add_project(projects):
 
 
 def bulk_add_projects(projects):
-    client = MongoClient(MONGO_HOST)
-    #projects = client.db.projects
-
+    url = 'http://127.0.0.1:5000/api/projects/bulk_add'
     project_data = []
     for project_name in projects:
         info = {
@@ -173,9 +163,13 @@ def bulk_add_projects(projects):
             'attempted_challenges': projects[project_name].attempted_challenges,
             'challenges_won': ""
         }
-        print(info)
         project_data.append(info)
-    print(project_data)
+    packet = {
+        'projects': project_data
+    }
+    r = requests.post(url, json=packet)
+    
+
 
 def main():
     csvFile = open("sample-devpost-submissions-export.csv", 'rt',
@@ -188,6 +182,8 @@ def main():
     #add_project(not_moving)
     #add_project(moving)
     bulk_add_projects(not_moving)
+    bulk_add_projects(moving)
+
 
 if __name__ == "__main__":
     main()
