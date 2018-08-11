@@ -68,7 +68,7 @@ const PROJECTS = [
     ],
   },
 ];
-class ProjectRow extends Component {
+export class ProjectRow extends Component {
   render() {
     let winnerCards = [];
     let challengeCards = [];
@@ -106,7 +106,7 @@ class ProjectRow extends Component {
     );
   }
 }
-class SubmissionTable extends Component {
+export class SubmissionTable extends Component {
   render() {
     let rows = [];
     this.props.projects.forEach((project) => {
@@ -149,7 +149,7 @@ class SubmissionTable extends Component {
   }
 }*/
 
-class ChallengeCard extends Component {
+export class ChallengeCard extends Component {
   constructor() {
     super();
     this.handleToggleClick = this.handleToggleClick.bind(this);
@@ -208,7 +208,7 @@ class ChallengeCard extends Component {
   }
 }
 
-class Voting extends Component {
+export class Voting extends Component {
   constructor() {
     super();
     this.handleWinnerButtonClick = this.handleWinnerButtonClick.bind(this);
@@ -296,17 +296,19 @@ const Sponsor = () => (
     <div id="Sponsor">
       <div class="row">
         <div class="col">
-          <SearchandFilter data={PROJECTS}/>
+          <SearchandFilter origin = "sponsor"/>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
-          <SubmissionTable projects={PROJECTS} />
-        </div>
-      </div>
+     
     </div>
   )
 );
 
 
 export default Sponsor;
+
+// <div class="card">
+// <div class="card-body">
+//   <SubmissionTable projects={PROJECTS} />
+// </div>
+// </div>
