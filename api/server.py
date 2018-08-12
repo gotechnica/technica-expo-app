@@ -27,6 +27,7 @@ def get_all_projects():
     output = []
     for p in projects.find():
         temp_project = {
+            'project_id': str(p['_id']),
             'table_number': p['table_number'],
             'project_name': p['project_name'],
             'project_url': p['project_url'],
@@ -194,6 +195,7 @@ def get_all_companies():
     output = []
     for c in companies.find():
         temp_company = {
+            'company_id': str(c['_id']),
             'company_name': c['company_name'],
             'access_code': c['access_code'],
             'challenge_name': c['challenge_name'],
