@@ -186,14 +186,7 @@ class SearchandFilter extends Component {
                 <input type="text" placeholder="Search for projects here" className="form-control" onChange={this.handleChange} name="input" />
                 </div>
                 <div className="form-row">
-                <div className="col-4">
-                <select className="form-control" id="sponsor" onChange={this.handleChange} name="selectSponsor">
-                <option selected>Sponsor</option>
-                <option>google</option>
-                <option>facebook</option>
-                </select>
-                </div>
-                <div className="col-4">
+                <div className="col-6">
                 <select className="form-control" id="project" onChange={this.handleChange} name="selectProject">
                 <option selected>Project</option>
                     {this.state.data.map((obj)=>{
@@ -203,7 +196,7 @@ class SearchandFilter extends Component {
                     })}
                 </select>
                 </div>
-                <div className="col-4">
+                {this.props.origin === "home" ? <div className="col-6">
                 <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
                 <option selected>Challenges</option>
                     {
@@ -214,7 +207,19 @@ class SearchandFilter extends Component {
                         })
                     }
                 </select>
+                </div> :  <div className="col-6">
+                <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges" disabled>
+                <option selected>Challenges</option>
+                    {
+                        this.createChallengeArray().map((obj,index)=>{
+                            return(
+                                <option key={index}>{obj}</option>
+                            )
+                        })
+                    }
+                </select>
                 </div>
+              }
                 </div>
                 </form>
             }/>
