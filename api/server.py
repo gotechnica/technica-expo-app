@@ -2,6 +2,8 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
+import json
+import hashlib
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -71,6 +73,7 @@ def add_project():
         'attempted_challenges': attempted_challenges,
         'challenges_won': challenges_won
     }
+
     project_id = projects.insert(temp_project)
 
     new_project = projects.find_one({'_id': project_id})
@@ -83,6 +86,15 @@ def add_project():
     }
 
     return jsonify({'Newly created project': output})
+
+@app.route('/api/projects/bulk_add', methods=['POST'])
+def bulk_add_project():
+    projects = mongo.db.projects
+
+    packet = request.json['projects']
+    
+    result = projects.insert_many(packet)
+    return jsonify({'New IDs': "tmp"})
 
 
 @app.route('/api/companies/add', methods=['POST'])
@@ -143,17 +155,24 @@ def get_all_companies():
 
 
 
-
 # Private / sponsor routes #####################################################
 # All endpoints under the private routes should require the access token.
 
 
+@app.route('/api/projects/delete', methods=['DELETE'])
+def delete_project():
+    projects = mongo.db.projects
+
+    project_id = request.json['project_id']
+    projects.delete_one({'_id': project_id})
 
 
+@app.route('/api/projects/deleteAll', methods=['DELETE'])
+def delete_all_projects():
+    projects = mongo.db.projects
 
-
-
-
+    projects.delete_many({})
+    return jsonify({'Delete': 'all'})
 
 
 if __name__ == '__main__':
