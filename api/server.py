@@ -2,6 +2,8 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
+from bson.objectid import ObjectId
+from bson import json_util
 import json
 import hashlib
 
@@ -34,6 +36,13 @@ def get_all_projects():
         output.append(temp_project)
 
     return jsonify({'All Projects': output})
+
+@app.route('/api/projects/id/<project_id>', methods=['GET'])
+def get_project(project_id):
+    projects = mongo.db.projects
+
+    project_obj = projects.find_one({'_id': ObjectId(project_id)})
+    return json.dumps(project_obj, default=json_util.default)
 
 
 # Admin routes #################################################################
@@ -126,6 +135,13 @@ def add_company():
 
     company_id = str(companies.insert(company))
     return company_id
+
+@app.route('/api/companies/id/<company_id>', methods=['GET'])
+def get_company(company_id):
+    companies = mongo.db.companies
+
+    company_obj = companies.find_one({'_id': ObjectId(company_id)})
+    return json.dumps(company_obj, default=json_util.default)
 
 @app.route('/api/companies', methods=['GET'])
 def get_all_companies():
