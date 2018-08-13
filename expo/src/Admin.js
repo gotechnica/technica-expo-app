@@ -14,6 +14,8 @@ import CreateSponsorModal from './admin/CreateSponsorModal';
 import EditSponsorModal from './admin/EditSponsorModal';
 import EditProjectModal from './admin/EditProjectModal';
 
+import './Admin.css';
+
 /* Admin page content (see PRD) */
 
 /* Project panel of admin page */
@@ -144,22 +146,75 @@ class SponsorModule extends Component {
     this.state = {
       textSearch:'',
       sponsors:[
-        {access_code: 1, company_name: 'cat'},
-        {access_code: 2, company_name: 'dog'},
-        {access_code: 3, company_name: 'apple'},
-        {access_code: 4, company_name: 'peaches'},
-        {access_code: 5, company_name: 'small'},
+        {_id: 1, access_code: 1, company_name: 'cat', challenge_name: 'challenge1'},
+        {_id: 1, access_code: 2, company_name: 'dog', challenge_name: 'challenge2'},
+        {_id: 1, access_code: 2, company_name: 'dog', challenge_name: 'challenge3'},
+        {_id: 1, access_code: 2, company_name: 'dog', challenge_name: 'challenge4'},
+        {_id: 1, access_code: 3, company_name: 'apple', challenge_name: 'challenge5'},
+        {_id: 1, access_code: 4, company_name: 'peaches', challenge_name: 'challenge6'},
+        {_id: 1, access_code: 4, company_name: 'peaches', challenge_name: 'challenge7'},
+        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge8'},
+        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge9'},
+        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge10'},
+        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge11'},
+        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge12'},
+        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge13'},
       ]
     }
   }
 
   render() {
-    // Prepare sponsor list against filter
-    let filteredSponsors = this.state.sponsors;
-    if(this.state.textSearch != '' && this.state.textSearch != undefined) {
-      filteredSponsors = filteredSponsors.filter(elt =>
-        elt.company_name.includes(this.state.textSearch));
+
+    // Compress list by access_code to suit view
+    let compressedSponsors = [];
+    this.state.sponsors.forEach(elt => {
+      // Check whether code is unique
+      let codeSeen = false;
+      compressedSponsors.forEach((sponsor)=> {
+        if (sponsor.access_code == elt.access_code) {
+          codeSeen = true;
+        }
+      });
+
+      if (codeSeen == false) {
+        // Set new item
+        compressedSponsors.push(
+          {
+            access_code: elt.access_code,
+            company_name: elt.company_name,
+            challenges: []
+          }
+        );
       }
+
+      // Add challenge to corresponding sponsor
+      let current_sponsor = null;
+      compressedSponsors.forEach((sponsor) => {
+        if(sponsor.access_code == elt.access_code) {
+          current_sponsor = sponsor;
+        }
+      });
+      current_sponsor.challenges.push({
+        challenge: elt.challenge_name,
+        id: elt._id
+      });
+    });
+
+    // Prepare sponsor list against filter (including sponsor name and challenges)
+    let filteredSponsors = compressedSponsors;
+    if(this.state.textSearch != '' && this.state.textSearch != undefined) {
+      filteredSponsors = filteredSponsors.filter(elt => {
+
+        let chalSearch = false;
+        elt.challenges.forEach(chal => {
+          if (chal.challenge.includes(this.state.textSearch)) {
+            chalSearch = true;
+          }
+        });
+        return elt.company_name.includes(this.state.textSearch)
+          || chalSearch;
+      });
+    }
 
       return (
         <div className="card">
@@ -183,24 +238,34 @@ class SponsorModule extends Component {
               <input type="text"
                 id="txtSponsorSearch"
                 className="form-control"
-                placeholder="Search for a sponsor name..."
+                placeholder="Search for a sponsor or challenge name..."
                 onChange = {(event) => this.setState({textSearch:event.target.value})}
                 />
             </div>
             {filteredSponsors.map((elt,key) => {
               return (
-                <div className="row" key={key}>
-                  <div className="col">
-                    {elt.company_name}
+                <div className="d-flex" key={key}>
+                  <div className="">
+                    <b>{elt.company_name}</b>
+                    <br/>
+                    {elt.challenges.map(challenge => {
+                      return (
+                        <div className="sponsor-challenge">
+                          {challenge.challenge}
+                        </div>
+                      )
+                    })}
                   </div>
-                  <div className="col">
+                  <div className="ml-auto">
                     <EditSponsorModal
-                      editID="modalEditSponsor"
+                      editID={"modalEditSponsor"+key.toString()}
+                      sponsorCode={elt.access_code}
+                      sponsorName={elt.company_name}
                       />
                     <button className="btn btn-primary"
                       type="button"
                       data-toggle="modal"
-                      data-target="#modalEditSponsor"
+                      data-target={"#modalEditSponsor"+key.toString()}
                       >
                       Edit
                     </button>
