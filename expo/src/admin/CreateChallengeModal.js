@@ -1,7 +1,7 @@
 /* react components */
 import React, { Component } from 'react';
 
-class EditChallengeModal extends Component {
+class CreateChallengeModal extends Component {
 
   constructor(props) {
     super(props);
@@ -15,4 +15,4 @@ class EditChallengeModal extends Component {
 
 }
 
-export default EditChallengeModal;
+export default CreateChallengeModal;
