@@ -38,6 +38,11 @@ const PROJECTS = [
           { company: 'GE Digital',
             challenge_name: 'Best Digital Industrial Hack',
             won: false
+          },
+          {
+            company: 'Mantech',
+            challenge_name: 'Best Hardware Hack',
+            won: false
           }
         ],
       },
@@ -166,12 +171,25 @@ class SearchandFilter extends Component {
     createChallengeArray(){
         let options = [];
         this.state.data.map((obj)=>{
-            {obj.challenges.map((item)=>{
+           {obj.challenges.map((item)=>{
                 options.push(item.challenge_name); 
-            })}
+            })
+          }
     })
     console.log(options);
     return options;
+    }
+    createChallengeSponsorArray(){
+      let options = [];
+      console.log(this.props.loggedIn)
+      this.state.data.map((obj)=>{
+        obj.challenges.map((item)=>{
+          if(item.company === this.props.loggedIn)
+            options.push(item.challenge_name);
+        })
+      })
+      console.log(options)
+      return options;
     }
     
     // handleChange(e){
@@ -208,10 +226,11 @@ class SearchandFilter extends Component {
                     }
                 </select>
                 </div> :  <div className="col-6">
-                <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges" disabled>
+                <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
                 <option selected>Challenges</option>
                     {
-                        this.createChallengeArray().map((obj,index)=>{
+                        this.createChallengeSponsorArray().map((obj,index)=>{
+
                             return(
                                 <option key={index}>{obj}</option>
                             )

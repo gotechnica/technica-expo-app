@@ -22,52 +22,52 @@ library.add(faExternalLinkAlt);
 library.add(faCaretRight);
 library.add(faCaretLeft);
 
-const PROJECTS = [
-  { table_number: 23,
-    project_name: 'Mining Malware',
-    project_url: 'https://devpost.com/software/mining-malware',
-    challenges: [
-      { company: 'Mantech',
-        challenge_name: 'Cybersecurity Hack',
-        won: true
-      },
-      { company: 'JP Morgan',
-        challenge_name: 'Best Hack for Social Good',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      },
-      { company: 'Capital One',
-        challenge_name: 'Best Financial Hack',
-        won: false
-      },
-      { company: 'Amazon Web Services',
-        challenge_name: 'Best Use of AWS',
-        won: true
-      },
-      { company: 'GE Digital',
-        challenge_name: 'Best Digital Industrial Hack',
-        won: false
-      }
-    ],
-  },
-  { table_number: 4,
-    project_name: 'Leveraging the First Steps',
-    project_url: 'https://devpost.com/software/leveraging-the-first-steps',
-    challenges: [
-      { company: 'JP Morgan',
-        challenge_name: 'Best Hack for Social Good',
-        won: true
-      },
-      { company: 'Bloomberg',
-        challenge_name: 'Best Education/Diversity and Inclusion Hack',
-        won: false
-      }
-    ],
-  },
-];
+// const PROJECTS = [
+//   { table_number: 23,
+//     project_name: 'Mining Malware',
+//     project_url: 'https://devpost.com/software/mining-malware',
+//     challenges: [
+//       { company: 'Mantech',
+//         challenge_name: 'Cybersecurity Hack',
+//         won: true
+//       },
+//       { company: 'JP Morgan',
+//         challenge_name: 'Best Hack for Social Good',
+//         won: false
+//       },
+//       { company: 'Booz Allen Hamilton',
+//         challenge_name: 'Best Hack to Help in a Crisis',
+//         won: false
+//       },
+//       { company: 'Capital One',
+//         challenge_name: 'Best Financial Hack',
+//         won: false
+//       },
+//       { company: 'Amazon Web Services',
+//         challenge_name: 'Best Use of AWS',
+//         won: true
+//       },
+//       { company: 'GE Digital',
+//         challenge_name: 'Best Digital Industrial Hack',
+//         won: false
+//       }
+//     ],
+//   },
+//   { table_number: 4,
+//     project_name: 'Leveraging the First Steps',
+//     project_url: 'https://devpost.com/software/leveraging-the-first-steps',
+//     challenges: [
+//       { company: 'JP Morgan',
+//         challenge_name: 'Best Hack for Social Good',
+//         won: true
+//       },
+//       { company: 'Bloomberg',
+//         challenge_name: 'Best Education/Diversity and Inclusion Hack',
+//         won: false
+//       }
+//     ],
+//   },
+// ];
 export class ProjectRow extends Component {
   render() {
     let winnerCards = [];
@@ -296,7 +296,7 @@ const Sponsor = () => (
     <div id="Sponsor">
       <div class="row">
         <div class="col">
-          <SearchandFilter origin = "sponsor"/>
+          <SearchandFilter origin = "sponsor" loggedIn = "Mantech"/>
         </div>
       </div>
      
