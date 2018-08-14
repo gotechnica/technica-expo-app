@@ -2,6 +2,8 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
+from bson.objectid import ObjectId
+from bson import json_util
 import json
 import hashlib
 
@@ -25,6 +27,7 @@ def get_all_projects():
     output = []
     for p in projects.find():
         temp_project = {
+            'project_id': str(p['_id']),
             'table_number': p['table_number'],
             'project_name': p['project_name'],
             'project_url': p['project_url'],
@@ -34,6 +37,13 @@ def get_all_projects():
         output.append(temp_project)
 
     return jsonify({'All Projects': output})
+
+@app.route('/api/projects/id/<project_id>', methods=['GET'])
+def get_project(project_id):
+    projects = mongo.db.projects
+
+    project_obj = projects.find_one({'_id': ObjectId(project_id)})
+    return json.dumps(project_obj, default=json_util.default)
 
 
 # Admin routes #################################################################
@@ -76,6 +86,28 @@ def bulk_add_project():
 
     result = projects.insert_many(packet)
     return jsonify({'New IDs': "tmp"})
+
+@app.route('/api/projects/id/<project_id>', methods =['POST'])
+def update_project(project_id):
+    projects = mongo.db.projects
+
+    challenges_won_arr = []
+    if request.json.get('challenges_won') != None:
+        challenges_won_arr = request.json.get('challenges_won').split()
+
+    updated_project = {
+        'table_number': request.json['table_number'],
+        'project_name': request.json['project_name'],
+        'project_url': request.json['project_url'],
+        'attempted_challenges': request.json['attempted_challenges'],
+        'challenges_won': challenges_won_arr    # Challenges won entered as company_ids split by whitespace
+    }
+    updated_project_obj = projects.find_one_and_update(
+        {'_id': ObjectId(project_id)},
+        {'$set': updated_project}
+    )
+
+    return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
 
 @app.route('/api/projects/delete', methods=['DELETE'])
 def delete_project():
@@ -127,6 +159,35 @@ def add_company():
     company_id = str(companies.insert(company))
     return company_id
 
+@app.route('/api/companies/id/<company_id>', methods =['POST'])
+def update_company(company_id):
+    companies = mongo.db.companies
+
+    winners_arr = []
+    if request.json.get('winners') != None:
+        winners_arr = request.json.get('winners').split()
+
+    updated_company = {
+        'company_name': request.json['company_name'],
+        'access_code': request.json['access_code'],
+        'challenge_name': request.json['challenge_name'],
+        'num_winners': request.json['num_winners'],
+        'winners': winners_arr  # Winners entered as project_ids split by whitespace
+    }
+    updated_company_obj = companies.find_one_and_update(
+        {'_id': ObjectId(company_id)},
+        {'$set': updated_company}
+    )
+
+    return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
+
+@app.route('/api/companies/id/<company_id>', methods=['GET'])
+def get_company(company_id):
+    companies = mongo.db.companies
+
+    company_obj = companies.find_one({'_id': ObjectId(company_id)})
+    return json.dumps(company_obj, default=json_util.default)
+
 @app.route('/api/companies', methods=['GET'])
 def get_all_companies():
     companies = mongo.db.companies
@@ -134,6 +195,7 @@ def get_all_companies():
     output = []
     for c in companies.find():
         temp_company = {
+            'company_id': str(c['_id']),
             'company_name': c['company_name'],
             'access_code': c['access_code'],
             'challenge_name': c['challenge_name'],
