@@ -11,134 +11,66 @@ import {
 
 import SiteWrapper from './SiteWrapper.js';
 import Card from './Card.js';
-import TechnicaIcon from './Copy of technica-circle-small.png';
+
+import TechnicaIcon from './imgs/Copy of technica-circle-small.png';
 
 import { StickyContainer, Sticky } from '../node_modules/react-sticky';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
 import { faExternalLinkAlt, faCaretRight, faCaretLeft } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import SearchandFilter from './SearchandFilter';
 library.add(faExternalLinkAlt);
 library.add(faCaretRight);
 library.add(faCaretLeft);
 
-const PROJECTS = [
-  { table_number: 23,
-    project_name: 'Mining Malware',
-    project_url: 'https://devpost.com/software/mining-malware',
-    challenges: [
-      { company: 'Mantech',
-        challenge_name: 'Cybersecurity Hack',
-        won: true
-      },
-      { company: 'JP Morgan',
-        challenge_name: 'Best Hack for Social Good',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      },
-      { company: 'Capital One',
-        challenge_name: 'Best Financial Hack',
-        won: false
-      },
-      { company: 'Amazon Web Services',
-        challenge_name: 'Best Use of AWS',
-        won: true
-      },
-      { company: 'GE Digital',
-        challenge_name: 'Best Digital Industrial Hack',
-        won: false
-      }
-    ],
-  },
-  { table_number: 4,
-    project_name: 'Leveraging the First Steps',
-    project_url: 'https://devpost.com/software/leveraging-the-first-steps',
-    challenges: [
-      { company: 'JP Morgan',
-        challenge_name: 'Best Hack for Social Good',
-        won: true
-      },
-      { company: 'Bloomberg',
-        challenge_name: 'Best Education/Diversity and Inclusion Hack',
-        won: false
-      }
-    ],
-  },
-  { table_number: 12,
-    project_name: 'Safety Net',
-    project_url: 'https://devpost.com/software/safety-net-cjr0nv',
-    challenges: [
-      { company: 'ViaSat',
-        challenge_name: 'Best Device Connectivity',
-        won: true
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      }
-    ],
-  },
-  { table_number: 3,
-    project_name: 'Smart Home Security',
-    project_url: 'https://devpost.com/software/technica2017-alexa-securitycam',
-    challenges: [
-      { company: 'ViaSat',
-        challenge_name: 'Best Device Connectivity',
-        won: false
-      },
-      { company: 'Liberty Mutual',
-        challenge_name: 'Rise and Shine Challenge',
-        won: true
-      },
-      { company: 'Altamira',
-        challenge_name: 'Best Hardware Hack',
-        won: false
-      },
-      { company: 'Qualcomm',
-        challenge_name: 'Qualcomm DragonBoard™ 410c Hack',
-        won: false
-      },
-    ],
-  },
-  { table_number: 49,
-    project_name: 'HelpHub',
-    project_url: 'https://devpost.com/software/helphub-wme2q3',
-    challenges: [
-      { company: 'ViaSat',
-        challenge_name: 'Best Device Connectivity',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      },
-      { company: 'Liberty Mutual',
-        challenge_name: 'Rise and Shine Challenge',
-        won: false
-      },
-      { company: 'Facebook/Oculus',
-        challenge_name: 'Best VR Hack ',
-        won: true
-      },
-      { company: 'Microsoft',
-        challenge_name: 'Best Use of Microsoft Cognitive Services API',
-        won: false
-      },
-      { company: 'Altamira',
-        challenge_name: 'Best Hardware Hack',
-        won: false
-      },
-      { company: 'Bloomberg',
-        challenge_name: 'Best Education/Diversity and Inclusion Hack',
-        won: false
-      }
-    ]
-  }
-];
-class ProjectRow extends Component {
+// const PROJECTS = [
+//   { table_number: 23,
+//     project_name: 'Mining Malware',
+//     project_url: 'https://devpost.com/software/mining-malware',
+//     challenges: [
+//       { company: 'Mantech',
+//         challenge_name: 'Cybersecurity Hack',
+//         won: true
+//       },
+//       { company: 'JP Morgan',
+//         challenge_name: 'Best Hack for Social Good',
+//         won: false
+//       },
+//       { company: 'Booz Allen Hamilton',
+//         challenge_name: 'Best Hack to Help in a Crisis',
+//         won: false
+//       },
+//       { company: 'Capital One',
+//         challenge_name: 'Best Financial Hack',
+//         won: false
+//       },
+//       { company: 'Amazon Web Services',
+//         challenge_name: 'Best Use of AWS',
+//         won: true
+//       },
+//       { company: 'GE Digital',
+//         challenge_name: 'Best Digital Industrial Hack',
+//         won: false
+//       }
+//     ],
+//   },
+//   { table_number: 4,
+//     project_name: 'Leveraging the First Steps',
+//     project_url: 'https://devpost.com/software/leveraging-the-first-steps',
+//     challenges: [
+//       { company: 'JP Morgan',
+//         challenge_name: 'Best Hack for Social Good',
+//         won: true
+//       },
+//       { company: 'Bloomberg',
+//         challenge_name: 'Best Education/Diversity and Inclusion Hack',
+//         won: false
+//       }
+//     ],
+//   },
+// ];
+export class ProjectRow extends Component {
   render() {
     let winnerCards = [];
     let challengeCards = [];
@@ -177,7 +109,7 @@ class ProjectRow extends Component {
     );
   }
 }
-class SubmissionTable extends Component {
+export class SubmissionTable extends Component {
   render() {
     let rows = [];
     this.props.projects.forEach((project) => {
@@ -212,7 +144,18 @@ class SubmissionTable extends Component {
 
 }
 
-class ChallengeCard extends Component {
+/*class FilterableSubmissionTable extends Component {
+  render () {
+    return (
+      <div>
+        <SearchBar />
+        <ChallangesFilter />
+      </div>
+    );
+  }
+}*/
+
+export class ChallengeCard extends Component {
   constructor() {
     super();
     this.handleToggleClick = this.handleToggleClick.bind(this);
@@ -276,7 +219,7 @@ class ChallengeCard extends Component {
   }
 }
 
-class Voting extends Component {
+export class Voting extends Component {
   constructor() {
     super();
     this.handleWinnerButtonClick = this.handleWinnerButtonClick.bind(this);
@@ -348,12 +291,19 @@ SiteWrapper(
     <div id="Sponsor">
       <div class="row">
         <div class="col">
-          <Card title="Search and Filter" content="replace this" />
+          <SearchandFilter origin = "sponsor" loggedIn = "Mantech"/>
         </div>
       </div>
-      <SubmissionTable projects={PROJECTS} /></div>
+
+    </div>
   )
 );
 
 
 export default Sponsor;
+
+// <div class="card">
+// <div class="card-body">
+//   <SubmissionTable projects={PROJECTS} />
+// </div>
+// </div>

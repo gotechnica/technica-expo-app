@@ -30,7 +30,7 @@ class AdminLogin extends Component {
 
   onLogin(e, accessCode) {
     // TODO Validate login against DB
-    let validLogin = false;
+    let validLogin = true;
 
     if (validLogin) {
       this.setState({logggedIn:true, error:""});

@@ -24,12 +24,22 @@ img.Icon {
 /* Devpost Link Icon */
 .name a {
     text-decoration: none;
-    color: #00ffff;
+    /* color: #00ffff; */
     padding: 0px 6px 0px 0px;
 }
 
 .name a:hover {
     color: #00ffff;
+}
+th {
+  text-align: center;
+}
+
+table {
+    /* font-family: arial, sans-serif; */
+    border-collapse: separate;
+    border-spacing: 0px 5px;
+    width: 100%;
 }
 
 /* Table Number */
@@ -40,37 +50,30 @@ img.Icon {
     padding-right: 12px;
 
     /* Text */
-    color: #2d2d2d;
+    /* color: #2d2d2d; */
     text-align: center;
     font-size: 40px;
     font-weight: bold;
 
     /* Borders */
-    position: relative;
-    border: 1px solid lightgray;
+    /* border-bottom: 1px solid lightgray; */
     border-left:0;
   	border-right:0;
 }
 
 /* Workaround for slanted border joints */
 .TableNumber:before {
-    display: block;
-
-    /* Sizing */
-    height: 100% + 1px;
-    padding: 1px 0;
-
-    /* Text Stand-In */
-    color: transparent;
-    font-size: 0;
-    content: "";
-
-    /* Pink Border */
-    position: absolute;
-    border-right: 12px solid #ff7bac;
-    top:-1px;
-    bottom:0px;
-    right:0;
+  /* display:block;
+  content:"";
+  color:transparent;
+  font-size:0;
+  border-right:10px solid #ff7bac;
+  height:100%;
+  position:absolute;
+  right:0;
+  padding:1px 0;
+  top:0px;
+  bottom:0px; */
 }
 
 /* Project Information */
@@ -93,14 +96,13 @@ img.Icon {
     padding: 1.5% 0px 1% 2%;
 
     /* Text */
-    color: #2d2d2d;
-    font-size: 27.5px;
+    /* color: #2d2d2d; */
     font-weight: bold;
-
+    font-size: 20px;
     /* Borders */
-    border-width: 1px 0px 1px 0px;
-    border-color: lightgray;
-    border-style: solid;
+    /* border-width: 1px 0px 1px 0px; */
+    /* border-color: lightgray; */
+    /* border-style: solid; */
 }
 
 /* Voting */
