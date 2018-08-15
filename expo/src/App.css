@@ -20,6 +20,26 @@ html {
   background-color: #222;
 }
 
+.modal-content {
+  background-color: #222;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(0,0,0,.125);
+}
+
+.close {
+  color: #fff;
+}
+
+.close:hover {
+  color: #fff;
+}
+
 
 /*a {
   color:#00ffff;
