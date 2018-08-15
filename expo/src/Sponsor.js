@@ -1,6 +1,8 @@
 /* react components */
 import React, { Component } from 'react';
 import './Sponsor.css';
+import './ChallengeCard.css';
+import './SliderOption.css';
 import {
   BrowserRouter as Router,
   Route,
@@ -9,10 +11,9 @@ import {
 
 import SiteWrapper from './SiteWrapper.js';
 import Card from './Card.js';
-
 import TechnicaIcon from './Copy of technica-circle-small.png';
 
-import '../node_modules/bootstrap/scss/_badge.scss';
+import { StickyContainer, Sticky } from '../node_modules/react-sticky';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
@@ -66,6 +67,76 @@ const PROJECTS = [
       }
     ],
   },
+  { table_number: 12,
+    project_name: 'Safety Net',
+    project_url: 'https://devpost.com/software/safety-net-cjr0nv',
+    challenges: [
+      { company: 'ViaSat',
+        challenge_name: 'Best Device Connectivity',
+        won: true
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_name: 'Best Hack to Help in a Crisis',
+        won: false
+      }
+    ],
+  },
+  { table_number: 3,
+    project_name: 'Smart Home Security',
+    project_url: 'https://devpost.com/software/technica2017-alexa-securitycam',
+    challenges: [
+      { company: 'ViaSat',
+        challenge_name: 'Best Device Connectivity',
+        won: false
+      },
+      { company: 'Liberty Mutual',
+        challenge_name: 'Rise and Shine Challenge',
+        won: true
+      },
+      { company: 'Altamira',
+        challenge_name: 'Best Hardware Hack',
+        won: false
+      },
+      { company: 'Qualcomm',
+        challenge_name: 'Qualcomm DragonBoard™ 410c Hack',
+        won: false
+      },
+    ],
+  },
+  { table_number: 49,
+    project_name: 'HelpHub',
+    project_url: 'https://devpost.com/software/helphub-wme2q3',
+    challenges: [
+      { company: 'ViaSat',
+        challenge_name: 'Best Device Connectivity',
+        won: false
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_name: 'Best Hack to Help in a Crisis',
+        won: false
+      },
+      { company: 'Liberty Mutual',
+        challenge_name: 'Rise and Shine Challenge',
+        won: false
+      },
+      { company: 'Facebook/Oculus',
+        challenge_name: 'Best VR Hack ',
+        won: true
+      },
+      { company: 'Microsoft',
+        challenge_name: 'Best Use of Microsoft Cognitive Services API',
+        won: false
+      },
+      { company: 'Altamira',
+        challenge_name: 'Best Hardware Hack',
+        won: false
+      },
+      { company: 'Bloomberg',
+        challenge_name: 'Best Education/Diversity and Inclusion Hack',
+        won: false
+      }
+    ]
+  }
 ];
 class ProjectRow extends Component {
   render() {
@@ -82,9 +153,9 @@ class ProjectRow extends Component {
     });
 
     return (
-      <tr>
-        <td className="TableNumber">{this.props.table_number}</td>
-        <td class="Project">
+    <tr className="no-hover">
+        <td className="TableNumber">{this.props.table_number}<Voting /></td>
+        <td class="Project no-hover">
           <div class="grid-container">
             <div class="name">
             <a href={this.props.project_url} target="_tab">
@@ -100,8 +171,9 @@ class ProjectRow extends Component {
             </div>
           </div>
         </td>
-        <Voting />
+
       </tr>
+
     );
   }
 }
@@ -120,33 +192,25 @@ class SubmissionTable extends Component {
     });
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Table #</th>
-            <th>Project Information</th>
-            <th>Voting</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead>
+              <tr>
+                <th>Table #</th>
+                <th>Project Information</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
   }
 
 }
-
-/*class FilterableSubmissionTable extends Component {
-  render () {
-    return (
-      <div>
-        <SearchBar />
-        <ChallangesFilter />
-      </div>
-    );
-  }
-}*/
 
 class ChallengeCard extends Component {
   constructor() {
@@ -168,32 +232,37 @@ class ChallengeCard extends Component {
     };
     let displayed = {
       display: "inline-block",
-      paddingRight: "2px",
-      textIndent: "4px"
     };
+
     let displayedIcon = {
       marginLeft: "4px",
       fontSize: "16px",
       display: "inline-block",
     };
-    const isExpanded = this.props.expanded;
-    let toggledStyle = (this.state.expanded ? displayed : hidden);
 
     let winnerCard = (
-      <button onClick={this.handleToggleClick}>
+      <button>
         <img src={TechnicaIcon} className="Icon" />
         <b>{this.props.company} </b>
         <div> | {this.props.challenge_name}</div>
       </button>
     );
+
+    const isExpanded = this.state.expanded;
+    let toggledStyle = (isExpanded ? displayed : hidden);
+    let indicator = isExpanded ? faCaretLeft : faCaretRight;
     let challengeCard = (
-      <div><button className="company">
-        <b>{this.props.company}</b>
-        <div style={toggledStyle} className="challenge"> | {this.props.challenge_name}</div>
-      </button>
-      <button className="indicator" onClick={this.handleToggleClick}>
-        {this.state.expanded ? <FontAwesomeIcon icon={faCaretLeft} /> : <FontAwesomeIcon icon={faCaretRight} />}
-      </button></div>
+      <div className="Challenge-Card" onClick={this.handleToggleClick}>
+        <table className="Challenge-Card">
+          <tr>
+            <td className="challenge-info">
+              <b>{this.props.challenge_name} </b>
+              <div style={toggledStyle}>| {this.props.company}</div>
+            </td>
+            <td className="indicator"><FontAwesomeIcon icon={indicator} /></td>
+          </tr>
+        </table>
+      </div>
     );
 
     const isWinner = this.props.won;
@@ -240,70 +309,49 @@ class Voting extends Component {
 
   render() {
     let selectedStyle = { backgroundColor: "#ff478c" };
-    let nonSelectedStyle = { backgroundColor: "#737373" };
+    let nonSelectedStyle = { backgroundColor: "#fffff" };
     let startStyle = { backgroundColor: "#ff7bac" };
 
     return (
-      <td className="Vote toggle.toggle">
+      <div className="Vote toggle.toggle no-hover">
         <label class="switch">
           <input type="checkbox" />
-          <span class="slider round"><p class="off">NO VOTE</p><p class="on">WINNER</p></span>
+          <div class="slider round"></div>
         </label>
-      </td>
+      </div>
     )
   }
 }
 
-/*class SubmissionRow extends React.Component {
+class StickyKey extends Component {
   render() {
-    const table = this.props.table;
-    const link = '"' + (this.props.devpost) + '"';
-    const name = this.props.name;
-    const wins = this.props.wins;
-    const challenges = this.props.challenges;
-
-    return (
-      <tr>
-        <td rowspan="3" class="TableNumber">{table}</td>
-        <td class="Project">
-          <a href={link}>
-					     <i class="fas fa-external-link-alt"></i>
-					</a>
-          {name}
-        </td>
-        <td rowspan="3" class="Vote">
-
-        </td>
-      </tr>
-    );
+      return (
+        <div class="col sticky">
+          <div class="card sticky">
+            <div class="card-header sticky"><h6>KEY</h6></div>
+            <div class="card-body sticky">
+              <table>
+              <tr><td><img src={TechnicaIcon} className="Icon" /></td><td>Challenge Winner</td></tr>
+              <tr><td><button id="purple-badge"></button></td><td>Challenge Attempted</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      )
   }
-}*/
+}
 
-/*class Sponsor extends Component {
-  render() {
-    return (
-      <div>
-        <SearchFilterSection />
-        <SubmissionTable submissions={this.props.submissions} />
-      </div>
-    );
-  }
-}*/
 /* Sponsor page content (see PRD) <SubmissionTable />*/
 const Sponsor = () => (
-  SiteWrapper(
+
+SiteWrapper(
     <div id="Sponsor">
       <div class="row">
         <div class="col">
           <Card title="Search and Filter" content="replace this" />
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
-          <SubmissionTable projects={PROJECTS} />
-        </div>
-      </div>
-    </div>
+      <SubmissionTable projects={PROJECTS} /></div>
   )
 );
 

@@ -1,0 +1,157 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  font-family: arial, sans-serif;
+}
+
+.Vote .switch {
+  width: 110px;
+  height: 40px;
+}
+
+.OnOff .switch {
+  width: 60px;
+  height: 20px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #F5F5F5;
+  border-style: solid;
+  border-color: #969696;
+  border-width: 1px;
+  box-shadow: inset -1.5px 1px 2px lightgray;
+}
+
+.Vote .slider {
+  border-radius: 4px;
+}
+
+.OnOff .slider {
+  border-radius: 10px;
+}
+
+.slider:before {
+  z-index: 999;
+  position: absolute;
+  content: "";
+
+  left: -1px;
+  bottom: -1px;
+  background-color: white;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+
+  border-style: solid;
+  border-color: #969696;
+  border-width: 1px;
+}
+
+.Vote .slider:before {
+  height: 40px;
+  width: 15px;
+  border-radius: 4px;
+}
+
+.OnOff .slider:before {
+  height: 20px;
+  width: 20px;
+  border-radius: 11px;
+}
+
+input:checked + .slider {
+  background-color: #ff7bac;
+  border-style: solid;
+  border-color: #ff7bac;
+  border-width: 1px;
+  box-shadow: inset 0px 1px 2px white;
+}
+
+input:checked + .slider:hover {
+  background-color: #ff4d8f;
+}
+
+input:not(:checked) + .slider {
+  background-color: #fafafa;
+}
+
+input:not(:checked) + .slider:hover {
+  background-color: #f2f2f2;
+}
+
+input:checked + .slider:before {
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.Vote input:checked + .slider:before {
+  -webkit-transform: translateX(95px);
+  -ms-transform: translateX(95px);
+  transform: translateX(95px);
+}
+
+.OnOff input:checked + .slider:before {
+  -webkit-transform: translateX(40px);
+  -ms-transform: translateX(40px);
+  transform: translateX(40px);
+}
+
+/*------ ADDED CSS ---------*/
+.Vote .slider:after
+{
+ content:'NO VOTE';
+ color: #2d2d2d;
+ display: block;
+ position: absolute;
+ white-space: nowrap;
+ transform: translate(-50%,-50%);
+ top: 50%;
+ left: 55%;
+ font-size: 15px;
+ font-weight: bold;
+ -webkit-transition: all 0.3s ease-out;
+ transition: all 0.3s ease-out;
+}
+
+.Vote input:checked + .slider:after
+{
+  left: 45%;
+  content:'WINNER';
+  color: white;
+}
+
+/*--------- END --------*/
+
+/*------ ADDED CSS ---------*/
+.OnOff .slider:after
+{
+ content:'OFF';
+ color: #2d2d2d;
+ display: block;
+ position: absolute;
+ white-space: nowrap;
+ transform: translate(-50%,-50%);
+ top: 50%;
+ left: 65%;
+ font-size: 13px;
+ font-weight: bold;
+ -webkit-transition: all 0.3s ease-out;
+ transition: all 0.3s ease-out;
+}
+
+.OnOff input:checked + .slider:after
+{
+  left: 38%;
+  content:'ON';
+  color: white;
+}
+
+/*--------- END --------*/
