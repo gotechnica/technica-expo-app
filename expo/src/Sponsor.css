@@ -15,7 +15,7 @@ img.Icon {
 
 a {
     text-decoration: none;
-    color: #00ffff;
+    /* color: #00ffff; */
     padding: 0px 6px 0px 0px;
 }
 
@@ -27,7 +27,7 @@ th {
 }
 
 table {
-    font-family: arial, sans-serif;
+    /* font-family: arial, sans-serif; */
     border-collapse: separate;
     border-spacing: 0px 5px;
     width: 100%;
@@ -39,29 +39,29 @@ table {
     padding-right: 12px;
     min-width: 75px;
     /* Text */
-    color: #2d2d2d;
+    /* color: #2d2d2d; */
     text-align: center;
     font-weight: bold;
     font-size: 45px;
     /* Borders */
-    border: 1px solid lightgray;
+    /* border-bottom: 1px solid lightgray; */
     border-left:0;
   	border-right:0;
     position: relative;
 }
 
 .TableNumber:before {
-  display:block;
+  /* display:block;
   content:"";
   color:transparent;
   font-size:0;
-  border-right:12px solid #ff7bac;
-  height:101%;
+  border-right:10px solid #ff7bac;
+  height:100%;
   position:absolute;
   right:0;
   padding:1px 0;
-  top:-1px;
-  bottom:0px;
+  top:0px;
+  bottom:0px; */
 }
 
 .name { grid-area: name; }
@@ -81,13 +81,13 @@ table {
     width: 55%;
     padding: 1.75% 0px 1.25% 2.5%;
     /* Text */
-    color: #2d2d2d;
+    /* color: #2d2d2d; */
     font-weight: bold;
-    font-size: calc(17px + .5vw);
+    font-size: 20px;
     /* Borders */
-    border-width: 1px 0px 1px 0px;
-    border-color: lightgray;
-    border-style: solid;
+    /* border-width: 1px 0px 1px 0px; */
+    /* border-color: lightgray; */
+    /* border-style: solid; */
 }
 
 .Challenge-Categories {
@@ -108,8 +108,8 @@ table {
     background-color: transparent;
     border-style: solid;
     border-width: 0px;
-    font-size: 17px;
-    color: #2d2d2d;
+    font-size: 14px;
+    color: #999;
     outline: none;
     text-align: left;
     transition: all 0.4s ease-in-out;
@@ -134,7 +134,7 @@ table {
 
 .Challenge-Categories div button {
     border-width: 0px;
-    font-size: 13px;
+    font-size: 12px;
     outline: none;
     transition: all 1s ease-in-out;
     margin-bottom: 5px;
@@ -180,9 +180,9 @@ button.hide {
 .Vote {
     /*min-width: 225px;*/
     padding: 2.25% 1.75% 1.5% 1.75%;
-    border-width: 1px 0px;
-    border-color: lightgray;
-    border-style: solid;
+    /* border-width: 1px 0px; */
+    /* border-color: lightgray; */
+    /* border-style: solid; */
     vertical-align: middle;
     /*white-space: nowrap;*/
     width:10%;
@@ -213,10 +213,6 @@ button.hide {
 .Vote button:hover {
   background-color: rgb(255,255,255, 0.5);
   color: #ff7bac;
-}
-
-tr:hover td {
-  background-color: white;
 }
 
 .switch {

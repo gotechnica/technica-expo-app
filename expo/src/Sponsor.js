@@ -10,7 +10,7 @@ import {
 import SiteWrapper from './SiteWrapper.js';
 import Card from './Card.js';
 
-import TechnicaIcon from './Copy of technica-circle-small.png';
+import TechnicaIcon from './imgs/Copy of technica-circle-small.png';
 
 import '../node_modules/bootstrap/scss/_badge.scss';
 
@@ -299,7 +299,7 @@ const Sponsor = () => (
           <SearchandFilter origin = "sponsor" loggedIn = "Mantech"/>
         </div>
       </div>
-     
+
     </div>
   )
 );
