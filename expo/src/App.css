@@ -1,10 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+
+@font-face {
+  font-family: 'DINPro';
+  src: url('./fonts/DINPro-Regular.otf');
+}
+
+@font-face {
+  font-family: 'DINPro';
+  font-weight: 600;
+  src: url('./fonts/DINPro-Bold.otf');
+}
+
+html {
+  background-color: #222;
+}
+
 .App {
-
+  font-family: 'Poppins', sans-serif;
+  background-color: #222;
 }
 
-nav {
-  background-color: #ff7bac;
+.modal-content {
+  background-color: #222;
 }
+
+.modal-header {
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(0,0,0,.125);
+}
+
+.close {
+  color: #fff;
+}
+
+.close:hover {
+  color: #fff;
+}
+
 
 /*a {
   color:#00ffff;

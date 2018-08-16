@@ -1,6 +1,13 @@
+table {
+  border: none;
+}
+
+tbody tr td {
+  border-top: 3px solid #222;
+}
 
 tbody tr:hover {
-  background-color: #e3e3e3;
+  background-color: #444;
 }
 .table{
   table-layout: fixed;

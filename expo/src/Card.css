@@ -3,6 +3,11 @@
 
 .card {
   margin: 10px;
+  background-color: #2F2F2F;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 15px;
 }
 
 .card-header {

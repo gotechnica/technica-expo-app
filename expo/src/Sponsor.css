@@ -1,348 +1,139 @@
-
-
-button, input {
-    outline: none;
-    transition: all 0.45s ease-in-out;
-}
-
-img.Icon {
-  height: 18px;
-  width: 17px;
-  margin-bottom: 2px;
-  margin-right: 5px;
-}
-
-
-a {
-    text-decoration: none;
-    color: #00ffff;
-    padding: 0px 6px 0px 0px;
-}
-
-a:hover {
-    color: #00ffff;
-}
-th {
-  text-align: center;
-}
-
 table {
-    font-family: arial, sans-serif;
     border-collapse: separate;
     border-spacing: 0px 5px;
     width: 100%;
 }
 
+th {
+    text-align: center;
+}
+
+/* ============ [Technica Win Badge] ============ */
+img.Icon {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+/* ==================== [END] ================== */
+
+/* ============ [Devpost Link Icon] ============ */
+.name a {
+    text-decoration: none;
+    color: #00C7C7;
+    padding: 0px 6px 0px 0px;
+}
+
+.name a:hover {
+    color: #00FFFF;
+}
+/* ==================== [END] ================== */
+
+/* ============== [Table Number] ============== */
 .TableNumber {
     /* Sizing */
-    width: 8%;
-    padding-right: 12px;
+    width: 5%;
     min-width: 75px;
     /* Text */
-    color: #2d2d2d;
     text-align: center;
+    font-size: 40px;
     font-weight: bold;
-    font-size: 45px;
     /* Borders */
-    border: 1px solid lightgray;
+    position: relative;
     border-left:0;
   	border-right:0;
-    position: relative;
 }
+/* ==================== [END] ================== */
 
-.TableNumber:before {
-  display:block;
-  content:"";
-  color:transparent;
-  font-size:0;
-  border-right:12px solid #ff7bac;
-  height:101%;
-  position:absolute;
-  right:0;
-  padding:1px 0;
-  top:-1px;
-  bottom:0px;
-}
-
+/* =========== [Project Information] =========== */
+/* <== Grid Structure ==>*/
 .name { grid-area: name; }
 .Challenge-Wins { grid-area: wins; }
-.Challenge-Categiries { grid-area: challenges; }
+.Challenge-Categories { grid-area: challenges; }
+.Vote { grid-area: vote; }
 
 .grid-container {
   display: grid;
   grid-template-areas:
-    'name name name'
-    'wins wins wins'
-    'challenges challenges challenges';
+    'name name'
+    'wins wins'
+    'challenges challenges';
 }
+/* <======================>*/
 
 .Project {
     /* Sizing */
     width: 55%;
-    padding: 1.75% 0px 1.25% 2.5%;
+    padding: 1.5% 0px 1% 2%;
     /* Text */
-    color: #2d2d2d;
     font-weight: bold;
-    font-size: calc(17px + .5vw);
-    /* Borders */
-    border-width: 1px 0px 1px 0px;
-    border-color: lightgray;
-    border-style: solid;
+    font-size: 22px;
 }
+/* ==================== [END] ================== */
 
-.Challenge-Categories {
-    margin-left: -1.5px;
-}
-
+/* ============== [Challenge Cards] ============ */
+/* <=== [Winning Badge] ===> */
 .Challenge-Wins {
     margin-left: -5px;
-
 }
 
 .Challenge-Wins div {
     display: inline-block;
-    transition: "all 3s ease-in-out",
 }
 
 .Challenge-Wins div button {
+    /* Remove Default Button Style*/
     background-color: transparent;
     border-style: solid;
     border-width: 0px;
-    font-size: 17px;
-    color: #2d2d2d;
     outline: none;
+    /* Text */
+    color: #999999;
+    font-size: 16px;
     text-align: left;
-    transition: all 0.4s ease-in-out;
     white-space: nowrap;
-    transition: "all 3s ease-in-out",
 }
-
+/* <=======================> */
+/* <== [Basic Challenge] ==> */
 .Challenge-Categories {
-  margin-top: 5px;
-  line-height: 20px;
-  transition: all 0.4s ease-in-out;
+    margin-top: 7px;
+    line-height: 20px;
 }
 
-.Challenge-Categories div {
-    display: inline-block;
+.Challenge-Categories table {
+    /* Span Table Cell */
+    width: 100%;
+    /* Text */
+    font-size: 15px;
+    font-weight: normal;
     white-space: nowrap;
 }
 
-.Challenge-Categories div.challenge {
-
+.Challenge-Categories b  {
+    padding-right: 4px;
+    padding-left: 10px;
 }
 
-.Challenge-Categories div button {
-    border-width: 0px;
-    font-size: 13px;
-    outline: none;
-    transition: all 1s ease-in-out;
-    margin-bottom: 5px;
+.Challenge-Categories td.indicator {
+    /* Triangular indicator aligned to the right */
+    text-align: right;
+    padding-right: 15px;
+    padding-left: 15px;
 }
+/* <=======================> */
+/* ==================== [END] ================== */
 
-.Challenge-Categories div button.indicator {
-    border-width: 0px 0px 0px 1.25px;
-    border-radius: 0px 5px 5px 0px;
-    border-color: white;
-    outline: none;
-    margin-right: 7px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    color: white;
-    background-color: #b6a1c4;
-}
-
-.Challenge-Categories div button.company {
-    background-color: #b6a1c4;
-    padding: 2px 6px 2px 8px;
-    color: white;
-    border-radius: 5px 0px 0px 5px;
-}
-
-.Challenge-Categories div button.indicator:hover {
-    background-color: #a875c9;
-    transition: all 0.5s ease-in-out;
-}
-
-/*.Challenge-Categories button.hide {
-    background-color: #464343;
-    border-radius: 0px 5px 5px 0px;
-    color: white;
-}
-
-button.hide {
-    display: none;
-    padding: 4px 7px 4px 0px;
-    border-radius: 0px 5px 5px 0px;
-    outline: none;
-}
-*/
+/* =================== [Voting] ================ */
 .Vote {
-    /*min-width: 225px;*/
-    padding: 2.25% 1.75% 1.5% 1.75%;
-    border-width: 1px 0px;
-    border-color: lightgray;
-    border-style: solid;
     vertical-align: middle;
-    /*white-space: nowrap;*/
-    width:10%;
     text-align: center;
 }
 
 .Vote input[type=radio] {
+    /* Remove Checkbox Default */
     display: none;
 }
 
-.Vote button {
-    float:center;
-    color: white;
-    background-color: #ff7bac;
-    font-size: 15px;
-    border-style: solid;
-    border-color: #ff7bac;
-    border-width: 1px;
-    outline: none;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    /*box-shadow: 1.5px 1.5px 1px #888888;*/
-	  transition: all 0.6s ease-in-out;
-    width: 110px;
-    height: 45px;
+.Vote label {
+    margin-bottom: 0px;
 }
-
-.Vote button:hover {
-  background-color: rgb(255,255,255, 0.5);
-  color: #ff7bac;
-}
-
-tr:hover td {
-  background-color: white;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 110px;
-  height: 40px;
-}
-
-.switch input {display:none;}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  -webkit-transition: .4s;
-  transition: .4s;
-  border: 1px solid #969696;
-  background-color: #F5F5F5;
-  transition: all 1s ease-in-out;
-}
-
-.slider:hover {
-  background-color: rgb(0,0,0,0.1);
-
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 40px;
-  width: 15px;
-  left: -1px;
-  bottom: -1px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-  -webkit-box-shadow: inset 4px 0px 5px -5px rgba(0,0,0,0.47);
--moz-box-shadow: inset 4px 0px 5px -5px rgba(0,0,0,0.47);
-box-shadow: inset 4px 0px 5px -5px rgba(0,0,0,0.47);
-border: 1px solid #969696;
-transition: all 0.15s ease-in-out;
-}
-
-
-input:checked + .slider {
-  background-color: #ff7bac;
-  border-color: #ff7bac;
-  box-shadow: none;
-  transition: all 0.15s ease-in-out;
-}
-
-input:checked + .slider:hover {
-  background-color: #FF4D8F;
-  transition: all 1s ease-in-out;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(95px);
-  -ms-transform: translateX(95px);
-  transform: translateX(95px);
-  transition: all 0.15s ease-in-out;
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 5px;
-  -webkit-box-shadow: inset -0.25px 2px 3px 0px rgba(0,0,0,0.25);
--moz-box-shadow: inset -0.25px 2px 3px 0px rgba(0,0,0,0.25);
-box-shadow: inset -0.25px 2px 3px 0px rgba(0,0,0,0.25);
-transition: all 0.15s ease-in-out;
-}
-
-.slider.round:before {
-  border-radius: 4px;
-  transition: all 0.15s ease-in-out;
-
-}
-
-p.on {
-	margin-top: 8px;
-    margin-right: 12px;
-    font-weight: bold;
-    color: #ff7bac;
-    display: none;
-    transition: all 0.1s ease-in-out;
-        font-size: 15px;
-}
-
-p.off {
-	margin-top: 8px;
-    margin-left: 12px;
-    font-weight: bold;
-    color: #2d2d2d;
-    font-size: 15px;
-    transition: all 0.15s ease-in-out;
-}
-input:checked ~ span.round:before {
-	border: 1px solid #ff7bac;
-}
-
-input:checked ~ span > p.on {
-	color: white;
-    display: block;
-}
-
-input:checked ~ span > p.off {
-	color: #F5F5F5;
-    display: none;
-}
-
-.badge {
-  margin-left: 4px;
-  margin-bottom: 4px;
-  color: white;
-  vertical-align: middle;
-  border-radius: 15px;
-  width: 20px;
-  height: 20px;
-  text-align: center;
-  background: linear-gradient(to right, #00ffff, #b6a1c4, #ff7bac);
-}
-
-.badge p {
-  padding-bottom: 5px;
-}
+/* ==================== [END] ================== */

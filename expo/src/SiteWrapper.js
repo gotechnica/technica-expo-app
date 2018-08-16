@@ -6,16 +6,18 @@ import {
   Link
 } from 'react-router-dom';
 
+import './SiteWrapper.css';
+
 /* Header / constant app features */
 
 let SiteWrapper = (content) => (
   <div className="App">
     <nav className="navbar navbar-expand-md">
       <Link to="/">
-        <img src={require('./technica-logo-white.svg')}
-          alt="Technica Logo" height="50px"/>
+        <img className="logo" src={require('./imgs/technica-logo.svg')}
+          alt="Technica Logo"/>
       </Link>
-
+{/* 
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
@@ -25,7 +27,7 @@ let SiteWrapper = (content) => (
             <Link to="/adminlogin">Admin Login</Link>
           </li>
         </ul>
-      </div>
+      </div> */}
 
     </nav>
     <div className="container">

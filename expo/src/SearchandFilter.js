@@ -11,58 +11,123 @@ import Table from './Table.js';
 import SiteWrapper from './SiteWrapper.js';
 import {Voting, ProjectRow, SubmissionTable} from './Sponsor';
 const PROJECTS = [
-      { table_number: 23,
-        project_name: 'Mining Malware',
-        project_url: 'https://devpost.com/software/mining-malware',
-        challenges: [
-          { company: 'Mantech',
-            challenge_name: 'Cybersecurity Hack',
-            won: true
-          },
-          { company: 'JP Morgan',
-            challenge_name: 'Best Hack for Social Good',
-            won: false
-          },
-          { company: 'Booz Allen Hamilton',
-            challenge_name: 'Best Hack to Help in a Crisis',
-            won: false
-          },
-          { company: 'Capital One',
-            challenge_name: 'Best Financial Hack',
-            won: false
-          },
-          { company: 'Amazon Web Services',
-            challenge_name: 'Best Use of AWS',
-            won: true
-          },
-          { company: 'GE Digital',
-            challenge_name: 'Best Digital Industrial Hack',
-            won: false
-          },
-          {
-            company: 'Mantech',
-            challenge_name: 'Best Hardware Hack',
-            won: false
-          }
-        ],
+  { table_number: 23,
+    project_name: 'Mining Malware',
+    project_url: 'https://devpost.com/software/mining-malware',
+    challenges: [
+      { company: 'Mantech',
+        challenge_name: 'Cybersecurity Hack',
+        won: true
       },
-      { table_number: 4,
-        project_name: 'Leveraging the First Steps',
-        project_url: 'https://devpost.com/software/leveraging-the-first-steps',
-        challenges: [
-          { company: 'JP Morgan',
-            challenge_name: 'Best Hack for Social Good',
-            won: true
-          },
-          { company: 'Bloomberg',
-            challenge_name: 'Best Education/Diversity and Inclusion Hack',
-            won: false
-          }
-        ],
+      { company: 'JP Morgan',
+        challenge_name: 'Best Hack for Social Good',
+        won: false
       },
-    ];
+      { company: 'Booz Allen Hamilton',
+        challenge_name: 'Best Hack to Help in a Crisis',
+        won: false
+      },
+      { company: 'Capital One',
+        challenge_name: 'Best Financial Hack',
+        won: false
+      },
+      { company: 'Amazon Web Services',
+        challenge_name: 'Best Use of AWS',
+        won: true
+      },
+      { company: 'GE Digital',
+        challenge_name: 'Best Digital Industrial Hack',
+        won: false
+      }
+    ],
+  },
+  { table_number: 4,
+    project_name: 'Leveraging the First Steps',
+    project_url: 'https://devpost.com/software/leveraging-the-first-steps',
+    challenges: [
+      { company: 'JP Morgan',
+        challenge_name: 'Best Hack for Social Good',
+        won: true
+      },
+      { company: 'Bloomberg',
+        challenge_name: 'Best Education/Diversity and Inclusion Hack',
+        won: false
+      }
+    ],
+  },
+  { table_number: 12,
+    project_name: 'Safety Net',
+    project_url: 'https://devpost.com/software/safety-net-cjr0nv',
+    challenges: [
+      { company: 'ViaSat',
+        challenge_name: 'Best Device Connectivity',
+        won: true
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_name: 'Best Hack to Help in a Crisis',
+        won: false
+      }
+    ],
+  },
+  { table_number: 3,
+    project_name: 'Smart Home Security',
+    project_url: 'https://devpost.com/software/technica2017-alexa-securitycam',
+    challenges: [
+      { company: 'ViaSat',
+        challenge_name: 'Best Device Connectivity',
+        won: false
+      },
+      { company: 'Liberty Mutual',
+        challenge_name: 'Rise and Shine Challenge',
+        won: true
+      },
+      { company: 'Altamira',
+        challenge_name: 'Best Hardware Hack',
+        won: false
+      },
+      { company: 'Qualcomm',
+        challenge_name: 'Qualcomm DragonBoard™ 410c Hack',
+        won: false
+      },
+    ],
+  },
+  { table_number: 49,
+    project_name: 'HelpHub',
+    project_url: 'https://devpost.com/software/helphub-wme2q3',
+    challenges: [
+      { company: 'ViaSat',
+        challenge_name: 'Best Device Connectivity',
+        won: false
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_name: 'Best Hack to Help in a Crisis',
+        won: false
+      },
+      { company: 'Liberty Mutual',
+        challenge_name: 'Rise and Shine Challenge',
+        won: false
+      },
+      { company: 'Facebook/Oculus',
+        challenge_name: 'Best VR Hack ',
+        won: true
+      },
+      { company: 'Microsoft',
+        challenge_name: 'Best Use of Microsoft Cognitive Services API',
+        won: false
+      },
+      { company: 'Altamira',
+        challenge_name: 'Best Hardware Hack',
+        won: false
+      },
+      { company: 'Bloomberg',
+        challenge_name: 'Best Education/Diversity and Inclusion Hack',
+        won: false
+      }
+    ]
+  }
+];
 class SearchandFilter extends Component {
-    
+
     constructor(props){
         super(props);
         this.state = {
@@ -107,7 +172,7 @@ class SearchandFilter extends Component {
         updatedList = updatedList.filter((item)=>{
           return item.project_name.toLowerCase().indexOf(val.toLowerCase()) !==-1;
         });
-    
+
         this.setState(()=>{
           return({
             workingdata: updatedList
@@ -124,7 +189,7 @@ class SearchandFilter extends Component {
           else
           return item.project_name.includes(val)
         })
-    
+
         this.setState(()=>{
           return({
             workingdata: updatedList
@@ -147,7 +212,7 @@ class SearchandFilter extends Component {
           return challenges_data.indexOf(val) >-1
           }
         })
-    
+
         this.setState(()=>{
           console.log(updatedList);
           return({
@@ -167,12 +232,12 @@ class SearchandFilter extends Component {
     //     super(props);
     //     this.handleChange = this.handleChange.bind(this);
     // }
-    
+
     createChallengeArray(){
         let options = [];
         this.state.data.map((obj)=>{
            {obj.challenges.map((item)=>{
-                options.push(item.challenge_name); 
+                options.push(item.challenge_name);
             })
           }
     })
@@ -191,7 +256,7 @@ class SearchandFilter extends Component {
       console.log(options)
       return options;
     }
-    
+
     // handleChange(e){
     //     this.props.handleChange(e);
     // }
@@ -244,18 +309,18 @@ class SearchandFilter extends Component {
             }/>
             {this.props.origin === "home" ?
             <div class="row">
-        <div class="col">  
+        <div class="col">
         <Table data={this.state.workingdata} value={this.state.value} />
         </div>
       </div> :
-      
+
         <div class="card">
         <div class="card-body">
         <SubmissionTable projects={this.state.workingdata} value={this.state.value}/>
         </div>
         </div>
         }
-            
+
       </div>
         )
     }
