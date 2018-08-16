@@ -1,7 +1,6 @@
 .switch {
   position: relative;
   display: inline-block;
-  font-family: arial, sans-serif;
 }
 
 .Vote .switch {
@@ -24,7 +23,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #F5F5F5;
   border-style: solid;
   border-color: #969696;
   border-width: 1px;
@@ -68,15 +66,15 @@
 }
 
 input:checked + .slider {
-  background-color: #ff7bac;
+  background-color: #b6a1c4;
   border-style: solid;
-  border-color: #ff7bac;
+  border-color: #b6a1c4;
   border-width: 1px;
   box-shadow: inset 0px 1px 2px white;
 }
 
 input:checked + .slider:hover {
-  background-color: #ff4d8f;
+  background-color: #cebadb;
 }
 
 input:not(:checked) + .slider {
@@ -125,7 +123,7 @@ input:checked + .slider:before {
 {
   left: 45%;
   content:'WINNER';
-  color: white;
+  color: #2f2f2f;
 }
 
 /*--------- END --------*/

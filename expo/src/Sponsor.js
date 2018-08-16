@@ -1,7 +1,6 @@
 /* react components */
 import React, { Component } from 'react';
 import './Sponsor.css';
-import './ChallengeCard.css';
 import './SliderOption.css';
 import {
   BrowserRouter as Router,
@@ -12,9 +11,7 @@ import {
 import SiteWrapper from './SiteWrapper.js';
 import Card from './Card.js';
 
-import TechnicaIcon from './imgs/Copy of technica-circle-small.png';
-
-import { StickyContainer, Sticky } from '../node_modules/react-sticky';
+import TechnicaIcon from './imgs/technica_award_ribbon.png';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
@@ -24,52 +21,6 @@ library.add(faExternalLinkAlt);
 library.add(faCaretRight);
 library.add(faCaretLeft);
 
-// const PROJECTS = [
-//   { table_number: 23,
-//     project_name: 'Mining Malware',
-//     project_url: 'https://devpost.com/software/mining-malware',
-//     challenges: [
-//       { company: 'Mantech',
-//         challenge_name: 'Cybersecurity Hack',
-//         won: true
-//       },
-//       { company: 'JP Morgan',
-//         challenge_name: 'Best Hack for Social Good',
-//         won: false
-//       },
-//       { company: 'Booz Allen Hamilton',
-//         challenge_name: 'Best Hack to Help in a Crisis',
-//         won: false
-//       },
-//       { company: 'Capital One',
-//         challenge_name: 'Best Financial Hack',
-//         won: false
-//       },
-//       { company: 'Amazon Web Services',
-//         challenge_name: 'Best Use of AWS',
-//         won: true
-//       },
-//       { company: 'GE Digital',
-//         challenge_name: 'Best Digital Industrial Hack',
-//         won: false
-//       }
-//     ],
-//   },
-//   { table_number: 4,
-//     project_name: 'Leveraging the First Steps',
-//     project_url: 'https://devpost.com/software/leveraging-the-first-steps',
-//     challenges: [
-//       { company: 'JP Morgan',
-//         challenge_name: 'Best Hack for Social Good',
-//         won: true
-//       },
-//       { company: 'Bloomberg',
-//         challenge_name: 'Best Education/Diversity and Inclusion Hack',
-//         won: false
-//       }
-//     ],
-//   },
-// ];
 export class ProjectRow extends Component {
   render() {
     let winnerCards = [];
@@ -109,6 +60,7 @@ export class ProjectRow extends Component {
     );
   }
 }
+
 export class SubmissionTable extends Component {
   render() {
     let rows = [];
@@ -144,17 +96,6 @@ export class SubmissionTable extends Component {
 
 }
 
-/*class FilterableSubmissionTable extends Component {
-  render () {
-    return (
-      <div>
-        <SearchBar />
-        <ChallangesFilter />
-      </div>
-    );
-  }
-}*/
-
 export class ChallengeCard extends Component {
   constructor() {
     super();
@@ -177,12 +118,6 @@ export class ChallengeCard extends Component {
       display: "inline-block",
     };
 
-    let displayedIcon = {
-      marginLeft: "4px",
-      fontSize: "16px",
-      display: "inline-block",
-    };
-
     let winnerCard = (
       <button>
         <img src={TechnicaIcon} className="Icon" />
@@ -198,9 +133,9 @@ export class ChallengeCard extends Component {
       <div className="Challenge-Card" onClick={this.handleToggleClick}>
         <table className="Challenge-Card">
           <tr>
-            <td className="challenge-info">
+            <td className="Info">
               <b>{this.props.challenge_name} </b>
-              <div style={toggledStyle}>| {this.props.company}</div>
+              <div style={toggledStyle}>|&nbsp;&nbsp;{this.props.company}</div>
             </td>
             <td className="indicator"><FontAwesomeIcon icon={indicator} /></td>
           </tr>
@@ -251,9 +186,7 @@ export class Voting extends Component {
   }
 
   render() {
-    let selectedStyle = { backgroundColor: "#ff478c" };
-    let nonSelectedStyle = { backgroundColor: "#fffff" };
-    let startStyle = { backgroundColor: "#ff7bac" };
+
 
     return (
       <div className="Vote toggle.toggle no-hover">
@@ -263,24 +196,6 @@ export class Voting extends Component {
         </label>
       </div>
     )
-  }
-}
-
-class StickyKey extends Component {
-  render() {
-      return (
-        <div class="col sticky">
-          <div class="card sticky">
-            <div class="card-header sticky"><h6>KEY</h6></div>
-            <div class="card-body sticky">
-              <table>
-              <tr><td><img src={TechnicaIcon} className="Icon" /></td><td>Challenge Winner</td></tr>
-              <tr><td><button id="purple-badge"></button></td><td>Challenge Attempted</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      )
   }
 }
 
@@ -294,7 +209,6 @@ SiteWrapper(
           <SearchandFilter origin = "sponsor" loggedIn = "Mantech"/>
         </div>
       </div>
-
     </div>
   )
 );

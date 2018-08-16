@@ -1,82 +1,51 @@
 table {
-    font-family: arial, sans-serif;
     border-collapse: separate;
     border-spacing: 0px 5px;
     width: 100%;
 }
 
 th {
-  text-align: center;
+    text-align: center;
 }
 
-tr.no-hover:hover td.no-hover {
-  background-color: white;
-}
-
-/* Technica Win Badge */
+/* ============ [Technica Win Badge] ============ */
 img.Icon {
-  height: 18px;
-  width: 17px;
-  margin-bottom: 2px;
-  margin-right: 5px;
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
 }
+/* ==================== [END] ================== */
 
-/* Devpost Link Icon */
+/* ============ [Devpost Link Icon] ============ */
 .name a {
     text-decoration: none;
-    /* color: #00ffff; */
+    color: #00C7C7;
     padding: 0px 6px 0px 0px;
 }
 
 .name a:hover {
-    color: #00ffff;
+    color: #00FFFF;
 }
-th {
-  text-align: center;
-}
+/* ==================== [END] ================== */
 
-table {
-    /* font-family: arial, sans-serif; */
-    border-collapse: separate;
-    border-spacing: 0px 5px;
-    width: 100%;
-}
-
-/* Table Number */
+/* ============== [Table Number] ============== */
 .TableNumber {
     /* Sizing */
     width: 5%;
     min-width: 75px;
-    padding-right: 12px;
-
     /* Text */
-    /* color: #2d2d2d; */
     text-align: center;
     font-size: 40px;
     font-weight: bold;
-
     /* Borders */
-    /* border-bottom: 1px solid lightgray; */
+    position: relative;
     border-left:0;
   	border-right:0;
 }
+/* ==================== [END] ================== */
 
-/* Workaround for slanted border joints */
-.TableNumber:before {
-  /* display:block;
-  content:"";
-  color:transparent;
-  font-size:0;
-  border-right:10px solid #ff7bac;
-  height:100%;
-  position:absolute;
-  right:0;
-  padding:1px 0;
-  top:0px;
-  bottom:0px; */
-}
-
-/* Project Information */
+/* =========== [Project Information] =========== */
+/* <== Grid Structure ==>*/
 .name { grid-area: name; }
 .Challenge-Wins { grid-area: wins; }
 .Challenge-Categories { grid-area: challenges; }
@@ -89,79 +58,82 @@ table {
     'wins wins'
     'challenges challenges';
 }
+/* <======================>*/
 
 .Project {
     /* Sizing */
     width: 55%;
     padding: 1.5% 0px 1% 2%;
-
     /* Text */
-    /* color: #2d2d2d; */
     font-weight: bold;
-    font-size: 20px;
-    /* Borders */
-    /* border-width: 1px 0px 1px 0px; */
-    /* border-color: lightgray; */
-    /* border-style: solid; */
+    font-size: 22px;
+}
+/* ==================== [END] ================== */
+
+/* ============== [Challenge Cards] ============ */
+/* <=== [Winning Badge] ===> */
+.Challenge-Wins {
+    margin-left: -5px;
 }
 
-/* Voting */
+.Challenge-Wins div {
+    display: inline-block;
+}
+
+.Challenge-Wins div button {
+    /* Remove Default Button Style*/
+    background-color: transparent;
+    border-style: solid;
+    border-width: 0px;
+    outline: none;
+    /* Text */
+    color: #999999;
+    font-size: 16px;
+    text-align: left;
+    white-space: nowrap;
+}
+/* <=======================> */
+/* <== [Basic Challenge] ==> */
+.Challenge-Categories {
+    margin-top: 7px;
+    line-height: 20px;
+}
+
+.Challenge-Categories table {
+    /* Span Table Cell */
+    width: 100%;
+    /* Text */
+    font-size: 15px;
+    font-weight: normal;
+    white-space: nowrap;
+}
+
+.Challenge-Categories b  {
+    padding-right: 4px;
+    padding-left: 10px;
+}
+
+.Challenge-Categories td.indicator {
+    /* Triangular indicator aligned to the right */
+    text-align: right;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+/* <=======================> */
+/* ==================== [END] ================== */
+
+/* =================== [Voting] ================ */
 .Vote {
-    /* Sizing
-    width: 10%;
-    padding: 2.25% 1.75% 1.5% 1.75%;*/
-
-    /* Text
-    vertical-align: middle;*/
+    vertical-align: middle;
     text-align: center;
-    /* Borders */
-    /*border-width: 1px 0px;
-    border-color: lightgray;
-    border-style: solid;*/
-}
-
-.Vote label, .OnOff label {
-  margin-bottom: 0px;
-}
-
-tr:hover td.TableNumber {
-  background-color: #f5f5f5;
 }
 
 .Vote input[type=radio] {
-    display: none; /* not display checkboxes */
+    /* Remove Checkbox Default */
+    display: none;
 }
 
-.sticky {
-  z-index:1000;
-  bottom: 0;
-  right: -20px;
-  position: sticky;
-  position: -webkit-sticky;
-  float: right;
-  padding: 0px;
+.Vote label {
+    margin-bottom: 0px;
 }
-
-.sticky + .card-body {
-  padding: 0px 7px;
-  font-size: 16px;
-  text-align: left;
-}
-
-div.card-header h6 {
-  text-align: center;
-  padding-top: 3px;
-  font-size: 19px;
-  text-align: center;
-}
-
-#purple-badge {
-  margin-top: 10px;
-  height: 18px;
-  width: 18px;
-  background-color: #b6a1c4;
-  border-radius: 4.5px;
-  outline:none;
-  margin-top: 5px;
-  border: 0px solid white;
-}
+/* ==================== [END] ================== */
