@@ -269,17 +269,8 @@ class SearchandFilter extends Component {
                 <input type="text" placeholder="Search for projects here" className="form-control" onChange={this.handleChange} name="input" />
                 </div>
                 <div className="form-row">
-                <div className="col-6">
-                <select className="form-control" id="project" onChange={this.handleChange} name="selectProject">
-                <option selected>Project</option>
-                    {this.state.data.map((obj)=>{
-                        return (
-                            <option key={obj.table_number}>{obj.project_name}</option>
-                        )
-                    })}
-                </select>
-                </div>
-                {this.props.origin === "home" ? <div className="col-6">
+                {this.props.origin === "home" ? <div className="col-12">
+
                 <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
                 <option selected>Challenges</option>
                     {
@@ -290,9 +281,9 @@ class SearchandFilter extends Component {
                         })
                     }
                 </select>
-                </div> :  <div className="col-6">
+                </div> :  <div className="col-12">
                 <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
-                <option selected>Challenges</option>
+                <option selected>Your Challenges</option>
                     {
                         this.createChallengeSponsorArray().map((obj,index)=>{
 
@@ -333,3 +324,14 @@ export default SearchandFilter;
 //                 <option>web</option>
 //                 <option>design</option>
 //                 <option>backend</option>
+
+// <div className="col-6">
+                // <select className="form-control" id="project" onChange={this.handleChange} name="selectProject">
+                // <option selected>Project</option>
+                //     {this.state.data.map((obj)=>{
+                //         return (
+                //             <option key={obj.table_number}>{obj.project_name}</option>
+                //         )
+                //     })}
+                // </select>
+                // </div>
