@@ -1,7 +1,6 @@
 /* react components */
 import React, { Component } from 'react';
 import './Sponsor.css';
-import './SliderOption.css';
 import {
   BrowserRouter as Router,
   Route,
@@ -10,61 +9,73 @@ import {
 
 import SiteWrapper from './SiteWrapper.js';
 import Card from './Card.js';
+import SearchandFilter from './SearchandFilter.js';
 
 import TechnicaIcon from './imgs/technica_award_ribbon.png';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faExternalLinkAlt, faCaretRight, faCaretLeft } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import SearchandFilter from './SearchandFilter';
+import { faExternalLinkAlt, faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
 library.add(faExternalLinkAlt);
-library.add(faCaretRight);
-library.add(faCaretLeft);
+library.add(faCheckSquare);
+library.add(faSquare);
 
-export class ProjectRow extends Component {
+export class VotingRow extends Component {
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+    this.state = { checked: false };
+  }
+
+  handleClick() {
+    this.setState({
+      checked: !this.state.checked
+    });
+  }
+
   render() {
-    let winnerCards = [];
-    let challengeCards = [];
+    let win_count = 0;
 
     this.props.challenges.forEach((challenge) => {
-      let card = <ChallengeCard company={challenge.company} challenge_name={challenge.challenge_name} won={challenge.won} />;
       if (challenge.won) {
-        winnerCards.push(card);
-      } else {
-        challengeCards.push(card);
+        win_count += 1;
       }
     });
+    let checkbox = this.state.checked ? <FontAwesomeIcon icon={faCheckSquare} className="fa-check-square" /> : <FontAwesomeIcon icon={faSquare} className="fa-square" />;
+    let label = (win_count >= 2 && !this.state.checked) ?
+        <label data-toggle="modal" data-target="#voting">{checkbox}</label>
+        :
+        <label>{checkbox}</label>;
+    let input = this.state.checked ? <input type="checkbox" checked /> : <input type="checkbox" />;
 
     return (
     <tr>
+      <td onClick={this.handleClick} className="Voting">
+        <div>{input}
+        {label}</div>
+      </td>
       <td className="TableNumber">{this.props.table_number}</td>
-        <td class="Project">
-          <div class="grid-container">
-            <div class="name">
-              <a href={this.props.project_url} target="_tab">
-                <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
-              </a>
-              {this.props.project_name}
-            </div>
-            <div class="Challenge-Wins">
-              {winnerCards}
-            </div>
-            <div class="Challenge-Categories">
-              {challengeCards}
-            </div>
-          </div>
-        </td>
-      </tr>
+      <td className="Project">
+        <div className="name">
+          <a href={this.props.project_url} target="_tab">
+            <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
+          </a>
+        {this.props.project_name}
+        </div>
+      </td>
+    </tr>
     );
   }
 }
 
-export class SubmissionTable extends Component {
+export class VotingTable extends Component {
   render() {
     let rows = [];
     this.props.projects.forEach((project) => {
       rows.push(
-        <ProjectRow
+        <VotingRow
+          project_id = {project.id}
           table_number = {project.table_number}
           project_name = {project.project_name}
           project_url = {project.project_url}
@@ -75,26 +86,27 @@ export class SubmissionTable extends Component {
 
     return (
       <div class="card">
-        <div class="card-body">
-          <table>
-            <thead>
-              <tr>
-                <th>Table #</th>
-                <th>Project Information</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows}
-            </tbody>
-          </table>
-        </div>
+      <div class="card-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Voting</th>
+            <th>Table #</th>
+            <th>Project Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
+      </div>
       </div>
     );
   }
 
 }
 
-export class ChallengeCard extends Component {
+/*export class ChallengeCard extends Component {
   constructor() {
     super();
     this.handleToggleClick = this.handleToggleClick.bind(this);
@@ -150,50 +162,7 @@ export class ChallengeCard extends Component {
       </div>
     )
   }
-}
-
-export class Voting extends Component {
-  constructor() {
-    super();
-    this.handleWinnerButtonClick = this.handleWinnerButtonClick.bind(this);
-    this.handleNoVoteButtonClick = this.handleNoVoteButtonClick.bind(this);
-    this.state = {
-      winner : null,
-      noVote : null
-    };
-  }
-
-  handleWinnerButtonClick() {
-    if (this.state.winner == null) {
-      this.state.winner = false;
-    }
-    this.setState({
-      winner: !this.state.winner,
-      noVote: this.state.winner
-    });
-  }
-
-  handleNoVoteButtonClick() {
-    if (this.state.noVote == null) {
-      this.state.noVote = false;
-    }
-    this.setState({
-      winner: this.state.noVote,
-      noVote: !this.state.noVote
-    });
-  }
-
-  render() {
-    return (
-      <div className="Vote toggle.toggle no-hover">
-        <label class="switch">
-          <input type="checkbox" />
-          <div class="slider round"></div>
-        </label>
-      </div>
-    )
-  }
-}
+}*/
 
 /* Sponsor page content (see PRD) <SubmissionTable />*/
 const Sponsor = () => (

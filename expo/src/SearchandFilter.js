@@ -10,9 +10,10 @@ import Card from './Card.js';
 import Table from './Table.js';
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
-import {Voting, ProjectRow, SubmissionTable} from './Sponsor';
+import {VotingTable} from './Sponsor';
 const PROJECTS = [
-  { table_number: 23,
+  { project_id: "P1",
+    table_number: 23,
     project_name: 'Mining Malware',
     project_url: 'https://devpost.com/software/mining-malware',
     challenges: [
@@ -42,7 +43,8 @@ const PROJECTS = [
       }
     ],
   },
-  { table_number: 4,
+  { project_id: "P2",
+    table_number: 4,
     project_name: 'Leveraging the First Steps',
     project_url: 'https://devpost.com/software/leveraging-the-first-steps',
     challenges: [
@@ -56,7 +58,8 @@ const PROJECTS = [
       }
     ],
   },
-  { table_number: 12,
+  { project_id: "P3",
+    table_number: 12,
     project_name: 'Safety Net',
     project_url: 'https://devpost.com/software/safety-net-cjr0nv',
     challenges: [
@@ -70,7 +73,8 @@ const PROJECTS = [
       }
     ],
   },
-  { table_number: 3,
+  { project_id: "P4",
+    table_number: 3,
     project_name: 'Smart Home Security',
     project_url: 'https://devpost.com/software/technica2017-alexa-securitycam',
     challenges: [
@@ -92,7 +96,8 @@ const PROJECTS = [
       },
     ],
   },
-  { table_number: 49,
+  { project_id: "P5",
+    table_number: 49,
     project_name: 'HelpHub',
     project_url: 'https://devpost.com/software/helphub-wme2q3',
     challenges: [
@@ -126,7 +131,8 @@ const PROJECTS = [
       }
     ]
   },
-  { table_number: 7,
+  { project_id: "P6",
+    table_number: 7,
     project_name: 'Survival Aid',
     project_url: 'https://devpost.com/software/survival-aid',
     challenges: [
@@ -137,109 +143,73 @@ const PROJECTS = [
     ]
   }
 ];
+
 class SearchandFilter extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-          data: PROJECTS,
-          // [
-          //   {
-          //     project: "login",
-          //     url: "https//",
-          //     table: '1',
-          //     challenges: ["google","facebook"]
-          //   },
-          //   {
-          //     project: "web",
-          //     url: "https//",
-          //     table: '2',
-          //     challenges: ["google","facebook"]
-          //   },
-          //   {
-          //     project: "design",
-          //     url: "https//",
-          //     table: '3',
-          //     challenges: ["google","facebook"]
-          //   },
-          //   {
-          //     project: "backend",
-          //     url: "https//",
-          //     table: '4',
-          //     challenges: ["google"]
-          //   }
-          // ],
-          workingdata:[],
-          value:'',
-          show_attempted_challenges: true
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleToggle = this.handleToggle.bind(this);
+    constructor(props) {
+      super(props);
+      this.state = {
+        data: PROJECTS,
+        workingdata: [],
+        value: '',
+        toggle_off: true
       }
-      handleChange(e){
-        console.log(e.target.name)
-        if(e.target.name === 'input'){
+      this.handleChange = this.handleChange.bind(this);
+      this.handleToggle = this.handleToggle.bind(this);
+    }
+
+    handleChange(e){
+      console.log(e.target.name)
+      if (e.target.name === 'input') {
         let val =(e.target.value)
         console.log(val);
         let updatedList = this.state.data;
-        updatedList = updatedList.filter((item)=>{
+        updatedList = updatedList.filter((item) => {
           return item.project_name.toLowerCase().indexOf(val.toLowerCase()) !==-1;
         });
 
-        this.setState(()=>{
-          return({
-            workingdata: updatedList
-          }
-          )
+        this.setState(() => {
+          return ({ workingdata: updatedList })
         })
-      }
-      else if (e.target.name==="selectProject"){
+      } else if (e.target.name === "selectProject") {
         let val = e.target.value
         let updatedList = this.state.data;
-        updatedList = updatedList.filter((item)=>{
-          if(val==="Project")
-          return true
+        updatedList = updatedList.filter((item) => {
+          if (val==="Project")
+            return true
           else
-          return item.project_name.includes(val)
+            return item.project_name.includes(val)
         })
 
-        this.setState(()=>{
-          return({
-            workingdata: updatedList
-          }
-          )
+        this.setState(() => {
+          return({ workingdata: updatedList })
         })
-      }
-      else if (e.target.name==="selectChallenges"){
+      } else if (e.target.name === "selectChallenges") {
         let val = e.target.value
         let updatedList = this.state.data;
-        updatedList = updatedList.filter((item)=>{
+        updatedList = updatedList.filter((item) => {
           let challenges_data = [];
-          item.challenges.map((obj)=>{
+          item.challenges.map((obj) => {
             challenges_data.push(obj.challenge_name);
           })
-          if(val==="Challenges")
-          return true
-          else{
+          if (val === "Challenges") {
+            return true
+          } else{
             console.log(challenges_data.indexOf(val) >-1)
-          return challenges_data.indexOf(val) >-1
+            return challenges_data.indexOf(val) >-1
           }
         })
 
-        this.setState(()=>{
+        this.setState(() => {
           console.log(updatedList);
-          return({
-            workingdata: updatedList
-          }
-          )
+          return({ workingdata: updatedList })
         })
       }
     }
-      componentWillMount(){
-        this.setState({
-          workingdata: this.state.data
-        })
-      }
+
+    componentWillMount(){
+      this.setState({ workingdata: this.state.data })
+    }
 
     // constructor(props){
     //     super(props);
@@ -247,21 +217,21 @@ class SearchandFilter extends Component {
     // }
 
     createChallengeArray(){
-        let options = [];
-        this.state.data.map((obj)=>{
-           {obj.challenges.map((item)=>{
-                options.push(item.challenge_name);
-            })
-          }
-    })
-    console.log(options);
-    return options;
+      let options = [];
+      this.state.data.map((obj) => {
+        {obj.challenges.map((item) => {
+          options.push(item.challenge_name);
+        })}
+      })
+      console.log(options);
+      return options;
     }
+
     createChallengeSponsorArray(){
       let options = [];
       console.log(this.props.loggedIn)
-      this.state.data.map((obj)=>{
-        obj.challenges.map((item)=>{
+      this.state.data.map((obj) => {
+        obj.challenges.map((item) => {
           if(item.company === this.props.loggedIn)
             options.push(item.challenge_name);
         })
@@ -272,7 +242,7 @@ class SearchandFilter extends Component {
 
     handleToggle() {
       this.setState({
-        show_attempted_challenges: !this.state.show_attempted_challenges
+        toggle_off: !this.state.toggle_off
       });
     }
 
@@ -280,72 +250,54 @@ class SearchandFilter extends Component {
     //     this.props.handleChange(e);
     // }
 
-    render(){
-      let input = (this.state.show_attempted_challenges ? <input type="checkbox" /> : <input type="checkbox" checked />);
-        return (
-            <div>
-            <Card title="Search and Filter" content={
-                <form>
-                <div className="form-group">
+    render() {
+      let challenge_array = (this.createChallengeArray().map((obj,index) => {
+          return (<option key={index}>{obj}</option>)
+        })
+      );
+      let challenge_sponsor_array = (
+        this.createChallengeSponsorArray().map((obj,index) => {
+          return (<option key={index}>{obj}</option>)
+        })
+      );
+      let select = (
+        <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
+          <option selected>Challenges</option>
+          { this.props.origin === "home" ? challenge_array : challenge_sponsor_array }
+        </select>
+      );
+      let table = (
+        this.props.origin === "home" ?
+        <Table projects={this.state.workingdata} value={this.state.value} show_attempted_challenges={this.state.toggle_off} />
+        :
+        <VotingTable projects={this.state.workingdata} value={this.state.value} />
+      );
+      let toggle_style = ( this.props.origin === "home" ? { display: "inline-block" } : { display: "none" } );
+      return (
+        <div>
+          <Card title="Search and Filter" content=
+            {<form>
+              <div className="form-group">
                 <input type="text" placeholder="Search for projects here" className="form-control" onChange={this.handleChange} name="input" />
-                </div>
-                <div className="form-row">
-                {this.props.origin === "home" ? <div className="col-12">
-
-                <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
-                <option selected>Challenges</option>
-                    {
-                        this.createChallengeArray().map((obj,index)=>{
-                            return(
-                                <option key={index}>{obj}</option>
-                            )
-                        })
-                    }
-                </select>
-                </div> :  <div className="col-12">
-                <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
-                <option selected>Your Challenges</option>
-                    {
-                        this.createChallengeSponsorArray().map((obj,index)=>{
-
-                            return(
-                                <option key={index}>{obj}</option>
-                            )
-                        })
-                    }
-                </select>
-                </div>
-              }
               </div>
-              {this.props.origin === "home" ?
-                <div>
+              <div className="form-row">
+                <div style={{margin:"0px 5px", width:"100%"}}>{select}</div>
+              </div>
+              <div style={toggle_style}>
                 <div className="toggle" onChange={this.handleToggle}>
                   <label className="switch">
-                    {input}
+                    { this.state.toggle_off ? <input type="checkbox" /> : <input type="checkbox" checked /> }
                     <div className="slider round"></div>
                   </label>
                 </div>
-                <div className="toggle-label">Hide Attempted Challenges</div></div> : <div></div>}
-                </form>
-            }/>
-
-            {this.props.origin === "home" ?
-            <div class="row">
-        <div class="col">
-        <Table projects={this.state.workingdata} value={this.state.value} show_attempted_challenges={this.state.show_attempted_challenges} />
-        </div>
-      </div> :
-
-        <div class="card">
-        <div class="card-body">
-        <SubmissionTable projects={this.state.workingdata} value={this.state.value} />
-        </div>
-        </div>
-        }
-
+                <div className="toggle-label">Hide Attempted Challenges</div>
+              </div>
+            </form>}
+          />
+          {table}
       </div>
-        )
-    }
+    )
+  }
 }
 
 export default SearchandFilter;

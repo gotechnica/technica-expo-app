@@ -32,23 +32,23 @@ export class ProjectRow extends Component {
     return (
     <tr>
       <td className="TableNumber">{this.props.table_number}</td>
-        <td class="Project">
-          <div class="grid-container">
-            <div class="name">
-              <a href={this.props.project_url} target="_tab">
-                <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
-              </a>
-              {this.props.project_name}
-            </div>
-            <div class="Challenge-Wins">
-              {winnerCards}
-            </div>
-            <div class="Challenge-Categories">
-              {attempted_challenges}
-            </div>
+      <td className="Project">
+        <div className="grid-container">
+          <div className="name">
+            <a href={this.props.project_url} target="_tab">
+              <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
+            </a>
+            {this.props.project_name}
           </div>
-        </td>
-      </tr>
+          <div className="Challenge-Wins">
+            {winnerCards}
+          </div>
+          <div className="Challenge-Categories">
+            {attempted_challenges}
+          </div>
+        </div>
+      </td>
+    </tr>
     );
   }
 }
@@ -68,6 +68,8 @@ export class Table extends Component {
       );
     });
     return (
+      <div class="row">
+      <div class="col">
       <div class="card">
         <div class="card-body">
           <table>
@@ -82,6 +84,8 @@ export class Table extends Component {
             </tbody>
           </table>
         </div>
+      </div>
+      </div>
       </div>
     );
   }

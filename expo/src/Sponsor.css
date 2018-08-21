@@ -1,0 +1,29 @@
+.fa-square, .fa-check-square {
+  font-size: 50px;
+  padding-top: 13px;
+  color: #FF7BAC;
+}
+
+.fa-square {
+  opacity: 0.5;
+}
+
+.fa-square:hover {
+  opacity: 1;
+}
+
+
+tr th:nth-of-type(3) {
+  text-align: left;
+  padding-left: 20px;
+}
+
+
+.Voting {
+  width: 5%;
+  text-align: center;
+}
+
+input[type=checkbox] {
+  display: none;
+}
