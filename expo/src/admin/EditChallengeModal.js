@@ -9,7 +9,7 @@ class EditChallengeModal extends Component {
 
   render() {
     return (
-      replace this
+      <p>replace this</p>
     );
   }
 

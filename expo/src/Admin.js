@@ -25,18 +25,48 @@ class ProjectModule extends Component {
     this.state = {
       textSearch:'',
       projects:[
-        {project_name: 'cat', table_number: '1'},
-        {project_name: 'dog', table_number: '3'},
-        {project_name: 'apple', table_number: '5'},
-        {project_name: 'peaches', table_number: '7'},
-        {project_name: 'small', table_number: '9'},
+        {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge1'},
+        {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge2'},
+        {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge3'},
+        {project_name: 'dog', table_number: '3',url:'www.hello.com',challenge_name:'challenge1'},
+        {project_name: 'dog', table_number: '3',url:'www.hello.com',challenge_name:'challenge4'},
+        {project_name: 'apple', table_number: '5',url:'www.hello.com',challenge_name:'challenge1'},
+        {project_name: 'peaches', table_number: '7',url:'www.hello.com',challenge_name:'challenge1'},
+        {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
       ]
     }
   }
 
-  render() {
+  sortData(){
+    let data = this.state.projects;
+    let finalProjectsData = [];
+    let seen = undefined;
+    data.map((obj)=>{
+      if(obj.table_number !== seen){
+        finalProjectsData.push(
+          {
+            project_name: obj.project_name,
+            table_number: obj.table_number,
+            url: obj.url,
+            challenges: [obj.challenge_name]
+          }
+        )
+      }
+      else{
+        finalProjectsData.map((item)=>{
+          if(item.table_number === seen){
+            item.challenges.push(obj.challenge_name);
+          }
+        })
+      }
+     seen = obj.table_number; 
+    })
+    return finalProjectsData;
+  }
 
-    let filteredProjects = this.state.projects;
+  render() {
+    console.log(this.sortData())
+    let filteredProjects = this.sortData();
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredProjects = filteredProjects.filter(elt =>
         elt.project_name.includes(this.state.textSearch) ||
@@ -107,6 +137,7 @@ class ProjectModule extends Component {
             </div>
           </div>
           {filteredProjects.map((elt,index) => {
+            console.log(elt.project_name);
             return (
               <div className="row" key={index}>
                 <div className="col">
@@ -117,13 +148,17 @@ class ProjectModule extends Component {
                 </div>
                 <div className="col">
                   <EditProjectModal
-                    editID="modalEditProject"
+                    editID={"modalEditProject"+index.toString()}
                     projectID="0"
+                    project_name= {elt.project_name}
+                    project_table = {elt.table_number}
+                    url = {elt.url}
+                    challenges = {elt.challenges}
                     />
                   <button className="btn btn-primary"
                     type="button"
                     data-toggle="modal"
-                    data-target="#modalEditProject"
+                    data-target={"#modalEditProject"+index.toString()}
                     >
                     Edit
                   </button>
