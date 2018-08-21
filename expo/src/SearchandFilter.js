@@ -9,6 +9,7 @@ import {
 import Card from './Card.js';
 import Table from './Table.js';
 import SiteWrapper from './SiteWrapper.js';
+import './SliderOption.css';
 import {Voting, ProjectRow, SubmissionTable} from './Sponsor';
 const PROJECTS = [
   { table_number: 23,
@@ -124,6 +125,16 @@ const PROJECTS = [
         won: false
       }
     ]
+  },
+  { table_number: 7,
+    project_name: 'Survival Aid',
+    project_url: 'https://devpost.com/software/survival-aid',
+    challenges: [
+      { company: 'Booz Allen Hamilton',
+        challenge_name: 'Best Hack to Help in a Crisis',
+        won: false
+      }
+    ]
   }
 ];
 class SearchandFilter extends Component {
@@ -159,9 +170,11 @@ class SearchandFilter extends Component {
           //   }
           // ],
           workingdata:[],
-          value:''
+          value:'',
+          show_attempted_challenges: true
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleToggle = this.handleToggle.bind(this);
       }
       handleChange(e){
         console.log(e.target.name)
@@ -257,10 +270,18 @@ class SearchandFilter extends Component {
       return options;
     }
 
+    handleToggle() {
+      this.setState({
+        show_attempted_challenges: !this.state.show_attempted_challenges
+      });
+    }
+
     // handleChange(e){
     //     this.props.handleChange(e);
     // }
+
     render(){
+      let input = (this.state.show_attempted_challenges ? <input type="checkbox" /> : <input type="checkbox" checked />);
         return (
             <div>
             <Card title="Search and Filter" content={
@@ -295,19 +316,29 @@ class SearchandFilter extends Component {
                 </select>
                 </div>
               }
+              </div>
+              {this.props.origin === "home" ?
+                <div>
+                <div className="toggle" onChange={this.handleToggle}>
+                  <label className="switch">
+                    {input}
+                    <div className="slider round"></div>
+                  </label>
                 </div>
+                <div className="toggle-label">Hide Attempted Challenges</div></div> : <div></div>}
                 </form>
             }/>
+
             {this.props.origin === "home" ?
             <div class="row">
         <div class="col">
-        <Table data={this.state.workingdata} value={this.state.value} />
+        <Table projects={this.state.workingdata} value={this.state.value} show_attempted_challenges={this.state.show_attempted_challenges} />
         </div>
       </div> :
 
         <div class="card">
         <div class="card-body">
-        <SubmissionTable projects={this.state.workingdata} value={this.state.value}/>
+        <SubmissionTable projects={this.state.workingdata} value={this.state.value} />
         </div>
         </div>
         }

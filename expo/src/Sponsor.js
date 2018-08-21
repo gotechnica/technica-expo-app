@@ -36,12 +36,12 @@ export class ProjectRow extends Component {
     });
 
     return (
-    <tr className="no-hover">
-        <td className="TableNumber">{this.props.table_number}<Voting /></td>
-        <td class="Project no-hover">
+    <tr>
+      <td className="TableNumber">{this.props.table_number}</td>
+        <td class="Project">
           <div class="grid-container">
             <div class="name">
-            <a href={this.props.project_url} target="_tab">
+              <a href={this.props.project_url} target="_tab">
                 <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
               </a>
               {this.props.project_name}
@@ -54,9 +54,7 @@ export class ProjectRow extends Component {
             </div>
           </div>
         </td>
-
       </tr>
-
     );
   }
 }
@@ -133,7 +131,7 @@ export class ChallengeCard extends Component {
       <div className="Challenge-Card" onClick={this.handleToggleClick}>
         <table className="Challenge-Card">
           <tr>
-            <td className="Info">
+            <td className="info">
               <b>{this.props.challenge_name} </b>
               <div style={toggledStyle}>|&nbsp;&nbsp;{this.props.company}</div>
             </td>
@@ -186,8 +184,6 @@ export class Voting extends Component {
   }
 
   render() {
-
-
     return (
       <div className="Vote toggle.toggle no-hover">
         <label class="switch">

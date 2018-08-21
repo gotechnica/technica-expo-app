@@ -1,17 +1,25 @@
-.switch {
-  position: relative;
+.toggle {
+  margin-top: 20px;
   display: inline-block;
 }
 
-.Vote .switch {
-  width: 110px;
-  height: 40px;
+.toggle-label {
+  display: inline-block;
+  margin-left: 10px;
+  position: absolute;
+  bottom: 47px;
 }
-
-.OnOff .switch {
+.switch {
+  position: relative;
+  display: inline-block;
   width: 60px;
   height: 20px;
 }
+
+/*.Vote .switch {
+  width: 110px;
+  height: 40px;
+}*/
 
 .switch input {display:none;}
 
@@ -27,15 +35,12 @@
   border-color: #969696;
   border-width: 1px;
   box-shadow: inset -1.5px 1px 2px lightgray;
-}
-
-.Vote .slider {
-  border-radius: 4px;
-}
-
-.OnOff .slider {
   border-radius: 10px;
 }
+
+/*.Vote .slider {
+  border-radius: 4px;
+}*/
 
 .slider:before {
   z-index: 999;
@@ -51,58 +56,54 @@
   border-style: solid;
   border-color: #969696;
   border-width: 1px;
-}
 
-.Vote .slider:before {
-  height: 40px;
-  width: 15px;
-  border-radius: 4px;
-}
-
-.OnOff .slider:before {
   height: 20px;
   width: 20px;
   border-radius: 11px;
 }
 
+/*.Vote .slider:before {
+  height: 40px;
+  width: 15px;
+  border-radius: 4px;
+}*/
+
 input:checked + .slider {
-  background-color: #b6a1c4;
+  background-color: #FF7BAC;
   border-style: solid;
-  border-color: #b6a1c4;
+  border-color: #FF7BAC;
   border-width: 1px;
   box-shadow: inset 0px 1px 2px white;
 }
 
 input:checked + .slider:hover {
-  background-color: #cebadb;
+  background-color: #FF9CC0;
 }
 
 input:not(:checked) + .slider {
-  background-color: #fafafa;
+  background-color: #FAFAFA;
 }
 
 input:not(:checked) + .slider:hover {
-  background-color: #f2f2f2;
+  background-color: #F2F2F2;
 }
 
 input:checked + .slider:before {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-}
 
-.Vote input:checked + .slider:before {
-  -webkit-transform: translateX(95px);
-  -ms-transform: translateX(95px);
-  transform: translateX(95px);
-}
-
-.OnOff input:checked + .slider:before {
   -webkit-transform: translateX(40px);
   -ms-transform: translateX(40px);
   transform: translateX(40px);
 }
 
-/*------ ADDED CSS ---------*/
+/*.Vote input:checked + .slider:before {
+  -webkit-transform: translateX(95px);
+  -ms-transform: translateX(95px);
+  transform: translateX(95px);
+}*/
+
+/*------ ADDED CSS ---------
 .Vote .slider:after
 {
  content:'NO VOTE';
@@ -129,10 +130,10 @@ input:checked + .slider:before {
 /*--------- END --------*/
 
 /*------ ADDED CSS ---------*/
-.OnOff .slider:after
+.slider:after
 {
  content:'OFF';
- color: #2d2d2d;
+ color: #2D2D2D;
  display: block;
  position: absolute;
  white-space: nowrap;
@@ -145,7 +146,7 @@ input:checked + .slider:before {
  transition: all 0.3s ease-out;
 }
 
-.OnOff input:checked + .slider:after
+input:checked + .slider:after
 {
   left: 38%;
   content:'ON';
