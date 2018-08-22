@@ -29,6 +29,10 @@ const PROJECTS = [
         challenge_name: 'Best Hack to Help in a Crisis',
         won: false
       },
+      { company: 'Booz Allen Hamilton',
+        challenge_name: 'Best Data Science Hack',
+        won: false
+      },
       { company: 'Capital One',
         challenge_name: 'Best Financial Hack',
         won: false
@@ -194,9 +198,9 @@ class SearchandFilter extends Component {
           })
           if (val === "Challenges") {
             return true
-          } else{
-            console.log(challenges_data.indexOf(val) >-1)
-            return challenges_data.indexOf(val) >-1
+          } else {
+            console.log(challenges_data.indexOf(val) > -1)
+            return challenges_data.indexOf(val) > -1
           }
         })
 
@@ -232,7 +236,7 @@ class SearchandFilter extends Component {
       console.log(this.props.loggedIn)
       this.state.data.map((obj) => {
         obj.challenges.map((item) => {
-          if(item.company === this.props.loggedIn)
+          if (item.company === this.props.loggedIn && options.indexOf(item.challenge_name) == -1)
             options.push(item.challenge_name);
         })
       })
@@ -262,7 +266,7 @@ class SearchandFilter extends Component {
       );
       let select = (
         <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
-          <option selected>Challenges</option>
+          { this.props.origin === "home" ? <option selected>Challenges</option> : <div></div> }
           { this.props.origin === "home" ? challenge_array : challenge_sponsor_array }
         </select>
       );
@@ -281,7 +285,10 @@ class SearchandFilter extends Component {
                 <input type="text" placeholder="Search for projects here" className="form-control" onChange={this.handleChange} name="input" />
               </div>
               <div className="form-row">
-                <div style={{margin:"0px 5px", width:"100%"}}>{select}</div>
+                <div style={{margin:"0px 5px", width:"100%"}}>
+                  { this.props.origin === "home" ? <div></div> : <div style={{marginBottom: "5px"}}>Your Challenges</div> }
+                  {select}
+                </div>
               </div>
               <div style={toggle_style}>
                 <div className="toggle" onChange={this.handleToggle}>

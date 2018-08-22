@@ -36,7 +36,7 @@ export class VotingRow extends Component {
 
   render() {
     let win_count = 0;
-
+    let badges = [];
     this.props.challenges.forEach((challenge) => {
       if (challenge.won) {
         win_count += 1;
@@ -61,7 +61,7 @@ export class VotingRow extends Component {
           <a href={this.props.project_url} target="_tab">
             <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
           </a>
-        {this.props.project_name}
+          {this.props.project_name}
         </div>
       </td>
     </tr>
@@ -171,7 +171,7 @@ SiteWrapper(
     <div id="Sponsor">
       <div class="row">
         <div class="col">
-          <SearchandFilter origin = "sponsor" loggedIn = "Mantech"/>
+          <SearchandFilter origin = "sponsor" loggedIn = "Booz Allen Hamilton"/>
         </div>
       </div>
     </div>
