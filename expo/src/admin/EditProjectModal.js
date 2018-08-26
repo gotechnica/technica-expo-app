@@ -1,6 +1,6 @@
 /* react components */
 import React, { Component } from 'react';
-let challengeStore = undefined;
+let challengeStore = [];
 class EditProjectModal extends Component {
 
   // Expect the project ID from this.props as projectID
@@ -17,10 +17,19 @@ class EditProjectModal extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
   }
-  
+  componentDidMount(){
+    this.state.challenges.map((challenge)=>{
+      challengeStore.push(challenge);
+    })
+    console.log(challengeStore)
+  }
   saveProject(e){
     let valid = true;
-    this.setState(()=>({challenges: challengeStore }))
+    this.setState(()=>({challenges: challengeStore}))          
+    let checks = document.querySelector('.check');
+    console.log(checks);
+    checks.checked = true;                                   
+    console.log(this.state.challenges)
     if(valid) {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
@@ -36,22 +45,26 @@ class EditProjectModal extends Component {
   }
 
   handleChange(e){
-//     this.props.toggle = !this.props.toggle
-console.log(e.target)
+    // let change = this.state.toggle;
+//   this.setState(({toggle : !change}))
+// console.log(e.target)
 challengeStore = this.state.challenges;
+console.log(this.state.toggle)
 console.log(challengeStore)
 if(e.target.checked === false){
   console.log("sup");
+  console.log(e.target.checked)
   let index = this.state.challenges.indexOf(e.target.parentElement.textContent)
   console.log(index)
   challengeStore.splice(index,1)
 }
-if(e.target.checked === true){
+else if(this.state.toggle === true){
   challengeStore.push(e.target.parentElement.textContent);
+  console.log('hello')
 }
+console.log(e.target.parentElement.textContent);
 console.log(challengeStore)
 return challengeStore;
-
   }
 
   render() {
@@ -80,7 +93,7 @@ return challengeStore;
               </div>
               <div className="form-group">
               <label>Project URL</label>
-              <input className="form-control" type="text" value={this.state.project_url.toString()} onChange = {(event) => this.setState({table_number:event.target.value})}/>
+              <input className="form-control" type="text" value={this.state.project_url.toString()} onChange = {(event) => this.setState({project_url:event.target.value})}/>
               </div>
               <div className="form-group">
               <label>Attempted Challenges</label>
@@ -108,7 +121,7 @@ return challengeStore;
 
 function Checkbox(props){
   return(
-     <span class="badge badge-primary"><input type="checkbox" defaultChecked={props.toggle} onChange = {props.handleChange}/>{props.value}</span>
+     <span class="badge badge-primary"><input type="checkbox" defaultChecked={true} onChange = {props.handleChange} className="check"/>{props.value}</span>
   )
 }
 
