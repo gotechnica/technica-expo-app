@@ -1,6 +1,6 @@
 /* react components */
 import React, { Component } from 'react';
-
+let challengeStore = [];
 class EditProjectModal extends Component {
 
   // Expect the project ID from this.props as projectID
@@ -12,18 +12,31 @@ class EditProjectModal extends Component {
       projectId : this.props.projectID,
       project_url: this.props.url,
       invalid_access: false,
-      challenges: this.props.challenges
+      challenges: this.props.challenges,
+      toggle: this.props.toggle
     }
+    this.handleChange = this.handleChange.bind(this)
+  }
+  componentDidMount(){
+    this.state.challenges.map((challenge)=>{
+      challengeStore.push(challenge);
+    })
+    console.log(challengeStore)
   }
   saveProject(e){
     let valid = true;
-
+    this.setState(()=>({challenges: challengeStore}))          
+    let checks = document.querySelector('.check');
+    console.log(checks);
+    checks.checked = true;                                   
+    console.log(this.state.challenges)
     if(valid) {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
       
       // Close modal
       document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
+      console.log(this.state)
     } else {
       // Show errors
       this.setState({invalid_access: true});
@@ -31,8 +44,31 @@ class EditProjectModal extends Component {
     console.log(this.state)
   }
 
+  handleChange(e){
+    // let change = this.state.toggle;
+//   this.setState(({toggle : !change}))
+// console.log(e.target)
+challengeStore = this.state.challenges;
+console.log(this.state.toggle)
+console.log(challengeStore)
+if(e.target.checked === false){
+  console.log("sup");
+  console.log(e.target.checked)
+  let index = this.state.challenges.indexOf(e.target.parentElement.textContent)
+  console.log(index)
+  challengeStore.splice(index,1)
+}
+else if(this.state.toggle === true){
+  challengeStore.push(e.target.parentElement.textContent);
+  console.log('hello')
+}
+console.log(e.target.parentElement.textContent);
+console.log(challengeStore)
+return challengeStore;
+  }
+
   render() {
-   let toggle = true;
+   //let toggle = true;
     console.log(this.props)
     console.log(this.state)
     return (
@@ -57,26 +93,14 @@ class EditProjectModal extends Component {
               </div>
               <div className="form-group">
               <label>Project URL</label>
-              <input className="form-control" type="text" value={this.state.project_url.toString()} onChange = {(event) => this.setState({table_number:event.target.value})}/>
+              <input className="form-control" type="text" value={this.state.project_url.toString()} onChange = {(event) => this.setState({project_url:event.target.value})}/>
               </div>
               <div className="form-group">
               <label>Attempted Challenges</label>
               <br/>
-              {this.state.challenges.map((challenge,place)=>{
+              {this.state.challenges.map((challenge)=>{
                 return(
-                  <span class="badge badge-primary"><input type="checkbox" defaultChecked={toggle} onChange = {(e)=>{
-                    toggle = !toggle
-                  console.log(this.state)
-                  if(toggle === false){
-                    console.log("sup");
-                    let index = this.state.challenges.indexOf(e.target.parentElement.textContent)
-                    let chall = this.state.challenges;
-                    this.setState({challenges: chall.splice(index,1)})
-                  }
-                  console.log(this.state)
-                console.log(e.target.parentElement.textContent)}
-               
-              }/>{challenge}</span>
+                  <Checkbox toggle={this.state.toggle} handleChange={this.handleChange} value={challenge}></Checkbox>
                 )
               })}
               </div>
@@ -95,4 +119,25 @@ class EditProjectModal extends Component {
   }
 }
 
+function Checkbox(props){
+  return(
+     <span class="badge badge-primary"><input type="checkbox" defaultChecked={true} onChange = {props.handleChange} className="check"/>{props.value}</span>
+  )
+}
+
 export default EditProjectModal;
+
+// <span class="badge badge-primary"><input type="checkbox" defaultChecked={this.state.toggle} onChange = {(e)=>{
+//   this.state.toggle = !this.state.toggle
+// console.log(this.state.toggle)
+
+// if(this.state.toggle === false){
+//   console.log("sup");
+//   let index = this.state.challenges.indexOf(e.target.parentElement.textContent)
+//   let chall = this.state.challenges;
+//   this.setState({challenges: chall.splice(index,1)})
+// }
+// console.log(this.state)
+// console.log(e.target.parentElement.textContent)}
+
+// }/>{challenge}</span>

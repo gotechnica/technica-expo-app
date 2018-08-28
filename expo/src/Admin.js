@@ -48,7 +48,8 @@ class ProjectModule extends Component {
             project_name: obj.project_name,
             table_number: obj.table_number,
             url: obj.url,
-            challenges: [obj.challenge_name]
+            challenges: [obj.challenge_name],
+            checkVal: true
           }
         )
       }
@@ -137,7 +138,7 @@ class ProjectModule extends Component {
             </div>
           </div>
           {filteredProjects.map((elt,index) => {
-            console.log(elt.project_name);
+            console.log(elt.checkVal);
             return (
               <div className="row" key={index}>
                 <div className="col">
@@ -154,6 +155,7 @@ class ProjectModule extends Component {
                     project_table = {elt.table_number}
                     url = {elt.url}
                     challenges = {elt.challenges}
+                    toggle = {elt.checkVal}
                     />
                   <button className="btn btn-primary"
                     type="button"
