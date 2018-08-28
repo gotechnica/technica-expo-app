@@ -159,19 +159,19 @@ class Home extends React.Component{
 //       workingdata: this.state.data
 //     })
 //   }
-  render(){
+  render() {
     return(
-  SiteWrapper(
-    <div class="Home">
-      <div class="row">
-        <div class="col">
-          <SearchandFilter origin="home" />
+      SiteWrapper(
+        <div class="Home">
+          <div class="row">
+            <div class="col">
+              <SearchandFilter origin="home" />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  )
-);
-}
+      )
+    );
+  }
 }
 
 export default Home;

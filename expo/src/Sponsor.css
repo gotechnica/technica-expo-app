@@ -12,18 +12,68 @@
   opacity: 1;
 }
 
-
-tr th:nth-of-type(3) {
+.Sponsor table tr th:nth-of-type(3) {
   text-align: left;
   padding-left: 20px;
 }
-
 
 .Voting {
   width: 5%;
   text-align: center;
 }
 
-input[type=checkbox] {
+.Sponsor input[type=checkbox] {
   display: none;
+}
+
+.clear button, .submit button {
+  font-weight: bold;
+  outline: none;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 50px;
+}
+
+.clear button {
+  width: 100%;
+  background-color: #FF7BAC;
+  border: 3px solid #FF7BAC;
+}
+
+.clear button:hover {
+  background-color: #2F2F2F;
+  border: 3px solid #FF7BAC;
+}
+
+.submit {
+  text-align: right;
+}
+
+.submit button {
+  width: 200px;
+  background-color: #00C7C7;
+  border: 3px solid #00C7C7;
+}
+
+.submit button:hover {
+  background-color: #2F2F2F;
+  border: 3px solid #00FFFF;
+}
+
+tr.button-row td {
+  border: 0px solid;
+}
+
+td.announcement {
+  background-color: #B6A1C4;
+  border-color: #B6A1C4;
+  color: white;
+  margin: 0px;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+td.announcement:hover {
+  background-color: #B6A1C4;
 }

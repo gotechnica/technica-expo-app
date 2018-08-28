@@ -22,17 +22,6 @@ library.add(faCheckSquare);
 library.add(faSquare);
 
 export class VotingRow extends Component {
-  constructor() {
-    super();
-    this.handleClick = this.handleClick.bind(this);
-    this.state = { checked: false };
-  }
-
-  handleClick() {
-    this.setState({
-      checked: !this.state.checked
-    });
-  }
 
   render() {
     let win_count = 0;
@@ -42,16 +31,19 @@ export class VotingRow extends Component {
         win_count += 1;
       }
     });
-    let checkbox = this.state.checked ? <FontAwesomeIcon icon={faCheckSquare} className="fa-check-square" /> : <FontAwesomeIcon icon={faSquare} className="fa-square" />;
-    let label = (win_count >= 2 && !this.state.checked) ?
+    let checkbox = this.props.checked ? <FontAwesomeIcon icon={faCheckSquare} className="fa-check-square" /> : <FontAwesomeIcon icon={faSquare} className="fa-square" />;
+    let label = (win_count >= 2 && !this.props.checked) ?
         <label data-toggle="modal" data-target="#voting">{checkbox}</label>
         :
         <label>{checkbox}</label>;
-    let input = this.state.checked ? <input type="checkbox" checked /> : <input type="checkbox" />;
+    let input = this.props.checked ?
+    <input type="checkbox" className="voting-checkbox" value={this.props.project_id} checked />
+    :
+    <input type="checkbox" className="voting-checkbox" value={this.props.project_id} />;
 
     return (
     <tr>
-      <td onClick={this.handleClick} className="Voting">
+      <td onClick={this.props.handler.bind(this, this.props.project_name)} className="Voting">
         <div>{input}
         {label}</div>
       </td>
@@ -59,7 +51,7 @@ export class VotingRow extends Component {
       <td className="Project">
         <div className="name">
           <a href={this.props.project_url} target="_tab">
-            <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
+            <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon" />
           </a>
           {this.props.project_name}
         </div>
@@ -70,36 +62,81 @@ export class VotingRow extends Component {
 }
 
 export class VotingTable extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClear = this.handleClear.bind(this);
+    this.votingHandler = this.votingHandler.bind(this);
+    this.state = { checked: this.props.challenges }
+  }
+
+  handleSubmit() {
+    const checkboxes = document.getElementsByClassName("voting-checkbox");
+    let count = 0;
+    let winners = [];
+    for (let i = 0; i < checkboxes.length; i++) {
+      let ckbx = checkboxes[i];
+      if (ckbx.checked) {
+        count += 1;
+        winners.push(ckbx.value);
+      }
+    }
+    alert(Object.keys(this.props.challenges).length);
+  }
+
+  handleClear() {
+    let cleared = {};
+    Object.keys(this.state.checked).forEach((key) => {
+      cleared[key] = false;
+    });
+    this.setState({ checked: cleared });
+  }
+
+  votingHandler(project) {
+    let new_checked = this.state.checked;
+    new_checked[project] = !new_checked[project];
+    this.setState({ checked: new_checked });
+  }
+
+
   render() {
     let rows = [];
     this.props.projects.forEach((project) => {
       rows.push(
         <VotingRow
-          project_id = {project.id}
+          project_id = {project.project_id}
           table_number = {project.table_number}
           project_name = {project.project_name}
           project_url = {project.project_url}
           challenges = {project.challenges}
+          handler = {this.votingHandler}
+          checked = {this.state.checked[project.project_name]}
         />
       );
     });
 
     return (
       <div class="card">
-      <div class="card-body">
-      <table>
-        <thead>
-          <tr>
-            <th>Voting</th>
-            <th>Table #</th>
-            <th>Project Information</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
-      </div>
+        <div class="card-body">
+          <table>
+            <thead>
+              <tr>
+                <th>Voting</th>
+                <th>Table #</th>
+                <th>Project Information</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows}
+              {this.props.value != "Challenges" ?
+              <tr className="button-row">
+                <td className="clear"><button onClick={this.handleClear}>Clear</button></td>
+                <td></td>
+                <td className="submit"><button onClick={this.handleSubmit}>Submit</button></td>
+              </tr>:<div></div>}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
@@ -164,14 +201,29 @@ export class VotingTable extends Component {
   }
 }*/
 
-/* Sponsor page content (see PRD) <SubmissionTable />*/
+class AnnouncementHeader extends Component {
+  render() {
+    return(
+      <Card title={"Welcome " + this.props.company + "!"} content={
+        <table>
+          <tr>
+            <td className="card announcement">Hello</td>
+          </tr>
+        </table>
+      }/>
+    );
+  }
+}
+
+/* Sponsor page content (see PRD) <VotingTable />*/
 const Sponsor = () => (
 
 SiteWrapper(
     <div id="Sponsor">
       <div class="row">
         <div class="col">
-          <SearchandFilter origin = "sponsor" loggedIn = "Booz Allen Hamilton"/>
+          <AnnouncementHeader company="Booz Allen Hamilton" />
+          <SearchandFilter origin = "sponsor" loggedIn = "Booz Allen Hamilton" />
         </div>
       </div>
     </div>

@@ -11,6 +11,22 @@ import Table from './Table.js';
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
 import {VotingTable} from './Sponsor';
+const CHALLENGES = [
+  { company_id: "C1",
+    access_code: "66666",
+    company_name: "Booz Allen Hamilton",
+    challenge_name: "Best Hack to Help in a Crisis",
+    num_winners: 2,
+    winners: []
+  },
+  { company_id: "C2",
+    access_code: "66666",
+    company_name: "Booz Allen Hamilton",
+    challenge_name: "Best Data Science Hack",
+    num_winners: 1,
+    winners: []
+  }
+];
 const PROJECTS = [
   { project_id: "P1",
     table_number: 23,
@@ -74,6 +90,10 @@ const PROJECTS = [
       { company: 'Booz Allen Hamilton',
         challenge_name: 'Best Hack to Help in a Crisis',
         won: false
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_name: 'Best Data Science Hack',
+        won: false
       }
     ],
   },
@@ -132,6 +152,10 @@ const PROJECTS = [
       { company: 'Bloomberg',
         challenge_name: 'Best Education/Diversity and Inclusion Hack',
         won: false
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_name: 'Best Data Science Hack',
+        won: false
       }
     ]
   },
@@ -155,17 +179,19 @@ class SearchandFilter extends Component {
       this.state = {
         data: PROJECTS,
         workingdata: [],
-        value: '',
-        toggle_off: true
+        value: 'Challenges',
+        toggle_off: true,
+        challenges: CHALLENGES
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleToggle = this.handleToggle.bind(this);
+      this.getSponsorChallenges = this.getSponsorChallenges.bind(this);
     }
 
     handleChange(e){
       console.log(e.target.name)
       if (e.target.name === 'input') {
-        let val =(e.target.value)
+        let val =(e.target.value);
         console.log(val);
         let updatedList = this.state.data;
         updatedList = updatedList.filter((item) => {
@@ -176,10 +202,11 @@ class SearchandFilter extends Component {
           return ({ workingdata: updatedList })
         })
       } else if (e.target.name === "selectProject") {
-        let val = e.target.value
+        let val = (e.target.value);
+        this.setState({ value: val });
         let updatedList = this.state.data;
         updatedList = updatedList.filter((item) => {
-          if (val==="Project")
+          if (val === "Project")
             return true
           else
             return item.project_name.includes(val)
@@ -189,7 +216,8 @@ class SearchandFilter extends Component {
           return({ workingdata: updatedList })
         })
       } else if (e.target.name === "selectChallenges") {
-        let val = e.target.value
+        let val = (e.target.value);
+        this.setState({ value: val });
         let updatedList = this.state.data;
         updatedList = updatedList.filter((item) => {
           let challenges_data = [];
@@ -244,6 +272,17 @@ class SearchandFilter extends Component {
       return options;
     }
 
+    getSponsorChallenges(challenge) {
+      let s = {};
+      this.state.data.map((obj) => {
+        obj.challenges.map((item) => {
+          if (item.company === this.props.loggedIn && item.challenge_name === challenge)
+            s.push(item.challenge_name);
+        })
+      })
+      return s;
+    }
+
     handleToggle() {
       this.setState({
         toggle_off: !this.state.toggle_off
@@ -266,15 +305,17 @@ class SearchandFilter extends Component {
       );
       let select = (
         <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
-          { this.props.origin === "home" ? <option selected>Challenges</option> : <div></div> }
+          <option selected>Challenges</option>
           { this.props.origin === "home" ? challenge_array : challenge_sponsor_array }
         </select>
       );
+
+      let stuff = this.getSponsorChallenges();
       let table = (
         this.props.origin === "home" ?
         <Table projects={this.state.workingdata} value={this.state.value} show_attempted_challenges={this.state.toggle_off} />
         :
-        <VotingTable projects={this.state.workingdata} value={this.state.value} />
+        <VotingTable projects={this.state.workingdata} value={this.state.value} challenges={stuff}/>
       );
       let toggle_style = ( this.props.origin === "home" ? { display: "inline-block" } : { display: "none" } );
       return (
