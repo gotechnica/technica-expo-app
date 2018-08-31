@@ -26,9 +26,10 @@ class EditProjectModal extends Component {
   saveProject(e){
     let valid = true;
     this.setState(()=>({challenges: challengeStore}))          
-    let checks = document.querySelector('.check');
+    let checks = document.querySelector('.black');
     console.log(checks);
-    checks.checked = true;                                   
+    checks.style.backgroundColor="#b6a1c4";
+    //checks.checked = true;                                   
     console.log(this.state.challenges)
     if(valid) {
       // TODO: Send access code and company name to db if valid access code
@@ -44,25 +45,25 @@ class EditProjectModal extends Component {
     console.log(this.state)
   }
 
-  handleChange(e){
+  handleChange(color,e){
     // let change = this.state.toggle;
 //   this.setState(({toggle : !change}))
-// console.log(e.target)
+console.log(e.target)
 challengeStore = this.state.challenges;
-console.log(this.state.toggle)
+console.log(color);
 console.log(challengeStore)
-if(e.target.checked === false){
+if(color === true){
   console.log("sup");
   console.log(e.target.checked)
-  let index = this.state.challenges.indexOf(e.target.parentElement.textContent)
+  let index = this.state.challenges.indexOf(e.target.textContent)
   console.log(index)
   challengeStore.splice(index,1)
 }
-else if(this.state.toggle === true){
-  challengeStore.push(e.target.parentElement.textContent);
+else if(color === false){
+  challengeStore.push(e.target.textContent);
   console.log('hello')
 }
-console.log(e.target.parentElement.textContent);
+
 console.log(challengeStore)
 return challengeStore;
   }
@@ -119,10 +120,31 @@ return challengeStore;
   }
 }
 
-function Checkbox(props){
-  return(
-     <span class="badge badge-primary"><input type="checkbox" defaultChecked={true} onChange = {props.handleChange} className="check"/>{props.value}</span>
-  )
+class Checkbox extends Component{
+  constructor(props){
+    super(props);
+    this.state = {color:true}
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(e){
+    this.setState((prevState)=>{
+      console.log(prevState.color)
+      return {color: !prevState.color}
+    });
+    this.props.handleChange(this.state.color,e);
+
+  }
+
+  render(){
+   let color = this.state.color ? "pink" : "black";
+   console.log(this.state);
+   console.log(color)
+    return(
+       <span class="badge badge-primary check" className={color} onClick={(e)=>this.handleClick(e)}>{this.props.value}</span>
+      //  <input type="checkbox" defaultChecked={true} onChange = {this.handleClick}/>
+    )
+  }
 }
 
 export default EditProjectModal;

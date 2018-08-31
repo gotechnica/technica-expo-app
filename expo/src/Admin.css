@@ -6,3 +6,20 @@
   margin: 0px 5px 5px 0px;
   display: inline-block;
 }
+.pink{
+  background-color: #b6a1c4;
+  padding: 2px 6px 2px 8px;
+  color: white;
+  border-radius: 5px;
+  margin: 0px 5px 5px 0px;
+  display: inline-block;
+}
+
+.black{
+  background-color: black;
+  padding: 2px 6px 2px 8px;
+  color: white;
+  border-radius: 5px;
+  margin: 0px 5px 5px 0px;
+  display: inline-block;
+}
