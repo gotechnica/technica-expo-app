@@ -23,6 +23,33 @@ Once in the virtualenv, run `pip3 install -r requirements.txt`. This installs th
 # Running
 To run the server, just run `python3 server.py`. The Flask server is then accessible from http://127.0.0.1:5000/.
 
+# Endpoints
+## Public Routes
+
+GET get all projects `/api/projects`
+
+GET get project with specific id `/api/projects/id/<project_id>`
+
+## Admin Routes
+
+POST add a project `api/projects/add`
+
+POST bulk add projects `api/projects/bulk_add`
+
+POST update project with id project_id `/api/projects/id/<project_id>`
+
+DELETE delete project with id specified in request body `/api/projects/delete`
+
+DELETE wipe projects database `/api/projects/deleteAll`
+
+POST add a company `/api/companies/add`
+
+POST update a company with id company_id `/api/companies/id/<company_id>`
+
+GET get company with id company_id `/api/companies/id/<company_id>`
+
+GET get all companies `/api/companies`
+
 # Developing
 The server file is separated out into database, public, and private CRUD routes. When adding endpoints, make sure it goes into the right section. If you need to create a new section, please feel free to.
 
