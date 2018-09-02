@@ -15,11 +15,20 @@ import TechnicaIcon from './imgs/technica_award_ribbon.png';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faExternalLinkAlt, faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faExternalLinkAlt, faCheckSquare, faCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
 library.add(faExternalLinkAlt);
 library.add(faCheckSquare);
 library.add(faSquare);
+library.add(faCircle);
+
+let data2 = {
+  P1: {'Best Hack to Help in a Crisis': false, 'Best Data Science Hack': false},
+  P3: {'Best Hack to Help in a Crisis': false, 'Best Data Science Hack': false},
+  P4: {'Best Hack to Help in a Crisis': false, 'Best Data Science Hack': false},
+  P5: {'Best Hack to Help in a Crisis': false, 'Best Data Science Hack': false},
+  P6: {'Best Hack to Help in a Crisis': false, 'Best Data Science Hack': false}
+};
 
 export class VotingRow extends Component {
 
@@ -31,21 +40,24 @@ export class VotingRow extends Component {
         win_count += 1;
       }
     });
-    let checkbox = this.props.checked ? <FontAwesomeIcon icon={faCheckSquare} className="fa-check-square" /> : <FontAwesomeIcon icon={faSquare} className="fa-square" />;
+
+    let checkbox2 = this.props.checked ? <FontAwesomeIcon icon={faCheckSquare} className="fa-check-square" /> : <FontAwesomeIcon icon={faSquare} className="fa-square hoverable" />;
+    let checkbox = this.props.select != "Challenges" ? checkbox2 : <FontAwesomeIcon icon={faSquare} className="fa-square" />;
     let label = (win_count >= 2 && !this.props.checked) ?
-        <label data-toggle="modal" data-target="#voting">{checkbox}</label>
+        <label data-toggle="modal" data-target="#voting" onClick={this.props.handler.bind(this, this.props.project_id)}>{checkbox}</label>
         :
-        <label>{checkbox}</label>;
+        <label for={this.props.project_id} onClick={this.props.handler.bind(this, this.props.project_id)}>{checkbox}</label>;
     let input = this.props.checked ?
     <input type="checkbox" className="voting-checkbox" value={this.props.project_id} checked />
     :
     <input type="checkbox" className="voting-checkbox" value={this.props.project_id} />;
-
+    let input2 = this.props.select != "Challenges" ? label : <label for={this.props.project_id}>{checkbox}</label>;
     return (
     <tr>
-      <td onClick={this.props.handler.bind(this, this.props.project_name)} className="Voting">
-        <div>{input}
-        {label}</div>
+      <td className="Voting">
+      <div>
+        {input}{label}
+      </div>
       </td>
       <td className="TableNumber">{this.props.table_number}</td>
       <td className="Project">
@@ -64,13 +76,13 @@ export class VotingRow extends Component {
 export class VotingTable extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClear = this.handleClear.bind(this);
-    this.votingHandler = this.votingHandler.bind(this);
-    this.state = { checked: this.props.challenges }
+    this.handleSubmitEvent = this.handleSubmitEvent.bind(this);
+    this.handleClearEvent = this.handleClearEvent.bind(this);
+    this.handleVoteEvent = this.handleVoteEvent.bind(this);
+    this.state = { checked: this.props.data }
   }
 
-  handleSubmit() {
+  handleSubmitEvent() {
     const checkboxes = document.getElementsByClassName("voting-checkbox");
     let count = 0;
     let winners = [];
@@ -81,39 +93,47 @@ export class VotingTable extends Component {
         winners.push(ckbx.value);
       }
     }
-    alert(Object.keys(this.props.challenges).length);
+    alert(JSON.stringify(this.props.data));
   }
 
-  handleClear() {
-    let cleared = {};
+  handleClearEvent() {
+    let cleared = this.state.checked;
     Object.keys(this.state.checked).forEach((key) => {
-      cleared[key] = false;
+      cleared[key][this.props.value] = false;
     });
     this.setState({ checked: cleared });
   }
 
-  votingHandler(project) {
-    let new_checked = this.state.checked;
-    new_checked[project] = !new_checked[project];
-    this.setState({ checked: new_checked });
+  handleVoteEvent(project_id) {
+    if (this.props.value != "Challenges") {
+      let new_checked = this.state.checked;
+      new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
+      this.setState({ checked: new_checked });
+    }
   }
 
 
   render() {
     let rows = [];
+    let checked = false;
+
     this.props.projects.forEach((project) => {
+      if (this.props.value != "Challenges") {
+        checked = this.state.checked[project.project_id][this.props.value];
+      }
+
       rows.push(
         <VotingRow
+          select = {this.props.value}
           project_id = {project.project_id}
           table_number = {project.table_number}
           project_name = {project.project_name}
           project_url = {project.project_url}
           challenges = {project.challenges}
-          handler = {this.votingHandler}
-          checked = {this.state.checked[project.project_name]}
-        />
-      );
-    });
+          handler = {this.handleVoteEvent}
+          checked = {checked}
+        />);
+      });
 
     return (
       <div class="card">
@@ -130,10 +150,15 @@ export class VotingTable extends Component {
               {rows}
               {this.props.value != "Challenges" ?
               <tr className="button-row">
-                <td className="clear"><button onClick={this.handleClear}>Clear</button></td>
+                <td className="clear"><button onClick={this.handleClearEvent}>Clear</button></td>
                 <td></td>
-                <td className="submit"><button onClick={this.handleSubmit}>Submit</button></td>
-              </tr>:<div></div>}
+                <td className="submit"><button onClick={this.handleSubmitEvent}>Submit</button></td>
+              </tr>
+              :
+              <tr className="button-row">
+              <td className="clear"><button disabled>Clear</button></td>
+              <td></td>
+              <td className="submit"><button disabled>Submit</button></td></tr>}
             </tbody>
           </table>
         </div>
