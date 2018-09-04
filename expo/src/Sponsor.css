@@ -1,32 +1,32 @@
-.fa-square, .fa-check-square {
-  font-size: 50px;
-  padding-top: 13px;
+#Sponsor .fa-square, #Sponsor .fa-check-square {
+  font-size: 53px;
+  padding-top: 10px;
   color: #FF7BAC;
 }
 
-.fa-square {
+#Sponsor .fa-square {
   opacity: 0.5;
 }
 
-.fa-square:hover {
+#Sponsor .hoverable:hover {
   opacity: 1;
 }
 
-.Sponsor table tr th:nth-of-type(3) {
+#Sponsor table tr th:nth-of-type(3) {
   text-align: left;
   padding-left: 20px;
 }
 
-.Voting {
-  width: 5%;
+#Sponsor td.Voting {
+  width: 4%;
   text-align: center;
 }
 
-.Sponsor input[type=checkbox] {
+#Sponsor input[type=checkbox] {
   display: none;
 }
 
-.clear button, .submit button {
+#Sponsor tr.button-row td.clear button, #Sponsor tr.button-row td.submit button {
   font-weight: bold;
   outline: none;
   color: white;
@@ -35,37 +35,41 @@
   height: 50px;
 }
 
-.clear button {
+#Sponsor tr.button-row td.clear button {
   width: 100%;
   background-color: #FF7BAC;
   border: 3px solid #FF7BAC;
 }
 
-.clear button:hover {
+#Sponsor tr.button-row td.clear button:not([disabled]):hover {
   background-color: #2F2F2F;
   border: 3px solid #FF7BAC;
 }
 
-.submit {
+#Sponsor tr.button-row td.submit {
   text-align: right;
 }
 
-.submit button {
+#Sponsor tr.button-row td.submit button {
   width: 200px;
   background-color: #00C7C7;
   border: 3px solid #00C7C7;
 }
 
-.submit button:hover {
+#Sponsor tr.button-row td.submit button:not([disabled]):hover {
   background-color: #2F2F2F;
   border: 3px solid #00FFFF;
 }
 
-tr.button-row td {
+#Sponsor tr.button-row button:disabled {
+  opacity: 0.5;
+}
+
+#Sponsor tr.button-row td {
   border: 0px solid;
 }
 
-td.announcement {
+#Sponsor td.announcement {
   background-color: #B6A1C4;
   border-color: #B6A1C4;
   color: white;
@@ -74,6 +78,6 @@ td.announcement {
   border-radius: 5px;
 }
 
-td.announcement:hover {
+#Sponsor td.announcement:hover {
   background-color: #B6A1C4;
 }

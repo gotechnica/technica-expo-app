@@ -25,10 +25,12 @@ class EditProjectModal extends Component {
   }
   saveProject(e){
     let valid = true;
-    this.setState(()=>({challenges: challengeStore}))          
     let checks = document.querySelector('.black');
-    console.log(checks);
-    checks.style.backgroundColor="#b6a1c4";
+    console.log(checks);         
+    if(checks){
+      this.setState(()=>({challenges: challengeStore})) 
+      checks.style.backgroundColor="#b6a1c4";
+    }
     //checks.checked = true;                                   
     console.log(this.state.challenges)
     if(valid) {
