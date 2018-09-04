@@ -23,17 +23,17 @@ class CreateChallengeModal extends Component {
       winner_error: false,
       missing_fields: false,
       challenge_title: '',
-      num_challenges: 1,
+      num_winners: 1,
     };
   }
 
   saveChallenge(e) {
 
-    let winnerLessZero = Number(this.state.num_challenges) <= 0;
-    let missingFields = this.challenge_title === ''
-      || this.challenge_title === undefined
-      || this.num_challenges === ''
-      || this.num_challenges === undefined;
+    let winnerLessZero = Number(this.state.num_winners) <= 0;
+    let missingFields = this.state.challenge_title === ''
+      || this.state.challenge_title === undefined
+      || this.state.num_winners === ''
+      || this.state.num_winners === undefined;
 
     let valid = !winnerLessZero && !missingFields;
 
@@ -43,7 +43,7 @@ class CreateChallengeModal extends Component {
       // Reset state and close modal
       this.setState({
         challenge_title: '',
-        num_challenges: 1,
+        num_winners: 1,
         winner_error: false,
         missing_fields: false
       });
@@ -54,8 +54,14 @@ class CreateChallengeModal extends Component {
       // Show errors
       if(missingFields) {
         this.setState({missing_fields: true});
-      } else if(winnerLessZero) {
+      } else {
+        this.setState({missing_fields: false});
+      }
+
+      if(winnerLessZero) {
         this.setState({winner_error: true});
+      } else {
+        this.setState({winner_error: false});
       }
 
     }
@@ -83,9 +89,9 @@ class CreateChallengeModal extends Component {
                 <div className="form-group">
                   <label>Number of Winners</label>
                   <input type="number" className="form-control"
-                    placeholder="1"
+                    placeholder="Enter a number of winners"
                     min="1"
-                    onChange = {(event) => this.setState({num_challenges:event.target.value})}/>
+                    onChange = {(event) => this.setState({num_winners:event.target.value})}/>
                   <br/>
                   {this.state.winner_error ? InvalidWinnerErr : ""}
                   {this.state.missing_fields ? MissingFieldsErr : ""}
