@@ -3,7 +3,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Table.css';
 import Sponsor from './Sponsor.js';
 
-import TechnicaIcon from './imgs/technica_award_ribbon.png';
+import TechnicaRibbon from './imgs/technica_award_ribbon.png';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
@@ -112,7 +112,7 @@ export class ChallengeCard extends Component {
 
     let winnerCard = (
       <button>
-        <img src={TechnicaIcon} className="Icon" />
+        <img src={TechnicaRibbon} className="Icon" />
         <b>{this.props.company} </b>
         <div> | {this.props.challenge_name}</div>
       </button>

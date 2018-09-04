@@ -10,15 +10,22 @@ import Card from './Card.js';
 import Table from './Table.js';
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
-import { VotingTable } from './Sponsor';
+import { VotingTable, WelcomeHeader } from './Sponsor';
 
 const CHALLENGES = [
+  { company_id: 'C0',
+    access_code: '00000',
+    company_name: 'Booz Allen Hamilton',
+    challenge_name: 'Best ML/AI Hack',
+    num_winners: 3,
+    winners: ['P4','P7', 'P8']
+  },
   { company_id: 'C1',
     access_code: '11111',
     company_name: 'Booz Allen Hamilton',
     challenge_name: 'Best Hack to Help in a Crisis',
-    num_winners: 3,
-    winners: []
+    num_winners: 2,
+    winners: ['P1','P3']
   },
   { company_id: 'C2',
     access_code: '11111',
@@ -104,8 +111,8 @@ const CHALLENGES = [
     num_winners: 1,
     winners: []
   },
-  { company_id: 'C13',
-    access_code: '131313',
+  { company_id: 'C14',
+    access_code: '141414',
     company_name: 'Microsoft',
     challenge_name: 'Best Use of Microsoft Cognitive Services API',
     num_winners: 1,
@@ -120,30 +127,42 @@ const PROJECTS = [
     project_url: 'https://devpost.com/software/mining-malware',
     challenges: [
       { company: 'Mantech',
+        challenge_id: 'C3',
         challenge_name: 'Cybersecurity Hack',
         won: true
       },
       { company: 'JP Morgan',
+        challenge_id: 'C4',
         challenge_name: 'Best Hack for Social Good',
         won: false
       },
       { company: 'Booz Allen Hamilton',
+        challenge_id: 'C0',
+        challenge_name: 'Best ML/AI Hack',
+        won: false
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_id: 'C1',
         challenge_name: 'Best Hack to Help in a Crisis',
         won: false
       },
       { company: 'Booz Allen Hamilton',
+        challenge_id: 'C2',
         challenge_name: 'Best Data Science Hack',
         won: false
       },
       { company: 'Capital One',
+        challenge_id: 'C5',
         challenge_name: 'Best Financial Hack',
         won: false
       },
       { company: 'Amazon Web Services',
+        challenge_id: 'C6',
         challenge_name: 'Best Use of AWS',
         won: true
       },
       { company: 'GE Digital',
+        challenge_id: 'C7',
         challenge_name: 'Best Digital Industrial Hack',
         won: false
       }
@@ -155,10 +174,12 @@ const PROJECTS = [
     project_url: 'https://devpost.com/software/leveraging-the-first-steps',
     challenges: [
       { company: 'JP Morgan',
+        challenge_id: 'C4',
         challenge_name: 'Best Hack for Social Good',
         won: true
       },
       { company: 'Bloomberg',
+        challenge_id: 'C8',
         challenge_name: 'Best Education/Diversity and Inclusion Hack',
         won: false
       }
@@ -170,14 +191,17 @@ const PROJECTS = [
     project_url: 'https://devpost.com/software/safety-net-cjr0nv',
     challenges: [
       { company: 'ViaSat',
+        challenge_id: 'C9',
         challenge_name: 'Best Device Connectivity',
         won: true
       },
       { company: 'Booz Allen Hamilton',
+        challenge_id: 'C1',
         challenge_name: 'Best Hack to Help in a Crisis',
         won: false
       },
       { company: 'Booz Allen Hamilton',
+        challenge_id: 'C2',
         challenge_name: 'Best Data Science Hack',
         won: false
       }
@@ -189,21 +213,30 @@ const PROJECTS = [
     project_url: 'https://devpost.com/software/technica2017-alexa-securitycam',
     challenges: [
       { company: 'ViaSat',
+        challenge_id: 'C9',
         challenge_name: 'Best Device Connectivity',
         won: false
       },
       { company: 'Liberty Mutual',
+        challenge_id: 'C10',
         challenge_name: 'Rise and Shine Challenge',
         won: true
       },
       { company: 'Altamira',
+        challenge_id: 'C11',
         challenge_name: 'Best Hardware Hack',
         won: false
       },
       { company: 'Qualcomm',
+        challenge_id: 'C12',
         challenge_name: 'Qualcomm DragonBoard™ 410c Hack',
         won: false
       },
+      { company: 'Booz Allen Hamilton',
+        challenge_id: 'C0',
+        challenge_name: 'Best ML/AI Hack',
+        won: false
+      }
     ],
   },
   { project_id: 'P5',
@@ -212,30 +245,42 @@ const PROJECTS = [
     project_url: 'https://devpost.com/software/helphub-wme2q3',
     challenges: [
       { company: 'ViaSat',
+        challenge_id: 'C9',
         challenge_name: 'Best Device Connectivity',
         won: false
       },
       { company: 'Booz Allen Hamilton',
+        challenge_id: 'C0',
+        challenge_name: 'Best ML/AI Hack',
+        won: false
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_id: 'C1',
         challenge_name: 'Best Hack to Help in a Crisis',
         won: false
       },
       { company: 'Liberty Mutual',
+        challenge_id: 'C10',
         challenge_name: 'Rise and Shine Challenge',
         won: false
       },
       { company: 'Facebook/Oculus',
+        challenge_id: 'C13',
         challenge_name: 'Best VR Hack',
         won: true
       },
       { company: 'Microsoft',
+        challenge_id: 'C14',
         challenge_name: 'Best Use of Microsoft Cognitive Services API',
         won: false
       },
       { company: 'Altamira',
+        challenge_id: 'C11',
         challenge_name: 'Best Hardware Hack',
         won: false
       },
       { company: 'Bloomberg',
+        challenge_id: 'C8',
         challenge_name: 'Best Education/Diversity and Inclusion Hack',
         won: false
       }
@@ -247,7 +292,47 @@ const PROJECTS = [
     project_url: 'https://devpost.com/software/survival-aid',
     challenges: [
       { company: 'Booz Allen Hamilton',
+        challenge_id: 'C1',
         challenge_name: 'Best Hack to Help in a Crisis',
+        won: false
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_id: 'C2',
+        challenge_name: 'Best Data Science Hack',
+        won: false
+      }
+    ]
+  },
+  { project_id: 'P7',
+    table_number: 2,
+    project_name: 'Faze One',
+    project_url: 'https://devpost.com/software/faze-one',
+    challenges: [
+      { company: 'Booz Allen Hamilton',
+        challenge_id: 'C1',
+        challenge_name: 'Best Hack to Help in a Crisis',
+        won: false
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_id: 'C0',
+        challenge_name: 'Best ML/AI Hack',
+        won: false
+      }
+    ]
+  },
+  { project_id: 'P8',
+    table_number: 55,
+    project_name: 'Connect in Crisis',
+    project_url: 'https://devpost.com/software/connect-in-crisis',
+    challenges: [
+      { company: 'Booz Allen Hamilton',
+        challenge_id: 'C1',
+        challenge_name: 'Best Hack to Help in a Crisis',
+        won: false
+      },
+      { company: 'Booz Allen Hamilton',
+        challenge_id: 'C0',
+        challenge_name: 'Best ML/AI Hack',
         won: false
       }
     ]
@@ -268,6 +353,7 @@ class SearchandFilter extends Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleToggle = this.handleToggle.bind(this);
       this.getSponsorChallenges = this.getSponsorChallenges.bind(this);
+      this.getSponsorData = this.getSponsorData.bind(this);
     }
 
     handleChange(e){
@@ -368,14 +454,38 @@ class SearchandFilter extends Component {
       return challenges;
     }
 
+    getSponsorData() {
+      let challenges = {};
+      this.state.challenges.map((challenge) => {
+        if (challenge.company_name == this.props.loggedIn) {
+          let obj = {
+            challenge_id: challenge.company_id,
+            vote_limit: challenge.num_winners,
+            winners: challenge.winners,
+            submitted: false
+          };
+          if (challenge.winners.length > 0) {
+            obj.submitted = true;
+          }
+          challenges[challenge.challenge_name] = obj;
+        }
+      })
+      return challenges;
+    }
+
     getSponsorChallenges(challenges) {
       let s = {};
-      PROJECTS.map((obj) => {
+      this.state.data.map((obj) => {
         let j = {};
         obj.challenges.map((item) => {
-            challenges.map((challenge) => {
-              j[challenge] = false;
-            });
+          if (Object.keys(challenges).indexOf(item.challenge_name) !== -1) {
+          let data = challenges[item.challenge_name]['winners'];
+            if (data.length > 0 && data.indexOf(obj.project_id) !== -1) {
+              j[item.challenge_name] = true;
+            } else {
+              j[item.challenge_name] = false;
+            }
+          }
         });
         if (Object.keys(j).length > 0) {
           s[obj.project_id] = j;
@@ -399,11 +509,13 @@ class SearchandFilter extends Component {
           return (<option key={index}>{obj}</option>)
         })
       );
+
       let challenge_sponsor_array = (
         this.createChallengeSponsorArray().map((obj,index) => {
           return (<option key={index}>{obj}</option>)
         })
       );
+
       let select = (
         <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
           <option selected>Challenges</option>
@@ -411,17 +523,29 @@ class SearchandFilter extends Component {
         </select>
       );
 
-      let challenges = this.createChallengeSponsorArray();
-
+      let sponsor_challenges = this.getSponsorData();
       let table = (
         this.props.origin === "home" ?
-        <Table projects={this.state.workingdata} value={this.state.value} show_attempted_challenges={this.state.toggle_off} />
-        :
-        <VotingTable projects={this.state.workingdata} value={this.state.value} data={this.getSponsorChallenges(challenges)} />
+          <Table
+            projects={this.state.workingdata}
+            value={this.state.value}
+            show_attempted_challenges={this.state.toggle_off}
+          />
+          :
+          <VotingTable
+            company={this.props.loggedIn}
+            projects={this.state.workingdata}
+            value={this.state.value}
+            voting_data={this.getSponsorChallenges(sponsor_challenges)}
+            sponsor_challenges={sponsor_challenges}
+          />
       );
+
       let toggle_style = ( this.props.origin === "home" ? { display: "inline-block" } : { display: "none" } );
+
       return (
         <div>
+          { this.props.origin === "sponsor" ? <WelcomeHeader company={this.props.loggedIn} data={sponsor_challenges}/>: <div></div>}
           <Card title="Search and Filter" content=
             {<form>
               <div className="form-group">

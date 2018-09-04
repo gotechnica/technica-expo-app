@@ -10,6 +10,10 @@
 
 #Sponsor .hoverable:hover {
   opacity: 1;
+  -webkit-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px);
+  transition: all 0.2s ease-in-out;
 }
 
 #Sponsor table tr th:nth-of-type(3) {
@@ -42,8 +46,13 @@
 }
 
 #Sponsor tr.button-row td.clear button:not([disabled]):hover {
-  background-color: #2F2F2F;
-  border: 3px solid #FF7BAC;
+  background-color: #FF96BD;
+  border: 3px solid #FF96BD;
+
+  -webkit-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px);
+  transition: all 0.2s ease-in-out;
 }
 
 #Sponsor tr.button-row td.submit {
@@ -57,8 +66,13 @@
 }
 
 #Sponsor tr.button-row td.submit button:not([disabled]):hover {
-  background-color: #2F2F2F;
+  background-color: #00FFFF;
   border: 3px solid #00FFFF;
+
+  -webkit-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px);
+  transition: all 0.2s ease-in-out;
 }
 
 #Sponsor tr.button-row button:disabled {
@@ -69,15 +83,115 @@
   border: 0px solid;
 }
 
-#Sponsor td.announcement {
-  background-color: #B6A1C4;
-  border-color: #B6A1C4;
+#Sponsor td.task-header, #Sponsor td.task {
+  background-color: #2f2f2f;
   color: white;
   margin: 0px;
-  padding: 8px 15px;
-  border-radius: 5px;
+  padding: 0px;
+  border-radius: 0px;
 }
 
+#Sponsor td.task-header {
+  border-bottom: 3px solid #1c1c1c;
+  margin-top: -1px;
+
+}
+
+#Sponsor td.task-header:hover {
+  border-color: #00ffff;
+}
+
+#Sponsor td.task {
+  margin-top: 7px;
+}
+
+#Sponsor button.task-title {
+  background-color: #2f2f2f;
+  border: 0px solid;
+  text-align: left;
+  color: white;
+  font-size: 17.5px;
+  padding-top: 2px;
+  padding-bottom: 5px;
+  outline: none;
+  padding-left: 10px;
+  width:100%;
+}
+
+#Sponsor button.task-icon {
+  background-color: #2f2f2f;
+  border: 0px solid;
+  color: #2f2f2f;
+  width: 35px;
+  font-size: 15px;
+  color: white;
+  outline: none;
+}
+
+#Sponsor button.announcement-icon {
+  background-color: #2f2f2f;
+  border: 0px solid;
+  color: #2f2f2f;
+  width: 45px;
+  font-size: 17px;
+  color: white;
+  outline: none;
+  padding-right: 9px;
+  border-right: 2px solid rgb(255,255,255,0.125);
+}
+
+#Sponsor td.tasks:hover {
+  border-color: #00ffff;
+}
+
+#Sponsor td.announcement {
+  margin: 0px;
+  margin-bottom: 8px;
+  padding: 3px 7px;
+  background-color: #1c1c1c;
+  width: 100%;
+}
+
+#Sponsor td.announcement button{
+  background-color: transparent;
+}
+
+
 #Sponsor td.announcement:hover {
-  background-color: #B6A1C4;
+  -webkit-transform: translateY(-3px);
+  -ms-transform: translateY(-3px);
+  transform: translateY(-3px);
+  transition: all 0.2s ease-in-out;
+  background-color: #424242;
+}
+
+.fa-circle {
+  color: #b190cc;
+  font-size: 25px;
+}
+
+.fa-tasks {
+  color: #ff7bac;
+}
+
+.fa-exclamation-triangle {
+  color: #00ffff;
+}
+
+.fa-user-check, .fa-check-circle {
+  color: #ba92db;
+}
+
+ .faded {
+  opacity: 0.5;
+}
+
+ button.task-header {
+    font-size: 20px;
+}
+
+ div.table-announcement {
+  margin: 0px 15px;
+  margin-top: 10px;
+  padding: 0;
 }
