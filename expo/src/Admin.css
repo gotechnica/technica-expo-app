@@ -1,3 +1,36 @@
+
+.sponsor-name {
+  color: #FF7BAC;
+  font-weight: bold;
+}
+
+.sponsor-subhead {
+  color: #999999;
+}
+
+.sponsor-card {
+  border-radius: 6px;
+  margin: 20px 0px;
+}
+
+.sponsor-button {
+  border-style: 1px solid;
+  border-radius: 5px;
+  border-color: #00C7C7;
+  
+  padding: 0px;
+  background: none;
+  color: #00C7C7;
+  font-size: 1rem;
+
+  border:none;
+}
+
+.sponsor-button:hover {
+  color: #00FFFF;
+  border-color: #00FFFF;
+}
+
 .sponsor-challenge {
   background-color: #b6a1c4;
   padding: 2px 6px 2px 8px;

@@ -11,7 +11,9 @@ import SiteWrapper from './SiteWrapper.js';
 // TODO Pass sponsor and project IDs to the modals
 // TODO Connect actual data to project and sponsor state
 import CreateSponsorModal from './admin/CreateSponsorModal';
+import CreateChallengeModal from './admin/CreateChallengeModal';
 import EditSponsorModal from './admin/EditSponsorModal';
+import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 
 import './Admin.css';
@@ -60,7 +62,7 @@ class ProjectModule extends Component {
           }
         })
       }
-     seen = obj.table_number; 
+     seen = obj.table_number;
     })
     return finalProjectsData;
   }
@@ -157,7 +159,7 @@ class ProjectModule extends Component {
                     challenges = {elt.challenges}
                     toggle = {elt.checkVal}
                     />
-                  <button className="btn btn-primary"
+                  <button className="sponsor-button"
                     type="button"
                     data-toggle="modal"
                     data-target={"#modalEditProject"+index.toString()}
@@ -183,19 +185,19 @@ class SponsorModule extends Component {
     this.state = {
       textSearch:'',
       sponsors:[
-        {_id: 1, access_code: 1, company_name: 'cat', challenge_name: 'challenge1'},
-        {_id: 1, access_code: 2, company_name: 'dog', challenge_name: 'challenge2'},
-        {_id: 1, access_code: 2, company_name: 'dog', challenge_name: 'challenge3'},
-        {_id: 1, access_code: 2, company_name: 'dog', challenge_name: 'challenge4'},
-        {_id: 1, access_code: 3, company_name: 'apple', challenge_name: 'challenge5'},
-        {_id: 1, access_code: 4, company_name: 'peaches', challenge_name: 'challenge6'},
-        {_id: 1, access_code: 4, company_name: 'peaches', challenge_name: 'challenge7'},
-        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge8'},
-        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge9'},
-        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge10'},
-        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge11'},
-        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge12'},
-        {_id: 1, access_code: 5, company_name: 'small', challenge_name: 'challenge13'},
+        {_id: 1, access_code: 1, company_name: 'Cat', challenge_name: 'challenge1', num_winners: 1},
+        {_id: 1, access_code: 2, company_name: 'Dog', challenge_name: 'challenge2', num_winners: 2},
+        {_id: 1, access_code: 2, company_name: 'Dog', challenge_name: 'challenge3', num_winners: 3},
+        {_id: 1, access_code: 2, company_name: 'Dog', challenge_name: 'challenge4', num_winners: 2},
+        {_id: 1, access_code: 3, company_name: 'Apple', challenge_name: 'challenge5', num_winners: 1},
+        {_id: 1, access_code: 4, company_name: 'Peaches', challenge_name: 'challenge6', num_winners: 2},
+        {_id: 1, access_code: 4, company_name: 'Peaches', challenge_name: 'challenge7', num_winners: 3},
+        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge8', num_winners: 2},
+        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge9', num_winners: 1},
+        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge10', num_winners: 2},
+        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge11', num_winners: 3},
+        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge12', num_winners: 2},
+        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge13', num_winners: 1},
       ]
     }
   }
@@ -233,7 +235,8 @@ class SponsorModule extends Component {
       });
       current_sponsor.challenges.push({
         challenge: elt.challenge_name,
-        id: elt._id
+        id: elt._id,
+        num_winners: elt.num_winners
       });
     });
 
@@ -242,13 +245,15 @@ class SponsorModule extends Component {
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredSponsors = filteredSponsors.filter(elt => {
 
+        let casedTextSearch = this.state.textSearch.toUpperCase()
+
         let chalSearch = false;
         elt.challenges.forEach(chal => {
-          if (chal.challenge.includes(this.state.textSearch)) {
+          if (chal.challenge.toUpperCase().includes(casedTextSearch)) {
             chalSearch = true;
           }
         });
-        return elt.company_name.includes(this.state.textSearch)
+        return elt.company_name.toUpperCase().includes(casedTextSearch)
           || chalSearch;
       });
     }
@@ -262,7 +267,7 @@ class SponsorModule extends Component {
             <CreateSponsorModal
               createID="modalCreateSponsor"
               />
-            <button className="btn btn-primary"
+            <button className="sponsor-button"
               type="button"
               data-toggle="modal"
               data-target="#modalCreateSponsor"
@@ -281,32 +286,75 @@ class SponsorModule extends Component {
             </div>
             {filteredSponsors.map((elt,key) => {
               return (
-                <div className="d-flex" key={key}>
-                  <div className="">
-                    <b>{elt.company_name}</b>
-                    <br/>
-                    {elt.challenges.map(challenge => {
+                <div className="sponsor-card" key={key}>
+                  <div>
+                    <div className="d-flex">
+                      <h5>
+                        {elt.company_name}
+                      </h5>
+                      <span className="ml-auto">
+                        <EditSponsorModal
+                          editID={"modalEditSponsor"+key.toString()}
+                          sponsorCode={elt.access_code}
+                          sponsorName={elt.company_name}
+                          />
+                        <button className="sponsor-button"
+                          type="button"
+                          data-toggle="modal"
+                          data-target={"#modalEditSponsor"+key.toString()}
+                          >
+                          Edit Details
+                        </button>
+                      </span>
+                    </div>
+
+                      <div className="d-flex">
+                        <span className="sponsor-subhead">
+                          {elt.company_name + "'s challenges"}
+                        </span>
+                        <span className="ml-auto">
+                          <EditSponsorModal
+                            editID={"modalEditSponsor"+key.toString()}
+                            sponsorCode={elt.access_code}
+                            sponsorName={elt.company_name}
+                            />
+
+                          <CreateChallengeModal
+                            createID={"modalCreateChallenge"+key.toString()}
+                            company={elt.company_name}/>
+                            <button className="sponsor-button"
+                              type="button"
+                              data-toggle="modal"
+                              data-target={"#modalCreateChallenge"+key.toString()}
+                              >
+                              Create Challenge
+                            </button>
+
+                        </span>
+                      </div>
+
+                    {elt.challenges.map((challenge,i) => {
                       return (
-                        <div className="sponsor-challenge">
-                          {challenge.challenge}
+                        <div>
+                          {(i+1).toString() + ") " + challenge.challenge + " "}
+
+                          <EditChallengeModal
+                            createID={"modalEditChallenge"+elt.access_code.toString()+i.toString()}
+                            challengeTitle={challenge.challenge}
+                            numWinners={challenge.num_winners}
+                            />
+                          <button className="sponsor-button"
+                            type="button"
+                            data-toggle="modal"
+                            data-target={"#modalEditChallenge"+elt.access_code.toString()+i.toString()}
+                            >
+                            Edit
+                          </button>
                         </div>
                       )
                     })}
                   </div>
-                  <div className="ml-auto">
-                    <EditSponsorModal
-                      editID={"modalEditSponsor"+key.toString()}
-                      sponsorCode={elt.access_code}
-                      sponsorName={elt.company_name}
-                      />
-                    <button className="btn btn-primary"
-                      type="button"
-                      data-toggle="modal"
-                      data-target={"#modalEditSponsor"+key.toString()}
-                      >
-                      Edit
-                    </button>
-                  </div>
+                  <hr/>
                 </div>
               )
             })}

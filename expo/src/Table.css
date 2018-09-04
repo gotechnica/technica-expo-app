@@ -3,7 +3,7 @@
 }*/
 
 tbody tr td {
-  border-top: 3px solid #222;
+  border-top: 2px solid #222;
 }
 
 tbody tr:hover {
@@ -108,7 +108,7 @@ img.Icon {
     border-width: 0px;
     outline: none;
     /* Text */
-    color: #999999;
+    color: #fff; /*#999999;*/
     font-size: 16px;
     text-align: left;
     /*white-space: nowrap;*/ /* Commenting out let's zoom be good up to 300% */
@@ -118,6 +118,7 @@ img.Icon {
 .Challenge-Categories {
     margin-top: 7px;
     line-height: 20px;
+    color: #999999;
 }
 
 .Challenge-Categories table {
@@ -129,7 +130,11 @@ img.Icon {
 }
 
 .Challenge-Categories table tr:hover td {
-    border-color: #00FFFF;
+    /*border-color: #00FFFF;*/
+}
+
+.Challenge-Categories table tr td {
+  border-top: none;
 }
 
 .Challenge-Categories b  {
