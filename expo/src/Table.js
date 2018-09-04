@@ -35,10 +35,10 @@ export class ProjectRow extends Component {
       <td className="Project">
         <div className="grid-container">
           <div className="name">
+            {this.props.project_name+" "}
             <a href={this.props.project_url} target="_tab">
               <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
             </a>
-            {this.props.project_name}
           </div>
           <div className="Challenge-Wins">
             {winnerCards}
@@ -96,7 +96,7 @@ export class ChallengeCard extends Component {
   constructor() {
     super();
     this.handleToggleClick = this.handleToggleClick.bind(this);
-    this.state = { expanded : false };
+    this.state = { expanded : true };
   }
 
   handleToggleClick() {
@@ -113,13 +113,13 @@ export class ChallengeCard extends Component {
     let winnerCard = (
       <button>
         <img src={TechnicaIcon} className="Icon" />
-        <b>{this.props.company} </b>
-        <div> | {this.props.challenge_name}</div>
+          <b>{this.props.challenge_name +" "}</b>
+          <div> | {this.props.company}</div>
       </button>
     );
 
     const isExpanded = this.state.expanded;
-    let toggledStyle = (isExpanded ? displayed : hidden);
+    let toggledStyle = displayed;//(isExpanded ? displayed : hidden);
     let indicator = isExpanded ? faCaretLeft : faCaretRight;
     let challengeCard = (
       <div className="Challenge-Card" onClick={this.handleToggleClick}>
@@ -127,9 +127,9 @@ export class ChallengeCard extends Component {
           <tr>
             <td className="info">
               <b>{this.props.challenge_name} </b>
-              <div style={toggledStyle}>|&nbsp;&nbsp;{this.props.company}</div>
+              <div style={toggledStyle} >|&nbsp;&nbsp;{this.props.company}</div>
             </td>
-            <td className="indicator"><FontAwesomeIcon icon={indicator} /></td>
+            {/*<td className="indicator"><FontAwesomeIcon icon={indicator} /></td>*/}
           </tr>
         </table>
       </div>
