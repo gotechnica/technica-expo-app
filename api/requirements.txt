@@ -1,7 +1,10 @@
+certifi==2018.8.24
+chardet==3.0.4
 click==6.7
 Flask==1.0.2
 Flask-PyMongo==0.5.2
 get==1.0.3
+idna==2.7
 itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
@@ -9,4 +12,6 @@ post==1.0.2
 public==1.0.3
 pymongo==3.6.1
 query-string==1.0.2
+requests==2.19.1
+urllib3==1.23
 Werkzeug==0.14.1

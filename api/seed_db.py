@@ -65,7 +65,7 @@ def needs_to_stay(response):
 def format_challenges(attempted_challenges):
     if attempted_challenges is "":
         return ""
-    output = []
+    challenges_list = []
     challenges = attempted_challenges.split(',')
     for challenge in challenges:
         data = challenge.split(' - ')
@@ -74,9 +74,8 @@ def format_challenges(attempted_challenges):
             'challenge': data[0],
             'winner': 'false'
         }
-        output.append(prize)
-        json_output = json.dumps(output)
-    return json_output
+        challenges_list.append(prize)
+    return challenges_list
 
 
 # not used but just still here
@@ -113,6 +112,7 @@ def parse_CSV(reader):
             print("Response: " + response)
         else:
             moving[project_name] = Project(project_url, attempted_challenges)
+    return moving, not_moving
 
 
 # evenly spreads out hackers amongst available seats
@@ -168,13 +168,13 @@ def bulk_add_projects(projects):
         'projects': project_data
     }
     r = requests.post(url, json=packet)
-    
+
 
 
 def main():
-    csvFile = open("sample-devpost-submissions-export.csv", 'rt',
-                   encoding='ANSI')
-    reader = csv.DictReader(csvFile)
+    # csvFile = open("sample-devpost-submissions-export.csv", 'rt')
+    # reader = csv.DictReader(csvFile)
+    reader = csv.DictReader(open("sample-devpost-submissions-export.csv", "rt", encoding="utf8", errors='ignore'))
 
     parse_CSV(reader)
     seed_hackers()
