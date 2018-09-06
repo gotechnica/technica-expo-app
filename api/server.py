@@ -6,6 +6,8 @@ from bson.objectid import ObjectId
 from bson import json_util
 import json
 import hashlib
+import io
+from seed_db import *
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -56,6 +58,37 @@ def get_project(project_id):
     # Project URL
     # Attempted Challenges
     # Challenges Won
+
+@app.route('/test/seed_db', methods=['GET'])
+def csv_tester():
+    return """
+        <html>
+            <body>
+                <h1>Devpost CSV DB Seeder</h1>
+                <h2>(Testing Page)</h2>
+
+                <form action="/parse_csv" method="post" enctype="multipart/form-data">
+                    <input type="file" name="projects_csv" />
+                    <input type="submit" />
+                </form>
+            </body>
+        </html>
+    """
+
+@app.route('/parse_csv', methods=['POST'])
+def parse_csv():
+    file = request.files['projects_csv']
+    if not file:
+        return "No file"
+    with file.stream as temp_file:
+        fd = temp_file.fileno()
+        reader = csv.DictReader(io.open(fd, "rt", encoding="utf8", errors='ignore'))
+        moving, not_moving = parse_CSV(reader)
+        bulk_add_projects(not_moving)
+        bulk_add_projects(moving)
+    # TODO(timothychen01): Just return the integer
+    return "Seeded DB with " + str(len(moving) + len(not_moving)) + " projects"
+
 
 @app.route('/api/projects/add', methods=['POST'])
 def add_project():
