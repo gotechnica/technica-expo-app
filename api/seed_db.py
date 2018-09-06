@@ -72,7 +72,7 @@ def format_challenges(attempted_challenges):
         prize = {
             'company': data[1],
             'challenge': data[0],
-            'winner': 'false'
+            'winner': False
         }
         challenges_list.append(prize)
     return challenges_list
