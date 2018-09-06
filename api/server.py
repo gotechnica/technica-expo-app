@@ -243,7 +243,32 @@ def get_all_companies():
 # Private / sponsor routes #####################################################
 # All endpoints under the private routes should require the access token.
 
+@app.route('/api/projects/id/<project_id>/challenge_status', methods=['POST'])
+def update_project_challenge_status(project_id):
+    projects = mongo.db.projects
 
+    company_name = request.json['company_name']
+    challenge_name = request.json['challenge_name']
+    is_winner = request.json['is_winner']     # boolean
+
+    project_obj = projects.find_one(
+        {'_id': ObjectId(project_id)}
+    )
+    attempted_challenges = project_obj['attempted_challenges']
+
+    for ind, challenge in enumerate(attempted_challenges):
+        if challenge['company'] == company_name and challenge['challenge'] == challenge_name:
+            print(str(ind), challenge)
+            attempted_challenges[ind]['winner'] = is_winner
+            print(is_winner)
+            print(attempted_challenges[ind]['winner'])
+
+    updated_project_obj = projects.find_one_and_update(
+        {'_id': ObjectId(project_id)},
+        {'$set': project_obj}
+    )
+
+    return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
 
 
 if __name__ == '__main__':
