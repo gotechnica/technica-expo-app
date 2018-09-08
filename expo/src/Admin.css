@@ -13,24 +13,6 @@
   margin: 20px 0px;
 }
 
-.sponsor-button {
-  border-style: 1px solid;
-  border-radius: 5px;
-  border-color: #00C7C7;
-  
-  padding: 0px;
-  background: none;
-  color: #00C7C7;
-  font-size: 1rem;
-
-  border:none;
-}
-
-.sponsor-button:hover {
-  color: #00FFFF;
-  border-color: #00FFFF;
-}
-
 .sponsor-challenge {
   background-color: #b6a1c4;
   padding: 2px 6px 2px 8px;
@@ -39,7 +21,8 @@
   margin: 0px 5px 5px 0px;
   display: inline-block;
 }
-.pink{
+
+.pink {
   background-color: #b6a1c4;
   padding: 2px 6px 2px 8px;
   color: white;
@@ -48,7 +31,7 @@
   display: inline-block;
 }
 
-.black{
+.black {
   background-color: black;
   padding: 2px 6px 2px 8px;
   color: white;

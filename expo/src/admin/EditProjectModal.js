@@ -26,17 +26,17 @@ class EditProjectModal extends Component {
   saveProject(e){
     let valid = true;
     let checks = document.querySelector('.black');
-    console.log(checks);         
+    console.log(checks);
     if(checks){
-      this.setState(()=>({challenges: challengeStore})) 
+      this.setState(()=>({challenges: challengeStore}))
       checks.style.backgroundColor="#b6a1c4";
     }
-    //checks.checked = true;                                   
+    //checks.checked = true;
     console.log(this.state.challenges)
     if(valid) {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
-      
+
       // Close modal
       document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
       console.log(this.state)
@@ -110,8 +110,8 @@ return challengeStore;
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" id={"btnCancelEditProjectModal"+this.props.editID} data-dismiss="modal">Cancel</button>
-              <button type="button" className="btn btn-primary"  onClick={(event) => {
+              <button type="button" className="button button-secondary" id={"btnCancelEditProjectModal"+this.props.editID} data-dismiss="modal">Cancel</button>
+              <button type="button" className="button button-primary"  onClick={(event) => {
                 this.saveProject(event);
               }}>Save</button>
             </div>

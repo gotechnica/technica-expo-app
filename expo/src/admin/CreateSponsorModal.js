@@ -1,5 +1,6 @@
 /* react components */
 import React, { Component } from 'react';
+//import '../App.css';
 
 const InvalidAccessErr = (
   <div className="alert alert-danger">
@@ -69,10 +70,10 @@ class CreateSponsorModal extends Component {
 
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary"
+              <button type="button" className="button button-secondary"
                 ID={"btnHideCreateSponsorModal" + this.props.createID}
                 data-dismiss="modal">Cancel</button>
-              <button type="button" className="btn btn-primary"
+              <button type="button" className="button button-primary"
                 onClick={(event) => {
                   this.saveSponsor(event);
                 }}>
