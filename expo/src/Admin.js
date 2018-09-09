@@ -17,6 +17,7 @@ import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 
 import './Admin.css';
+import { faAllergies } from '@fortawesome/fontawesome-free-solid';
 
 /* Admin page content (see PRD) */
 
@@ -37,8 +38,20 @@ class ProjectModule extends Component {
         {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
       ]
     }
+    // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
-
+  createAllChallenges(obj){
+    console.log(obj)
+    let allChallenges = [];
+    obj.map((item)=>{
+      console.log(item.challenges)
+      item.challenges.map((challenge)=>{
+        if(allChallenges.indexOf(challenge)===-1)
+          allChallenges.push(challenge);
+      })
+    })
+    return allChallenges;
+  }
   sortData(){
     let data = this.state.projects;
     let finalProjectsData = [];
@@ -64,12 +77,16 @@ class ProjectModule extends Component {
       }
      seen = obj.table_number;
     })
+    console.log("aassa",finalProjectsData)
+    this.createAllChallenges(finalProjectsData);
     return finalProjectsData;
   }
 
   render() {
     console.log(this.sortData())
     let filteredProjects = this.sortData();
+    let allChallenges = this.createAllChallenges(filteredProjects);
+    console.log("ass",allChallenges);
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredProjects = filteredProjects.filter(elt =>
         elt.project_name.includes(this.state.textSearch) ||
@@ -158,6 +175,7 @@ class ProjectModule extends Component {
                     url = {elt.url}
                     challenges = {elt.challenges}
                     toggle = {elt.checkVal}
+                    allChallenges = {allChallenges}
                     />
                   <button className="sponsor-button"
                     type="button"
