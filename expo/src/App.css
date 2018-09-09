@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
 
+/* Overarching font, app coloration */
 @font-face {
   font-family: 'DINPro';
   src: url('./fonts/DINPro-Regular.otf');
@@ -20,36 +21,64 @@ html {
   background-color: #222;
 }
 
+/* App wide modal styles */
 .modal-content {
   background-color: #222;
 }
-
 .modal-header {
   border-bottom: 1px solid rgba(0,0,0,.125);
 }
-
 .modal-footer {
   border-top: 1px solid rgba(0,0,0,.125);
 }
-
 .close {
   color: #fff;
 }
-
 .close:hover {
   color: #fff;
 }
 
-
-/*a {
-  color:#00ffff;
+/* Button styles */
+.button {
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
 }
 
-a:hover {
-  color:#9DFFFE;
-}*/
+/* Primary button styles */
+.button-primary:hover {
+  background-color: #00FFFF;
+  border: 3px solid #00FFFF;
+}
+.button-primary {
+  background-color: #00C7C7;
+  border: 3px solid #00C7C7;
+}
 
-/*
-Possible dark variant of neon blue for readability?
-#02e6e6
-*/
+/* Secondary button styles */
+.button-secondary:hover {
+  background-color: #FF96BD;
+  border: 3px solid #FF96BD;
+}
+.button-secondary {
+  background-color: #FF7BAC;
+  border: 3px solid #FF7BAC;
+}
+
+/* Link style button */
+.link-button {
+  border-style: 1px solid;
+  border-radius: 5px;
+  border-color: #00C7C7;
+  padding: 0px;
+  background: none;
+  color: #00C7C7;
+  font-size: 1rem;
+  border:none;
+}
+.link-button:hover {
+  color: #00FFFF;
+  border-color: #00FFFF;
+}
