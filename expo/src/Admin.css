@@ -29,6 +29,7 @@
   border-radius: 5px;
   margin: 0px 5px 5px 0px;
   display: inline-block;
+  cursor: pointer;
 }
 
 .black {
@@ -38,6 +39,7 @@
   border-radius: 5px;
   margin: 0px 5px 5px 0px;
   display: inline-block;
+  cursor: pointer;
 }
 
 .all{
@@ -47,4 +49,7 @@
   border-radius: 5px;
   margin: 0px 5px 5px 0px;
   display: inline-block;
+  font-size: 1rem;
+  line-height: 1.5;
+  cursor: pointer;
 }

@@ -35,9 +35,10 @@ class EditProjectModal extends Component {
     console.log(checks);
     if(checks){
       this.setState(()=>({challenges: challengeStore}))
-      checks.style.backgroundColor="#b6a1c4";
     }
     //checks.checked = true;
+    let input = document.querySelector('.input');
+    console.log(input);
     console.log(this.state.challenges)
     if(valid) {
       // TODO: Send access code and company name to db if valid access code
@@ -52,7 +53,7 @@ class EditProjectModal extends Component {
     }
     console.log(this.state)
   }
-
+  
   handleState(word){
     let challenge_new;
     console.log(this.state.challenges)
@@ -110,7 +111,7 @@ return challengeStore;
               <form>
               <div className="form-group">
               <label>Project Name</label>
-              <input className="form-control" type="text" value={this.state.project_name.toString()} onChange = {(event) => this.setState({project_name:event.target.value})}/>
+              <input className="form-control input" type="text" value={this.state.project_name.toString()} onChange = {(event) => this.setState({project_name:event.target.value})}/>
               </div>
               <div className="form-group">
               <label>Table Number</label>
@@ -209,7 +210,7 @@ class AllCheck extends Component{
   }
   render(){
     return(
-      <span class="badge badge-primary all" onClick={(e)=>this.handleClick(e)}><FontAwesomeIcon icon={faTimes}></FontAwesomeIcon> {this.props.value}</span>
+      <span class="badge badge-primary all" onClick={(e)=>this.handleClick(e)}>{this.props.value}</span>
     )
   }
 }
@@ -230,3 +231,4 @@ export default EditProjectModal;
 // console.log(e.target.parentElement.textContent)}
 
 // }/>{challenge}</span>
+// onChange = {(event) => this.setState({project_name:event.target.value})}
