@@ -29,6 +29,11 @@ class EditProjectModal extends Component {
     })
     console.log(challengeStore)
   }
+  componentDidUpdate(){
+    let checks = document.querySelector('.black');
+    console.log(checks);
+    this.Checkbox.changeState(checks);
+  }
   saveProject(e){
     let valid = true;
     let checks = document.querySelector('.black');
@@ -181,7 +186,9 @@ class Checkbox extends Component{
     this.props.handleChange(this.state.color,e);
   }
 
-  changeState(arr){
+  changeState(checkbox){
+    console.log(this.state.color)
+    this.setState({color:true});
   }
 
   render(){
