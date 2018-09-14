@@ -40,7 +40,7 @@ def get_all_projects():
         }
         output.append(temp_project)
 
-    return jsonify({'All Projects': output})
+    return jsonify(output)
 
 @app.route('/api/projects/id/<project_id>', methods=['GET'])
 def get_project(project_id):
