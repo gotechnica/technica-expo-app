@@ -35,7 +35,7 @@ def get_all_projects():
             'table_number': p['table_number'],
             'project_name': p['project_name'],
             'project_url': p['project_url'],
-            'attempted_challenges': p['attempted_challenges'],
+            'challenges': p['challenges'],
             'challenges_won': p['challenges_won']
         }
         output.append(temp_project)
@@ -99,14 +99,14 @@ def add_project():
     table_number = request.json['table_number']
     project_name = request.json['project_name']
     project_url = request.json['project_url']
-    attempted_challenges = request.json['attempted_challenges']
+    challenges = request.json['challenges']
     challenges_won = request.json['challenges_won']
 
     project = {
         'table_number': table_number,
         'project_name': project_name,
         'project_url': project_url,
-        'attempted_challenges': attempted_challenges,
+        'challenges': challenges,
         'challenges_won': challenges_won
     }
 
@@ -134,7 +134,7 @@ def update_project(project_id):
         'table_number': request.json['table_number'],
         'project_name': request.json['project_name'],
         'project_url': request.json['project_url'],
-        'attempted_challenges': request.json['attempted_challenges'],
+        'challenges': request.json['challenges'],
         'challenges_won': challenges_won_arr    # Challenges won entered as company_ids split by whitespace
     }
     updated_project_obj = projects.find_one_and_update(
@@ -256,14 +256,14 @@ def update_project_challenge_status(project_id):
     project_obj = projects.find_one(
         {'_id': ObjectId(project_id)}
     )
-    attempted_challenges = project_obj['attempted_challenges']
+    challenges = project_obj['challenges']
 
-    for ind, challenge in enumerate(attempted_challenges):
+    for ind, challenge in enumerate(challenges):
         if challenge['company'] == company_name and challenge['challenge'] == challenge_name:
             print(str(ind), challenge)
-            attempted_challenges[ind]['winner'] = is_winner
+            challenges[ind]['winner'] = is_winner
             print(is_winner)
-            print(attempted_challenges[ind]['winner'])
+            print(challenges[ind]['winner'])
 
     updated_project_obj = projects.find_one_and_update(
         {'_id': ObjectId(project_id)},

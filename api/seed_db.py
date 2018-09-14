@@ -33,9 +33,9 @@ assignments = ["None | "] * (num_tables * spots_per_table)
 
 
 class Project:
-    def __init__(self, project_url, attempted_challenges):
+    def __init__(self, project_url, challenges):
         self.project_url = project_url
-        self.attempted_challenges = attempted_challenges
+        self.challenges = challenges
         self.table_number = ""
 
     def __str__(self):
@@ -62,11 +62,11 @@ def needs_to_stay(response):
 
 
 # best domain name......
-def format_challenges(attempted_challenges):
-    if attempted_challenges is "":
+def format_challenges(challenges):
+    if challenges is "":
         return ""
     challenges_list = []
-    challenges = attempted_challenges.split(',')
+    challenges = challenges.split(',')
     for challenge in challenges:
         data = challenge.split(' - ')
         prize = {
@@ -94,14 +94,14 @@ def parse_CSV(reader):
     for row in reader:
         project_name = row["Submission Title"]
         project_url = row["Submission Url"]
-        attempted_challenges = format_challenges(row["Desired Prizes"])
+        challenges = format_challenges(row["Desired Prizes"])
         response = row[gdi_devpost]
 
         name = row['Submission Title'].strip()
         #if name not in already_stored:
         staying = needs_to_stay(response)
         if staying is not None:
-            not_moving[project_name] = Project(project_url, attempted_challenges)
+            not_moving[project_name] = Project(project_url, challenges)
             assignments[table_to_number(staying.group(0))] = name + " | "
             not_moving[project_name].table_number = staying.group(0)
         elif "No" not in response and \
@@ -111,7 +111,7 @@ def parse_CSV(reader):
             print("Manually handle " + project_name)
             print("Response: " + response)
         else:
-            moving[project_name] = Project(project_url, attempted_challenges)
+            moving[project_name] = Project(project_url, challenges)
     return moving, not_moving
 
 
@@ -145,7 +145,7 @@ def add_project(projects):
             'table_number': projects[project_name].table_number,
             'project_name': project_name,
             'project_url': projects[project_name].project_url,
-            'attempted_challenges': projects[project_name].attempted_challenges,
+            'challenges': projects[project_name].challenges,
             'challenges_won': ""
         }
         r = requests.post(url, json=info)
@@ -160,7 +160,7 @@ def bulk_add_projects(projects):
             'table_number': projects[project_name].table_number,
             'project_name': project_name,
             'project_url': projects[project_name].project_url,
-            'attempted_challenges': projects[project_name].attempted_challenges,
+            'challenges': projects[project_name].challenges,
             'challenges_won': ""
         }
         project_data.append(info)
