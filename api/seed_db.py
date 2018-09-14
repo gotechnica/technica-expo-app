@@ -63,18 +63,19 @@ def needs_to_stay(response):
 
 # best domain name......
 def format_challenges(challenges):
-    if challenges is "":
-        return ""
     challenges_list = []
-    challenges = challenges.split(',')
-    for challenge in challenges:
-        data = challenge.split(' - ')
-        prize = {
-            'company': data[1],
-            'challenge_name': data[0],
-            'won': False
-        }
-        challenges_list.append(prize)
+    if challenges is not "":
+        challenges = challenges.split(',')
+        for challenge in challenges:
+            # TODO: possibly look into creating a hash from companies DB
+            # instead of hard coding the dash separator rule
+            data = challenge.split(' - ')
+            prize = {
+                'company': data[1],
+                'challenge_name': data[0],
+                'won': False
+            }
+            challenges_list.append(prize)
     return challenges_list
 
 
@@ -146,7 +147,7 @@ def add_project(projects):
             'project_name': project_name,
             'project_url': projects[project_name].project_url,
             'challenges': projects[project_name].challenges,
-            'challenges_won': ""
+            'challenges_won': []
         }
         r = requests.post(url, json=info)
 
@@ -161,7 +162,7 @@ def bulk_add_projects_local(projects):
             'project_name': project_name,
             'project_url': projects[project_name].project_url,
             'challenges': projects[project_name].challenges,
-            'challenges_won': ""
+            'challenges_won': []
         }
         project_data.append(info)
     packet = {
