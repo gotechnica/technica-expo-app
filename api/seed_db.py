@@ -71,8 +71,8 @@ def format_challenges(challenges):
         data = challenge.split(' - ')
         prize = {
             'company': data[1],
-            'challenge': data[0],
-            'winner': False
+            'challenge_name': data[0],
+            'won': False
         }
         challenges_list.append(prize)
     return challenges_list

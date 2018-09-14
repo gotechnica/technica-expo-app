@@ -259,11 +259,11 @@ def update_project_challenge_status(project_id):
     challenges = project_obj['challenges']
 
     for ind, challenge in enumerate(challenges):
-        if challenge['company'] == company_name and challenge['challenge'] == challenge_name:
+        if challenge['company'] == company_name and challenge['challenge_name'] == challenge_name:
             print(str(ind), challenge)
-            challenges[ind]['winner'] = is_winner
+            challenges[ind]['won'] = is_winner
             print(is_winner)
-            print(challenges[ind]['winner'])
+            print(challenges[ind]['won'])
 
     updated_project_obj = projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
