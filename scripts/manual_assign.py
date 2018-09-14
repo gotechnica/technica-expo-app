@@ -30,13 +30,13 @@ def available_tables():
     print(open_tables)
 
 
-def add_project(table_number, project_url, project_name, attempted_challenges):
+def add_project(table_number, project_url, project_name, challenges):
     url = "http://127.0.0.1:5000/api/projects/add"
     info = {
         'table_number': table_number,
         'project_name': project_name,
         'project_url': project_url,
-        'attempted_challenges': attempted_challenges,
+        'challenges': challenges,
         'challenges_won': ""
     }
     r = requests.post(url, json=info)
@@ -45,10 +45,10 @@ def add_project(table_number, project_url, project_name, attempted_challenges):
 def main():
     project_name = input('What is the project name? ')
     project_url = input('What is the project URL? ')
-    attempted_challenges = input('What prizes are they signed up for? ')
+    challenges = input('What prizes are they signed up for? ')
     available_tables()
     table_number = input('Choose an open table: ')
-    add_project(table_number, project_url, project_name, attempted_challenges)
+    add_project(table_number, project_url, project_name, challenges)
 
 
 if __name__ == "__main__":

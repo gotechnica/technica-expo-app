@@ -33,9 +33,9 @@ assignments = ["None | "] * (num_tables * spots_per_table)
 
 
 class Project:
-    def __init__(self, project_url, attempted_challenges):
+    def __init__(self, project_url, challenges):
         self.project_url = project_url
-        self.attempted_challenges = attempted_challenges
+        self.challenges = challenges
         self.table_number = ""
 
     def __str__(self):
@@ -62,19 +62,20 @@ def needs_to_stay(response):
 
 
 # best domain name......
-def format_challenges(attempted_challenges):
-    if attempted_challenges is "":
-        return ""
+def format_challenges(challenges):
     challenges_list = []
-    challenges = attempted_challenges.split(',')
-    for challenge in challenges:
-        data = challenge.split(' - ')
-        prize = {
-            'company': data[1],
-            'challenge': data[0],
-            'winner': False
-        }
-        challenges_list.append(prize)
+    if challenges is not "":
+        challenges = challenges.split(',')
+        for challenge in challenges:
+            # TODO: possibly look into creating a hash from companies DB
+            # instead of hard coding the dash separator rule
+            data = challenge.split(' - ')
+            prize = {
+                'company': data[1],
+                'challenge_name': data[0],
+                'won': False
+            }
+            challenges_list.append(prize)
     return challenges_list
 
 
@@ -94,14 +95,14 @@ def parse_CSV(reader):
     for row in reader:
         project_name = row["Submission Title"]
         project_url = row["Submission Url"]
-        attempted_challenges = format_challenges(row["Desired Prizes"])
+        challenges = format_challenges(row["Desired Prizes"])
         response = row[gdi_devpost]
 
         name = row['Submission Title'].strip()
         #if name not in already_stored:
         staying = needs_to_stay(response)
         if staying is not None:
-            not_moving[project_name] = Project(project_url, attempted_challenges)
+            not_moving[project_name] = Project(project_url, challenges)
             assignments[table_to_number(staying.group(0))] = name + " | "
             not_moving[project_name].table_number = staying.group(0)
         elif "No" not in response and \
@@ -111,7 +112,7 @@ def parse_CSV(reader):
             print("Manually handle " + project_name)
             print("Response: " + response)
         else:
-            moving[project_name] = Project(project_url, attempted_challenges)
+            moving[project_name] = Project(project_url, challenges)
     return moving, not_moving
 
 
@@ -145,14 +146,14 @@ def add_project(projects):
             'table_number': projects[project_name].table_number,
             'project_name': project_name,
             'project_url': projects[project_name].project_url,
-            'attempted_challenges': projects[project_name].attempted_challenges,
-            'challenges_won': ""
+            'challenges': projects[project_name].challenges,
+            'challenges_won': []
         }
         r = requests.post(url, json=info)
 
 
 
-def bulk_add_projects(projects):
+def bulk_add_projects_local(projects):
     url = 'http://127.0.0.1:5000/api/projects/bulk_add'
     project_data = []
     for project_name in projects:
@@ -160,8 +161,8 @@ def bulk_add_projects(projects):
             'table_number': projects[project_name].table_number,
             'project_name': project_name,
             'project_url': projects[project_name].project_url,
-            'attempted_challenges': projects[project_name].attempted_challenges,
-            'challenges_won': ""
+            'challenges': projects[project_name].challenges,
+            'challenges_won': []
         }
         project_data.append(info)
     packet = {
@@ -181,8 +182,8 @@ def main():
     # fancy_seed_hackers()
     #add_project(not_moving)
     #add_project(moving)
-    bulk_add_projects(not_moving)
-    bulk_add_projects(moving)
+    bulk_add_projects_local(not_moving)
+    bulk_add_projects_local(moving)
 
 
 if __name__ == "__main__":

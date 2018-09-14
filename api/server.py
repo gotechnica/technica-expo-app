@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
+from flask_cors import CORS
 from bson.objectid import ObjectId
 from bson import json_util
 import json
@@ -10,6 +11,7 @@ import io
 from seed_db import *
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object('config')
 mongo = PyMongo(app)
 
@@ -33,12 +35,12 @@ def get_all_projects():
             'table_number': p['table_number'],
             'project_name': p['project_name'],
             'project_url': p['project_url'],
-            'attempted_challenges': p['attempted_challenges'],
+            'challenges': p['challenges'],
             'challenges_won': p['challenges_won']
         }
         output.append(temp_project)
 
-    return jsonify({'All Projects': output})
+    return jsonify(output)
 
 @app.route('/api/projects/id/<project_id>', methods=['GET'])
 def get_project(project_id):
@@ -84,11 +86,28 @@ def parse_csv():
         fd = temp_file.fileno()
         reader = csv.DictReader(io.open(fd, "rt", encoding="utf8", errors='ignore'))
         moving, not_moving = parse_CSV(reader)
-        bulk_add_projects(not_moving)
-        bulk_add_projects(moving)
+        bulk_add_projects_internal(get_project_list(not_moving))
+        bulk_add_projects_internal(get_project_list(moving))
     # TODO(timothychen01): Just return the integer
     return "Seeded DB with " + str(len(moving) + len(not_moving)) + " projects"
 
+def get_project_list(projects_obj):
+    project_data = []
+    for project_name in projects_obj:
+        info = {
+            'table_number': projects_obj[project_name].table_number,
+            'project_name': project_name,
+            'project_url': projects_obj[project_name].project_url,
+            'challenges': projects_obj[project_name].challenges,
+            'challenges_won': ""
+        }
+        project_data.append(info)
+    return project_data
+
+def bulk_add_projects_internal(packet):
+    projects = mongo.db.projects
+    result = projects.insert_many(packet)
+    return result
 
 @app.route('/api/projects/add', methods=['POST'])
 def add_project():
@@ -97,14 +116,14 @@ def add_project():
     table_number = request.json['table_number']
     project_name = request.json['project_name']
     project_url = request.json['project_url']
-    attempted_challenges = request.json['attempted_challenges']
+    challenges = request.json['challenges']
     challenges_won = request.json['challenges_won']
 
     project = {
         'table_number': table_number,
         'project_name': project_name,
         'project_url': project_url,
-        'attempted_challenges': attempted_challenges,
+        'challenges': challenges,
         'challenges_won': challenges_won
     }
 
@@ -113,12 +132,8 @@ def add_project():
 
 @app.route('/api/projects/bulk_add', methods=['POST'])
 def bulk_add_project():
-    projects = mongo.db.projects
-
     packet = request.json['projects']
-
-    result = projects.insert_many(packet)
-    return jsonify({'New IDs': "tmp"})
+    return bulk_add_projects_internal(packet)
 
 @app.route('/api/projects/id/<project_id>', methods =['POST'])
 def update_project(project_id):
@@ -132,7 +147,7 @@ def update_project(project_id):
         'table_number': request.json['table_number'],
         'project_name': request.json['project_name'],
         'project_url': request.json['project_url'],
-        'attempted_challenges': request.json['attempted_challenges'],
+        'challenges': request.json['challenges'],
         'challenges_won': challenges_won_arr    # Challenges won entered as company_ids split by whitespace
     }
     updated_project_obj = projects.find_one_and_update(
@@ -254,14 +269,14 @@ def update_project_challenge_status(project_id):
     project_obj = projects.find_one(
         {'_id': ObjectId(project_id)}
     )
-    attempted_challenges = project_obj['attempted_challenges']
+    challenges = project_obj['challenges']
 
-    for ind, challenge in enumerate(attempted_challenges):
-        if challenge['company'] == company_name and challenge['challenge'] == challenge_name:
+    for ind, challenge in enumerate(challenges):
+        if challenge['company'] == company_name and challenge['challenge_name'] == challenge_name:
             print(str(ind), challenge)
-            attempted_challenges[ind]['winner'] = is_winner
+            challenges[ind]['won'] = is_winner
             print(is_winner)
-            print(attempted_challenges[ind]['winner'])
+            print(challenges[ind]['won'])
 
     updated_project_obj = projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
