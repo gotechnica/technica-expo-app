@@ -17,6 +17,7 @@ import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 
 import './Admin.css';
+import { faAllergies } from '@fortawesome/fontawesome-free-solid';
 
 /* Admin page content (see PRD) */
 
@@ -37,8 +38,20 @@ class ProjectModule extends Component {
         {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
       ]
     }
+    // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
-
+  createAllChallenges(obj){
+    console.log(obj)
+    let allChallenges = [];
+    obj.map((item)=>{
+      console.log(item.challenges)
+      item.challenges.map((challenge)=>{
+        if(allChallenges.indexOf(challenge)===-1)
+          allChallenges.push(challenge);
+      })
+    })
+    return allChallenges;
+  }
   sortData(){
     let data = this.state.projects;
     let finalProjectsData = [];
@@ -64,12 +77,16 @@ class ProjectModule extends Component {
       }
      seen = obj.table_number;
     })
+    console.log("aassa",finalProjectsData)
+    this.createAllChallenges(finalProjectsData);
     return finalProjectsData;
   }
 
   render() {
     console.log(this.sortData())
     let filteredProjects = this.sortData();
+    let allChallenges = this.createAllChallenges(filteredProjects);
+    console.log("ass",allChallenges);
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredProjects = filteredProjects.filter(elt =>
         elt.project_name.includes(this.state.textSearch) ||
@@ -89,7 +106,7 @@ class ProjectModule extends Component {
               id="fileProjCSV"
               />
           </div>
-          <button className="btn btn-primary"
+          <button className="button button-primary"
             onClick={(event) => {
               //TODO pass file to DB
               alert("upload file click");
@@ -111,7 +128,7 @@ class ProjectModule extends Component {
             <label className="custom-control-label" >Alternative</label>
           </div>
           <br/>
-          <button className="btn btn-primary"
+          <button className="button button-primary"
             onClick={(event) => {
               //TODO set table assignment
               alert("assign table click");
@@ -158,8 +175,9 @@ class ProjectModule extends Component {
                     url = {elt.url}
                     challenges = {elt.challenges}
                     toggle = {elt.checkVal}
+                    allChallenges = {allChallenges}
                     />
-                  <button className="sponsor-button"
+                  <button className="link-button"
                     type="button"
                     data-toggle="modal"
                     data-target={"#modalEditProject"+index.toString()}
@@ -267,7 +285,7 @@ class SponsorModule extends Component {
             <CreateSponsorModal
               createID="modalCreateSponsor"
               />
-            <button className="sponsor-button"
+            <button className="link-button"
               type="button"
               data-toggle="modal"
               data-target="#modalCreateSponsor"
@@ -298,7 +316,7 @@ class SponsorModule extends Component {
                           sponsorCode={elt.access_code}
                           sponsorName={elt.company_name}
                           />
-                        <button className="sponsor-button"
+                        <button className="link-button"
                           type="button"
                           data-toggle="modal"
                           data-target={"#modalEditSponsor"+key.toString()}
@@ -322,7 +340,7 @@ class SponsorModule extends Component {
                           <CreateChallengeModal
                             createID={"modalCreateChallenge"+key.toString()}
                             company={elt.company_name}/>
-                            <button className="sponsor-button"
+                          <button className="link-button"
                               type="button"
                               data-toggle="modal"
                               data-target={"#modalCreateChallenge"+key.toString()}
@@ -343,7 +361,7 @@ class SponsorModule extends Component {
                             challengeTitle={challenge.challenge}
                             numWinners={challenge.num_winners}
                             />
-                          <button className="sponsor-button"
+                          <button className="link-button"
                             type="button"
                             data-toggle="modal"
                             data-target={"#modalEditChallenge"+elt.access_code.toString()+i.toString()}

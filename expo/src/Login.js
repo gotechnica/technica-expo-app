@@ -24,28 +24,32 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="card">
-        <div className="card-header">
-          <h5>{this.props.title}</h5>
-        </div>
-        <div className="card-body">
-            <div className="form-group">
-              <label htmlFor="txtAccessCode">Access Code</label>
-              <input type="text"
-                id="txtAccessCode"
-                className="form-control"
-                onChange = {(event) => this.setState({accessCode:event.target.value})}
-                />
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <div className="card" >
+            <div className="card-header">
+              <h5>{this.props.title}</h5>
             </div>
-            <button  className="btn btn-primary"
-              onClick={(event) => {
-                  this.props.onLogin(event, this.state.accessCode);
-                }}>
-                Login
-            </button>
-            <br/>
-            <br/>
-            {this.props.error}
+            <div className="card-body">
+                <div className="form-group">
+                  <label htmlFor="txtAccessCode">Access Code</label>
+                  <input type="text"
+                    id="txtAccessCode"
+                    className="form-control"
+                    onChange = {(event) => this.setState({accessCode:event.target.value})}
+                    />
+                </div>
+                <button  className="button button-primary"
+                  onClick={(event) => {
+                      this.props.onLogin(event, this.state.accessCode);
+                    }}>
+                    Login
+                </button>
+                <br/>
+                <br/>
+                {this.props.error}
+            </div>
+          </div>
         </div>
       </div>
     );

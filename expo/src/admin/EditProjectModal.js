@@ -1,5 +1,10 @@
 /* react components */
 import React, { Component } from 'react';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faTimes, faCheck} from '../../node_modules/@fortawesome/fontawesome-free-solid'
+library.add(faTimes);
+library.add(faCheck);
 let challengeStore = [];
 class EditProjectModal extends Component {
 
@@ -13,30 +18,37 @@ class EditProjectModal extends Component {
       project_url: this.props.url,
       invalid_access: false,
       challenges: this.props.challenges,
-      toggle: this.props.toggle
+      allChallenges: this.props.allChallenges
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleState = this.handleState.bind(this)
   }
-  componentDidMount(){
+  componentWillMount(){
     this.state.challenges.map((challenge)=>{
       challengeStore.push(challenge);
     })
     console.log(challengeStore)
   }
+  componentDidUpdate(){
+    let checks = document.querySelector('.black');
+    console.log(checks);
+    this.Checkbox.changeState(checks);
+  }
   saveProject(e){
     let valid = true;
     let checks = document.querySelector('.black');
-    console.log(checks);         
+    console.log(checks);
     if(checks){
-      this.setState(()=>({challenges: challengeStore})) 
-      checks.style.backgroundColor="#b6a1c4";
+      this.setState(()=>({challenges: challengeStore}))
     }
-    //checks.checked = true;                                   
+    //checks.checked = true;
+    let input = document.querySelector('.input');
+    console.log(input);
     console.log(this.state.challenges)
     if(valid) {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
-      
+
       // Close modal
       document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
       console.log(this.state)
@@ -46,26 +58,42 @@ class EditProjectModal extends Component {
     }
     console.log(this.state)
   }
-
+  
+  handleState(word){
+    let challenge_new;
+    console.log(this.state.challenges)
+    challenge_new = this.state.challenges
+    challenge_new.push(word);
+    console.log(challenge_new)
+    this.setState(({
+      challenges:challenge_new
+    }))
+    console.log(this.state.challenges)
+  }
   handleChange(color,e){
-    // let change = this.state.toggle;
-//   this.setState(({toggle : !change}))
 console.log(e.target)
+let allChallenges = this.state.allChallenges;
 challengeStore = this.state.challenges;
 console.log(color);
-console.log(challengeStore)
 if(color === true){
   console.log("sup");
-  console.log(e.target.checked)
-  let index = this.state.challenges.indexOf(e.target.textContent)
+  console.log(e.target.textContent)
+  let word = e.target.textContent;
+  word = word.trim();
+  console.log(word)
+  let index = this.state.challenges.indexOf(word)
+  let index_all = this.state.allChallenges.indexOf(word);
   console.log(index)
   challengeStore.splice(index,1)
 }
 else if(color === false){
-  challengeStore.push(e.target.textContent);
+  let word = e.target.textContent;
+  word = word.trim();
+  console.log(word.length)
+  if(!challengeStore.includes(word) && word.length>0)
+    challengeStore.push(word);
   console.log('hello')
 }
-
 console.log(challengeStore)
 return challengeStore;
   }
@@ -88,7 +116,7 @@ return challengeStore;
               <form>
               <div className="form-group">
               <label>Project Name</label>
-              <input className="form-control" type="text" value={this.state.project_name.toString()} onChange = {(event) => this.setState({project_name:event.target.value})}/>
+              <input className="form-control input" type="text" value={this.state.project_name.toString()} onChange = {(event) => this.setState({project_name:event.target.value})}/>
               </div>
               <div className="form-group">
               <label>Table Number</label>
@@ -99,19 +127,42 @@ return challengeStore;
               <input className="form-control" type="text" value={this.state.project_url.toString()} onChange = {(event) => this.setState({project_url:event.target.value})}/>
               </div>
               <div className="form-group">
+              <label>All Challenges</label>
+              <br/>
+                {
+                  this.state.allChallenges.map((challenge)=>{
+                    // if(this.state.challenges.indexOf(challenge)===-1){
+                    //   return(
+                    //     <Checkbox handleChange={this.handleChange} value={challenge} check={false}></Checkbox>
+                    //   )
+                    // }
+                    // else{
+                    //   return(
+                    //     <Checkbox handleChange={this.handleChange} value={challenge} check={true}></Checkbox>
+                    //   )
+                    // }
+                    return(
+                      <AllCheck value={challenge} state={this.state.challenges} handleState={this.handleState}/>
+                    )
+                  })
+                }
+              </div>
+              <div className="form-group">
               <label>Attempted Challenges</label>
               <br/>
+              {console.log(this.state.challenges)}
               {this.state.challenges.map((challenge)=>{
+                console.log(challenge)
                 return(
-                  <Checkbox toggle={this.state.toggle} handleChange={this.handleChange} value={challenge}></Checkbox>
+                  <Checkbox handleChange={this.handleChange} value={challenge} ref={instance => { this.Checkbox = instance; }} check={true}></Checkbox>
                 )
               })}
               </div>
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" id={"btnCancelEditProjectModal"+this.props.editID} data-dismiss="modal">Cancel</button>
-              <button type="button" className="btn btn-primary"  onClick={(event) => {
+              <button type="button" className="button button-secondary" id={"btnCancelEditProjectModal"+this.props.editID} data-dismiss="modal">Cancel</button>
+              <button type="button" className="button button-primary"  onClick={(event) => {
                 this.saveProject(event);
               }}>Save</button>
             </div>
@@ -125,26 +176,48 @@ return challengeStore;
 class Checkbox extends Component{
   constructor(props){
     super(props);
-    this.state = {color:true}
+    this.state = {color:this.props.check}
     this.handleClick = this.handleClick.bind(this)
+    this.changeState = this.changeState.bind(this);
   }
 
   handleClick(e){
-    this.setState((prevState)=>{
-      console.log(prevState.color)
-      return {color: !prevState.color}
-    });
+    this.setState({color: !this.state.color});
     this.props.handleChange(this.state.color,e);
+  }
 
+  changeState(checkbox){
+    console.log(this.state.color)
+    this.setState({color:true});
   }
 
   render(){
    let color = this.state.color ? "pink" : "black";
-   console.log(this.state);
+   let icon = this.state.color ? "check" : "times";
+   console.log(this.state.color);
    console.log(color)
     return(
-       <span class="badge badge-primary check" className={color} onClick={(e)=>this.handleClick(e)}>{this.props.value}</span>
-      //  <input type="checkbox" defaultChecked={true} onChange = {this.handleClick}/>
+       <span class="badge badge-primary check" className={color} onClick={(e)=>this.handleClick(e)}><FontAwesomeIcon icon={icon}></FontAwesomeIcon> {this.props.value}</span>
+    )
+  }
+}
+
+class AllCheck extends Component{
+  constructor(props){
+    super(props);
+  }
+  handleClick(e){
+    let word = e.target.textContent;
+    word = word.trim();
+    console.log(word)
+    if(this.props.state.indexOf(word)===-1){
+      this.props.handleState(word);
+    }
+    console.log(this.props.state)
+  }
+  render(){
+    return(
+      <span class="badge badge-primary all" onClick={(e)=>this.handleClick(e)}>{this.props.value}</span>
     )
   }
 }
@@ -165,3 +238,4 @@ export default EditProjectModal;
 // console.log(e.target.parentElement.textContent)}
 
 // }/>{challenge}</span>
+// onChange = {(event) => this.setState({project_name:event.target.value})}

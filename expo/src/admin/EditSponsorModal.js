@@ -29,7 +29,7 @@ class EditSponsorModal extends Component {
     if(valid) {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
-      
+
       // Close modal
       document.getElementById("btnCancelEditSponsorModal" + this.props.editID).click();
     } else {
@@ -71,15 +71,15 @@ class EditSponsorModal extends Component {
             </div>
             <div className="modal-footer">
               <button type="button"
-                className="btn btn-secondary"
+                className="button button-secondary"
                 data-dismiss="modal"
                 id={"btnCancelEditSponsorModal" + this.props.editID}>Cancel</button>
-                <button type="button" className="btn btn-primary"
-                  onClick={(event) => {
+              <button type="button" className="button button-primary"
+                onClick={(event) => {
                     this.saveSponsor(event);
                   }}>
                   Save
-                </button>
+              </button>
             </div>
           </div>
         </div>
