@@ -86,11 +86,28 @@ def parse_csv():
         fd = temp_file.fileno()
         reader = csv.DictReader(io.open(fd, "rt", encoding="utf8", errors='ignore'))
         moving, not_moving = parse_CSV(reader)
-        bulk_add_projects(not_moving)
-        bulk_add_projects(moving)
+        bulk_add_projects_internal(get_project_list(not_moving))
+        bulk_add_projects_internal(get_project_list(moving))
     # TODO(timothychen01): Just return the integer
     return "Seeded DB with " + str(len(moving) + len(not_moving)) + " projects"
 
+def get_project_list(projects_obj):
+    project_data = []
+    for project_name in projects_obj:
+        info = {
+            'table_number': projects_obj[project_name].table_number,
+            'project_name': project_name,
+            'project_url': projects_obj[project_name].project_url,
+            'challenges': projects_obj[project_name].challenges,
+            'challenges_won': ""
+        }
+        project_data.append(info)
+    return project_data
+
+def bulk_add_projects_internal(packet):
+    projects = mongo.db.projects
+    result = projects.insert_many(packet)
+    return result
 
 @app.route('/api/projects/add', methods=['POST'])
 def add_project():
@@ -115,12 +132,8 @@ def add_project():
 
 @app.route('/api/projects/bulk_add', methods=['POST'])
 def bulk_add_project():
-    projects = mongo.db.projects
-
     packet = request.json['projects']
-
-    result = projects.insert_many(packet)
-    return jsonify({'New IDs': "tmp"})
+    return bulk_add_projects_internal(packet)
 
 @app.route('/api/projects/id/<project_id>', methods =['POST'])
 def update_project(project_id):

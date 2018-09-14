@@ -152,7 +152,7 @@ def add_project(projects):
 
 
 
-def bulk_add_projects(projects):
+def bulk_add_projects_local(projects):
     url = 'http://127.0.0.1:5000/api/projects/bulk_add'
     project_data = []
     for project_name in projects:
@@ -181,8 +181,8 @@ def main():
     # fancy_seed_hackers()
     #add_project(not_moving)
     #add_project(moving)
-    bulk_add_projects(not_moving)
-    bulk_add_projects(moving)
+    bulk_add_projects_local(not_moving)
+    bulk_add_projects_local(moving)
 
 
 if __name__ == "__main__":
