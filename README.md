@@ -10,6 +10,15 @@ A beautiful and intuitive web app to display hackathon projects for expo attende
     * Sponsors can select projects as winner(s) for their challenges (so the organizing team can have a record of winners)
     * UI warning if a project is winning too many challenges (to avoid one project sweeping all prizes)
 
+## Page URLs
+
+Starting from localhost in a development environment, use the following links to access this application.
+
+- Home /
+- Sponsor Login /sponsorLogin
+- Sponsor Dashboard /sponsor
+- Admin Login /adminLogin
+- Admin Dashboard /admin
 
 ## Contribution Guidelines
 
