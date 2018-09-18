@@ -12,19 +12,6 @@ import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
 import { VotingTable, WelcomeHeader } from './Sponsor';
 
-/*let Backend = require('./Backend.js');
-let newProj = {
-	"table_number": "1",
-	"project_name": "Tim's awesome project",
-	"project_url": "https://timothychen.me",
-	"attempted_challenges": "Facebook's Most Inspiring Hack",
-	"challenges_won": "0"
-}
-Backend.httpFunctions.post('api/projects/add', newProj);
-let callback = (proj) => {alert("projs" + proj);};
-Backend.httpFunctions.getAsync('api/projects', callback);*/
-
-
 const CHALLENGES = [
   { company_id: 'C0',
     access_code: '00000',
