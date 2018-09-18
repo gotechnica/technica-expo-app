@@ -1,6 +1,7 @@
 /* react components */
 import React, { Component } from 'react';
-//import '../App.css';
+
+let Backend = require('../Backend.js');
 
 const InvalidAccessErr = (
   <div className="alert alert-danger">
@@ -21,11 +22,20 @@ class CreateSponsorModal extends Component {
   }
 
   saveSponsor(e) {
-    let valid = true;
+
+    // TODO Validate access code
+    let valid = false;
 
     if(valid) {
-      // TODO: Send access code and company name to db if valid access code
-      // TODO: Update state against db change
+      Backend.httpFunctions.post('api/companies/add', {
+        "company_name": this.state.company_name,
+      	"access_code": this.state.access_code,
+      	"challenge_name": "NEED TO ADD THIS FIELD",
+      	"num_winners": "1"
+      })
+
+      // TODO: Update overall page state against db change, socket.io?
+
       // Reset state and close modal
       this.setState({
         access_code: '',

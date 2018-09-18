@@ -19,6 +19,8 @@ import EditProjectModal from './admin/EditProjectModal';
 import './Admin.css';
 import { faAllergies } from '@fortawesome/fontawesome-free-solid';
 
+let Backend = require('./Backend.js');
+
 /* Admin page content (see PRD) */
 
 /* Project panel of admin page */
@@ -218,6 +220,15 @@ class SponsorModule extends Component {
         {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge13', num_winners: 1},
       ]
     }
+  }
+
+  // Pull data for sponsor list
+  componentWillMount() {
+    Backend.httpFunctions.getAsync('api/companies', (sponsors) => {
+      this.setState({
+        sponsors: JSON.parse(sponsors)['All Companies']
+      })
+    });
   }
 
   render() {
