@@ -1,14 +1,11 @@
 /* react components */
 import React, { Component } from 'react';
+import Error from '../Error.js';
 
 let Backend = require('../Backend.js');
 
-const InvalidAccessErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid access code! </strong>
-      This access code is already in use. Please enter a different code.
-  </div>
-);
+const InvalidAccessErr = <Error text="Invalid access code!
+  This access code is already in use. Please enter a different code."/>
 
 class CreateSponsorModal extends Component {
 
