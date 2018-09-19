@@ -9,6 +9,7 @@ import json
 import hashlib
 import io
 from seed_db import *
+import bcrypt
 
 app = Flask(__name__)
 CORS(app)
@@ -49,6 +50,36 @@ def get_project(project_id):
     project_obj = projects.find_one({'_id': ObjectId(project_id)})
     return json.dumps(project_obj, default=json_util.default)
 
+
+@app.route('/api/add_sponsor_credential', methods=['POST'])
+def add_sponsor_credential():
+    credential = mongo.db.sponsor_credentials
+
+    company = request.json['company']
+    access_code = request.json['access_code'].encode('utf-8')
+    access_code = bcrypt.hashpw(access_code, bcrypt.gensalt()).decode('utf-8')
+
+    temp_credential = {
+        'company': company,
+        'access_hash': access_code
+    }
+
+    credential.insert(temp_credential)
+    return 'Inserted {}'.format(company)
+
+
+@app.route('/api/verify_sponsor_credential', methods=['POST'])
+def verify_sponsor_credential():
+    credential = mongo.db.sponsor_credentials
+
+    recv_access_code = request.json['access_code'].encode('utf-8')
+
+    for sc in credential.find():
+        db_hash = sc['access_hash'].encode('utf-8')
+        if bcrypt.checkpw(recv_access_code, db_hash):
+            return 'Hello {}!'.format(sc['company'])
+
+    return 'No company found'
 
 # Admin routes #################################################################
 # All endpoints under the Admin routes should require admin authorization.
