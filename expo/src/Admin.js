@@ -200,25 +200,13 @@ class ProjectModule extends Component {
 class SponsorModule extends Component {
 
   // TODO Add actual data as sponsor list
+  // One sponsor appears as
+  // {_id: 1, access_code: 1, company_name: 'Cat', challenge_name: 'challenge1', num_winners: 1}
   constructor(props) {
     super(props);
     this.state = {
       textSearch:'',
-      sponsors:[
-        {_id: 1, access_code: 1, company_name: 'Cat', challenge_name: 'challenge1', num_winners: 1},
-        {_id: 1, access_code: 2, company_name: 'Dog', challenge_name: 'challenge2', num_winners: 2},
-        {_id: 1, access_code: 2, company_name: 'Dog', challenge_name: 'challenge3', num_winners: 3},
-        {_id: 1, access_code: 2, company_name: 'Dog', challenge_name: 'challenge4', num_winners: 2},
-        {_id: 1, access_code: 3, company_name: 'Apple', challenge_name: 'challenge5', num_winners: 1},
-        {_id: 1, access_code: 4, company_name: 'Peaches', challenge_name: 'challenge6', num_winners: 2},
-        {_id: 1, access_code: 4, company_name: 'Peaches', challenge_name: 'challenge7', num_winners: 3},
-        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge8', num_winners: 2},
-        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge9', num_winners: 1},
-        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge10', num_winners: 2},
-        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge11', num_winners: 3},
-        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge12', num_winners: 2},
-        {_id: 1, access_code: 5, company_name: 'Small', challenge_name: 'challenge13', num_winners: 1},
-      ]
+      sponsors:[]
     }
   }
 
@@ -335,6 +323,7 @@ class SponsorModule extends Component {
                           editID={"modalEditSponsor"+key.toString()}
                           sponsorCode={elt.access_code}
                           sponsorName={elt.company_name}
+                          onEdit={this.loadCompanies.bind(this)}
                           />
                         <button className="link-button"
                           type="button"
