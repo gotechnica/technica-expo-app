@@ -16,7 +16,7 @@ import faTimesSquare from './imgs/faTimesSquare.png';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faExternalLinkAlt,
+import { faArrowCircleRight,
          faCheckSquare,
          faCheckCircle,
          faUserCheck,
@@ -26,7 +26,7 @@ import { faExternalLinkAlt,
          faExclamationTriangle,
          faTasks } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { faSquare, faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
-library.add(faExternalLinkAlt);
+library.add(faArrowCircleRight);
 library.add(faCheckSquare);
 library.add(faSquare);
 library.add(faPlus);
@@ -83,7 +83,7 @@ export class VotingRow extends Component {
         <td className="Project">
           <div className="name">
             <a href={this.props.project_url} target="_tab">
-              <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon" />
+              <FontAwesomeIcon icon={faArrowCircleRight} className="LinkIcon" />
             </a>
             {this.props.project_name}
           </div>
