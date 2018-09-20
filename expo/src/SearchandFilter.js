@@ -5,6 +5,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import axios from 'axios'
 
 import Card from './Card.js';
 import Table from './Table.js';
@@ -344,7 +345,7 @@ class SearchandFilter extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        data: PROJECTS,
+        data: [],
         workingdata: [],
         value: 'Challenges',
         toggle_off: true,
@@ -354,6 +355,19 @@ class SearchandFilter extends Component {
       this.handleToggle = this.handleToggle.bind(this);
       this.getSponsorChallenges = this.getSponsorChallenges.bind(this);
       this.getSponsorData = this.getSponsorData.bind(this);
+    }
+
+    componentDidMount() {
+      // TODO(timothychen01): Replace this URL with final URL
+      // TODO(timothychen01): Explore replacing URL string with environment vars
+      axios.get('http://ec2-34-201-45-125.compute-1.amazonaws.com/api/projects')
+      .then(response => {
+        console.log(JSON.stringify(response['data']));  // TODO: Remove logging
+        this.setState({
+          data: response['data'],
+          workingdata: response['data']
+        });
+      })
     }
 
     handleChange(e){

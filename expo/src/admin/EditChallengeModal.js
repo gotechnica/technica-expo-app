@@ -1,19 +1,16 @@
 /* react components */
 import React, { Component } from 'react';
+import Error from '../Error.js';
+import axios from 'axios';
 
-const InvalidWinnerErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid number of winners! </strong>
-      A challenge must have one or more winner(s).
-  </div>
-);
+let Backend = require('../Backend.js');
 
-const MissingFieldsErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid form! </strong>
-      Please fill out all form fields.
-  </div>
-);
+
+const InvalidWinnerErr = <Error text="Invalid number of winners!
+  A challenge must have one or more winner(s)." />;
+
+const MissingFieldsErr = <Error text="Invalid form!
+  Please fill out all form fields."/>;
 
 class EditChallengeModal extends Component {
 

@@ -1,12 +1,16 @@
 /* react components */
 import React, { Component } from 'react';
+import Error from '../Error.js';
+import axios from 'axios';
 
-const InvalidAccessErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid access code! </strong>
-      This access code is already in use. Please enter a different code.
-  </div>
-);
+let Backend = require('../Backend.js');
+
+
+const InvalidAccessErr = <Error text="Invalid access code!
+  This access code is already in use. Please enter a different code."/>;
+
+const MissingFieldErr = <Error text="Invalid form!
+  Please fill out all form fields."/>;
 
 class EditSponsorModal extends Component {
 
@@ -19,23 +23,76 @@ class EditSponsorModal extends Component {
     this.state = {
       access_code: this.props.sponsorCode,
       invalid_access: false,
-      company_name: this.props.sponsorName
+      company_name: this.props.sponsorName,
+      missing_access: false,
+      missing_company: false
     };
   }
 
   saveSponsor(e) {
-    let valid = true;
 
-    if(valid) {
-      // TODO: Send access code and company name to db if valid access code
-      // TODO: Update state against db change
+    axios.get(Backend.httpFunctions.url + 'api/companies')
+      .then(response => {
+        let sponsors = response['data']['All Companies'];
 
-      // Close modal
-      document.getElementById("btnCancelEditSponsorModal" + this.props.editID).click();
-    } else {
-      // Show errors
-      this.setState({invalid_access: true});
-    }
+        let validAccess = true;
+        for(let i = 0; i < sponsors.length; i++) {
+          // Validate that code does not exist
+          // With the exception of the original code saved to self being overriden
+          if(sponsors[i].access_code == this.state.access_code
+            && sponsors[i].access_code != this.props.access_code) {
+            validAccess = false;
+          }
+        }
+
+        let missingAccess = this.state.access_code == ''
+          || this.state.access_code == undefined;
+
+        let missingCompany = this.state.company_name == ''
+          || this.state.company_name == undefined;
+
+        let valid = validAccess && !missingAccess && !missingCompany;
+
+        let sponsor_id = '0';
+        // TODO: add actual ID here, trash or recreate other fields in post???
+        if(valid) {
+          Backend.httpFunctions.postCallback('api/companies/id/' + sponsor_id, {
+            "company_name": this.state.company_name,
+          	"access_code": this.state.access_code,
+          	"challenge_name": "don't",
+          	"num_winners": "1",
+          	"winners": "need this :^("
+          }, this.props.onEdit);
+
+          // Reset state and close modal
+          this.setState({
+            missing_company: false,
+            invalid_access: false,
+            missing_access: false
+          });
+          document.getElementById("btnCancelEditSponsorModal" + this.props.editID).click();
+        } else {
+          // Show errors
+          if (!validAccess) {
+            this.setState({invalid_access: true});
+          } else {
+            this.setState({invalid_access: false});
+          }
+
+          if (missingCompany) {
+            this.setState({missing_company: true});
+          } else {
+            this.setState({missing_company: false});
+          }
+
+          if (missingAccess) {
+            this.setState({missing_access: true});
+          } else {
+            this.setState({missing_access: false});
+          }
+        }
+
+      });
   }
 
   render() {
@@ -60,6 +117,7 @@ class EditSponsorModal extends Component {
                   value={this.state.access_code.toString()}
                   onChange = {(event) => this.setState({access_code:event.target.value})}/>
                 {this.state.invalid_access ? InvalidAccessErr : ""}
+                {this.state.missing_access ? MissingFieldErr : ""}
               </div>
               <div className="form-group">
                 <label>Sponsor Name</label>
@@ -67,6 +125,7 @@ class EditSponsorModal extends Component {
                   id="lblSponsorName"
                   value={this.state.company_name.toString()}
                   onChange = {(event) => this.setState({company_name:event.target.value})}/>
+                {this.state.missing_company ? MissingFieldErr : ""}
               </div>
             </div>
             <div className="modal-footer">

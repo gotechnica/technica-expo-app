@@ -1,13 +1,14 @@
 /* react components */
 import React, { Component } from 'react';
-//import '../App.css';
+import Error from '../Error.js';
+import axios from 'axios';
 
-const InvalidAccessErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid access code! </strong>
-      This access code is already in use. Please enter a different code.
-  </div>
-);
+let Backend = require('../Backend.js');
+
+const InvalidAccessErr = <Error text="Invalid access code!
+  This access code is already in use. Please enter a different code."/>;
+
+const MissingFieldErr = <Error text="Please fill out this field!"/>;
 
 class CreateSponsorModal extends Component {
 
@@ -16,27 +17,69 @@ class CreateSponsorModal extends Component {
     this.state = {
       access_code: '',
       invalid_access: false,
+      missing_access: false,
       company_name: '',
+      missing_company: false
     };
   }
 
   saveSponsor(e) {
-    let valid = true;
+    axios.get(Backend.httpFunctions.url + 'api/companies')
+      .then(response => {
+        let sponsors = response['data']['All Companies'];
 
-    if(valid) {
-      // TODO: Send access code and company name to db if valid access code
-      // TODO: Update state against db change
-      // Reset state and close modal
-      this.setState({
-        access_code: '',
-        invalid_access: false,
-        company_name: '',
+        let validAccess = true;
+        for(let i = 0; i < sponsors.length; i++) {
+          if(sponsors[i].access_code == this.state.access_code) {
+            validAccess = false;
+          }
+        }
+
+        let missingAccess = this.state.access_code == ''
+          || this.state.access_code == undefined;
+
+        let missingCompany = this.state.company_name == ''
+          || this.state.company_name == undefined;
+
+        let valid = validAccess && !missingAccess && !missingCompany;
+
+        if(valid) {
+          Backend.httpFunctions.postCallback('api/companies/add', {
+            "company_name": this.state.company_name,
+          	"access_code": this.state.access_code,
+          	"challenge_name": "NEED TO ADD THIS FIELD",
+          	"num_winners": "1"
+          }, this.props.onCreate);
+
+          // Reset state and close modal
+          this.setState({
+            access_code: '',
+            invalid_access: false,
+            company_name: '',
+          });
+          document.getElementById("btnHideCreateSponsorModal" + this.props.createID).click();
+        } else {
+          // Show errors
+          if (!validAccess) {
+            this.setState({invalid_access: true});
+          } else {
+            this.setState({invalid_access: false});
+          }
+
+          if (missingCompany) {
+            this.setState({missing_company: true});
+          } else {
+            this.setState({missing_company: false});
+          }
+
+          if (missingAccess) {
+            this.setState({missing_access: true});
+          } else {
+            this.setState({missing_access: false});
+          }
+        }
+
       });
-      document.getElementById("btnHideCreateSponsorModal" + this.props.createID).click();
-    } else {
-      // Show errors
-      this.setState({invalid_access: true});
-    }
   }
 
   render() {
@@ -59,6 +102,7 @@ class CreateSponsorModal extends Component {
                     placeholder="Enter an access code"
                     onChange = {(event) => this.setState({access_code:event.target.value})}/>
                   {this.state.invalid_access ? InvalidAccessErr : ""}
+                  {this.state.missing_access ? MissingFieldErr : ""}
                 </div>
                 <div className="form-group">
                   <label>Sponsor Name</label>
@@ -66,6 +110,7 @@ class CreateSponsorModal extends Component {
                     id="lblSponsorName"
                     placeholder="Enter the sponsor or company name"
                     onChange = {(event) => this.setState({company_name:event.target.value})}/>
+                  {this.state.missing_company ? MissingFieldErr : ""}
                 </div>
 
             </div>
