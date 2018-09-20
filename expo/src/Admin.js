@@ -222,13 +222,17 @@ class SponsorModule extends Component {
     }
   }
 
-  // Pull data for sponsor list
-  componentWillMount() {
+  loadCompanies() {
     Backend.httpFunctions.getAsync('api/companies', (sponsors) => {
       this.setState({
         sponsors: JSON.parse(sponsors)['All Companies']
       })
     });
+  }
+
+  // Pull data for sponsor list
+  componentWillMount() {
+    this.loadCompanies();
   }
 
   render() {
@@ -287,6 +291,10 @@ class SponsorModule extends Component {
       });
     }
 
+    // Sort Sponsors
+    filteredSponsors.sort((s1, s2) => {
+      return (s1.company_name).localeCompare(s2.company_name); });
+
       return (
         <div className="card">
           <div className="card-header">
@@ -295,6 +303,7 @@ class SponsorModule extends Component {
           <div className="card-body">
             <CreateSponsorModal
               createID="modalCreateSponsor"
+              onCreate={this.loadCompanies.bind(this)}
               />
             <button className="link-button"
               type="button"

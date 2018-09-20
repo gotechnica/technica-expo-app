@@ -18,6 +18,18 @@ let httpFunctions = {
     http.send(JSON.stringify(postObject));
   },
 
+  postCallback: (route, postObject, callback) => {
+    let http = new XMLHttpRequest();
+    http.open("POST", URL + route, true);
+    http.setRequestHeader('Content-Type', 'application/json');
+    http.onreadystatechange = function() {
+        if (http.readyState == 4 && http.status == 200) {
+          callback();
+        }
+    }
+    http.send(JSON.stringify(postObject));
+  },
+
   // route = endpoint from backend team
   // callback = function to be called when GET returns some data
   getAsync: (route, callback) => {
@@ -30,7 +42,9 @@ let httpFunctions = {
     xmlHttp.withCredentials = false;
     xmlHttp.open("GET", URL + route, true);
     xmlHttp.send(null);
-  }
+  },
+
+  url: URL
 
 }
 
