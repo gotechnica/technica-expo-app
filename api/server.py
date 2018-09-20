@@ -252,7 +252,7 @@ def get_all_companies():
         }
         output.append(temp_company)
 
-    return jsonify({'All Companies' : output})
+    return jsonify(output)
 
 
 # Private / sponsor routes #####################################################
