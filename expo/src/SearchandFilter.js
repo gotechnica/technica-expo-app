@@ -346,14 +346,9 @@ class SearchandFilter extends Component {
       super(props);
       let challenges = this.createChallengeSponsorArray(CHALLENGES);
       this.state = {
-<<<<<<< HEAD
-        data: PROJECTS,
-        value: challenges[0],
-=======
         data: [],
         workingdata: [],
         value: 'Challenges',
->>>>>>> 9fac8dc2c5fde79c756b68690d025c6072af8674
         toggle_off: true,
         challenges: CHALLENGES,
         workingdata: this.setSponsorWorkingData(challenges)

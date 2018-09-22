@@ -1,25 +1,12 @@
 /* react components */
 import React, { Component } from 'react';
+import Error from '../Error';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTimes, faCheck} from '../../node_modules/@fortawesome/fontawesome-free-solid'
 library.add(faTimes);
 library.add(faCheck);
 let challengeStore = [];
-
-const MissingFieldsErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid form! </strong>
-      Please fill out all form fields.
-  </div>
-);
-
-const ChallengeFieldsErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid form! </strong>
-      Please select atleast one challenge.
-  </div>
-);
 
 class EditProjectModal extends Component {
 
@@ -45,18 +32,11 @@ class EditProjectModal extends Component {
     })
     console.log(challengeStore);
   }
-  // componentWillUpdate(){
-  //   let checks = document.querySelector('.black');
-  //   console.log(checks);
-  //   this.Checkbox.changeState(checks);
-  // }
   saveProject(e){
     let valid = true;
     let checks = document.querySelector('.black');
     console.log(checks);
-    if(checks){
-      this.setState(()=>({challenges: challengeStore}))
-    }
+    
     //checks.checked = true;
     let input = document.querySelector('.input');
     console.log(input);
@@ -64,8 +44,12 @@ class EditProjectModal extends Component {
     let missing  = this.state.project_name === '' || 
     this.state.table_number === '' || 
     this.state.project_url === ''
-    
-    let challenge = this.state.challenges.length === 0;
+    let check=0;    
+    for(let i=0;i<this.state.challenges.length;i++){
+      if(this.state.challenges[i])
+        check++;
+    }
+    let challenge = check > 0 ? false : true;
     if(missing || challenge)
       valid = false;
     else{
@@ -77,6 +61,9 @@ class EditProjectModal extends Component {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
       // Close modal
+      if(checks){
+        this.setState({challenges: challengeStore})
+      }
       console.log(this.state.erorr)
       document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
     } else {
@@ -101,22 +88,24 @@ class EditProjectModal extends Component {
     }))
     console.log(this.state.challenges)
   }
-  handleChange(color,e){
+  handleChange(color,index,e){
 console.log(e.target)
+console.log(index);
 let allChallenges = this.state.allChallenges;
 challengeStore = this.state.challenges;
 console.log(color);
 if(color === true){
-  console.log("sup");
-  console.log(e.target.textContent)
-  let word = e.target.textContent;
-  word = word.trim();
-  console.log(word)
-  let index = this.state.challenges.indexOf(word)
-  let index_all = this.state.allChallenges.indexOf(word);
-  console.log(index)
-  challengeStore.splice(index,1);
-  console.log(challengeStore)
+  // console.log("sup");
+  // console.log(e.target.textContent)
+  // let word = e.target.textContent;
+  // word = word.trim();
+  // console.log(word)
+  // let index = this.state.challenges.indexOf(word)
+  // let index_all = this.state.allChallenges.indexOf(word);
+  // console.log(index)
+  // challengeStore.splice(index,1);
+  // console.log(challengeStore)
+  challengeStore[index] = undefined;
 }
 else if(color === false){
   let word = e.target.textContent;
@@ -157,8 +146,7 @@ return challengeStore;
               <label>Project URL</label>
               <input className="form-control" type="text" value={this.state.project_url.toString()} onChange = {(event) => this.setState({project_url:event.target.value})}/>
               </div>
-              <br/>
-              {this.state.erorr ? MissingFieldsErr: ''}
+              {this.state.erorr ? <Error text = "One or more fields are empty!"></Error>: ''}
               <div className="form-group">
               <label>All Challenges</label>
               <br/>
@@ -184,15 +172,17 @@ return challengeStore;
               <label>Attempted Challenges</label>
               <br/>
               {console.log(this.state.challenges)}
-              {this.state.challenges.map((challenge)=>{
+              {this.state.challenges.map((challenge,index)=>{
+                if(challenge!==undefined){
                 console.log(challenge)
                 return(
-                  <Checkbox handleChange={this.handleChange} value={challenge} ref={instance => { this.Checkbox = instance; }} check={true}></Checkbox>
+                  <Checkbox handleChange={this.handleChange} value={challenge} ref={instance => { this.Checkbox = instance; }} check={true} id={index}></Checkbox>
                 )
+              }
               })}
               </div>
               <br/>
-              {this.state.challenge_error ? ChallengeFieldsErr: ''}
+              {this.state.challenge_error ? <Error text = "Select atleast one challenge"></Error>: ''}
               </form>
             </div>
             <div className="modal-footer">
@@ -219,7 +209,7 @@ class Checkbox extends Component{
   handleClick(e){
     this.setState({color: !this.state.color});
     console.log(this)
-    this.props.handleChange(this.state.color,e);
+    this.props.handleChange(this.state.color,this.props.id,e);
   }
 
   changeState(checkbox){
@@ -235,7 +225,7 @@ class Checkbox extends Component{
    console.log(this);
    console.log(color)
     return(
-       <span class="badge badge-primary check" className={color} onClick={(e)=>this.handleClick(e)}><FontAwesomeIcon icon={icon}></FontAwesomeIcon> {this.props.value}</span>
+       <span class="badge badge-primary check" id ={this.props.id} className={color} onClick={(e)=>this.handleClick(e)}><FontAwesomeIcon icon={icon}></FontAwesomeIcon> {this.props.value}</span>
     )
   }
 }
