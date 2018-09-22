@@ -5,25 +5,13 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import axios from 'axios'
 
 import Card from './Card.js';
 import Table from './Table.js';
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
 import { VotingTable, WelcomeHeader } from './Sponsor';
-
-/*let Backend = require('./Backend.js');
-let newProj = {
-	"table_number": "1",
-	"project_name": "Tim's awesome project",
-	"project_url": "https://timothychen.me",
-	"attempted_challenges": "Facebook's Most Inspiring Hack",
-	"challenges_won": "0"
-}
-Backend.httpFunctions.post('api/projects/add', newProj);
-let callback = (proj) => {alert("projs" + proj);};
-Backend.httpFunctions.getAsync('api/projects', callback);*/
-
 
 const CHALLENGES = [
   { company_id: 'C0',
@@ -358,8 +346,14 @@ class SearchandFilter extends Component {
       super(props);
       let challenges = this.createChallengeSponsorArray(CHALLENGES);
       this.state = {
+<<<<<<< HEAD
         data: PROJECTS,
         value: challenges[0],
+=======
+        data: [],
+        workingdata: [],
+        value: 'Challenges',
+>>>>>>> 9fac8dc2c5fde79c756b68690d025c6072af8674
         toggle_off: true,
         challenges: CHALLENGES,
         workingdata: this.setSponsorWorkingData(challenges)
@@ -369,6 +363,19 @@ class SearchandFilter extends Component {
       this.getSponsorChallenges = this.getSponsorChallenges.bind(this);
       this.getSponsorData = this.getSponsorData.bind(this);
       this.setSponsorWorkingData = this.setSponsorWorkingData.bind(this);
+    }
+
+    componentDidMount() {
+      // TODO(timothychen01): Replace this URL with final URL
+      // TODO(timothychen01): Explore replacing URL string with environment vars
+      axios.get('http://ec2-34-201-45-125.compute-1.amazonaws.com/api/projects')
+      .then(response => {
+        console.log(JSON.stringify(response['data']));  // TODO: Remove logging
+        this.setState({
+          data: response['data'],
+          workingdata: response['data']
+        });
+      })
     }
 
     handleChange(e){
