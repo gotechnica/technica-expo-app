@@ -10,10 +10,10 @@
 
 #Sponsor .hoverable:hover {
   opacity: 1;
-  -webkit-transform: translateY(-2px);
+  /*-webkit-transform: translateY(-2px);
   -ms-transform: translateY(-2px);
   transform: translateY(-2px);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;*/
 }
 
 #Sponsor table tr th:nth-of-type(3) {
@@ -30,6 +30,9 @@
   display: none;
 }
 
+#Sponsor tr.button-row td {
+  padding-top: 20px;
+}
 #Sponsor tr.button-row td.clear button, #Sponsor tr.button-row td.submit button {
   font-weight: bold;
   outline: none;
@@ -95,10 +98,6 @@
   border-bottom: 3px solid #1c1c1c;
   margin-top: -1px;
 
-}
-
-#Sponsor td.task-header:hover {
-  border-color: #00ffff;
 }
 
 #Sponsor td.task {
@@ -194,4 +193,60 @@
   margin: 0px 15px;
   margin-top: 10px;
   padding: 0;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 90;
+}
+
+.ribbon-wrapper-green {
+  width: 85px;
+  height: 88px;
+  overflow: hidden;
+  position: absolute;
+  top: -3.5px;
+  right: -1px;
+}
+
+.ribbon-green {
+  color: #333;
+  text-align: center;
+  text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform:    rotate(45deg);
+  -ms-transform:     rotate(45deg);
+  -o-transform:      rotate(45deg);
+  position: relative;
+  padding: 2.5px 0;
+  left: 0px;
+  top: 15px;
+  width: 120px;
+  background-color: #b190cc;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#b6a1c7), to(#b190cc));
+  background-image: -webkit-linear-gradient(left, #966eb7,#b6a1c7);
+  background-image:    -moz-linear-gradient(left, #966eb7,#b6a1c7);
+  background-image:     -ms-linear-gradient(left, #966eb7,#b6a1c7);
+  background-image:      -o-linear-gradient(left, #966eb7,#b6a1c7);
+  color: white;
+  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+  font-size: 13px;
+}
+
+.ribbon-green:before, .ribbon-green:after {
+  content: "";
+  border-top:   3px solid #b190cc;
+  border-left:  3px solid transparent;
+  border-right: 3px solid transparent;
+  position:absolute;
+  bottom: -3px;
+}
+
+.ribbon-green:before {
+  left: 0;
+}
+.ribbon-green:after {
+  right: 0;
 }

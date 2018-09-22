@@ -8,6 +8,7 @@ from bson import json_util
 import json
 import hashlib
 import io
+import datetime
 from seed_db import *
 
 app = Flask(__name__)
@@ -187,40 +188,77 @@ def add_company():
     company_name = request.json['company_name']
     access_code = request.json['access_code']
 
-    # Currently only 1 challenge per company - create another company with same
-    # access_code and company_name if need another prize
-
     # TODO(kjeffc) Make prize selection compatible with this system
     # (e.g. Company X is in the DB twice, but with same access token - they
     # shouldn't notice a difference/have to re-login etc...)
-    challenge_name = request.json['challenge_name']
-    num_winners = request.json['num_winners']
+
+    # TODO(timothychen01): Remove challenge related details in initial creation
+    # challenge_name = request.json['challenge_name']
+    # num_winners = request.json['num_winners']
 
     company = {
         'company_name': company_name,
         'access_code': access_code,
-        'challenge_name': challenge_name,
-        'num_winners': num_winners,
-        'winners': []      # Empty array
+        'challenges': {}
     }
 
     company_id = str(companies.insert(company))
     return company_id
 
-@app.route('/api/companies/id/<company_id>', methods =['POST'])
-def update_company(company_id):
+@app.route('/api/companies/id/<company_id>', methods=['POST'])
+def update_company_name_or_code(company_id):
     companies = mongo.db.companies
 
-    winners_arr = []
-    if request.json.get('winners') != None:
-        winners_arr = request.json.get('winners').split()
+    # winners_arr = []
+    # if request.json.get('winners') != None:
+    #     winners_arr = request.json.get('winners').split()
 
+    # Both fields must be present in the POST request body
     updated_company = {
         'company_name': request.json['company_name'],
-        'access_code': request.json['access_code'],
+        'access_code': request.json['access_code']
+    }
+    updated_company_obj = companies.find_one_and_update(
+        {'_id': ObjectId(company_id)},
+        {'$set': updated_company}
+    )
+
+    return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
+
+@app.route('/api/companies/id/<company_id>/challenges/add', methods=['POST'])
+def add_challenge_to_company(company_id):
+    companies = mongo.db.companies
+    company_obj = companies.find_one({'_id': ObjectId(company_id)})
+    challenges_obj = company_obj['challenges']
+
+    # TODO: Come up with better id creation method
+    challenge_id = company_obj['company_name'] + '_challenge' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    challenges_obj[challenge_id] = {
         'challenge_name': request.json['challenge_name'],
         'num_winners': request.json['num_winners'],
-        'winners': winners_arr  # Winners entered as project_ids split by whitespace
+        'winners': []
+    }
+
+    updated_company = {
+        'challenges': challenges_obj
+    }
+    updated_company_obj = companies.find_one_and_update(
+        {'_id': ObjectId(company_id)},
+        {'$set': updated_company}
+    )
+
+    return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
+
+@app.route('/api/companies/id/<company_id>/challenges/<challenge_id>', methods=['POST'])
+def update_company_challenge(company_id, challenge_id):
+    companies = mongo.db.companies
+    company_obj = companies.find_one({'_id': ObjectId(company_id)})
+    challenges_obj = company_obj['challenges']
+    challenges_obj[challenge_id]['challenge_name'] = request.json['challenge_name']
+    challenges_obj[challenge_id]['num_winners'] = request.json['num_winners']
+
+    updated_company = {
+        'challenges': challenges_obj
     }
     updated_company_obj = companies.find_one_and_update(
         {'_id': ObjectId(company_id)},
@@ -246,13 +284,11 @@ def get_all_companies():
             'company_id': str(c['_id']),
             'company_name': c['company_name'],
             'access_code': c['access_code'],
-            'challenge_name': c['challenge_name'],
-            'num_winners': c['num_winners'],
-            'winners': c['winners']
+            'challenges': c['challenges']
         }
         output.append(temp_company)
 
-    return jsonify({'All Companies' : output})
+    return jsonify(output)
 
 
 # Private / sponsor routes #####################################################
