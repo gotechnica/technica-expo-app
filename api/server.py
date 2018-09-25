@@ -140,7 +140,7 @@ def add_project():
     }
 
     project_id = projects.insert(project)
-    return project_id
+    return str(project_id)
 
 @app.route('/api/projects/bulk_add', methods=['POST'])
 def bulk_add_project():
