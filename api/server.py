@@ -1,5 +1,5 @@
 # Main server file
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session, current_app
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from flask_cors import CORS
@@ -9,9 +9,11 @@ import json
 import hashlib
 import io
 import datetime
+import os
 from seed_db import *
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 CORS(app)
 app.config.from_object('config')
 mongo = PyMongo(app)
@@ -321,6 +323,50 @@ def update_project_challenge_status(project_id):
 
     return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
 
+
+# Auth routes ##################################################################
+# Modifies the user's session
+
+@app.route('/api/whoami', methods=['GET'])
+def return_session_info():
+    if 'user_type' in session:
+        return json.dumps({
+            'user_type': session['user_type'],  # sponsor or admin
+            'name': session['name'],            # company name or "admin"
+            'id': session['id']
+        }, default=json_util.default)
+    return "{}" # Return empty object if not logged in
+
+@app.route('/api/login/sponsor', methods=['POST'])
+def sponsor_login():
+    companies = mongo.db.companies
+    attempted_access_code = request.json['access_code']
+    company_obj = companies.find_one({'access_code': re.compile(attempted_access_code, re.IGNORECASE)})
+    if company_obj == None:
+        return "Access denied."
+    else:
+        session['user_type'] = 'sponsor'
+        session['name'] = company_obj['company_name']
+        session['id'] = str(company_obj['_id'])
+        return "Logged in as " + company_obj['company_name']
+
+@app.route('/api/login/admin', methods=['POST'])
+def admin_login():
+    attempted_access_code = request.json['access_code']
+    if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE']:
+        return "Access denied."
+    else:
+        session['user_type'] = 'admin'
+        session['name'] = 'Admin'
+        session['id'] = 'admin'
+        return "Logged in as admin"
+
+@app.route('/api/logout', methods=['POST'])
+def logout():
+    session.pop('user_type', None)
+    session.pop('name', None)
+    session.pop('id', None)
+    return "Logged out"
 
 if __name__ == '__main__':
     app.run(debug=True)
