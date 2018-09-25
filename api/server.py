@@ -111,7 +111,7 @@ def get_project_list(projects_obj):
             'project_name': project_name,
             'project_url': projects_obj[project_name].project_url,
             'challenges': projects_obj[project_name].challenges,
-            'challenges_won': ""
+            'challenges_won': []
         }
         project_data.append(info)
     return project_data
@@ -128,7 +128,7 @@ def add_project():
     table_number = request.json['table_number']
     project_name = request.json['project_name']
     project_url = request.json['project_url']
-    challenges = request.json['challenges']
+    challenges = format_challenges(request.json['challenges'])
     challenges_won = request.json['challenges_won']
 
     project = {
@@ -151,16 +151,12 @@ def bulk_add_project():
 def update_project(project_id):
     projects = mongo.db.projects
 
-    challenges_won_arr = []
-    if request.json.get('challenges_won') != None:
-        challenges_won_arr = request.json.get('challenges_won').split()
-
     updated_project = {
         'table_number': request.json['table_number'],
         'project_name': request.json['project_name'],
         'project_url': request.json['project_url'],
         'challenges': request.json['challenges'],
-        'challenges_won': challenges_won_arr    # Challenges won entered as company_ids split by whitespace
+        'challenges_won': request.json['challenges_won']
     }
     updated_project_obj = projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
