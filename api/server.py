@@ -50,7 +50,16 @@ def get_project(project_id):
     projects = mongo.db.projects
 
     project_obj = projects.find_one({'_id': ObjectId(project_id)})
-    return json.dumps(project_obj, default=json_util.default)
+    temp_project = {
+        'project_id': str(project_obj['_id']),
+        'table_number': project_obj['table_number'],
+        'project_name': project_obj['project_name'],
+        'project_url': project_obj['project_url'],
+        'challenges': project_obj['challenges'],
+        'challenges_won': project_obj['challenges_won']
+    }
+
+    return jsonify(temp_project)
 
 
 # Admin routes #################################################################
