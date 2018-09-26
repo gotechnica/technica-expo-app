@@ -129,14 +129,13 @@ def add_project():
     project_name = request.json['project_name']
     project_url = request.json['project_url']
     challenges = format_challenges(request.json['challenges'])
-    challenges_won = request.json['challenges_won']
 
     project = {
         'table_number': table_number,
         'project_name': project_name,
         'project_url': project_url,
         'challenges': challenges,
-        'challenges_won': challenges_won
+        'challenges_won': []
     }
 
     project_id = projects.insert(project)
@@ -154,9 +153,7 @@ def update_project(project_id):
     updated_project = {
         'table_number': request.json['table_number'],
         'project_name': request.json['project_name'],
-        'project_url': request.json['project_url'],
-        'challenges': request.json['challenges'],
-        'challenges_won': request.json['challenges_won']
+        'project_url': request.json['project_url']
     }
     updated_project_obj = projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
