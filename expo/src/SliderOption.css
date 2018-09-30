@@ -31,10 +31,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  border-style: solid;
-  border-color: #969696;
-  border-width: 1px;
-  box-shadow: inset -1.5px 1px 2px lightgray;
+  /* border-style: solid; */
+  /* border-color: #969696; */
+  /* border-width: 1px; */
+  /* box-shadow: inset -1.5px 1px 2px lightgray; */
   border-radius: 10px;
 }
 
@@ -46,17 +46,10 @@
   z-index: 999;
   position: absolute;
   content: "";
-
-  left: -1px;
-  bottom: -1px;
   background-color: white;
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-
-  border-style: solid;
-  border-color: #969696;
-  border-width: 1px;
-
+  border-width: 0px;
   height: 20px;
   width: 20px;
   border-radius: 11px;
@@ -70,10 +63,7 @@
 
 input:checked + .slider {
   background-color: #FF7BAC;
-  border-style: solid;
-  border-color: #FF7BAC;
-  border-width: 1px;
-  box-shadow: inset 0px 1px 2px white;
+  border-width: 0px;
 }
 
 input:checked + .slider:hover {
@@ -81,17 +71,16 @@ input:checked + .slider:hover {
 }
 
 input:not(:checked) + .slider {
-  background-color: #FAFAFA;
+  background-color: #888;
 }
 
 input:not(:checked) + .slider:hover {
-  background-color: #F2F2F2;
+  background-color: #999;
 }
 
 input:checked + .slider:before {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-
   -webkit-transform: translateX(40px);
   -ms-transform: translateX(40px);
   transform: translateX(40px);
