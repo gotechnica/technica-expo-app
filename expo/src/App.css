@@ -18,7 +18,20 @@ html {
 
 .App {
   font-family: 'Poppins', sans-serif;
+  position: relative;
+}
+.App::before {
+  background-image: url('./imgs/banner.jpg');
+  background-repeat: no-repeat;
   background-color: #222;
+  background-size: cover;
+  content: '';
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 0;
 }
 
 /* App wide modal styles */
