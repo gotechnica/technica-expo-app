@@ -274,12 +274,57 @@ def update_company_challenge(company_id, challenge_id):
 @app.route('/api/companies/id/<company_id>', methods=['GET'])
 def get_company(company_id):
     companies = mongo.db.companies
-
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
-    return json.dumps(company_obj, default=json_util.default)
+    return jsonify(format_company_obj_to_old_schema(company_obj))
 
 @app.route('/api/companies', methods=['GET'])
 def get_all_companies():
+    companies = mongo.db.companies
+    output = []
+    for curr_company in companies.find():
+        output.append(format_company_obj_to_old_schema(curr_company))
+    flattened_output = [y for x in output for y in x]
+    return jsonify(flattened_output)
+
+def format_company_obj_to_old_schema(company_obj):
+    output = []
+    if not company_obj['challenges']:
+        return [{
+            'company_id': str(company_obj['_id']),
+            'company_name': company_obj['company_name'],
+            'access_code': company_obj['access_code'],
+        }]
+    for curr_challenge_id, curr_challenge in company_obj['challenges'].items():
+        company_old_schema = {
+            'company_id': str(company_obj['_id']),
+            'company_name': company_obj['company_name'],
+            'access_code': company_obj['access_code'],
+            'challenge_id': curr_challenge_id,
+            'challenge_name': curr_challenge['challenge_name'],
+            'num_winners': curr_challenge['num_winners'],
+            'winners': curr_challenge['winners']
+        }
+        output.append(company_old_schema)
+    return output
+
+
+# Second version of the company endpoints with cleaner output
+# Note: v2 is not used by frontend
+@app.route('/api/v2/companies/id/<company_id>', methods=['GET'])
+def get_company_cleaner_schema(company_id):
+    companies = mongo.db.companies
+
+    company_obj = companies.find_one({'_id': ObjectId(company_id)})
+    output = {
+        'company_id': str(company_obj['_id']),
+        'company_name': company_obj['company_name'],
+        'access_code': company_obj['access_code'],
+        'challenges': company_obj['challenges']
+    }
+    return jsonify(output)
+
+@app.route('/api/v2/companies', methods=['GET'])
+def get_all_companies_cleaner_schema():
     companies = mongo.db.companies
 
     output = []
