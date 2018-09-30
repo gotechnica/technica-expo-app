@@ -111,7 +111,11 @@ class ProjectModule extends Component {
           <button className="button button-primary"
             onClick={(event) => {
               //TODO pass file to DB
-              alert("upload file click");
+              //alert("upload file click");
+              <form action='http://ec2-34-201-45-125.compute-1.amazonaws.com/' method="post" enctype="multipart/form-data">
+                <input type="file" name="csv" />
+                <input type="submit" />
+              </form>
             }}>
             Upload
           </button>
