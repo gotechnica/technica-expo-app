@@ -246,7 +246,8 @@ class SponsorModule extends Component {
           {
             access_code: elt.access_code,
             company_name: elt.company_name,
-            challenges: []
+            challenges: [],
+            id: elt.company_id
           }
         );
       }
@@ -330,7 +331,7 @@ class SponsorModule extends Component {
                           editID={"modalEditSponsor"+key.toString()}
                           sponsorCode={elt.access_code}
                           sponsorName={elt.company_name}
-                          sponsorID={elt._id}
+                          sponsorID={elt.id}
                           onEdit={this.loadCompanies.bind(this)}
                           />
                         <button className="link-button"
@@ -348,11 +349,6 @@ class SponsorModule extends Component {
                           {elt.company_name + "'s challenges"}
                         </span>
                         <span className="ml-auto">
-                          <EditSponsorModal
-                            editID={"modalEditSponsor"+key.toString()}
-                            sponsorCode={elt.access_code}
-                            sponsorName={elt.company_name}
-                            />
 
                           <CreateChallengeModal
                             createID={"modalCreateChallenge"+key.toString()}
