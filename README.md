@@ -34,3 +34,11 @@ Make sure your commit messages are consistent with these guidelines (from [here]
 - Use the body to explain what and why vs. how
 
 If you're working on improving the Flask app, please use PEP 8 Python style guide! You can find the linter for Atom [here](https://atom.io/packages/linter-python-pep8).
+
+## Devpost Guidelines
+
+v1 of this expo app makes a few assumptions about how Devpost is set up. Not following these requirements may lead to unexpected behavior in your deployment.
+
+- Challenge names should be formatted as `challenge_name - company_name` (e.g. `Best Hack to Transform Transportation - Lyft` or `Funniest Hack - Technica`). This is a temporary workaround that will be resolved in a future release.
+- The challenge name portion (not including company name) should not be a substring of another challenge (e.g. `Funniest Hack I - Technica` and `Funniest Hack II - Technica` is not valid since `Funniest Hack I` is a substring of `Funniest Hack II`). This is a temporary workaround that will be  resolved in a future release.
+- A custom field for hacks that need to stay at their current table must be created and should be labeled exactly as the following: `Does your hack need to stay at your current table? (i.e. hardware, VR/AR hacks). If so, what table number are you at?`. A future release will expose an environment/config variable that will be more easily modified.

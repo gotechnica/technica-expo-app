@@ -69,7 +69,7 @@ def format_challenges(challenges):
         for challenge in challenges:
             # TODO: possibly look into creating a hash from companies DB
             # instead of hard coding the dash separator rule
-            data = challenge.split(' - ')
+            data = str.strip(challenge).split(' - ')
             prize = {
                 'company': data[1],
                 'challenge_name': data[0],

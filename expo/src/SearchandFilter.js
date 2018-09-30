@@ -26,7 +26,7 @@ const CHALLENGES = [
     company_name: 'Booz Allen Hamilton',
     challenge_name: 'Best Hack to Help in a Crisis',
     num_winners: 2,
-    winners: ['P1','P3']
+    winners: []
   },
   { company_id: 'C2',
     access_code: '11111',
@@ -344,17 +344,20 @@ class SearchandFilter extends Component {
 
     constructor(props) {
       super(props);
+      let challenges = this.createChallengeSponsorArray(CHALLENGES);
       this.state = {
         data: [],
         workingdata: [],
         value: 'Challenges',
         toggle_off: true,
-        challenges: CHALLENGES
+        challenges: CHALLENGES,
+        workingdata: this.setSponsorWorkingData(challenges)
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleToggle = this.handleToggle.bind(this);
       this.getSponsorChallenges = this.getSponsorChallenges.bind(this);
       this.getSponsorData = this.getSponsorData.bind(this);
+      this.setSponsorWorkingData = this.setSponsorWorkingData.bind(this);
     }
 
     componentDidMount() {
@@ -406,7 +409,7 @@ class SearchandFilter extends Component {
           item.challenges.map((obj) => {
             challenges_data.push(obj.challenge_name);
           })
-          if (val === "Challenges") {
+          if (val === "All Challenges") {
             return true
           } else {
             console.log(challenges_data.indexOf(val) > -1)
@@ -422,7 +425,11 @@ class SearchandFilter extends Component {
     }
 
     componentWillMount(){
-      this.setState({ workingdata: this.state.data })
+      if (this.props.origin === 'sponsor') {
+        this.setState({ workingdata: this.state.workingdata });
+      } else {
+        this.setState({ workingdata: this.state.data });
+      }
     }
 
     // constructor(props){
@@ -445,10 +452,15 @@ class SearchandFilter extends Component {
           challenges.push(obj.challenge_name);
         }
       })
+      challenges = challenges.sort(function (a, b) {
+        if (a < b) return -1;
+        else if (a > b) return 1;
+        return 0;
+      });
       return challenges;
     }
 
-    createChallengeSponsorArray(){
+    createChallengeSponsorArray(challenges_data){
       /*let options = [];
       console.log(this.props.loggedIn)
       this.state.data.map((obj) => {
@@ -460,11 +472,16 @@ class SearchandFilter extends Component {
       console.log(options)
       return options;*/
       let challenges = [];
-      this.state.challenges.map((obj) => {
+      challenges_data.map((obj) => {
         if (obj.company_name == this.props.loggedIn) {
           challenges.push(obj.challenge_name);
         }
       })
+      challenges = challenges.sort(function (a, b) {
+        if (a < b) return -1;
+        else if (a > b) return 1;
+        return 0;
+      });
       return challenges;
     }
 
@@ -508,6 +525,18 @@ class SearchandFilter extends Component {
       return s;
     }
 
+    setSponsorWorkingData(sponsor_challenges) {
+      let firstChallenge = sponsor_challenges[0];
+      let initialData = [];
+      PROJECTS.map((obj) => {
+        obj.challenges.map((item) => {
+          if (item.company === this.props.loggedIn && item.challenge_name == firstChallenge)
+            initialData.push(obj);
+        })
+      })
+      return initialData;
+    }
+
     handleToggle() {
       this.setState({
         toggle_off: !this.state.toggle_off
@@ -523,16 +552,15 @@ class SearchandFilter extends Component {
           return (<option key={index}>{obj}</option>)
         })
       );
-
       let challenge_sponsor_array = (
-        this.createChallengeSponsorArray().map((obj,index) => {
+        this.createChallengeSponsorArray(this.state.challenges).map((obj,index) => {
           return (<option key={index}>{obj}</option>)
         })
       );
 
       let select = (
         <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
-          <option selected>Challenges</option>
+          { this.props.origin === "home" ? <option>All Challenges</option> : <div></div>}
           { this.props.origin === "home" ? challenge_array : challenge_sponsor_array }
         </select>
       );
@@ -560,14 +588,20 @@ class SearchandFilter extends Component {
       return (
         <div>
           { this.props.origin === "sponsor" ? <WelcomeHeader company={this.props.loggedIn} data={sponsor_challenges}/>: <div></div>}
-          <Card title="Search and Filter" content=
-            {<form>
+          <div class="card">
+          {this.props.origin === 'sponsor' ?
+          <div class="card-header">
+            <h5>{this.props.title}</h5>
+          </div>
+          :
+          <div style={{marginTop:"15px"}}></div>}
+          <div class="card-body"><form>
               <div className="form-group">
-                <input type="text" placeholder="Search for projects here" className="form-control" onChange={this.handleChange} name="input" />
+                <input type="text" placeholder="Filter projects by name" className="form-control" onChange={this.handleChange} name="input" />
               </div>
               <div className="form-row">
                 <div style={{margin:"0px 5px", width:"100%"}}>
-                  { this.props.origin === "home" ? <div></div> : <div style={{marginBottom: "5px"}}>Your Challenges</div> }
+                  { this.props.origin === "home" ? <div></div> : <div style={{marginBottom: "5px"}}>Select a Challenge to Place Votes For</div> }
                   {select}
                 </div>
               </div>
@@ -578,11 +612,11 @@ class SearchandFilter extends Component {
                     <div className="slider round"></div>
                   </label>
                 </div>
-                <div className="toggle-label">Hide Attempted Challenges</div>
+                <div className="toggle-label">Show Attempted Challenges</div>
               </div>
-            </form>}
-          />
-          {table}
+            </form>{this.props.origin === 'sponsor' ? table : <div></div>}</div>
+          </div>
+          {this.props.origin === 'home' ? table : <div></div>}
       </div>
     )
   }

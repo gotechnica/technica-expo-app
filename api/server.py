@@ -1,5 +1,5 @@
 # Main server file
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session, current_app
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from flask_cors import CORS
@@ -9,9 +9,11 @@ import json
 import hashlib
 import io
 import datetime
+import os
 from seed_db import *
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 CORS(app)
 app.config.from_object('config')
 mongo = PyMongo(app)
@@ -48,7 +50,16 @@ def get_project(project_id):
     projects = mongo.db.projects
 
     project_obj = projects.find_one({'_id': ObjectId(project_id)})
-    return json.dumps(project_obj, default=json_util.default)
+    temp_project = {
+        'project_id': str(project_obj['_id']),
+        'table_number': project_obj['table_number'],
+        'project_name': project_obj['project_name'],
+        'project_url': project_obj['project_url'],
+        'challenges': project_obj['challenges'],
+        'challenges_won': project_obj['challenges_won']
+    }
+
+    return jsonify(temp_project)
 
 
 # Admin routes #################################################################
@@ -100,7 +111,7 @@ def get_project_list(projects_obj):
             'project_name': project_name,
             'project_url': projects_obj[project_name].project_url,
             'challenges': projects_obj[project_name].challenges,
-            'challenges_won': ""
+            'challenges_won': []
         }
         project_data.append(info)
     return project_data
@@ -117,19 +128,18 @@ def add_project():
     table_number = request.json['table_number']
     project_name = request.json['project_name']
     project_url = request.json['project_url']
-    challenges = request.json['challenges']
-    challenges_won = request.json['challenges_won']
+    challenges = format_challenges(request.json['challenges'])
 
     project = {
         'table_number': table_number,
         'project_name': project_name,
         'project_url': project_url,
         'challenges': challenges,
-        'challenges_won': challenges_won
+        'challenges_won': []
     }
 
     project_id = projects.insert(project)
-    return project_id
+    return str(project_id)
 
 @app.route('/api/projects/bulk_add', methods=['POST'])
 def bulk_add_project():
@@ -140,16 +150,10 @@ def bulk_add_project():
 def update_project(project_id):
     projects = mongo.db.projects
 
-    challenges_won_arr = []
-    if request.json.get('challenges_won') != None:
-        challenges_won_arr = request.json.get('challenges_won').split()
-
     updated_project = {
         'table_number': request.json['table_number'],
         'project_name': request.json['project_name'],
-        'project_url': request.json['project_url'],
-        'challenges': request.json['challenges'],
-        'challenges_won': challenges_won_arr    # Challenges won entered as company_ids split by whitespace
+        'project_url': request.json['project_url']
     }
     updated_project_obj = projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
@@ -270,12 +274,57 @@ def update_company_challenge(company_id, challenge_id):
 @app.route('/api/companies/id/<company_id>', methods=['GET'])
 def get_company(company_id):
     companies = mongo.db.companies
-
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
-    return json.dumps(company_obj, default=json_util.default)
+    return jsonify(format_company_obj_to_old_schema(company_obj))
 
 @app.route('/api/companies', methods=['GET'])
 def get_all_companies():
+    companies = mongo.db.companies
+    output = []
+    for curr_company in companies.find():
+        output.append(format_company_obj_to_old_schema(curr_company))
+    flattened_output = [y for x in output for y in x]
+    return jsonify(flattened_output)
+
+def format_company_obj_to_old_schema(company_obj):
+    output = []
+    if not company_obj['challenges']:
+        return [{
+            'company_id': str(company_obj['_id']),
+            'company_name': company_obj['company_name'],
+            'access_code': company_obj['access_code'],
+        }]
+    for curr_challenge_id, curr_challenge in company_obj['challenges'].items():
+        company_old_schema = {
+            'company_id': str(company_obj['_id']),
+            'company_name': company_obj['company_name'],
+            'access_code': company_obj['access_code'],
+            'challenge_id': curr_challenge_id,
+            'challenge_name': curr_challenge['challenge_name'],
+            'num_winners': curr_challenge['num_winners'],
+            'winners': curr_challenge['winners']
+        }
+        output.append(company_old_schema)
+    return output
+
+
+# Second version of the company endpoints with cleaner output
+# Note: v2 is not used by frontend
+@app.route('/api/v2/companies/id/<company_id>', methods=['GET'])
+def get_company_cleaner_schema(company_id):
+    companies = mongo.db.companies
+
+    company_obj = companies.find_one({'_id': ObjectId(company_id)})
+    output = {
+        'company_id': str(company_obj['_id']),
+        'company_name': company_obj['company_name'],
+        'access_code': company_obj['access_code'],
+        'challenges': company_obj['challenges']
+    }
+    return jsonify(output)
+
+@app.route('/api/v2/companies', methods=['GET'])
+def get_all_companies_cleaner_schema():
     companies = mongo.db.companies
 
     output = []
@@ -321,6 +370,123 @@ def update_project_challenge_status(project_id):
 
     return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
 
+@app.route('/api/projects/id/<project_id>/makeWinner', methods=['POST'])
+def make_winner(project_id):
+    projects = mongo.db.projects
+    companies = mongo.db.companies
+    company_id = request.json['company_id']
+    challenge_id = request.json['challenge_id']
+
+    project_obj = projects.find_one({'_id': ObjectId(project_id)})
+    company_obj = companies.find_one({'_id': ObjectId(company_id)})
+    challenge_name = company_obj['challenges'][challenge_id]['challenge_name']
+
+    # Check if project has already won the same challenge (prevent duplicate form entry)
+    if project_id in company_obj['challenges'][challenge_id]['winners']:
+        return "Error: Project " + project_id + " is already winner for " + challenge_name
+
+    # Modify company object
+    company_obj['challenges'][challenge_id]['winners'].append(project_id)
+
+    # Modify project object
+    company_name = company_obj['company_name']
+    updated_challenges_list = list(map(lambda challenge_obj: update_win_status(challenge_obj, company_name, challenge_name, True), project_obj['challenges']))
+    project_obj['challenges'] = updated_challenges_list
+    project_obj['challenges_won'].append(challenge_id)
+
+    companies.find_one_and_update(
+        {'_id': ObjectId(company_id)},
+        {'$set': company_obj}
+    )
+    projects.find_one_and_update(
+        {'_id': ObjectId(project_id)},
+        {'$set': project_obj}
+    )
+
+    return "Updated project " + project_id
+# NOTE: THIS API FORCES US TO NEVER NAME A CHALLENGE AS A SUBSTRING OF ANOTHER CHALLENGE
+def update_win_status(project_challenge_obj, company_name, challenge_name, didWin):
+    if (project_challenge_obj['company'] == company_name and project_challenge_obj['challenge_name'] in challenge_name):
+        project_challenge_obj['won'] = didWin
+    return project_challenge_obj
+
+@app.route('/api/projects/id/<project_id>/makeNonWinner', methods=['POST'])
+def make_non_winner(project_id):
+    projects = mongo.db.projects
+    companies = mongo.db.companies
+    company_id = request.json['company_id']
+    challenge_id = request.json['challenge_id']
+
+    project_obj = projects.find_one({'_id': ObjectId(project_id)})
+    company_obj = companies.find_one({'_id': ObjectId(company_id)})
+
+    # Modify company object
+    old_winners_list = company_obj['challenges'][challenge_id]['winners']
+    company_obj['challenges'][challenge_id]['winners'] = list(filter(lambda winner_id: winner_id != project_id, old_winners_list))
+
+    # Modify project object
+    company_name = company_obj['company_name']
+    challenge_name = company_obj['challenges'][challenge_id]['challenge_name']
+    updated_challenges_list = list(map(lambda challenge_obj: update_win_status(challenge_obj, company_name, challenge_name, False), project_obj['challenges']))
+    project_obj['challenges'] = updated_challenges_list
+    old_challenges_won_list = project_obj['challenges_won']
+    project_obj['challenges_won'] = list(filter(lambda c_id: c_id != challenge_id, old_challenges_won_list))
+
+    companies.find_one_and_update(
+        {'_id': ObjectId(company_id)},
+        {'$set': company_obj}
+    )
+    projects.find_one_and_update(
+        {'_id': ObjectId(project_id)},
+        {'$set': project_obj}
+    )
+
+    return "Updated project " + project_id
+
+
+# Auth routes ##################################################################
+# Modifies the user's session
+
+@app.route('/api/whoami', methods=['GET'])
+def return_session_info():
+    if 'user_type' in session:
+        return json.dumps({
+            'user_type': session['user_type'],  # sponsor or admin
+            'name': session['name'],            # company name or "admin"
+            'id': session['id']
+        }, default=json_util.default)
+    return "{}" # Return empty object if not logged in
+
+@app.route('/api/login/sponsor', methods=['POST'])
+def sponsor_login():
+    companies = mongo.db.companies
+    attempted_access_code = request.json['access_code']
+    company_obj = companies.find_one({'access_code': re.compile(attempted_access_code, re.IGNORECASE)})
+    if company_obj == None:
+        return "Access denied."
+    else:
+        session['user_type'] = 'sponsor'
+        session['name'] = company_obj['company_name']
+        session['id'] = str(company_obj['_id'])
+        return "Logged in as " + company_obj['company_name']
+
+@app.route('/api/login/admin', methods=['POST'])
+def admin_login():
+    attempted_access_code = request.json['access_code']
+    if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE']:
+        return "Access denied."
+    else:
+        session['user_type'] = 'admin'
+        session['name'] = 'Admin'
+        session['id'] = 'admin'
+        return "Logged in as admin"
+
+@app.route('/api/logout', methods=['POST'])
+def logout():
+    session.pop('user_type', None)
+    session.pop('name', None)
+    session.pop('id', None)
+    return "Logged out"
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -16,7 +16,7 @@ import faTimesSquare from './imgs/faTimesSquare.png';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faExternalLinkAlt,
+import { faArrowRight,
          faCheckSquare,
          faCheckCircle,
          faUserCheck,
@@ -26,7 +26,7 @@ import { faExternalLinkAlt,
          faExclamationTriangle,
          faTasks } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { faSquare, faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
-library.add(faExternalLinkAlt);
+library.add(faArrowRight);
 library.add(faCheckSquare);
 library.add(faSquare);
 library.add(faPlus);
@@ -49,9 +49,10 @@ export class VotingRow extends Component {
       }
     });
 
-    let fa_square_style = this.props.select != "Challenges" && !this.props.disabled ? "fa-square hoverable" :"fa-square";
+    let fa_square_style = !this.props.disabled ? "fa-square hoverable" :"fa-square";
+    let fa_check_square_style = !this.props.disabled ? "fa-square" :"fa-square faded";
     let checkbox = this.props.checked ?
-      <FontAwesomeIcon icon={faCheckSquare} className="fa-check-square" />
+      <FontAwesomeIcon icon={faCheckSquare} className={fa_check_square_style} />
       :
       <FontAwesomeIcon icon={faSquare} className={fa_square_style} />;
 
@@ -70,22 +71,24 @@ export class VotingRow extends Component {
       <input type="checkbox" className="voting-checkbox" value={this.props.project_id} checked />
       :
       <input type="checkbox" className="voting-checkbox" value={this.props.project_id} />;
-    let opacity = !this.props.disabled ? "" :(this.props.checked ? "" : "faded");
 
     return (
-      <tr className={opacity}>
+      <tr>
         <td className="Voting">
           <div>
             {input}{!this.props.disabled ? label : <label>{checkbox}</label>}
           </div>
         </td>
         <td className="TableNumber">{this.props.table_number}</td>
-        <td className="Project">
+        <td className="Project wrapper">
+          {this.props.disabled && this.props.checked ? <div class="ribbon-wrapper-green"><div class="ribbon-green">
+          WINNER</div></div> : <div></div>}
           <div className="name">
-            <a href={this.props.project_url} target="_tab">
-              <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon" />
-            </a>
             {this.props.project_name}
+            &nbsp;
+            <a href={this.props.project_url} target="_tab">
+              <FontAwesomeIcon icon={faArrowRight} className="LinkIcon" />
+            </a>
           </div>
         </td>
       </tr>
@@ -126,61 +129,42 @@ export class VotingTable extends Component {
   }
 
   handleVoteEvent(project_id) {
-    if (this.props.value != "Challenges") {
-      let new_checked = this.state.checked;
-      new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
-      this.setState({ checked: new_checked });
-    }
+    let new_checked = this.state.checked;
+    new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
+    this.setState({ checked: new_checked });
   }
 
 
   render() {
-    let state = false;
-    if (this.props.value != "Challenges") {
-      state = this.props.sponsor_challenges[this.props.value].submitted;
-    }
-
     let rows = [];
-    let checked = false;
-
+    let state =this.props.sponsor_challenges[this.props.value].submitted;
     this.props.projects.forEach((project) => {
-      if (this.props.value != "Challenges") {
-        checked = this.state.checked[project.project_id][this.props.value];
-      }
-
       rows.push(
         <VotingRow
-          select = {this.props.value}
           project_id = {project.project_id}
           table_number = {project.table_number}
           project_name = {project.project_name}
           project_url = {project.project_url}
           challenges = {project.challenges}
           handler = {this.handleVoteEvent}
-          checked = {checked}
+          checked = {this.state.checked[project.project_id][this.props.value]}
           disabled = {state}
         />);
       });
 
     return (
-      <div class="card">
-        <div class="card-body table-announcement">
-          <Announcement type="successful" />
-          <Announcement type="ERROR_1" />
-          <Announcement type="ERROR_2" />
-        </div>
-        <div class="card-body">
+      <div style={{marginTop: '30px'}}>
           <table>
             <thead>
               <tr>
-                <th>Voting</th>
+                <th>Select</th>
                 <th>Table #</th>
                 <th>Project Information</th>
               </tr>
             </thead>
             <tbody>
               {rows}
-              {this.props.value != "Challenges" && state == false ?
+              {state == false ?
               <tr className="button-row">
                 <td className="clear"><button onClick={this.handleClearEvent}>Clear</button></td>
                 <td></td>
@@ -193,7 +177,6 @@ export class VotingTable extends Component {
               <td className="submit"><button disabled>Submit</button></td></tr>}
             </tbody>
           </table>
-        </div>
       </div>
     );
   }
@@ -263,15 +246,6 @@ class Task extends Component {
 }
 
 export class WelcomeHeader extends Component {
-  constructor() {
-    super();
-    this.handleTaskToggle = this.handleTaskToggle.bind(this);
-    this.state = {hide: false};
-  }
-
-  handleTaskToggle() {
-    this.setState({hide: !this.state.hide})
-  }
 
   render() {
     let tasks = [];
@@ -290,17 +264,11 @@ export class WelcomeHeader extends Component {
           <tr>
             {announcement}
             <td className="card task-header">
-              <div class="btn-group" role="group">
-                <button className="task-title task-header">Tasks</button>
-                <button className="task-icon" onClick={this.handleTaskToggle}>
-                  {this.state.hide ? <FontAwesomeIcon icon={faPlus} /> : <FontAwesomeIcon icon={faMinus} />}
-                </button>
-              </div>
+            <h5>Tasks</h5>
             </td>
-            {!this.state.hide ?
             <div>
               {tasks}
-            </div>:<div></div>}
+            </div>
           </tr>
         </table>
       }/>
@@ -315,7 +283,7 @@ SiteWrapper(
     <div id="Sponsor">
       <div class="row">
         <div class="col">
-          <SearchandFilter origin = "sponsor" loggedIn = "Booz Allen Hamilton" />
+          <SearchandFilter origin = "sponsor" loggedIn = "Booz Allen Hamilton" title = {<div>Vote For Your Challenge Winner<div style={{display:"inline",fontSize:"15px"}}>(</div>s<div style={{display:"inline",fontSize:"15px"}}>)</div></div>}/>
         </div>
       </div>
     </div>

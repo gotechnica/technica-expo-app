@@ -7,9 +7,9 @@ import TechnicaRibbon from './imgs/technica_award_ribbon.png';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faExternalLinkAlt, faCaretRight, faCaretLeft } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faArrowRight, faCaretRight, faCaretLeft } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import SearchandFilter from './SearchandFilter';
-library.add(faExternalLinkAlt);
+library.add(faArrowRight);
 library.add(faCaretRight);
 library.add(faCaretLeft);
 
@@ -27,7 +27,10 @@ export class ProjectRow extends Component {
       }
     });
 
-    let attempted_challenges = (this.props.show_attempted_challenges ? challengeCards : <div style={{fontSize:"15px", margin: "5px 0px"}}>Attempted Challenges :&nbsp;&nbsp;{challengeCards.length}</div>);
+    let attempted_challenges = (this.props.show_attempted_challenges ?
+      <div style={{fontSize:"15px", margin: "5px 0px"}}>
+        Attempted Challenges :&nbsp;&nbsp;{challengeCards.length}
+      </div> : challengeCards);
 
     return (
     <tr>
@@ -37,7 +40,7 @@ export class ProjectRow extends Component {
           <div className="name">
             {this.props.project_name+" "}
             <a href={this.props.project_url} target="_tab">
-              <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
+              <FontAwesomeIcon icon={faArrowRight} className="LinkIcon"/>
             </a>
           </div>
           <div className="Challenge-Wins">
@@ -106,28 +109,22 @@ export class ChallengeCard extends Component {
   }
 
   render() {
-
-    let hidden = { display: "none" };
-    let displayed = { display: "inline-block" };
-
     let winnerCard = (
       <button>
         <img src={TechnicaRibbon} className="Icon" />
-          <b>{this.props.challenge_name +" "}</b>
-          <div> | {this.props.company}</div>
+          <b>{this.props.challenge_name}&nbsp;&nbsp;</b>
+          |&nbsp;&nbsp;{this.props.company}
       </button>
     );
 
     const isExpanded = this.state.expanded;
-    let toggledStyle = displayed;//(isExpanded ? displayed : hidden);
-    let indicator = isExpanded ? faCaretLeft : faCaretRight;
     let challengeCard = (
       <div className="Challenge-Card" onClick={this.handleToggleClick}>
         <table className="Challenge-Card">
           <tr>
             <td className="info">
               <b>{this.props.challenge_name} </b>
-              <div style={toggledStyle} >|&nbsp;&nbsp;{this.props.company}</div>
+              <div style={{display: "inline-block"}} >|&nbsp;&nbsp;{this.props.company}</div>
             </td>
             {/*<td className="indicator"><FontAwesomeIcon icon={indicator} /></td>*/}
           </tr>
@@ -135,12 +132,9 @@ export class ChallengeCard extends Component {
       </div>
     );
 
-    const isWinner = this.props.won;
-    let card = (isWinner ? winnerCard : challengeCard);
-
     return (
       <div>
-        {card}
+        {this.props.won ? winnerCard : challengeCard}
       </div>
     )
   }

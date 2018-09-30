@@ -30,7 +30,7 @@ class CreateSponsorModal extends Component {
   saveSponsor(e) {
     axios.get(Backend.httpFunctions.url + 'api/companies')
       .then(response => {
-        let sponsors = response['data']['All Companies'];
+        let sponsors = response['data'];
 
         let validAccess = true;
         for(let i = 0; i < sponsors.length; i++) {

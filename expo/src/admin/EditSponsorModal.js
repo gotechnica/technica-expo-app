@@ -28,11 +28,21 @@ class EditSponsorModal extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      access_code: nextProps.sponsorCode,
+      invalid_access: false,
+      company_name: nextProps.sponsorName,
+      missing_access: false,
+      missing_company: false
+    });
+  }
+
   saveSponsor(e) {
 
     axios.get(Backend.httpFunctions.url + 'api/companies')
       .then(response => {
-        let sponsors = response['data']['All Companies'];
+        let sponsors = response['data'];
 
         let validAccess = true;
         for(let i = 0; i < sponsors.length; i++) {

@@ -111,7 +111,11 @@ class ProjectModule extends Component {
           <button className="button button-primary"
             onClick={(event) => {
               //TODO pass file to DB
-              alert("upload file click");
+              //alert("upload file click");
+              <form action='http://ec2-34-201-45-125.compute-1.amazonaws.com/' method="post" enctype="multipart/form-data">
+                <input type="file" name="csv" />
+                <input type="submit" />
+              </form>
             }}>
             Upload
           </button>
@@ -213,7 +217,7 @@ class SponsorModule extends Component {
   loadCompanies() {
     Backend.httpFunctions.getAsync('api/companies', (sponsors) => {
       this.setState({
-        sponsors: JSON.parse(sponsors)['All Companies']
+        sponsors: JSON.parse(sponsors)
       })
     });
   }
@@ -254,11 +258,14 @@ class SponsorModule extends Component {
           current_sponsor = sponsor;
         }
       });
-      current_sponsor.challenges.push({
-        challenge: elt.challenge_name,
-        id: elt._id,
-        num_winners: elt.num_winners
-      });
+      if(elt.challenge_name != undefined) {
+        current_sponsor.challenges.push({
+          challenge: elt.challenge_name,
+          id: elt._id,
+          num_winners: elt.num_winners
+        });
+      }
+
     });
 
     // Prepare sponsor list against filter (including sponsor name and challenges)
