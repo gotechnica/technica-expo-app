@@ -14,7 +14,6 @@ const MissingFieldErr = <Error text="Invalid form!
 
 class EditSponsorModal extends Component {
 
-  // Expect the sponsor access code from this.props.sponsorCode
   constructor(props) {
     super(props);
 
@@ -39,8 +38,9 @@ class EditSponsorModal extends Component {
         for(let i = 0; i < sponsors.length; i++) {
           // Validate that code does not exist
           // With the exception of the original code saved to self being overriden
+          // If existing code matches state code and exsiting code is not the code given as a prop
           if(sponsors[i].access_code == this.state.access_code
-            && sponsors[i].access_code != this.props.access_code) {
+            && sponsors[i].access_code != this.props.sponsorCode) {
             validAccess = false;
           }
         }
@@ -53,15 +53,12 @@ class EditSponsorModal extends Component {
 
         let valid = validAccess && !missingAccess && !missingCompany;
 
-        let sponsor_id = '0';
+        let sponsor_id = this.props.sponsorID;
         // TODO: add actual ID here, trash or recreate other fields in post???
         if(valid) {
           Backend.httpFunctions.postCallback('api/companies/id/' + sponsor_id, {
             "company_name": this.state.company_name,
-          	"access_code": this.state.access_code,
-          	"challenge_name": "don't",
-          	"num_winners": "1",
-          	"winners": "need this :^("
+          	"access_code": this.state.access_code
           }, this.props.onEdit);
 
           // Reset state and close modal

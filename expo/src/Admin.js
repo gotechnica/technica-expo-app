@@ -323,6 +323,7 @@ class SponsorModule extends Component {
                           editID={"modalEditSponsor"+key.toString()}
                           sponsorCode={elt.access_code}
                           sponsorName={elt.company_name}
+                          sponsorID={elt._id}
                           onEdit={this.loadCompanies.bind(this)}
                           />
                         <button className="link-button"
