@@ -38,7 +38,8 @@ class ProjectModule extends Component {
         {project_name: 'apple', table_number: '5',url:'www.hello.com',challenge_name:'challenge1'},
         {project_name: 'peaches', table_number: '7',url:'www.hello.com',challenge_name:'challenge1'},
         {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
-      ]
+      ],
+      uploadStatus:'',
     }
     // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
@@ -83,6 +84,36 @@ class ProjectModule extends Component {
     this.createAllChallenges(finalProjectsData);
     return finalProjectsData;
   }
+  onUploadCSVSubmitForm(e) {
+		e.preventDefault()
+
+    const data = new FormData();
+    data.append('projects_csv', this.projects_csv.files[0]);
+
+    if (this.projects_csv.files[0] == null) {
+      this.setState({
+        uploadStatus: 'Please select a file before hitting upload!'
+      });
+    } else {
+      fetch(`${Backend.URL}parse_csv`, {
+        method: 'POST',
+        body: data,
+      })
+        .catch((error) => {
+          this.state.uploadStatus = 'Oops! Something went wrong...'; // Flash success message
+          console.error('Error:', error);
+        })
+        .then((response) => {
+          return response.text();
+        })
+        .then((data) => {  // data = parsed version of the JSON from above endpoint.
+          this.projects_csv.value = ''; // Clear input field
+          this.setState({ // Flash success message
+            uploadStatus: data
+          });
+        });
+    }
+	}
 
   render() {
     console.log(this.sortData())
@@ -102,23 +133,21 @@ class ProjectModule extends Component {
           <h5>Projects</h5>
         </div>
         <div className="card-body">
-          <div className="form-group">
-            <label>Upload CSV to Database</label>
-            <input type="file"
-              id="fileProjCSV"
-              />
-          </div>
-          <button className="button button-primary"
-            onClick={(event) => {
-              //TODO pass file to DB
-              //alert("upload file click");
-              <form action='http://ec2-34-201-45-125.compute-1.amazonaws.com/' method="post" enctype="multipart/form-data">
-                <input type="file" name="csv" />
-                <input type="submit" />
-              </form>
-            }}>
-            Upload
-          </button>
+          <form
+            method="post"
+            enctype="multipart/form-data"
+            onSubmit={this.onUploadCSVSubmitForm.bind(this)}>
+            <div className="form-group">
+              <label>Upload CSV to Database</label>
+              <input type="file" name="projects_csv" ref={(ref) => { this.projects_csv = ref; }} />
+            </div>
+            <button className="button button-primary" type="submit">Upload</button>
+            {this.state.uploadStatus != '' &&
+              <div className="row col" style={{'padding-top': '1rem'}}>
+                {this.state.uploadStatus}
+              </div>
+            }
+          </form>
           <br/>
           <br/>
           <div className="custom-control custom-radio">
