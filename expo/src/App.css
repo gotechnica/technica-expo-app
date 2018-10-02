@@ -19,6 +19,7 @@ html {
 .App {
   font-family: 'Poppins', sans-serif;
   position: relative;
+  overflow-x: hidden;
 }
 .App::before {
   background-image: url('./imgs/banner.jpg');
