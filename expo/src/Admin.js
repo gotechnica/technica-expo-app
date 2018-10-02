@@ -7,7 +7,9 @@ import {
 } from 'react-router-dom';
 
 import SiteWrapper from './SiteWrapper.js';
-
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faUpload} from '../node_modules/@fortawesome/fontawesome-free-solid'
 // TODO Pass sponsor and project IDs to the modals
 // TODO Connect actual data to project and sponsor state
 import CreateSponsorModal from './admin/CreateSponsorModal';
@@ -18,7 +20,7 @@ import EditProjectModal from './admin/EditProjectModal';
 
 import './Admin.css';
 import { faAllergies } from '@fortawesome/fontawesome-free-solid';
-
+library.add(faUpload);
 let Backend = require('./Backend.js');
 
 /* Admin page content (see PRD) */
@@ -139,7 +141,8 @@ class ProjectModule extends Component {
             onSubmit={this.onUploadCSVSubmitForm.bind(this)}>
             <div className="form-group">
               <label>Upload CSV to Database</label>
-              <input type="file" name="projects_csv" ref={(ref) => { this.projects_csv = ref; }} />
+              <input type="file" id="file" className="inputfile" name="projects_csv" ref={(ref) => { this.projects_csv = ref; }} />
+              <label for="file"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</label>
             </div>
             <button className="button button-primary" type="submit">Upload</button>
             {this.state.uploadStatus != '' &&
