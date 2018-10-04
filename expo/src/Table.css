@@ -17,12 +17,15 @@ tbody tr:hover {
 
 table {
     border-collapse: separate;
-    border-spacing: 0px 5px;
     width: 100%;
 }
 
 th {
-    text-align: center;
+  padding-bottom: 20px;
+}
+
+td {
+  padding: 20px 0px;
 }
 
 tr:hover td {
@@ -51,11 +54,8 @@ img.Icon {
 
 /* ============== [Table Number] ============== */
 .TableNumber {
-    /* Sizing */
-    width: 5%;
-    min-width: 75px;
+    padding-right: 20px;
     /* Text */
-    text-align: center;
     font-size: 40px;
     font-weight: bold;
     /* Borders */
@@ -82,9 +82,6 @@ img.Icon {
 /* <======================>*/
 
 .Project {
-    /* Sizing */
-    width: 55%;
-    padding: 1.5% 0px 1% 2%;
     /* Text */
     font-weight: bold;
     font-size: 22px;

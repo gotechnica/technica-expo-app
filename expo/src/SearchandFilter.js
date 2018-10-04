@@ -118,6 +118,13 @@ const CHALLENGES = [
     challenge_name: 'Best Use of Microsoft Cognitive Services API',
     num_winners: 1,
     winners: []
+  },
+  { company_id: 'C15',
+    access_code: '151515',
+    company_name: 'Booz Allen Hamilton',
+    challenge_name: 'Best Future Hack',
+    num_winners: 3,
+    winners: []
   }
 ];
 
@@ -346,9 +353,8 @@ class SearchandFilter extends Component {
       super(props);
       let challenges = this.createChallengeSponsorArray(CHALLENGES);
       this.state = {
-        data: [],
-        workingdata: [],
-        value: 'Challenges',
+        data: PROJECTS,
+        value: challenges[0],
         toggle_off: true,
         challenges: CHALLENGES,
         workingdata: this.setSponsorWorkingData(challenges)
@@ -363,14 +369,14 @@ class SearchandFilter extends Component {
     componentDidMount() {
       // TODO(timothychen01): Replace this URL with final URL
       // TODO(timothychen01): Explore replacing URL string with environment vars
-      axios.get('http://ec2-34-201-45-125.compute-1.amazonaws.com/api/projects')
+      /*axios.get('http://ec2-34-201-45-125.compute-1.amazonaws.com/api/projects')
       .then(response => {
         console.log(JSON.stringify(response['data']));  // TODO: Remove logging
         this.setState({
           data: response['data'],
           workingdata: response['data']
         });
-      })
+      })*/
     }
 
     handleChange(e){
@@ -566,6 +572,7 @@ class SearchandFilter extends Component {
       );
 
       let sponsor_challenges = this.getSponsorData();
+      let voting_data = this.getSponsorChallenges(sponsor_challenges);
       let table = (
         this.props.origin === "home" ?
           <Table
@@ -578,7 +585,7 @@ class SearchandFilter extends Component {
             company={this.props.loggedIn}
             projects={this.state.workingdata}
             value={this.state.value}
-            voting_data={this.getSponsorChallenges(sponsor_challenges)}
+            voting_data={voting_data}
             sponsor_challenges={sponsor_challenges}
           />
       );

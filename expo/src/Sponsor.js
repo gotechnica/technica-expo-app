@@ -10,28 +10,32 @@ import {
 import SiteWrapper from './SiteWrapper.js';
 import Card from './Card.js';
 import SearchandFilter from './SearchandFilter.js';
+import Error from './Error.js';
 
 import TechnicaIcon from './imgs/technica-circle-small.png';
-import faTimesSquare from './imgs/faTimesSquare.png';
+import DevpostIcon from './imgs/devpost-icon.png';
+import TechnicaRibbon from './imgs/technica_award_ribbon.png';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faArrowRight,
+import { faExternalLinkAlt,
          faCheckSquare,
          faCheckCircle,
          faUserCheck,
          faPlus,
          faMinus,
          faTimes,
+         faTimesCircle,
          faExclamationTriangle,
          faTasks } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { faSquare, faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
-library.add(faArrowRight);
+library.add(faExternalLinkAlt);
 library.add(faCheckSquare);
 library.add(faSquare);
 library.add(faPlus);
 library.add(faMinus);
 library.add(faTimes);
+library.add(faTimesCircle);
 library.add(faCircle);
 library.add(faCheckCircle);
 library.add(faExclamationTriangle);
@@ -50,7 +54,7 @@ export class VotingRow extends Component {
     });
 
     let fa_square_style = !this.props.disabled ? "fa-square hoverable" :"fa-square";
-    let fa_check_square_style = !this.props.disabled ? "fa-square" :"fa-square faded";
+    let fa_check_square_style = !this.props.disabled ? "fa-check-square" :"fa-check-square faded";
     let checkbox = this.props.checked ?
       <FontAwesomeIcon icon={faCheckSquare} className={fa_check_square_style} />
       :
@@ -80,14 +84,11 @@ export class VotingRow extends Component {
           </div>
         </td>
         <td className="TableNumber">{this.props.table_number}</td>
-        <td className="Project wrapper">
-          {this.props.disabled && this.props.checked ? <div class="ribbon-wrapper-green"><div class="ribbon-green">
-          WINNER</div></div> : <div></div>}
+        <td className="Project">
           <div className="name">
             {this.props.project_name}
-            &nbsp;
             <a href={this.props.project_url} target="_tab">
-              <FontAwesomeIcon icon={faArrowRight} className="LinkIcon" />
+              <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon" />
             </a>
           </div>
         </td>
@@ -116,8 +117,9 @@ export class VotingTable extends Component {
         winners.push(ckbx.value);
       }
     }
+    /*alert(winners);
     alert(JSON.stringify(this.props.voting_data));
-    alert(JSON.stringify(this.props.sponsor_challenges));
+    alert(JSON.stringify(this.props.sponsor_challenges));*/
   }
 
   handleClearEvent() {
@@ -154,6 +156,8 @@ export class VotingTable extends Component {
 
     return (
       <div style={{marginTop: '30px'}}>
+      {rows.length == 0 ?
+            <h3 className="No-Submissions">No Submissions</h3> :
           <table>
             <thead>
               <tr>
@@ -168,7 +172,7 @@ export class VotingTable extends Component {
               <tr className="button-row">
                 <td className="clear"><button onClick={this.handleClearEvent}>Clear</button></td>
                 <td></td>
-                <td className="submit"><button onClick={this.handleSubmitEvent}>Submit</button></td>
+                <td className="submit" data-toggle="modal" data-target="#exampleModalCenter"><button onClick={this.handleSubmitEvent}>Submit</button></td>
               </tr>
               :
               <tr className="button-row">
@@ -176,7 +180,41 @@ export class VotingTable extends Component {
               <td></td>
               <td className="submit"><button disabled>Submit</button></td></tr>}
             </tbody>
-          </table>
+          </table>}
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Votes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <Error icon={faTimesCircle} iconstyle="fa-times-circle" text={<div><b>ERROR</b>: Too many selections, only 2 winners may be selected for this challenge.</div>}/>
+      <Error icon={faExclamationTriangle} iconstyle="fa-exclamation-triangle" text={<div><b>Warning</b> : Too few selections, this challenge has 1 more vote available and cannot be applied after submission.</div>}/>
+      <div className="btn-group error-group" role="group">
+        <span className="error-icon">
+          <img src={TechnicaIcon} style={{height:"20px"}}/>
+        </span>
+        <span className="error-text">
+          <b>ATTENTION</b>: All submitted votes are final, please see a member of Technica staff to change your votes.
+        </span>
+      </div>
+        <h5 style={{padding: "5px 0px", width:"100%", margin:"0px 10px", marginTop: "10px"}}><b>Best Hack to Help in a Crisis Winners</b></h5>
+        <ul style={{paddingLeft:"10px", borderLeft:"3px solid #00ffff", marginLeft:"13px"}}>
+          <li>Safety Net</li>
+          <li>Faze One</li>
+          <li>Mining Malware</li>
+        </ul>
+      </div>
+      <div class="modal-footer button-row">
+        <button class="button button-secondary" data-dismiss="modal">Cancel</button>
+        <button class="button button-primary" data-dismiss="modal">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
     );
   }
@@ -229,7 +267,10 @@ class Announcement extends Component {
 
 class Task extends Component {
   render() {
+    let winners = []
+
     let circle = this.props.submitted ? faCheckCircle : faCircle;
+
     return(
       <td className="card task">
         <div class="btn-group" role="group">
@@ -251,7 +292,7 @@ export class WelcomeHeader extends Component {
     let tasks = [];
     let all_submitted = true;
     Object.keys(this.props.data).map((challenge) => {
-      tasks.push(<Task challenge={challenge} submitted={this.props.data[challenge].submitted} />);
+      tasks.push(<Task challenge={challenge} submitted={this.props.data[challenge].submitted} winners={this.props.data[challenge].winners} />);
       if (this.props.data[challenge].submitted == false) {
         all_submitted = false;
       }
