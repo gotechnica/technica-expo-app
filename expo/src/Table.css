@@ -19,6 +19,7 @@ table {
     border-collapse: separate;
     border-spacing: 0px 5px;
     width: 100%;
+    table-layout: fixed;
 }
 
 th {

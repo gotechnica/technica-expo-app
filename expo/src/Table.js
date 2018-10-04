@@ -7,9 +7,9 @@ import TechnicaRibbon from './imgs/technica_award_ribbon.png';
 
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faExternalLinkAlt, faCaretRight, faCaretLeft } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faArrowRight, faCaretRight, faCaretLeft } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import SearchandFilter from './SearchandFilter';
-library.add(faExternalLinkAlt);
+library.add(faArrowRight);
 library.add(faCaretRight);
 library.add(faCaretLeft);
 
@@ -40,7 +40,7 @@ export class ProjectRow extends Component {
           <div className="name">
             {this.props.project_name+" "}
             <a href={this.props.project_url} target="_tab">
-              <FontAwesomeIcon icon={faExternalLinkAlt} className="LinkIcon"/>
+              <FontAwesomeIcon icon={faArrowRight} className="LinkIcon"/>
             </a>
           </div>
           <div className="Challenge-Wins">

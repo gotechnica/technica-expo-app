@@ -7,7 +7,9 @@ import {
 } from 'react-router-dom';
 
 import SiteWrapper from './SiteWrapper.js';
-
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faUpload} from '../node_modules/@fortawesome/fontawesome-free-solid'
 // TODO Pass sponsor and project IDs to the modals
 // TODO Connect actual data to project and sponsor state
 import CreateSponsorModal from './admin/CreateSponsorModal';
@@ -18,7 +20,7 @@ import EditProjectModal from './admin/EditProjectModal';
 
 import './Admin.css';
 import { faAllergies } from '@fortawesome/fontawesome-free-solid';
-
+library.add(faUpload);
 let Backend = require('./Backend.js');
 
 /* Admin page content (see PRD) */
@@ -38,7 +40,8 @@ class ProjectModule extends Component {
         {project_name: 'apple', table_number: '5',url:'www.hello.com',challenge_name:'challenge1'},
         {project_name: 'peaches', table_number: '7',url:'www.hello.com',challenge_name:'challenge1'},
         {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
-      ]
+      ],
+      uploadStatus:'',
     }
     // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
@@ -83,6 +86,36 @@ class ProjectModule extends Component {
     this.createAllChallenges(finalProjectsData);
     return finalProjectsData;
   }
+  onUploadCSVSubmitForm(e) {
+		e.preventDefault()
+
+    const data = new FormData();
+    data.append('projects_csv', this.projects_csv.files[0]);
+
+    if (this.projects_csv.files[0] == null) {
+      this.setState({
+        uploadStatus: 'Please select a file before hitting upload!'
+      });
+    } else {
+      fetch(`${Backend.URL}parse_csv`, {
+        method: 'POST',
+        body: data,
+      })
+        .catch((error) => {
+          this.state.uploadStatus = 'Oops! Something went wrong...'; // Flash success message
+          console.error('Error:', error);
+        })
+        .then((response) => {
+          return response.text();
+        })
+        .then((data) => {  // data = parsed version of the JSON from above endpoint.
+          this.projects_csv.value = ''; // Clear input field
+          this.setState({ // Flash success message
+            uploadStatus: data
+          });
+        });
+    }
+	}
 
   render() {
     console.log(this.sortData())
@@ -102,19 +135,22 @@ class ProjectModule extends Component {
           <h5>Projects</h5>
         </div>
         <div className="card-body">
-          <div className="form-group">
-            <label>Upload CSV to Database</label>
-            <input type="file"
-              id="fileProjCSV"
-              />
-          </div>
-          <button className="button button-primary"
-            onClick={(event) => {
-              //TODO pass file to DB
-              alert("upload file click");
-            }}>
-            Upload
-          </button>
+          <form
+            method="post"
+            enctype="multipart/form-data"
+            onSubmit={this.onUploadCSVSubmitForm.bind(this)}>
+            <div className="form-group">
+              <label>Upload CSV to Database</label>
+              <input type="file" id="file" className="inputfile" name="projects_csv" ref={(ref) => { this.projects_csv = ref; }} />
+              <label for="file"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</label>
+            </div>
+            <button className="button button-primary" type="submit">Upload</button>
+            {this.state.uploadStatus != '' &&
+              <div className="row col" style={{'padding-top': '1rem'}}>
+                {this.state.uploadStatus}
+              </div>
+            }
+          </form>
           <br/>
           <br/>
           <div className="custom-control custom-radio">
@@ -213,7 +249,7 @@ class SponsorModule extends Component {
   loadCompanies() {
     Backend.httpFunctions.getAsync('api/companies', (sponsors) => {
       this.setState({
-        sponsors: JSON.parse(sponsors)['All Companies']
+        sponsors: JSON.parse(sponsors)
       })
     });
   }
@@ -242,7 +278,8 @@ class SponsorModule extends Component {
           {
             access_code: elt.access_code,
             company_name: elt.company_name,
-            challenges: []
+            challenges: [],
+            id: elt.company_id
           }
         );
       }
@@ -254,11 +291,14 @@ class SponsorModule extends Component {
           current_sponsor = sponsor;
         }
       });
-      current_sponsor.challenges.push({
-        challenge: elt.challenge_name,
-        id: elt._id,
-        num_winners: elt.num_winners
-      });
+      if(elt.challenge_name != undefined) {
+        current_sponsor.challenges.push({
+          challenge: elt.challenge_name,
+          id: elt._id,
+          num_winners: elt.num_winners
+        });
+      }
+
     });
 
     // Prepare sponsor list against filter (including sponsor name and challenges)
@@ -323,6 +363,7 @@ class SponsorModule extends Component {
                           editID={"modalEditSponsor"+key.toString()}
                           sponsorCode={elt.access_code}
                           sponsorName={elt.company_name}
+                          sponsorID={elt.id}
                           onEdit={this.loadCompanies.bind(this)}
                           />
                         <button className="link-button"
@@ -340,11 +381,6 @@ class SponsorModule extends Component {
                           {elt.company_name + "'s challenges"}
                         </span>
                         <span className="ml-auto">
-                          <EditSponsorModal
-                            editID={"modalEditSponsor"+key.toString()}
-                            sponsorCode={elt.access_code}
-                            sponsorName={elt.company_name}
-                            />
 
                           <CreateChallengeModal
                             createID={"modalCreateChallenge"+key.toString()}

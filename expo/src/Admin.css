@@ -53,3 +53,31 @@
   line-height: 1.5;
   cursor: pointer;
 }
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+  width: 9rem;
+  padding-top:0.5rem;
+  height: 2.2rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: white;
+  background-color: #00C7C7;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 4px; 
+  margin-left: 1em;
+}
+
+.upload_icon{
+  margin-right: 0.6rem;
+}

@@ -19,14 +19,18 @@ class CreateSponsorModal extends Component {
       invalid_access: false,
       missing_access: false,
       company_name: '',
-      missing_company: false
+      missing_company: false,
+      challenge_name: '',
+      missing_challenge: false,
+      num_winners: 1,
+      missing_num_winners: false
     };
   }
 
   saveSponsor(e) {
     axios.get(Backend.httpFunctions.url + 'api/companies')
       .then(response => {
-        let sponsors = response['data']['All Companies'];
+        let sponsors = response['data'];
 
         let validAccess = true;
         for(let i = 0; i < sponsors.length; i++) {
