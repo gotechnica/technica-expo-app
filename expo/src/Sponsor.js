@@ -161,8 +161,8 @@ export class VotingTable extends Component {
           <table>
             <thead>
               <tr>
-                <th style={{width:"80px"}}>Select</th>
-                <th style={{width:"100px"}}>Table #</th>
+                <th>Select</th>
+                <th>Table #</th>
                 <th>Project Information</th>
               </tr>
             </thead>

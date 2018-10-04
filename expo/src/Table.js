@@ -78,7 +78,7 @@ export class Table extends Component {
           <table>
             <thead>
               <tr>
-                <th style={{width:"100px"}}>Table #</th>
+                <th>Table</th>
                 <th>Project Information</th>
               </tr>
             </thead>
