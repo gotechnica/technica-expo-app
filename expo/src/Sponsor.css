@@ -18,12 +18,10 @@
 
 #Sponsor table tr th:nth-of-type(3) {
   text-align: left;
-  padding-left: 20px;
 }
 
 #Sponsor td.Voting {
-  width: 4%;
-  text-align: center;
+  /* width: 4%; */
 }
 
 #Sponsor input[type=checkbox] {
