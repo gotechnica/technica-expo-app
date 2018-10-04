@@ -294,7 +294,7 @@ class SponsorModule extends Component {
       if(elt.challenge_name != undefined) {
         current_sponsor.challenges.push({
           challenge: elt.challenge_name,
-          id: elt._id,
+          id: elt.challenge_id,
           num_winners: elt.num_winners
         });
       }
@@ -384,7 +384,10 @@ class SponsorModule extends Component {
 
                           <CreateChallengeModal
                             createID={"modalCreateChallenge"+key.toString()}
-                            company={elt.company_name}/>
+                            company={elt.company_name}
+                            sponsorID={elt.id}
+                            onCreate={this.loadCompanies.bind(this)}
+                            />
                           <button className="link-button"
                               type="button"
                               data-toggle="modal"
@@ -400,11 +403,16 @@ class SponsorModule extends Component {
                       return (
                         <div>
                           {(i+1).toString() + ") " + challenge.challenge + " "}
-
+                          {
+                            console.log(challenge)
+                          }
                           <EditChallengeModal
                             createID={"modalEditChallenge"+elt.access_code.toString()+i.toString()}
                             challengeTitle={challenge.challenge}
                             numWinners={challenge.num_winners}
+                            challengeID={challenge.id}
+                            sponsorID={elt.id}
+                            onCreate={this.loadCompanies.bind(this)}
                             />
                           <button className="link-button"
                             type="button"

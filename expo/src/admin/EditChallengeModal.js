@@ -26,7 +26,8 @@ class EditChallengeModal extends Component {
 
   saveChallenge(e) {
 
-    // TODO: Can not set fewer winners if winners have been selected
+    // TODO: Can not set fewer winners if winners have been selected?
+    // TODO Block challenge editing if winners have been selected?
     let winnerLessZero = Number(this.state.num_winners) <= 0;
 
     let missingFields = this.state.challenge_title === ''
@@ -37,8 +38,14 @@ class EditChallengeModal extends Component {
     let valid = !winnerLessZero && !missingFields;
 
     if(valid) {
-      // TODO: Send challenge name and num challenges to db if validates
-      // TODO: Update state against db change
+      // Send challenge name and num challenges to db if validates
+      // Update state against db change
+      Backend.httpFunctions.postCallback('api/companies/id/'
+        + this.props.sponsorID + '/challenges/' + this.props.challengeID, {
+          "challenge_name": this.state.challenge_title,
+  	      "num_winners": this.state.num_winners
+      }, this.props.onCreate);
+
       // Reset state and close modal
       this.setState({
         challenge_title: this.props.challengeTitle,
@@ -49,20 +56,19 @@ class EditChallengeModal extends Component {
 
       document.getElementById("btnHideCreateChallengeModal" + this.props.createID).click();
 
+    }
+
+    // Show errors
+    if(missingFields) {
+      this.setState({missing_fields: true});
     } else {
-      // Show errors
-      if(missingFields) {
-        this.setState({missing_fields: true});
-      } else {
-        this.setState({missing_fields: false});
-      }
+      this.setState({missing_fields: false});
+    }
 
-      if(winnerLessZero) {
-        this.setState({winner_error: true});
-      } else {
-        this.setState({winner_error: false});
-      }
-
+    if(winnerLessZero) {
+      this.setState({winner_error: true});
+    } else {
+      this.setState({winner_error: false});
     }
   }
 
