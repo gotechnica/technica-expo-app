@@ -14,7 +14,7 @@ class Error extends Component {
     return (
       <div className="btn-group error-group" role="group">
         <span className="error-icon">
-          <FontAwesomeIcon icon={faExclamationTriangle} className="fa-exclamation-triangle"/>
+          <FontAwesomeIcon icon={this.props.icon} className={this.props.iconstyle}/>
         </span>
         <span className="error-text">
           {this.props.text}

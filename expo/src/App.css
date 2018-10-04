@@ -47,8 +47,13 @@ html {
   transition: all 0.2s ease-in-out;
 }
 
+/* Get rid of dark blue outline */
+.button:active, .button:focus {
+  outline: none;
+}
+
 /* Primary button styles */
-.button-primary:hover {
+.button-primary:not([disabled]):hover {
   background-color: #00FFFF;
   border: 3px solid #00FFFF;
 }
@@ -58,7 +63,7 @@ html {
 }
 
 /* Secondary button styles */
-.button-secondary:hover {
+.button-secondary:not([disabled]):hover {
   background-color: #FF96BD;
   border: 3px solid #FF96BD;
 }
@@ -66,6 +71,7 @@ html {
   background-color: #FF7BAC;
   border: 3px solid #FF7BAC;
 }
+
 
 /* Link style button */
 .link-button {
@@ -86,6 +92,7 @@ html {
 /* Error styles */
 .error-group {
   width: 100%;
+  margin-bottom: 7px;
 }
 .error-text {
   background-color: #2f2f2f;
