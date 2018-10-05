@@ -47,7 +47,7 @@ class EditChallengeModal extends Component {
         let minWinners = winners == undefined || winners.length == 0 ? 1 : winners.length;
 
         // Block set fewer winners if winners have been selected
-        let winnerLessZero = Number(this.state.num_winners) <= minWinners;
+        let winnerLessZero = Number(this.state.num_winners) < minWinners;
 
         let missingFields = this.state.challenge_title === ''
           || this.state.challenge_title === undefined
