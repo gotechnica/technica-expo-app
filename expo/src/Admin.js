@@ -585,20 +585,14 @@ class SponsorModule extends Component {
     render() {
       return (
         SiteWrapper(
-          <div>
           <div className="row">
             <div className="col">
               <WinnerModule/>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
               <SponsorModule/>
             </div>
             <div className="col">
               <ProjectModule/>
             </div>
-          </div>
           </div>
         )
       );
