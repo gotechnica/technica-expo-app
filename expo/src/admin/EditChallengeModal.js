@@ -6,8 +6,8 @@ import axios from 'axios';
 let Backend = require('../Backend.js');
 
 
-const InvalidWinnerErr = <Error text="Invalid number of winners!
-  A challenge must have one or more winner(s)." />;
+let InvalidWinnerErr = <Error text="Invalid number of winners!
+  This challenge must have one or more winner(s)." />;
 
 const MissingFieldsErr = <Error text="Invalid form!
   Please fill out all form fields."/>;
@@ -24,52 +24,76 @@ class EditChallengeModal extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      winner_error: false,
+      missing_fields: false,
+      challenge_title: nextProps.challengeTitle,
+      num_winners: nextProps.numWinners,
+    });
+  }
+
   saveChallenge(e) {
 
-    // TODO: Can not set fewer winners if winners have been selected?
-    // TODO Block challenge editing if winners have been selected?
-    let winnerLessZero = Number(this.state.num_winners) <= 0;
+    axios.get(Backend.httpFunctions.url + 'api/companies/id/' + this.props.sponsorID)
+      .then(response => {
+        let challenges = response['data'];
+        let winners = [];
+        for(let i = 0; i < challenges.length; i++) {
+          if(challenges[i].challenge_id == this.props.challengeID) {
+            winners = challenges[i].winners;
+          }
+        }
+        let minWinners = winners == undefined || winners.length == 0 ? 1 : winners.length;
 
-    let missingFields = this.state.challenge_title === ''
-      || this.state.challenge_title === undefined
-      || this.state.num_winners === ''
-      || this.state.num_winners === undefined;
+        // Block set fewer winners if winners have been selected
+        let winnerLessZero = Number(this.state.num_winners) <= minWinners;
 
-    let valid = !winnerLessZero && !missingFields;
+        let missingFields = this.state.challenge_title === ''
+          || this.state.challenge_title === undefined
+          || this.state.num_winners === ''
+          || this.state.num_winners === undefined;
 
-    if(valid) {
-      // Send challenge name and num challenges to db if validates
-      // Update state against db change
-      Backend.httpFunctions.postCallback('api/companies/id/'
-        + this.props.sponsorID + '/challenges/' + this.props.challengeID, {
-          "challenge_name": this.state.challenge_title,
-  	      "num_winners": this.state.num_winners
-      }, this.props.onCreate);
+        let valid = !winnerLessZero && !missingFields;
 
-      // Reset state and close modal
-      this.setState({
-        challenge_title: this.props.challengeTitle,
-        num_winners: this.props.numWinners,
-        winner_error: false,
-        missing_fields: false
+        if(valid) {
+          // Send challenge name and num challenges to db if validates
+          // Update state against db change
+          Backend.httpFunctions.postCallback('api/companies/id/'
+            + this.props.sponsorID + '/challenges/' + this.props.challengeID, {
+              "challenge_name": this.state.challenge_title,
+      	      "num_winners": this.state.num_winners
+          }, this.props.onCreate);
+
+          // Reset state and close modal
+          this.setState({
+            challenge_title: this.props.challengeTitle,
+            num_winners: this.props.numWinners,
+            winner_error: false,
+            missing_fields: false
+          });
+
+          document.getElementById("btnHideCreateChallengeModal" + this.props.createID).click();
+        }
+
+        // Show errors
+        if(missingFields) {
+          this.setState({missing_fields: true});
+        } else {
+          this.setState({missing_fields: false});
+        }
+
+        if(winnerLessZero) {
+          let invalidText = "Invalid number of winners!" +
+            " This challenge must have " + minWinners + " or more winner(s)."
+          InvalidWinnerErr = <Error text={invalidText} />;
+          this.setState({winner_error: true});
+        } else {
+          this.setState({winner_error: false});
+        }
+
       });
 
-      document.getElementById("btnHideCreateChallengeModal" + this.props.createID).click();
-
-    }
-
-    // Show errors
-    if(missingFields) {
-      this.setState({missing_fields: true});
-    } else {
-      this.setState({missing_fields: false});
-    }
-
-    if(winnerLessZero) {
-      this.setState({winner_error: true});
-    } else {
-      this.setState({winner_error: false});
-    }
   }
 
   render() {
