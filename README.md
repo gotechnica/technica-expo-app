@@ -14,11 +14,11 @@ A beautiful and intuitive web app to display hackathon projects for expo attende
 
 Starting from localhost in a development environment, use the following links to access this application.
 
-- Home /
-- Sponsor Login /sponsorLogin
-- Sponsor Dashboard /sponsor
-- Admin Login /adminLogin
-- Admin Dashboard /admin
+- Home `/`
+- Sponsor Login `/sponsorLogin`
+- Sponsor Dashboard `/sponsor`
+- Admin Login `/adminLogin`
+- Admin Dashboard `/admin`
 
 ## Contribution Guidelines
 
