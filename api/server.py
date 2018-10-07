@@ -407,6 +407,12 @@ def make_winner(project_id):
     if project_id in challenge_obj['winners']:
         return "Error: Project " + project_id + " is already winner for " + challenge_name
 
+    # Error if the challenge cannot accept more winners
+    challenge_winners_cap = challenge_obj['num_winners']
+    curr_num_winners = len(challenge_obj['winners'])
+    if curr_num_winners >= challenge_winners_cap:
+        return "Error: Challenge " + challenge_id + " is capped at " + str(challenge_winners_cap) + " winner(s)"
+
     # Modify company object
     company_obj['challenges'][challenge_id]['winners'].append(project_id)
     companies.find_one_and_update(
