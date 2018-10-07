@@ -59,8 +59,9 @@ def number_to_table(number):
 
 
 # checks if hacker responds with a table number, so they can't move
-def needs_to_stay(response):
-    return re.search('([a-zA-Z]+\d+)', response)
+# can match table numbers which are either purely numerical or prefixed by A-Z
+def check_if_needs_to_stay(response):
+    return re.search('([a-zA-Z]*\d+)', response)
 
 
 # best domain name......
