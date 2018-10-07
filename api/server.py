@@ -18,6 +18,9 @@ CORS(app)
 app.config.from_object('config')
 mongo = PyMongo(app)
 
+# Global variables
+publish_winners = False # Flag that admin can flip to show winner status in '/'
+
 
 @app.route('/')
 def hello():
@@ -31,7 +34,7 @@ def hello():
 def get_all_projects():
     projects = mongo.db.projects
 
-    output = []
+    projects_list = []
     for p in projects.find():
         temp_project = {
             'project_id': str(p['_id']),
@@ -41,8 +44,12 @@ def get_all_projects():
             'challenges': p['challenges'],
             'challenges_won': p['challenges_won']
         }
-        output.append(temp_project)
+        projects_list.append(temp_project)
 
+    output = {
+        'publish_winners': publish_winners,
+        'projects': projects_list
+    }
     return jsonify(output)
 
 @app.route('/api/projects/id/<project_id>', methods=['GET'])
@@ -120,6 +127,13 @@ def bulk_add_projects_internal(packet):
     projects = mongo.db.projects
     result = projects.insert_many(packet)
     return result
+
+@app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
+def update_publish_winners_flag():
+    global publish_winners  # Use the var defined at top of file
+    if request.method == 'POST' and request.json['publish_winners']:
+        publish_winners = request.json['publish_winners']
+    return str(publish_winners)
 
 @app.route('/api/projects/add', methods=['POST'])
 def add_project():
