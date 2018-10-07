@@ -90,7 +90,7 @@ def already_in_db():
 # parses devpost csv and separates hackers into two groups
 # can't move: assigns table and spot, adds not_moving list
 # can move: adds to moving list
-def parse_CSV(reader):
+def parse_csv_internal(reader):
     #already_stored = already_in_db()
     for row in reader:
         project_name = row["Submission Title"]
@@ -177,7 +177,7 @@ def main():
     # reader = csv.DictReader(csvFile)
     reader = csv.DictReader(open("sample-devpost-submissions-export.csv", "rt", encoding="utf8", errors='ignore'))
 
-    parse_CSV(reader)
+    parse_csv_internal(reader)
     seed_hackers()
     # fancy_seed_hackers()
     #add_project(not_moving)
