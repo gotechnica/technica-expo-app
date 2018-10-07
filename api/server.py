@@ -124,9 +124,10 @@ def get_project_list(projects_obj):
     return project_data
 
 def bulk_add_projects_internal(packet):
-    projects = mongo.db.projects
-    result = projects.insert_many(packet)
-    return result
+    if len(packet) != 0:
+        projects = mongo.db.projects
+        result = projects.insert_many(packet)
+        return result
 
 @app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
 def update_publish_winners_flag():
