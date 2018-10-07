@@ -13,17 +13,19 @@ import time
 #  .               .              .  .           .
 #  A15 ..........  N15            15 30 ........ 210
 
-
-# gdi_devpost -> csv is dumb lmao
+# Global variables:
 # moving -> list of projects that can move
 # not_moving -> list of projects that can't move
 # spots -> dict that goes table number:hack name
 # assignments -> list of spots that are taken
-gdi_devpost = "Does Your Hack Need To Stay At Your Current Table? " \
-              "(I.E. Hardware, Vr/Ar Hacks). If So, What Table" \
-              " Number Are You At?"
-moving, not_moving = {}, {}
 
+# TODO: remove this comment block, don't need.
+# # gdi_devpost -> csv is dumb lmao
+# gdi_devpost = "Does Your Hack Need To Stay At Your Current Table? " \
+#               "(I.E. Hardware, Vr/Ar Hacks). If So, What Table" \
+#               " Number Are You At?"
+
+moving, not_moving = {}, {}
 
 # number of tables available
 # assume 10 spots per table
@@ -90,27 +92,27 @@ def already_in_db():
 # parses devpost csv and separates hackers into two groups
 # can't move: assigns table and spot, adds not_moving list
 # can move: adds to moving list
-def parse_csv_internal(reader):
+def parse_csv_internal(reader, not_moving_question=None):
     #already_stored = already_in_db()
     for row in reader:
         project_name = row["Submission Title"]
         project_url = row["Submission Url"]
         challenges = format_challenges(row["Desired Prizes"])
-        response = row[gdi_devpost]
+
+        if not_moving_question is None:
+            needs_to_stay = None
+            response = None
+        else:
+            # If config file has a question string defined for Devpost question
+            # asking if project shouldn't move, then get curr row's response
+            response = row[not_moving_question]
+            needs_to_stay = check_if_needs_to_stay(response)
 
         name = row['Submission Title'].strip()
-        #if name not in already_stored:
-        staying = needs_to_stay(response)
-        if staying is not None:
+        if needs_to_stay is not None:
             not_moving[project_name] = Project(project_url, challenges)
-            assignments[table_to_number(staying.group(0))] = name + " | "
-            not_moving[project_name].table_number = staying.group(0)
-        elif "No" not in response and \
-             "no" not in response and \
-             "NO" not in response and \
-             response is not "":
-            print("Manually handle " + project_name)
-            print("Response: " + response)
+            assignments[table_to_number(needs_to_stay.group(0))] = name + " | "
+            not_moving[project_name].table_number = needs_to_stay.group(0)
         else:
             moving[project_name] = Project(project_url, challenges)
     return moving, not_moving

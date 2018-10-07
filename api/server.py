@@ -104,7 +104,7 @@ def parse_csv():
     with file.stream as temp_file:
         fd = temp_file.fileno()
         reader = csv.DictReader(io.open(fd, "rt", encoding="utf8", errors='ignore'))
-        moving, not_moving = parse_csv_internal(reader)
+        moving, not_moving = parse_csv_internal(reader, current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION'])
         bulk_add_projects_internal(get_project_list(not_moving))
         bulk_add_projects_internal(get_project_list(moving))
     # TODO(timothychen01): Just return the integer
