@@ -9,18 +9,26 @@ import {
 import SiteWrapper from './SiteWrapper.js';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUpload} from '../node_modules/@fortawesome/fontawesome-free-solid'
-// TODO Pass sponsor and project IDs to the modals
-// TODO Connect actual data to project and sponsor state
+import {faUpload,
+  faCaretDown,
+  faCaretUp,
+  faCheckSquare,
+  faAllergies} from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
 import CreateSponsorModal from './admin/CreateSponsorModal';
 import CreateChallengeModal from './admin/CreateChallengeModal';
 import EditSponsorModal from './admin/EditSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
-
+import axios from 'axios';
 import './Admin.css';
-import { faAllergies } from '@fortawesome/fontawesome-free-solid';
+
 library.add(faUpload);
+library.add(faCaretDown);
+library.add(faCaretUp);
+library.add(faCheckSquare);
+library.add(faSquare);
+
 let Backend = require('./Backend.js');
 
 /* Admin page content (see PRD) */
@@ -235,9 +243,6 @@ class ProjectModule extends Component {
 /* Sponsor side of admin page */
 class SponsorModule extends Component {
 
-  // TODO Add actual data as sponsor list
-  // One sponsor appears as
-  // {_id: 1, access_code: 1, company_name: 'Cat', challenge_name: 'challenge1', num_winners: 1}
   constructor(props) {
     super(props);
     this.state = {
@@ -294,7 +299,7 @@ class SponsorModule extends Component {
       if(elt.challenge_name != undefined) {
         current_sponsor.challenges.push({
           challenge: elt.challenge_name,
-          id: elt._id,
+          id: elt.challenge_id,
           num_winners: elt.num_winners
         });
       }
@@ -384,7 +389,10 @@ class SponsorModule extends Component {
 
                           <CreateChallengeModal
                             createID={"modalCreateChallenge"+key.toString()}
-                            company={elt.company_name}/>
+                            company={elt.company_name}
+                            sponsorID={elt.id}
+                            onCreate={this.loadCompanies.bind(this)}
+                            />
                           <button className="link-button"
                               type="button"
                               data-toggle="modal"
@@ -400,11 +408,16 @@ class SponsorModule extends Component {
                       return (
                         <div>
                           {(i+1).toString() + ") " + challenge.challenge + " "}
-
+                          {
+                            console.log(challenge)
+                          }
                           <EditChallengeModal
                             createID={"modalEditChallenge"+elt.access_code.toString()+i.toString()}
                             challengeTitle={challenge.challenge}
                             numWinners={challenge.num_winners}
+                            challengeID={challenge.id}
+                            sponsorID={elt.id}
+                            onCreate={this.loadCompanies.bind(this)}
                             />
                           <button className="link-button"
                             type="button"
@@ -427,6 +440,146 @@ class SponsorModule extends Component {
     }
   }
 
+  class WinnerModule extends Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        showPreview: false,
+        data: [],
+        winnersRevealed: false
+      }
+    }
+
+    loadWinners() {
+      // toggle based on state
+
+      // Pull data, add to state, and show
+      axios.get(Backend.httpFunctions.url + 'api/companies')
+        .then(response1 => {
+
+          let sponsors = response1['data'];
+
+          axios.get(Backend.httpFunctions.url + 'api/projects')
+            .then(response2 => {
+
+              console.log(response2['data']);
+
+              let projects = response2['data'].filter(elt => {
+                return elt.challenges_won != undefined
+                  && elt.challenges_won.length > 0;
+              });
+
+              //Build sponsor - challenge - winners struct
+              let data = sponsors.filter(elt => {
+                return elt.challenge_name != undefined
+                  && elt.winners != undefined && elt.winners.length > 0;
+              }).map(elt => {
+
+                // elt.winners => winner IDs
+                // for each project, if proj.challenges_won contains elt.challenge_id
+                // add proj.project_name to winners
+                let winners = [];
+                for(let i = 0; i < projects.length; i++) {
+                  if(projects[i].challenges_won.includes(elt.challenge_id)) {
+                    winners.push(projects[i].project_name);
+                  }
+                }
+
+                return {
+                  sponsor: elt.company_name,
+                  challenge: elt.challenge_name,
+                  winners: winners
+                }
+              });
+
+              this.setState({
+                data: data.sort((s1, s2) => {
+                  return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
+              });
+
+            });
+
+        });
+    }
+
+    toggleWinnerPreview() {
+      if(this.state.showPreview) {
+        this.setState({
+          showPreview: false
+        });
+      } else {
+        this.loadWinners();
+        this.setState({
+          showPreview: true
+        });
+      }
+    }
+
+    componentWillMount() {
+      // Get a data dump
+      // sponsor - challenge - winner project names
+      // Get sponsors, then projects
+      this.loadWinners();
+    }
+
+    render() {
+
+      let caret = this.state.showPreview ?
+        <FontAwesomeIcon icon={faCaretUp} className="fa-caret-up"></FontAwesomeIcon>
+        :
+        <FontAwesomeIcon icon={faCaretDown} className="fa-caret-down"></FontAwesomeIcon>;
+
+      return (
+        <div className="card">
+          <div className="card-header">
+            <h5>Administration</h5>
+          </div>
+          <div className="card-body">
+            <div class="d-flex">
+                <div>
+                  <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
+                    {!this.state.showPreview ?
+                      "Preview Winners "
+                      :
+                      "Hide Winners "}
+                    {caret}
+                  </button>
+                </div>
+                <div class="ml-auto">
+                  {this.state.winnersRevealed ?
+                    <button type="button" className="button button-secondary">
+                      Hide Public Winners
+                    </button>
+                    :
+                    <button type="button" className="button button-primary">
+                      Reveal Public Winners
+                    </button>
+                  }
+                </div>
+           </div>
+
+           {
+             this.state.showPreview ?
+               this.state.data.length == 0 ?
+                 "No winners have been selected"
+                 :
+                 this.state.data.map(elt => {
+                   return (<div>
+                     {elt.sponsor + " - " + elt.challenge + " - " + elt.winners.join(", ")}
+                   </div>);
+                 })
+               :
+               ""
+           }
+
+          </div>
+        </div>
+      );
+    }
+
+  }
+
   /* Final class containing admin page */
   class Admin extends Component {
     render() {
@@ -434,6 +587,7 @@ class SponsorModule extends Component {
         SiteWrapper(
           <div className="row">
             <div className="col">
+              <WinnerModule/>
               <SponsorModule/>
             </div>
             <div className="col">

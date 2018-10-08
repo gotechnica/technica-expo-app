@@ -1,19 +1,15 @@
 /* react components */
 import React, { Component } from 'react';
+import Error from '../Error.js';
+import axios from 'axios';
 
-const InvalidWinnerErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid number of winners! </strong>
-      A challenge must have one or more winner(s).
-  </div>
-);
+let Backend = require('../Backend.js');
 
-const MissingFieldsErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid form! </strong>
-      Please fill out all form fields.
-  </div>
-);
+const InvalidWinnerErr = <Error text="Invalid number of winners!
+  A challenge must have one or more winner(s)."/>;
+
+const MissingFieldsErr = <Error text="Invalid form!
+  Please fill out all form fields."/>;
 
 class CreateChallengeModal extends Component {
 
@@ -27,6 +23,15 @@ class CreateChallengeModal extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      winner_error: false,
+      missing_fields: false,
+      challenge_title: '',
+      num_winners: 1,
+    });
+  }
+
   saveChallenge(e) {
 
     let winnerLessZero = Number(this.state.num_winners) <= 0;
@@ -38,8 +43,14 @@ class CreateChallengeModal extends Component {
     let valid = !winnerLessZero && !missingFields;
 
     if(valid) {
-      // TODO: Send challenge name and num challenges to db if validates
-      // TODO: Update state against db change
+      // Send challenge name and num challenges to db if validates
+      // Update state against db change
+      Backend.httpFunctions.postCallback('api/companies/id/'
+        + this.props.sponsorID + '/challenges/add', {
+          "challenge_name": this.state.challenge_title,
+  	      "num_winners": this.state.num_winners
+      }, this.props.onCreate);
+
       // Reset state and close modal
       this.setState({
         challenge_title: '',
@@ -50,20 +61,19 @@ class CreateChallengeModal extends Component {
 
       document.getElementById("btnHideCreateChallengeModal" + this.props.createID).click();
 
+    }
+
+    // Show errors
+    if(missingFields) {
+      this.setState({missing_fields: true});
     } else {
-      // Show errors
-      if(missingFields) {
-        this.setState({missing_fields: true});
-      } else {
-        this.setState({missing_fields: false});
-      }
+      this.setState({missing_fields: false});
+    }
 
-      if(winnerLessZero) {
-        this.setState({winner_error: true});
-      } else {
-        this.setState({winner_error: false});
-      }
-
+    if(winnerLessZero) {
+      this.setState({winner_error: true});
+    } else {
+      this.setState({winner_error: false});
     }
   }
 

@@ -18,6 +18,9 @@ CORS(app)
 app.config.from_object('config')
 mongo = PyMongo(app)
 
+# Global variables
+publish_winners = False # Flag that admin can flip to show winner status in '/'
+
 
 @app.route('/')
 def hello():
@@ -31,7 +34,7 @@ def hello():
 def get_all_projects():
     projects = mongo.db.projects
 
-    output = []
+    projects_list = []
     for p in projects.find():
         temp_project = {
             'project_id': str(p['_id']),
@@ -41,8 +44,12 @@ def get_all_projects():
             'challenges': p['challenges'],
             'challenges_won': p['challenges_won']
         }
-        output.append(temp_project)
+        projects_list.append(temp_project)
 
+    output = {
+        'publish_winners': publish_winners,
+        'projects': projects_list
+    }
     return jsonify(output)
 
 @app.route('/api/projects/id/<project_id>', methods=['GET'])
@@ -97,7 +104,7 @@ def parse_csv():
     with file.stream as temp_file:
         fd = temp_file.fileno()
         reader = csv.DictReader(io.open(fd, "rt", encoding="utf8", errors='ignore'))
-        moving, not_moving = parse_CSV(reader)
+        moving, not_moving = parse_csv_internal(reader, current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION'])
         bulk_add_projects_internal(get_project_list(not_moving))
         bulk_add_projects_internal(get_project_list(moving))
     # TODO(timothychen01): Just return the integer
@@ -117,9 +124,17 @@ def get_project_list(projects_obj):
     return project_data
 
 def bulk_add_projects_internal(packet):
-    projects = mongo.db.projects
-    result = projects.insert_many(packet)
-    return result
+    if len(packet) != 0:
+        projects = mongo.db.projects
+        result = projects.insert_many(packet)
+        return result
+
+@app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
+def update_publish_winners_flag():
+    global publish_winners  # Use the var defined at top of file
+    if request.method == 'POST' and request.json['publish_winners']:
+        publish_winners = request.json['publish_winners']
+    return str(publish_winners)
 
 @app.route('/api/projects/add', methods=['POST'])
 def add_project():
@@ -370,6 +385,13 @@ def update_project_challenge_status(project_id):
 
     return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
 
+
+# NOTE: THIS API FORCES US TO NEVER NAME A CHALLENGE AS A SUBSTRING OF ANOTHER CHALLENGE
+def update_win_status(project_challenge_obj, company_name, challenge_name, didWin):
+    if (project_challenge_obj['company'] == company_name and project_challenge_obj['challenge_name'] in challenge_name):
+        project_challenge_obj['won'] = didWin
+    return project_challenge_obj
+
 @app.route('/api/projects/id/<project_id>/makeWinner', methods=['POST'])
 def make_winner(project_id):
     projects = mongo.db.projects
@@ -379,36 +401,37 @@ def make_winner(project_id):
 
     project_obj = projects.find_one({'_id': ObjectId(project_id)})
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
-    challenge_name = company_obj['challenges'][challenge_id]['challenge_name']
+    challenge_obj = company_obj['challenges'][challenge_id]
+    challenge_name = challenge_obj['challenge_name']
 
     # Check if project has already won the same challenge (prevent duplicate form entry)
-    if project_id in company_obj['challenges'][challenge_id]['winners']:
+    if project_id in challenge_obj['winners']:
         return "Error: Project " + project_id + " is already winner for " + challenge_name
+
+    # Error if the challenge cannot accept more winners
+    challenge_winners_cap = challenge_obj['num_winners']
+    curr_num_winners = len(challenge_obj['winners'])
+    if curr_num_winners >= challenge_winners_cap:
+        return "Error: Challenge " + challenge_id + " is capped at " + str(challenge_winners_cap) + " winner(s)"
 
     # Modify company object
     company_obj['challenges'][challenge_id]['winners'].append(project_id)
+    companies.find_one_and_update(
+        {'_id': ObjectId(company_id)},
+        {'$set': company_obj}
+    )
 
     # Modify project object
     company_name = company_obj['company_name']
     updated_challenges_list = list(map(lambda challenge_obj: update_win_status(challenge_obj, company_name, challenge_name, True), project_obj['challenges']))
     project_obj['challenges'] = updated_challenges_list
     project_obj['challenges_won'].append(challenge_id)
-
-    companies.find_one_and_update(
-        {'_id': ObjectId(company_id)},
-        {'$set': company_obj}
-    )
     projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
         {'$set': project_obj}
     )
 
     return "Updated project " + project_id
-# NOTE: THIS API FORCES US TO NEVER NAME A CHALLENGE AS A SUBSTRING OF ANOTHER CHALLENGE
-def update_win_status(project_challenge_obj, company_name, challenge_name, didWin):
-    if (project_challenge_obj['company'] == company_name and project_challenge_obj['challenge_name'] in challenge_name):
-        project_challenge_obj['won'] = didWin
-    return project_challenge_obj
 
 @app.route('/api/projects/id/<project_id>/makeNonWinner', methods=['POST'])
 def make_non_winner(project_id):
@@ -419,23 +442,25 @@ def make_non_winner(project_id):
 
     project_obj = projects.find_one({'_id': ObjectId(project_id)})
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
+    challenge_obj = company_obj['challenges'][challenge_id]
+    challenge_name = challenge_obj['challenge_name']
 
     # Modify company object
-    old_winners_list = company_obj['challenges'][challenge_id]['winners']
+    old_winners_list = challenge_obj['winners']
     company_obj['challenges'][challenge_id]['winners'] = list(filter(lambda winner_id: winner_id != project_id, old_winners_list))
-
-    # Modify project object
-    company_name = company_obj['company_name']
-    challenge_name = company_obj['challenges'][challenge_id]['challenge_name']
-    updated_challenges_list = list(map(lambda challenge_obj: update_win_status(challenge_obj, company_name, challenge_name, False), project_obj['challenges']))
-    project_obj['challenges'] = updated_challenges_list
-    old_challenges_won_list = project_obj['challenges_won']
-    project_obj['challenges_won'] = list(filter(lambda c_id: c_id != challenge_id, old_challenges_won_list))
-
     companies.find_one_and_update(
         {'_id': ObjectId(company_id)},
         {'$set': company_obj}
     )
+
+    # Modify project object
+    if project_obj is None:
+        return "Project does not exist, exiting early."
+    company_name = company_obj['company_name']
+    updated_challenges_list = list(map(lambda challenge_obj: update_win_status(challenge_obj, company_name, challenge_name, False), project_obj['challenges']))
+    project_obj['challenges'] = updated_challenges_list
+    old_challenges_won_list = project_obj['challenges_won']
+    project_obj['challenges_won'] = list(filter(lambda c_id: c_id != challenge_id, old_challenges_won_list))
     projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
         {'$set': project_obj}

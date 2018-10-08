@@ -11,10 +11,16 @@ class Error extends Component {
   }
 
   render() {
+
+    let icon = this.props.icon == undefined ?
+      faExclamationTriangle : this.props.icon;
+    let className = this.props.iconstyle == undefined ?
+      "fa-exclamation-triangle" : this.props.iconstyle;
+
     return (
       <div className="btn-group error-group" role="group">
         <span className="error-icon">
-          <FontAwesomeIcon icon={this.props.icon} className={this.props.iconstyle}/>
+          <FontAwesomeIcon icon={icon} className={className}/>
         </span>
         <span className="error-text">
           {this.props.text}
