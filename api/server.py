@@ -152,6 +152,7 @@ def assign_remaining_table_numbers():
         # If table number hasn't been assigned yet, assign next available one
         if p['table_number'] == '':
             p['table_number'] = available_tables_list[i]
+            # TODO(timothychen01): Optimize by executing bulk update instead of individual DB calls
             projects.find_one_and_update(
                 {'_id': ObjectId(p['_id'])},
                 {'$set': p}
@@ -171,28 +172,6 @@ def get_available_table_numbers(table_assignment_schema, used_tables_set, num_pr
     elif table_assignment_schema == 'numeric':
         max_table_numbers_list = range(1, num_tables_needed + 1)
     return list(set(max_table_numbers_list) - used_tables_set) # Remove used table numbers
-
-# Valid schemas: 'numeric', 'evens', 'odds'
-# def get_next_table_number(curr_table, table_assignment_schema, used_tables_set):
-#     candidate = 0
-#     if curr_table == None:
-#         if table_assignment_schema == 'evens':
-#             candidate = 2
-#         elif table_assignment_schema == 'odds' or table_assignment_schema == 'numeric':
-#             candidate = 1
-#
-#     print(canddiate)
-#
-#     # Schemas incremental by 2
-#     if table_assignment_schema == 'evens' or table_assignment_schema == 'odds':
-#         while candidate in used_tables_set:
-#             candidate += 2
-#     elif table_assignment_schema == 'numeric':
-#         while candidate in used_tables_set:
-#             candidate += 1
-#
-#     return candidate
-
 
 @app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
 def update_publish_winners_flag():
