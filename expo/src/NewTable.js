@@ -1,13 +1,99 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment} from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './NewTable.css';
-
+import TechnicaIcon from './imgs/technica-circle-small.png';
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import { faCheckSquare,
+         faCheckCircle,
+         faTimesCircle,
+         faExclamationTriangle } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faSquare, faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import Error from './Error.js';
 library.add(faCheckSquare)
+library.add(faCheckCircle)
+library.add(faTimesCircle)
+library.add(faExclamationTriangle)
 library.add(faSquare)
+library.add(faCircle)
+
+export class SmallerParentheses extends Component {
+  render() {
+    let reducedFontSize = { fontSize: this.props.font_size };
+    return (
+      <Fragment>
+        <span style={reducedFontSize}>(</span>
+        {this.props.children}
+        <span style={reducedFontSize}>)</span>
+      </Fragment>
+    );
+  }
+}
+
+class SubmitModal extends Component {
+  render() {
+    let parentheses = <SmallerParentheses font_size="12px">s</SmallerParentheses>;
+    let modal =
+      { error:
+        { icon: faTimesCircle,
+          iconstyle: "fa-times-circle",
+          message:
+            <Fragment>
+              Error: Too many projects selected, only X project
+              {parentheses}
+              &nbsp;may be selected to win this challenge.
+            </Fragment>
+        },
+        warning:
+          { icon: faExclamationTriangle,
+            iconstyle: "fa-exclamation-triangle",
+            message:
+              <Fragment>
+                Warning: This challenge allows X winning project
+                {parentheses}
+                , but only Y was/were selected
+              </Fragment>
+          }
+      };
+    return (
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Votes</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <Error icon={modal.error.icon} iconstyle={modal.error.iconstyle}>
+                {modal.error.message}
+              </Error>
+              <Error
+                technica_icon = {TechnicaIcon}
+                iconstyle = "technica-icon"
+                text="Attention: All submitted votes are final."
+              />
+              <h5 className="modal-challenge">
+                Best Hack to Help in a Crisis Winners
+              </h5>
+              <ul className="selection-list">
+                <li>Safety Net</li>
+                <li>Faze One</li>
+                <li>Mining Malware</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button className="button button-secondary" data-dismiss="modal">Cancel</button>
+              <button className="button button-primary" data-dismiss="modal">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
 export class ProjectRow extends Component {
   render() {
@@ -170,7 +256,7 @@ export class NewTable extends Component {
         winners.push(ckbx.value);
       }
     }
-    alert(winners);
+    /*alert(winners);*/
     /*alert(JSON.stringify(this.props.voting_data));
     alert(JSON.stringify(this.props.sponsor_challenges));*/
   }
@@ -242,8 +328,9 @@ export class NewTable extends Component {
         :
         <div>
           <button className="button button-secondary clear" onClick={this.handleClearEvent}>Clear</button>
-          <button className="button button-primary submit" onClick={this.handleSubmitEvent}>Submit</button>
+          <button className="button button-primary submit" data-toggle="modal" data-target="#exampleModalCenter">Submit</button>
         </div> }
+        <SubmitModal />
       </div>
     );
   }

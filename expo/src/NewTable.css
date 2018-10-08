@@ -1,3 +1,6 @@
+#Sponsor .technica-icon {
+  height: 20px;
+}
 /* Hide default checkbox */
 #Sponsor input[type=checkbox] {
   display: none;
@@ -16,6 +19,19 @@
   color: white;
   text-decoration: none;
 }
+
+#Sponsor h5.modal-challenge {
+  font-weight: bold;
+  padding: 5px 0px;
+  width: 100%;
+  margin: 10px 10px 0px;
+}
+#Sponsor ul.selection-list {
+  padding-left: 10px;
+  border-left: 3px solid #00FFFF;
+  margin-left: 13px;
+}
+
 
 /* ============= [Button Group Display] ============= */
 #Sponsor .btn {
@@ -43,7 +59,16 @@
 #Sponsor .vote {
   padding: 4px 15px 0px 23px;
 }
+#Sponsor div.table {
+  color: white;
+  font-size: 17px;
+  font-weight: normal;
+  text-align: left;
 
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
 /* ================================================== */
 /* ================ [Table Display] ================= */
 #Sponsor table {
@@ -122,29 +147,23 @@
 
 @media screen and (max-width: 374px) {
   #Sponsor div.no-submissions {
-
     word-break: break-all;
   }
+
 }
 
-@media screen and (max-width: 500px) {
-  #Sponsor div.table {
-    color: white;
-    font-size: 17px;
-    font-weight: normal;
-    text-align: left;
-
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
+@media screen and (max-width: 475px) {
+  .modal-footer {
+    display: block;
   }
-}
-
-@media screen and (max-width: 600px) {
   #Sponsor button.button {
     width: 100%;
     font-size: 20px;
     margin-top: 10px;
-    padding: 5px 0px;
+    margin-left: 0px;
   }
+}
+
+@media screen and (max-width: 600px) {
+
 }

@@ -132,3 +132,6 @@ html {
   outline: none;
   border-right: 2px solid rgb(255,255,255,0.125);
 }
+.fa-exclamation-triangle {
+  color: #00ffff;
+}
