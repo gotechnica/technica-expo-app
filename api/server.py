@@ -129,6 +129,71 @@ def bulk_add_projects_internal(packet):
         result = projects.insert_many(packet)
         return result
 
+@app.route('/api/projects/assign_tables', methods=['POST'])
+def assign_remaining_table_numbers():
+    projects = mongo.db.projects
+    all_projects = projects.find()
+
+    # Get all used table assignments
+    used_tables_array = []
+    for p in all_projects.clone():
+        if p['table_number'] != '':
+            used_tables_array.append(p['table_number'])
+
+    # Check for existing duplicates
+    used_tables_set = set(used_tables_array)
+    if (len(used_tables_array) != len(used_tables_set)):
+        return 'Error: there exists a duplicate table number in the DB. Please resolve duplicate before continuing.'
+
+    table_assignment_schema = request.json['table_assignment_schema']
+    available_tables_list = get_available_table_numbers(table_assignment_schema, used_tables_set, all_projects.count())
+    i = 0
+    for p in all_projects:
+        # If table number hasn't been assigned yet, assign next available one
+        if p['table_number'] == '':
+            p['table_number'] = available_tables_list[i]
+            projects.find_one_and_update(
+                {'_id': ObjectId(p['_id'])},
+                {'$set': p}
+            )
+            i += 1
+
+    return f'{all_projects.count() - len(used_tables_array)} projects have been assigned tables. {len(used_tables_array)} projects maintain their old table.'
+
+# Valid schemas: 'numeric', 'evens', 'odds'
+def get_available_table_numbers(table_assignment_schema, used_tables_set, num_projects):
+    max_table_numbers_list = []
+    num_tables_needed = num_projects + len(used_tables_set)
+    if table_assignment_schema == 'evens':
+        max_table_numbers_list = range(2, num_tables_needed * 2 + 2, 2)
+    elif table_assignment_schema == 'odds':
+        max_table_numbers_list = range(1, num_tables_needed * 2 + 1, 2)
+    elif table_assignment_schema == 'numeric':
+        max_table_numbers_list = range(1, num_tables_needed + 1)
+    return list(set(max_table_numbers_list) - used_tables_set) # Remove used table numbers
+
+# Valid schemas: 'numeric', 'evens', 'odds'
+# def get_next_table_number(curr_table, table_assignment_schema, used_tables_set):
+#     candidate = 0
+#     if curr_table == None:
+#         if table_assignment_schema == 'evens':
+#             candidate = 2
+#         elif table_assignment_schema == 'odds' or table_assignment_schema == 'numeric':
+#             candidate = 1
+#
+#     print(canddiate)
+#
+#     # Schemas incremental by 2
+#     if table_assignment_schema == 'evens' or table_assignment_schema == 'odds':
+#         while candidate in used_tables_set:
+#             candidate += 2
+#     elif table_assignment_schema == 'numeric':
+#         while candidate in used_tables_set:
+#             candidate += 1
+#
+#     return candidate
+
+
 @app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
 def update_publish_winners_flag():
     global publish_winners  # Use the var defined at top of file
