@@ -1,0 +1,150 @@
+/* Hide default checkbox */
+#Sponsor input[type=checkbox] {
+  display: none;
+}
+#Sponsor .fa-square, .fa-check-square {
+  font-size: 50px;
+  color: #FF7BAC;
+}
+#Sponsor .fa-square, .disabled {
+  opacity: 0.5;
+}
+#Sponsor .hoverable:hover {
+  opacity: 1;
+}
+#Sponsor .link, #Sponsor .link:hover {
+  color: white;
+  text-decoration: none;
+}
+
+/* ============= [Button Group Display] ============= */
+#Sponsor .btn {
+  color: white;
+  font-size: 22.5px;
+  font-weight: bold;
+
+  text-align: left;
+  white-space: normal;
+
+  padding-left: 10px;
+
+  background-color: #2F2F2F;
+  outline: none;
+}
+ /* Override bootstrap button outline */
+#Sponsor .btn:active,.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+/* Dark grey border for each row */
+#Sponsor div.voting-row, tr.voting-row td {
+  border-top: 2px solid #222222;
+}
+#Sponsor .vote {
+  padding: 4px 15px 0px 23px;
+}
+
+/* ================================================== */
+/* ================ [Table Display] ================= */
+#Sponsor table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#Sponsor table tr.voting-row td {
+  padding: 7px 0px;
+}
+#Sponsor table tr.voting-row td:nth-of-type(1) {
+  text-align: center;
+  width: 95px;
+}
+#Sponsor table tr.voting-row td:nth-of-type(2) {
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+  width: 60px;
+}
+#Sponsor table tr.voting-row td:nth-of-type(3) {
+  font-size: 22.5px;
+  font-weight: bold;
+  padding-left: 20px;
+}
+#Sponsor table th {
+  font-size: 17.5px;
+  text-align: center;
+  padding-bottom: 5px;
+}
+#Sponsor table th:nth-of-type(3) {
+  text-align: left;
+  padding-left: 20px;
+}
+/* ================================================== */
+/* ======== [Override Technica Button Styles] ======= */
+#Sponsor button.button {
+  font-size: 20px;
+  margin-top: 10px;
+  padding: 5px 15px;
+  -webkit-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
+}
+#Sponsor button.submit {
+  float: right;
+  width: 200px;
+}
+#Sponsor div.no-submissions {
+  text-align: center;
+  white-space: pre-wrap;
+
+  margin: 10px 0px;
+  height: 200px;
+
+  background-color: #1c1c1c;
+
+  opacity: 0.75;
+
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#Sponsor div.no-submissions h2 {
+  font-weight: bolder;
+}
+/* ================================================== */
+
+@media screen and (max-width: 300px) {
+  #Sponsor .btn {
+     word-wrap: normal;
+     word-break: break-all;
+   }
+}
+
+@media screen and (max-width: 374px) {
+  #Sponsor div.no-submissions {
+
+    word-break: break-all;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #Sponsor div.table {
+    color: white;
+    font-size: 17px;
+    font-weight: normal;
+    text-align: left;
+
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #Sponsor button.button {
+    width: 100%;
+    font-size: 20px;
+    margin-top: 10px;
+    padding: 5px 0px;
+  }
+}

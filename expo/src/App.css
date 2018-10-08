@@ -61,6 +61,10 @@ html {
   transition: all 0.2s ease-in-out;
 }
 
+.button:disabled {
+  opacity: 0.5;
+}
+
 /* Get rid of dark blue outline */
 .button:active, .button:focus {
   outline: none;

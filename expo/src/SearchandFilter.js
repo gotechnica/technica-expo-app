@@ -9,6 +9,8 @@ import axios from 'axios'
 
 import Card from './Card.js';
 import Table from './Table.js';
+import NewTable from './NewTable.js';
+
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
 import { VotingTable, WelcomeHeader } from './Sponsor';
@@ -581,12 +583,19 @@ class SearchandFilter extends Component {
             show_attempted_challenges={this.state.toggle_off}
           />
           :
-          <VotingTable
+          /*<VotingTable
             company={this.props.loggedIn}
             projects={this.state.workingdata}
             value={this.state.value}
             voting_data={voting_data}
             sponsor_challenges={sponsor_challenges}
+          />*/
+          <NewTable
+          company={this.props.loggedIn}
+          projects={this.state.workingdata}
+          value={this.state.value}
+          voting_data={voting_data}
+          sponsor_challenges={sponsor_challenges}
           />
       );
 
@@ -608,7 +617,7 @@ class SearchandFilter extends Component {
               </div>
               <div className="form-row">
                 <div style={{margin:"0px 5px", width:"100%"}}>
-                  { this.props.origin === "home" ? <div></div> : <div style={{marginBottom: "5px"}}>Select a Challenge to Place Votes For</div> }
+                  { this.props.origin === "home" ? <div></div> : <div style={{marginBottom: "5px"}}>Select a Challenge to Vote For</div> }
                   {select}
                 </div>
               </div>
