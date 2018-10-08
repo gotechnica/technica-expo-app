@@ -1,7 +1,7 @@
 # Main server file
 from flask import Flask, jsonify, request, session, current_app
 from flask_pymongo import PyMongo
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne
 from flask_cors import CORS
 from bson.objectid import ObjectId
 from bson import json_util
@@ -143,23 +143,28 @@ def assign_remaining_table_numbers():
     # Check for existing duplicates
     used_tables_set = set(used_tables_array)
     if (len(used_tables_array) != len(used_tables_set)):
-        return 'Error: there exists a duplicate table number in the DB. Please resolve duplicate before continuing.'
+        duplicates = list(set([x for x in used_tables_array if used_tables_array.count(x) > 1]))
+        return f'Error: there exists {len(duplicates)} duplicate table number(s) in the DB. Please resolve duplicate before continuing.\n{duplicates}'
 
     table_assignment_schema = request.json['table_assignment_schema']
     available_tables_list = get_available_table_numbers(table_assignment_schema, used_tables_set, all_projects.count())
     i = 0
+    db_update_operations = []
     for p in all_projects:
         # If table number hasn't been assigned yet, assign next available one
         if p['table_number'] == '':
-            p['table_number'] = available_tables_list[i]
-            # TODO(timothychen01): Optimize by executing bulk update instead of individual DB calls
-            projects.find_one_and_update(
+            db_update_operations.append(UpdateOne(
                 {'_id': ObjectId(p['_id'])},
-                {'$set': p}
-            )
+                {'$set': {'table_number': available_tables_list[i]}}
+            ))
             i += 1
-
-    return f'{all_projects.count() - len(used_tables_array)} projects have been assigned tables. {len(used_tables_array)} projects maintain their old table.'
+    if (len(db_update_operations) > 0):
+        result = projects.bulk_write(db_update_operations)
+        print(result.bulk_api_result)
+        num_modified = result.bulk_api_result.get('nModified')
+        return f'{num_modified} projects have been assigned tables. {len(used_tables_array)} projects maintain their old table.'
+    else:
+        return 'No projects have been assigned new tables.'
 
 # Valid schemas: 'numeric', 'evens', 'odds'
 def get_available_table_numbers(table_assignment_schema, used_tables_set, num_projects):
