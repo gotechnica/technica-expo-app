@@ -1,87 +1,19 @@
-#Sponsor .fa-square, #Sponsor .fa-check-square {
-  font-size: 53px;
-  padding-top: 10px;
-  color: #FF7BAC;
+button.task-header {
+    font-size: 20px;
 }
 
-#Sponsor .fa-square {
-  opacity: 0.5;
+ div.table-announcement {
+  margin: 0px 15px;
+  margin-top: 10px;
+  padding: 0;
 }
 
-#Sponsor .hoverable:hover {
-  opacity: 1;
-  /*-webkit-transform: translateY(-2px);
-  -ms-transform: translateY(-2px);
-  transform: translateY(-2px);
-  transition: all 0.2s ease-in-out;*/
+#Sponsor ul {
+  list-style: none;
 }
 
-#Sponsor table tr th:nth-of-type(3) {
-  text-align: left;
-}
-
-#Sponsor td.Voting {
-  /* width: 4%; */
-}
-
-#Sponsor input[type=checkbox] {
-  display: none;
-}
-
-#Sponsor tr.button-row td {
-  padding-top: 20px;
-}
-#Sponsor .clear button, #Sponsor .submit button {
-  font-weight: bold;
-  outline: none;
-  color: white;
-  border-radius: 5px;
-  font-size: 20px;
-  height: 45px;
-}
-
-#Sponsor .clear button {
-  width: 100%;
-  background-color: #FF7BAC;
-  border: 3px solid #FF7BAC;
-}
-
-#Sponsor .clear button:not([disabled]):hover {
-  background-color: #FF96BD;
-  border: 3px solid #FF96BD;
-
-  -webkit-transform: translateY(-2px);
-  -ms-transform: translateY(-2px);
-  transform: translateY(-2px);
-  transition: all 0.2s ease-in-out;
-}
-
-#Sponsor .submit {
-  text-align: right;
-}
-
-#Sponsor .submit button {
-  width: 200px;
-  background-color: #00C7C7;
-  border: 3px solid #00C7C7;
-}
-
-#Sponsor .submit button:not([disabled]):hover {
-  background-color: #00FFFF;
-  border: 3px solid #00FFFF;
-
-  -webkit-transform: translateY(-2px);
-  -ms-transform: translateY(-2px);
-  transform: translateY(-2px);
-  transition: all 0.2s ease-in-out;
-}
-
-#Sponsor tr.button-row button:disabled {
-  opacity: 0.5;
-}
-
-#Sponsor tr.button-row td {
-  border: 0px solid;
+.fa-user-check, .fa-check-circle {
+  color: #ba92db;
 }
 
 #Sponsor td.task-header, #Sponsor td.task {
@@ -174,46 +106,4 @@
 
 .fa-tasks {
   color: #ff7bac;
-}
-
-.fa-exclamation-triangle {
-  color: #00ffff;
-}
-
-.fa-user-check, .fa-check-circle {
-  color: #ba92db;
-}
-
- .faded {
-  opacity: 0.5;
-}
-
- button.task-header {
-    font-size: 20px;
-}
-
- div.table-announcement {
-  margin: 0px 15px;
-  margin-top: 10px;
-  padding: 0;
-}
-
-.LinkIcon {
-  margin-left: 5px;
-}
-
-h3.No-Submissions {
-  height: 150px;
-  width: 100%;
-  text-align: center;
-  padding-top: 60px;
-  background-color: #1c1c1c;
-  border-radius: 5px;
-  margin-top: 30px;
-  opacity: 0.5;
-  font-weight: bolder;
-}
-
-#Sponsor ul {
-  list-style: none;
 }

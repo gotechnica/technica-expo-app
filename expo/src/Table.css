@@ -16,7 +16,7 @@ tbody tr:hover {
 
 
 table {
-    border-collapse: separate;
+    border-collapse: collapse;
     width: 100%;
 }
 
@@ -54,7 +54,7 @@ img.Icon {
 
 /* ============== [Table Number] ============== */
 .TableNumber {
-    padding-right: 20px;
+    padding-right: 10px;
     /* Text */
     font-size: 40px;
     font-weight: bold;
