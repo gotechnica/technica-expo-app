@@ -19,7 +19,7 @@
     "react-fontawesome": "^1.6.1",
     "react-meta-tags": "^0.4.1",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4",
+    "react-scripts": "^1.1.4",
     "react-sticky": "^6.0.3"
   },
   "scripts": {
