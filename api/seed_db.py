@@ -96,9 +96,13 @@ def already_in_db():
 def parse_csv_internal(reader, not_moving_question=None):
     #already_stored = already_in_db()
     for row in reader:
-        project_name = row["Submission Title"]
-        project_url = row["Submission Url"]
+        project_name = row["Submission Title"].strip()
+        project_url = row["Submission Url"].strip()
         challenges = format_challenges(row["Desired Prizes"])
+
+        # Skip iteration if current project is not valid
+        if project_name == "" and project_url == "":
+            continue
 
         if not_moving_question is None:
             needs_to_stay = None
@@ -109,10 +113,9 @@ def parse_csv_internal(reader, not_moving_question=None):
             response = row[not_moving_question]
             needs_to_stay = check_if_needs_to_stay(response)
 
-        name = row['Submission Title'].strip()
         if needs_to_stay is not None:
             not_moving[project_name] = Project(project_url, challenges)
-            assignments[table_to_number(needs_to_stay.group(0))] = name + " | "
+            assignments[table_to_number(needs_to_stay.group(0))] = project_name + " | "
             not_moving[project_name].table_number = needs_to_stay.group(0)
         else:
             moving[project_name] = Project(project_url, challenges)

@@ -1,7 +1,7 @@
 # Main server file
 from flask import Flask, jsonify, request, session, current_app
 from flask_pymongo import PyMongo
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne
 from flask_cors import CORS
 from bson.objectid import ObjectId
 from bson import json_util
@@ -128,6 +128,55 @@ def bulk_add_projects_internal(packet):
         projects = mongo.db.projects
         result = projects.insert_many(packet)
         return result
+
+@app.route('/api/projects/assign_tables', methods=['POST'])
+def assign_remaining_table_numbers():
+    projects = mongo.db.projects
+    all_projects = projects.find()
+
+    # Get all used table assignments
+    used_tables_array = []
+    for p in all_projects.clone():
+        if p['table_number'] != '':
+            used_tables_array.append(p['table_number'])
+
+    # Check for existing duplicates
+    used_tables_set = set(used_tables_array)
+    if (len(used_tables_array) != len(used_tables_set)):
+        duplicates = list(set([x for x in used_tables_array if used_tables_array.count(x) > 1]))
+        return f'Error: there exists {len(duplicates)} duplicate table number(s) in the DB. Please resolve duplicate before continuing.\n{duplicates}'
+
+    table_assignment_schema = request.json['table_assignment_schema']
+    available_tables_list = get_available_table_numbers(table_assignment_schema, used_tables_set, all_projects.count())
+    i = 0
+    db_update_operations = []
+    for p in all_projects:
+        # If table number hasn't been assigned yet, assign next available one
+        if p['table_number'] == '':
+            db_update_operations.append(UpdateOne(
+                {'_id': ObjectId(p['_id'])},
+                {'$set': {'table_number': available_tables_list[i]}}
+            ))
+            i += 1
+    if (len(db_update_operations) > 0):
+        result = projects.bulk_write(db_update_operations)
+        print(result.bulk_api_result)
+        num_modified = result.bulk_api_result.get('nModified')
+        return f'{num_modified} projects have been assigned tables. {len(used_tables_array)} projects maintain their old table.'
+    else:
+        return 'No projects have been assigned new tables.'
+
+# Valid schemas: 'numeric', 'evens', 'odds'
+def get_available_table_numbers(table_assignment_schema, used_tables_set, num_projects):
+    max_table_numbers_list = []
+    num_tables_needed = num_projects + len(used_tables_set)
+    if table_assignment_schema == 'evens':
+        max_table_numbers_list = range(2, num_tables_needed * 2 + 2, 2)
+    elif table_assignment_schema == 'odds':
+        max_table_numbers_list = range(1, num_tables_needed * 2 + 1, 2)
+    elif table_assignment_schema == 'numeric':
+        max_table_numbers_list = range(1, num_tables_needed + 1)
+    return list(set(max_table_numbers_list) - used_tables_set) # Remove used table numbers
 
 @app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
 def update_publish_winners_flag():
