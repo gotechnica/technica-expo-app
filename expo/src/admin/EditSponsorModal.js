@@ -64,7 +64,7 @@ class EditSponsorModal extends Component {
         let valid = validAccess && !missingAccess && !missingCompany;
 
         let sponsor_id = this.props.sponsorID;
-        
+
         if(valid) {
           Backend.httpFunctions.postCallback('api/companies/id/' + sponsor_id, {
             "company_name": this.state.company_name,
