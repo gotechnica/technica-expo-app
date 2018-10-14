@@ -24,7 +24,7 @@ let httpFunctions = {
     http.setRequestHeader('Content-Type', 'application/json');
     http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
-          callback();
+          callback(200);
         }
     }
     http.send(JSON.stringify(postObject));

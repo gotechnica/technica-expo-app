@@ -5,6 +5,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import SiteWrapper from './SiteWrapper.js';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -465,7 +466,7 @@ class SponsorModule extends Component {
 
               console.log(response2['data']);
 
-              let projects = response2['data'].filter(elt => {
+              let projects = response2['data']['projects'].filter(elt => {
                 return elt.challenges_won != undefined
                   && elt.challenges_won.length > 0;
               });
@@ -523,6 +524,17 @@ class SponsorModule extends Component {
       this.loadWinners();
     }
 
+    // TODO correct context of function call for login here :^(
+    moveToLogin() {
+      this.props.history.push('/adminLogin');
+    }
+
+    logout() {
+      // Direct back to login page
+      Backend.httpFunctions.postCallback(Backend.httpFunctions.url + 'api/logout', {},
+        this.moveToLogin());
+    }
+
     render() {
 
       let caret = this.state.showPreview ?
@@ -533,7 +545,16 @@ class SponsorModule extends Component {
       return (
         <div className="card">
           <div className="card-header">
-            <h5>Administration</h5>
+            <div class="d-flex">
+              <div>
+                <h5>Administration</h5>
+              </div>
+              <div class="ml-auto">
+                <button type="button" className="link-button" onClick={(e)=>{
+                    this.logout(e);
+                  }}>Logout</button>
+              </div>
+            </div>
           </div>
           <div className="card-body">
             <div class="d-flex">
