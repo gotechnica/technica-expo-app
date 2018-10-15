@@ -238,7 +238,7 @@ class ProjectModule extends Component {
                 type="checkbox"
                 checked={this.state.skipEveryOtherTable}
                 onChange={this.handleInputChange.bind(this)}
-              /> Skip every other table (to spreak expo out more)?
+              /> Skip every other table? (Provides more spacious expo)
             </div>}
             <button type="submit" className="button button-primary">
               Assign Tables
