@@ -51,6 +51,12 @@ class ProjectModule extends Component {
         {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
       ],
       uploadStatus:'',
+      tableAssignmentSchema:'',
+      tableStartLetter: '',
+      tableStartNumber: '',
+      tableEndLetter: '',
+      tableEndNumber: '',
+      skipEveryOtherTable: true,
     }
     // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
@@ -126,6 +132,25 @@ class ProjectModule extends Component {
     }
 	}
 
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  onAutoAssignTableNumbers(e) {
+    e.preventDefault();
+    if (this.state.tableAssignmentSchema === "custom") {
+      alert(`Auto-assign table numbers from ${this.state.tableStartLetter}${this.state.tableStartNumber} to ${this.state.tableEndLetter}${this.state.tableEndNumber}`);
+    } else {
+      alert('Selected ' + this.state.tableAssignmentSchema);
+    }
+  }
+
   render() {
     console.log(this.sortData())
     let filteredProjects = this.sortData();
@@ -160,30 +185,66 @@ class ProjectModule extends Component {
               </div>
             }
           </form>
+
           <br/>
           <br/>
-          <div className="custom-control custom-radio">
-            <input type="radio" id="table2" className="custom-control-input"/>
-            <label className="custom-control-label" >Numeric (1, 2, 3...)</label>
-          </div>
-          <div className="custom-control custom-radio">
-            <input type="radio" id="table1" className="custom-control-input"/>
-            <label className="custom-control-label" >Odd (1, 3, 5...)</label>
-          </div>
-          <div className="custom-control custom-radio">
-            <input type="radio" id="table3" className="custom-control-input"/>
-            <label className="custom-control-label" >Alternative</label>
-          </div>
+
+          <h5>Auto Assign Table Numbers</h5>
+          <form
+            method="post"
+            onSubmit={this.onAutoAssignTableNumbers.bind(this)}
+          >
+            <div onChange={this.handleInputChange.bind(this)} style={{"margin-bottom": "1rem"}}>
+              <div><input type="radio" name="tableAssignmentSchema" value="numeric" /> Numeric (1, 2, 3...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="odds" /> Odds (1, 3, 5...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="evens" /> Evens (2, 4, 6...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="custom" /> Custom</div>
+            </div>
+            {this.state.tableAssignmentSchema === "custom" &&
+            <div style={{"margin-bottom": "1rem"}}>
+              <p>Enter the starting and ending/maximum alphanumeric combinations (e.g. A1 to Z15).</p>
+              <div className="form-group custom-table-assignment-container">
+                <input type="text"
+                  name="tableStartLetter"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: A"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                <input type="text"
+                  name="tableStartNumber"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: 1"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                to
+                <input type="text"
+                  name="tableEndLetter"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: Z"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                <input type="text"
+                  name="tableEndNumber"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: 15"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <input
+                name="skipEveryOtherTable"
+                type="checkbox"
+                checked={this.state.skipEveryOtherTable}
+                onChange={this.handleInputChange.bind(this)}
+              /> Skip every other table (to spreak expo out more)?
+            </div>}
+            <button type="submit" className="button button-primary">
+              Assign Tables
+            </button>
+          </form>
+
           <br/>
-          <button className="button button-primary"
-            onClick={(event) => {
-              //TODO set table assignment
-              alert("assign table click");
-            }}>
-            Assign Tables
-          </button>
           <br/>
-          <br/>
+
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
