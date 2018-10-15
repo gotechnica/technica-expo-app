@@ -102,7 +102,7 @@ class ProjectModule extends Component {
     return finalProjectsData;
   }
   onUploadCSVSubmitForm(e) {
-		e.preventDefault()
+		e.preventDefault();
 
     const data = new FormData();
     data.append('projects_csv', this.projects_csv.files[0]);
@@ -166,17 +166,20 @@ class ProjectModule extends Component {
     return (
       <div className="card">
         <div className="card-header">
-          <h5>Projects</h5>
+          <h4>Projects</h4>
         </div>
+
         <div className="card-body">
+          <h5>Seed Database</h5>
           <form
             method="post"
-            enctype="multipart/form-data"
-            onSubmit={this.onUploadCSVSubmitForm.bind(this)}>
+            encType="multipart/form-data"
+            onSubmit={this.onUploadCSVSubmitForm.bind(this)}
+          >
             <div className="form-group">
-              <label>Upload CSV to Database</label>
+              <label>Upload CSV for parsing</label>
               <input type="file" id="file" className="inputfile" name="projects_csv" ref={(ref) => { this.projects_csv = ref; }} />
-              <label for="file"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</label>
+              <label><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</label>
             </div>
             <button className="button button-primary" type="submit">Upload</button>
             {this.state.uploadStatus != '' &&
@@ -393,14 +396,14 @@ class SponsorModule extends Component {
       return (
         <div className="card">
           <div className="card-header">
-            <h5>Sponsors</h5>
+            <h4>Sponsors</h4>
           </div>
           <div className="card-body">
             <CreateSponsorModal
               createID="modalCreateSponsor"
               onCreate={this.loadCompanies.bind(this)}
               />
-            <button className="link-button"
+            <button className="button button-primary"
               type="button"
               data-toggle="modal"
               data-target="#modalCreateSponsor"
@@ -606,11 +609,11 @@ class SponsorModule extends Component {
       return (
         <div className="card">
           <div className="card-header">
-            <div class="d-flex">
+            <div className="d-flex">
               <div>
                 <h5>Administration</h5>
               </div>
-              <div class="ml-auto">
+              <div className="ml-auto">
                 <button type="button" className="link-button" onClick={(e)=>{
                     this.logout(e);
                   }}>Logout</button>
@@ -618,7 +621,7 @@ class SponsorModule extends Component {
             </div>
           </div>
           <div className="card-body">
-            <div class="d-flex">
+            <div className="d-flex">
                 <div>
                   <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
                     {!this.state.showPreview ?
@@ -628,7 +631,7 @@ class SponsorModule extends Component {
                     {caret}
                   </button>
                 </div>
-                <div class="ml-auto">
+                <div className="ml-auto">
                   {this.state.winnersRevealed ?
                     <button type="button" className="button button-secondary">
                       Hide Public Winners
