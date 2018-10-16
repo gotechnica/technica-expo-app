@@ -50,7 +50,8 @@ class ProjectModule extends Component {
         {project_name: 'peaches', table_number: '7',url:'www.hello.com',challenge_name:'challenge1'},
         {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
       ],
-      uploadStatus: '',
+      projectsCSV:'',
+      uploadStatus:'',
       tableAssignmentStatus: '',
       tableAssignmentSchema: '',
       tableStartLetter: '',
@@ -113,19 +114,19 @@ class ProjectModule extends Component {
         uploadStatus: 'Please select a file before hitting upload!'
       });
     } else {
-      axios.post(`${Backend.URL}parse_csv`, data)
+      axios.post(`${Backend.httpFunctions.url}parse_csv`, data)
+        .then((response) => {
+          this.projects_csv.value = ''; // Clear input field
+          this.setState({ // Flash success message and clear input display
+            uploadStatus: response.data,
+            projectsCSV: ''
+          });
+        })
         .catch((error) => {
           this.setState({ // Flash error message
             uploadStatus: 'Oops! Something went wrong...'
           });
           console.error('Error:', error);
-        })
-        .then((response) => {
-          this.projects_csv.value = ''; // Clear input field
-          this.setState({ // Flash success message
-            uploadStatus: response.data
-          });
-          return response.text();
         });
     }
 	}
@@ -222,9 +223,12 @@ class ProjectModule extends Component {
             onSubmit={this.onUploadCSVSubmitForm.bind(this)}
           >
             <div className="form-group">
-              <label>Upload CSV for parsing</label>
-              <input type="file" id="file" className="inputfile" name="projects_csv" ref={(ref) => { this.projects_csv = ref; }} />
-              <label><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</label>
+              <label>Upload Devpost CSV for parsing</label><br/>
+              <div className="upload-btn-wrapper">
+                <button className="button button-primary m-r-m"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</button>
+                <input type="file" id="file" name="projectsCSV" onChange={this.handleInputChange.bind(this)} ref={(ref) => { this.projects_csv = ref; }} />
+                {this.state.projectsCSV.replace("C:\\fakepath\\", "")}
+              </div>
             </div>
             <button className="button button-primary" type="submit">Upload</button>
             {this.state.uploadStatus != '' &&
