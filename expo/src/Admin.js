@@ -656,15 +656,14 @@ class SponsorModule extends Component {
       this.loadWinners();
     }
 
-    // TODO correct context of function call for login here :^(
     moveToLogin() {
-      this.props.history.push('/adminLogin');
+
     }
 
     logout() {
       // Direct back to login page
       Backend.httpFunctions.postCallback(Backend.httpFunctions.url + 'api/logout', {},
-        this.moveToLogin());
+        this.props.history.push('/adminLogin') );
     }
 
     render() {
@@ -735,12 +734,27 @@ class SponsorModule extends Component {
 
   /* Final class containing admin page */
   class Admin extends Component {
+
+    componentWillMount() {
+      // If not logged in, redirect to login page
+      axios.get(Backend.httpFunctions.url + 'api/whoami')
+        .then((response)=>{
+          let credentials = response['data'];
+          if(credentials == undefined || credentials.user_type != 'admin') {
+            this.props.history.push({
+             pathname: '/adminlogin'
+            });
+          }
+        });
+    }
+
     render() {
+      const WinnerRouteModule = withRouter(WinnerModule);
       return (
         SiteWrapper(
           <div className="row">
             <div className="col">
-              <WinnerModule/>
+              < WinnerRouteModule/>
               <SponsorModule/>
             </div>
             <div className="col">
