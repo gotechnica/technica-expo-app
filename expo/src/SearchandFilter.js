@@ -645,7 +645,7 @@ class SearchandFilter extends Component {
 
                 </div></button>
                 {this.props.origin === "sponsor" ? <Fragment></Fragment> :
-                (this.state.width >= 460 ?
+                (this.state.width > 425 ?
                 <button disabled class="toggle-label"
                 style={{textAlign:"center",
                 backgroundColor:"#2f2f2f",
@@ -654,7 +654,7 @@ class SearchandFilter extends Component {
                  marginTop:"10px"}}>
                 Show Attempted Challenges</button>: <Fragment></Fragment>)}
                 </div></div>
-                {this.state.width < 460 ? <div><button disabled class="toggle-label"
+                {this.state.width <= 425 ? <div style={{textAlign:"center"}}><button disabled class="toggle-label"
                 style={{textAlign:"center",
                 backgroundColor:"#2f2f2f",
                 border:"0px solid",outline:"none",

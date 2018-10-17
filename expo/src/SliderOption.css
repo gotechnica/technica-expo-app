@@ -29,8 +29,8 @@
   cursor: pointer;
   content: "";
   top: -17px;
-  left: 0px;
-  right: 0px;
+  left: -7px;
+  right: 7px;
   bottom: 17px;
   /* border-style: solid; */
   /* border-color: #969696; */
