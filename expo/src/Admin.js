@@ -5,6 +5,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import SiteWrapper from './SiteWrapper.js';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -50,6 +51,12 @@ class ProjectModule extends Component {
         {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
       ],
       uploadStatus:'',
+      tableAssignmentSchema:'',
+      tableStartLetter: '',
+      tableStartNumber: '',
+      tableEndLetter: '',
+      tableEndNumber: '',
+      skipEveryOtherTable: true,
     }
     // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
@@ -95,7 +102,7 @@ class ProjectModule extends Component {
     return finalProjectsData;
   }
   onUploadCSVSubmitForm(e) {
-		e.preventDefault()
+		e.preventDefault();
 
     const data = new FormData();
     data.append('projects_csv', this.projects_csv.files[0]);
@@ -125,6 +132,25 @@ class ProjectModule extends Component {
     }
 	}
 
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  onAutoAssignTableNumbers(e) {
+    e.preventDefault();
+    if (this.state.tableAssignmentSchema === "custom") {
+      alert(`Auto-assign table numbers from ${this.state.tableStartLetter}${this.state.tableStartNumber} to ${this.state.tableEndLetter}${this.state.tableEndNumber}`);
+    } else {
+      alert('Selected ' + this.state.tableAssignmentSchema);
+    }
+  }
+
   render() {
     console.log(this.sortData())
     let filteredProjects = this.sortData();
@@ -140,17 +166,20 @@ class ProjectModule extends Component {
     return (
       <div className="card">
         <div className="card-header">
-          <h5>Projects</h5>
+          <h4>Projects</h4>
         </div>
+
         <div className="card-body">
+          <h5>Seed Database</h5>
           <form
             method="post"
-            enctype="multipart/form-data"
-            onSubmit={this.onUploadCSVSubmitForm.bind(this)}>
+            encType="multipart/form-data"
+            onSubmit={this.onUploadCSVSubmitForm.bind(this)}
+          >
             <div className="form-group">
-              <label>Upload CSV to Database</label>
+              <label>Upload CSV for parsing</label>
               <input type="file" id="file" className="inputfile" name="projects_csv" ref={(ref) => { this.projects_csv = ref; }} />
-              <label for="file"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</label>
+              <label><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</label>
             </div>
             <button className="button button-primary" type="submit">Upload</button>
             {this.state.uploadStatus != '' &&
@@ -159,30 +188,66 @@ class ProjectModule extends Component {
               </div>
             }
           </form>
+
           <br/>
           <br/>
-          <div className="custom-control custom-radio">
-            <input type="radio" id="table2" className="custom-control-input"/>
-            <label className="custom-control-label" >Numeric (1, 2, 3...)</label>
-          </div>
-          <div className="custom-control custom-radio">
-            <input type="radio" id="table1" className="custom-control-input"/>
-            <label className="custom-control-label" >Odd (1, 3, 5...)</label>
-          </div>
-          <div className="custom-control custom-radio">
-            <input type="radio" id="table3" className="custom-control-input"/>
-            <label className="custom-control-label" >Alternative</label>
-          </div>
+
+          <h5>Auto Assign Table Numbers</h5>
+          <form
+            method="post"
+            onSubmit={this.onAutoAssignTableNumbers.bind(this)}
+          >
+            <div onChange={this.handleInputChange.bind(this)} style={{"margin-bottom": "1rem"}}>
+              <div><input type="radio" name="tableAssignmentSchema" value="numeric" /> Numeric (1, 2, 3...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="odds" /> Odds (1, 3, 5...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="evens" /> Evens (2, 4, 6...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="custom" /> Custom</div>
+            </div>
+            {this.state.tableAssignmentSchema === "custom" &&
+            <div style={{"margin-bottom": "1rem"}}>
+              <p>Enter the starting and ending/maximum alphanumeric combinations (e.g. A1 to Z15).</p>
+              <div className="form-group custom-table-assignment-container">
+                <input type="text"
+                  name="tableStartLetter"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: A"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                <input type="text"
+                  name="tableStartNumber"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: 1"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                to
+                <input type="text"
+                  name="tableEndLetter"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: Z"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                <input type="text"
+                  name="tableEndNumber"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: 15"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <input
+                name="skipEveryOtherTable"
+                type="checkbox"
+                checked={this.state.skipEveryOtherTable}
+                onChange={this.handleInputChange.bind(this)}
+              /> Skip every other table? (Provides more spacious expo)
+            </div>}
+            <button type="submit" className="button button-primary">
+              Assign Tables
+            </button>
+          </form>
+
           <br/>
-          <button className="button button-primary"
-            onClick={(event) => {
-              //TODO set table assignment
-              alert("assign table click");
-            }}>
-            Assign Tables
-          </button>
           <br/>
-          <br/>
+
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
@@ -331,14 +396,14 @@ class SponsorModule extends Component {
       return (
         <div className="card">
           <div className="card-header">
-            <h5>Sponsors</h5>
+            <h4>Sponsors</h4>
           </div>
           <div className="card-body">
             <CreateSponsorModal
               createID="modalCreateSponsor"
               onCreate={this.loadCompanies.bind(this)}
               />
-            <button className="link-button"
+            <button className="button button-primary"
               type="button"
               data-toggle="modal"
               data-target="#modalCreateSponsor"
@@ -465,7 +530,7 @@ class SponsorModule extends Component {
 
               console.log(response2['data']);
 
-              let projects = response2['data'].filter(elt => {
+              let projects = response2['data']['projects'].filter(elt => {
                 return elt.challenges_won != undefined
                   && elt.challenges_won.length > 0;
               });
@@ -523,6 +588,17 @@ class SponsorModule extends Component {
       this.loadWinners();
     }
 
+    // TODO correct context of function call for login here :^(
+    moveToLogin() {
+      this.props.history.push('/adminLogin');
+    }
+
+    logout() {
+      // Direct back to login page
+      Backend.httpFunctions.postCallback(Backend.httpFunctions.url + 'api/logout', {},
+        this.moveToLogin());
+    }
+
     render() {
 
       let caret = this.state.showPreview ?
@@ -533,10 +609,19 @@ class SponsorModule extends Component {
       return (
         <div className="card">
           <div className="card-header">
-            <h5>Administration</h5>
+            <div className="d-flex">
+              <div>
+                <h5>Administration</h5>
+              </div>
+              <div className="ml-auto">
+                <button type="button" className="link-button" onClick={(e)=>{
+                    this.logout(e);
+                  }}>Logout</button>
+              </div>
+            </div>
           </div>
           <div className="card-body">
-            <div class="d-flex">
+            <div className="d-flex">
                 <div>
                   <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
                     {!this.state.showPreview ?
@@ -546,7 +631,7 @@ class SponsorModule extends Component {
                     {caret}
                   </button>
                 </div>
-                <div class="ml-auto">
+                <div className="ml-auto">
                   {this.state.winnersRevealed ?
                     <button type="button" className="button button-secondary">
                       Hide Public Winners
