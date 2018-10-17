@@ -1,164 +1,154 @@
-/*table {
-  border: none;
-}*/
-
-tbody tr td {
-  border-top: 2px solid #222;
+/* Remove Default Link Style */
+#Home .link, #Sponsor .link,
+#Home .link:hover, #Sponsor .link:hover {
+  color: white;
+  text-decoration: none;
 }
 
-tbody tr:hover {
-  background-color: #444;
+/* Technica Winning Ribbon */
+#Home img.Ribbon {
+  height: 30px;
+  width: 30px;
+  margin-right: 7px;
+}
+#Home button.Ribbon {
+  padding: 0px;
 }
 
-/*.table{
-  table-layout: fixed;
-}*/
 
-
-table {
-    border-collapse: collapse;
-    width: 100%;
+#Home .btn:active,.btn:focus {
+  outline: none;
+  box-shadow: none;
 }
 
-th {
-  padding-bottom: 20px;
+#Home .btn {
+  color: white;
+  text-align: left;
+  white-space: normal;
+
+  background-color: #2F2F2F;
+  outline: none;
 }
 
-td {
-  padding: 20px 0px;
+
+#Sponsor table, #Home table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-tr:hover td {
-    background-color: #2f2f2f;
+#Sponsor table thead th, #Home table thead th {
+  font-size: 17.5px;
+  text-align: center;
+  padding-bottom: 5px;
 }
 
-/* ============ [Technica Win Badge] ============ */
-img.Icon {
-    height: 30px;
-    width: 30px;
-    margin-right: 10px;
-}
-/* ==================== [END] ================== */
-
-/* ============ [Devpost Link Icon] ============ */
-.name a {
-    text-decoration: none;
-    color: #00C7C7;
-    padding: 0px 6px 0px 0px;
+#Sponsor tr td, #Home tr td {
+  padding: 15px 0px;
+  border-top: 2px solid #222222;
 }
 
-.name a:hover {
-    color: #00FFFF;
-}
-/* ==================== [END] ================== */
-
-/* ============== [Table Number] ============== */
-.TableNumber {
-    padding-right: 10px;
-    /* Text */
-    font-size: 40px;
-    font-weight: bold;
-    /* Borders */
-    position: relative;
-    border-left:0;
-  	border-right:0;
-}
-/* ==================== [END] ================== */
-
-/* =========== [Project Information] =========== */
-/* <== Grid Structure ==>*/
-.name { grid-area: name; }
-.Challenge-Wins { grid-area: wins; }
-.Challenge-Categories { grid-area: challenges; }
-.Vote { grid-area: vote; }
-
-.grid-container {
-  display: grid;
-  grid-template-areas:
-    'name name'
-    'wins wins'
-    'challenges challenges';
-}
-/* <======================>*/
-
-.Project {
-    /* Text */
-    font-weight: bold;
-    font-size: 22px;
-}
-/* ==================== [END] ================== */
-
-/* ============== [Challenge Cards] ============ */
-/* <=== [Winning Badge] ===> */
-.Challenge-Wins {
-    margin-left: -5px;
+#Home table thead th:nth-of-type(2) {
+  text-align: left;
+  padding-left: 20px;
 }
 
-.Challenge-Wins div {
-    display: inline-block;
+#Sponsor table tbody tr td.Table-Number,
+#Home table tbody tr td.Table-Number {
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+  width: 60px;
+}
+#Home table tbody tr td div.Project button.Table div.Table-Number {
+  text-align: center;
+  color: white;
+  font-size: 35px;
+  padding: 0px;
+  margin: 0px;
+}
+#Home table tbody tr td div.Project button.Table {
+  border-radius: 5px;
+  border: 0px solid;
+  font-weight: bold;
+  color: white;
+  width: 70px;
+  outline: none;
+}
+#Home table tbody tr td div.Project button.Table div.Table {
+  font-size: 13px;
 }
 
-.Challenge-Wins div button {
-    /* Remove Default Button Style*/
-    background-color: transparent;
-    border-style: solid;
-    border-width: 0px;
-    outline: none;
-    /* Text */
-    color: #fff; /*#999999;*/
-    font-size: 16px;
-    text-align: left;
-    /*white-space: nowrap;*/ /* Commenting out let's zoom be good up to 300% */
-}
-/* <=======================> */
-/* <== [Basic Challenge] ==> */
-.Challenge-Categories {
-    margin-top: 7px;
-    line-height: 20px;
-    color: #999999;
+#Sponsor table tbody tr td div.Project,
+#Home table tbody tr td div.Project {
+  font-size: 22.5px;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 20px;
 }
 
-.Challenge-Categories table {
-    /* Span Table Cell */
-    width: 100%;
-    /* Text */
-    font-size: 15px;
-    font-weight: normal;
+#Home div.challenges-won,
+#Home div.attempted-challenges {
+  padding: 7px 0px 0px 0px;
 }
 
-.Challenge-Categories table tr:hover td {
-    /*border-color: #00FFFF;*/
+#Home div.challenges-won div {
+  margin-right: 10px;
 }
 
-.Challenge-Categories table tr td {
-  border-top: none;
+#Home div.attempted-challenges button {
+  color: #999999;
+  font-size: 17px;
+  margin-bottom: 5px;
+  padding: 0px;
 }
 
-.Challenge-Categories b  {
-    padding-right: 4px;
+#Home div.challenges-won button,
+#Home div.challenges-won div {
+  font-size: 18px;
+  padding: 0px;
+  margin-top: 3px;
+}
+#Home div.challenges-won,
+#Home div.attempted-challenges {
+  padding-left: 20px;
+}
+#Home div.attempted-challenges {
+  color: #999;
 }
 
-.Challenge-Categories td.indicator {
-    /* Triangular indicator aligned to the right */
-    text-align: right;
-    padding-right: 15px;
-    padding-left: 15px;
+#Home hr.attempted-challenges {
+  margin-bottom: 1px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
-/* <=======================> */
-/* ==================== [END] ================== */
 
-/* =================== [Voting] ================ */
-.Vote {
-    vertical-align: middle;
+@media screen and (max-width: 459px) {
+  #Sponsor table tbody tr.voting-row td:nth-of-type(1) {
+    width: 60px;
+  }
+  #Home table tbody tr td div.Project,
+  #Home div.challenges-won,
+  #Home div.attempted-challenges {
+    padding-left: 0px;
     text-align: center;
+  }
+  #Home div.challenges-won div {
+    margin-right: 0px;
+  }
+  #Home div.attempted-challenges button {
+    text-align: center;
+  }
 }
 
-.Vote input[type=radio] {
-    /* Remove Checkbox Default */
-    display: none;
+@media screen and (max-width: 374px) {
+  #Sponsor table tbody tr td div.Project,
+  #Home table tbody tr td div.Project {
+    word-break: break-all;
+  }
 }
-
-.Vote label {
-    margin-bottom: 0px;
+@media screen and (max-width: 319px) {
+  #Home div.attempted-challenges button,
+  #Home div.challenges-won div {
+    word-break: break-all;
+  }
 }
-/* ==================== [END] ================== */

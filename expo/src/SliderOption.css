@@ -4,11 +4,12 @@
 }
 
 .toggle-label {
-  display: inline-block;
+  /*display: inline-block;
   margin-left: 10px;
   position: absolute;
-  bottom: 47px;
+  bottom: 47px;*/
 }
+
 .switch {
   position: relative;
   display: inline-block;
@@ -27,10 +28,10 @@
   position: absolute;
   cursor: pointer;
   content: "";
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: -17px;
+  left: 0px;
+  right: 0px;
+  bottom: 17px;
   /* border-style: solid; */
   /* border-color: #969696; */
   /* border-width: 1px; */

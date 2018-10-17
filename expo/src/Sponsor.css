@@ -1,3 +1,113 @@
+#Sponsor .technica-icon {
+  height: 20px;
+}
+/* Hide default checkbox */
+#Sponsor input[type=checkbox] {
+  display: none;
+}
+#Sponsor .fa-square, #Sponsor .fa-check-square {
+  font-size: 50px;
+  color: #FF7BAC;
+}
+ #Sponsor .fa-square, #Sponsor .disabled {
+  opacity: 0.5;
+}
+#Sponsor .hoverable:hover {
+  opacity: 1;
+}
+/*=======================================*/
+#Sponsor table tr.voting-row td {
+  padding: 5px 0px;
+}
+
+#Sponsor table tbody tr.voting-row td:nth-of-type(1) {
+  text-align: center;
+  padding-top: 12px;
+  width: 95px;
+}
+#Sponsor table thead th:nth-of-type(3) {
+  text-align: left;
+  padding-left: 20px;
+}
+#Sponsor div.Project div.Sponsor-Table {
+  text-align: left;
+  font-size: 16px;
+  color: #999;
+}
+/*========================================*/
+#Sponsor h5.modal-challenge {
+  font-weight: bold;
+  padding: 5px 0px;
+  width: 100%;
+  margin: 10px 10px 0px;
+}
+#Sponsor ul.selection-list {
+  padding-left: 10px;
+  border-left: 3px solid #B190CC;
+  margin-left: 13px;
+}
+
+
+
+/* ======== [Override Technica Button Styles] ======= */
+#Sponsor button.button {
+  font-size: 20px;
+  margin-top: 10px;
+  padding: 5px 15px;
+  -webkit-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
+}
+#Sponsor button.submit {
+  float: right;
+  width: 200px;
+}
+#Sponsor div.no-submissions {
+  text-align: center;
+  white-space: pre-wrap;
+
+  margin: 10px 0px;
+  height: 200px;
+
+  background-color: #1c1c1c;
+
+  opacity: 0.75;
+
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#Sponsor div.no-submissions h2 {
+  font-weight: bolder;
+}
+/* ================================================== */
+
+
+
+@media screen and (max-width: 374px) {
+  #Sponsor div.no-submissions {
+    word-break: break-all;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .modal-footer {
+    display: block;
+  }
+  #Sponsor button.button {
+    width: 100%;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 0px;
+  }
+}
+
+
+
+
+/*=====================================================*/
 button.task-header {
     font-size: 20px;
 }
@@ -56,12 +166,12 @@ button.task-header {
   outline: none;
 }
 
-.fa-circle {
+#Sponsor .fa-circle {
   color: #b190cc;
   font-size: 25px;
 }
 
-.fa-times-circle {
+#Sponsor .fa-times-circle {
   color: #ff7bac;
   font-size: 18px;
 }

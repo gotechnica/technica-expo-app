@@ -1,143 +1,299 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Table.css';
-import Sponsor from './Sponsor.js';
+import SmallerParentheses from './SmallerParentheses.js';
 
 import TechnicaRibbon from './imgs/technica_award_ribbon.png';
-
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faArrowRight, faCaretRight, faCaretLeft } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import SearchandFilter from './SearchandFilter';
-library.add(faArrowRight);
-library.add(faCaretRight);
-library.add(faCaretLeft);
+import { faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
+library.add(faCheckSquare);
+library.add(faSquare);
 
-export class ProjectRow extends Component {
+export class CheckBoxColumn extends Component {
   render() {
-    let winnerCards = [];
-    let challengeCards = [];
-
-    this.props.challenges.forEach((challenge) => {
-      let card = <ChallengeCard company={challenge.company} challenge_name={challenge.challenge_name} won={challenge.won} />;
-      if (challenge.won) {
-        winnerCards.push(card);
-      } else {
-        challengeCards.push(card);
-      }
-    });
-
-    let attempted_challenges = (this.props.show_attempted_challenges ?
-      <div style={{fontSize:"15px", margin: "5px 0px"}}>
-        Attempted Challenges :&nbsp;&nbsp;{challengeCards.length}
-      </div> : challengeCards);
-
+    let checkbox = ( this.props.checked ? faCheckSquare : faSquare);
+    let input = ( this.props.checked ?
+      ( this.props.disabled ?
+        <input
+          type="checkbox"
+          className="voting-checkbox"
+          value={this.props.project_id}
+          checked
+          disabled
+        />
+        :
+        <input
+          type="checkbox"
+          className="voting-checkbox"
+          value={this.props.project_id}
+          checked
+        /> )
+      :
+      ( this.props.disabled ?
+        <input
+          type="checkbox"
+          className="voting-checkbox"
+          value={this.props.project_id}
+          disabled
+        />
+        :
+        <input
+          type="checkbox"
+          className="voting-checkbox"
+          value={this.props.project_id}
+        /> )
+    );
+    let checkboxStyle = ( this.props.checked ?
+      ( this.props.disabled ? "fa-check-square disabled" : "fa-check-square" )
+      :
+      ( this.props.disabled ? "fa-square" : "fa-square hoverable" )
+    );
+    let CustomCheckbox = ( this.props.disabled ?
+      <FontAwesomeIcon
+        icon={checkbox}
+        className={checkboxStyle}
+      />
+      :
+      <FontAwesomeIcon
+        icon={checkbox}
+        className={checkboxStyle}
+        onClick={this.props.handler.bind(this, this.props.project_id)}
+      />
+    );
     return (
-    <tr>
-      <td className="TableNumber">{this.props.table_number}</td>
-      <td className="Project">
-        <div className="grid-container">
-          <div className="name">
-            {this.props.project_name+" "}
-            <a href={this.props.project_url} target="_tab">
-              <FontAwesomeIcon icon={faArrowRight} className="LinkIcon"/>
-            </a>
-          </div>
-          <div className="Challenge-Wins">
-            {winnerCards}
-          </div>
-          <div className="Challenge-Categories">
-            {attempted_challenges}
-          </div>
-        </div>
+      <td>
+        <label>{CustomCheckbox}</label>
+        {input}
       </td>
-    </tr>
+    );
+  }
+}
+
+class ProjectColumn extends Component {
+
+  render() {
+    let attempted_challenges = [];
+    let challenges_won = [];
+    if (this.props.challenges !== undefined) {
+      this.props.challenges.forEach((challenge) => {
+          let challenge_card =
+          <ChallengeCard
+            company={challenge.company}
+            challenge_name = {challenge.challenge_name}
+            won={challenge.won}
+            width={this.props.width}
+          />;
+          if (challenge.won) {
+            challenges_won.push(challenge_card);
+          } else {
+            attempted_challenges.push(challenge_card);
+          }
+        }
+      );
+    }
+    let colors = ["#FF7BAC","#B6A1C7","#17E3E3"];
+    let index = this.props.counter % 3;
+    return (
+      <td>
+        <div className="Project">
+          <a href={this.props.project_url} target="_tab" className="link">
+            {this.props.project_name}
+          </a>
+          { this.props.width < 460 ?
+            ( this.props.origin === "home" ?
+              <div>
+                <button className="Table" style={{backgroundColor: colors[index]}}>
+                  <div className="Table">Table</div>
+                  <div className="Table-Number">
+                    {this.props.table_number}
+                  </div>
+                </button>
+              </div>
+              :
+              <div className="Sponsor-Table">Table: {this.props.table_number}</div>
+            )
+            :
+            <Fragment></Fragment>
+          }
+        </div>
+        { this.props.origin === "home" ?
+          <Fragment>
+            <div className="challenges-won">{challenges_won}</div>
+            { this.props.width < 460 ? <hr className="attempted-challenges"/> : <Fragment></Fragment> }
+            <div className="attempted-challenges">
+              { this.props.show_attempted_challenges ?
+                <b>
+                  Attempted Challenge
+                  <SmallerParentheses font_size="12px">s</SmallerParentheses>
+                  : {attempted_challenges.length}
+                </b>
+                :
+                attempted_challenges
+              }
+            </div>
+          </Fragment>
+          :
+          <Fragment></Fragment>
+        }
+      </td>
+    );
+  }
+}
+
+class ChallengeCard extends Component {
+  render() {
+    let text = (this.props.width >= 460 ?
+    (' | ' + this.props.company) :
+    <Fragment><br/>{this.props.company}</Fragment>);
+    return (
+      this.props.won ?
+      ( this.props.width >= 460 ?
+        <div className="btn-group">
+          <button className="btn">
+            <img src={TechnicaRibbon} className="Ribbon"/>
+          </button>
+          <button className="btn btn-block">
+            <b>{this.props.challenge_name}</b>
+            {text}
+          </button>
+        </div>
+        :
+        <div>
+          <img src={TechnicaRibbon} className="Ribbon"/>
+          <b>{this.props.challenge_name}</b>
+          {text}
+        </div>
+      )
+      :
+      <div>
+        <button className="btn btn-block">
+          <b>{this.props.challenge_name}</b>
+          {text}
+        </button>
+      </div>
+    );
+  }
+}
+
+export class Row extends Component {
+  render() {
+    let table = ( this.props.width >= 460 ?
+      <td className="Table-Number">{this.props.table_number}</td>
+      :
+      <Fragment></Fragment> );
+    return (
+     <tr className="voting-row">
+        { this.props.origin === "sponsor" ?
+          <CheckBoxColumn
+            handler={this.props.handler}
+            project_id={this.props.project_id}
+            checked={this.props.checked}
+            disabled={this.props.disabled}
+          />
+          :
+          <Fragment></Fragment>
+        }
+        {table}
+        <ProjectColumn
+          project_name={this.props.project_name}
+          project_url={this.props.project_url}
+          challenges={(this.props.origin === "home" ? this.props.challenges : undefined)}
+          table_number={this.props.table_number}
+          width={this.props.width}
+          origin={this.props.origin}
+          counter={this.props.counter}
+          show_attempted_challenges={this.props.show_attempted_challenges}
+        />
+      </tr>
     );
   }
 }
 
 export class Table extends Component {
+  constructor(props) {
+    super(props);
+    this.updateDimensions = this.updateDimensions.bind(this);
+    this.state = { width: window.innerWidth }
+  }
+
+  updateDimensions() {
+    this.setState({ width: window.innerWidth});
+  }
+
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions);
+  }
   render() {
     let rows = [];
+    let counter = 0;
+    let table = ( this.state.width >= 460 ? <th>Table</th> : <Fragment></Fragment> );
     this.props.projects.forEach((project) => {
       rows.push(
-        <ProjectRow
-          table_number = {project.table_number}
-          project_name = {project.project_name}
-          project_url = {project.project_url}
-          challenges = {project.challenges}
-          show_attempted_challenges = {this.props.show_attempted_challenges}
-        />
+        ( this.props.origin === "sponsor" ?
+          <Row
+            project_id = {project.project_id}
+            table_number = {project.table_number}
+            project_name = {project.project_name}
+            project_url = {project.project_url}
+            handler = {this.props.handler}
+            checked = {this.props.checked[project.project_id][this.props.value]}
+            disabled = {this.props.sponsor_challenges[this.props.value].submitted}
+            origin={this.props.origin}
+            width={this.state.width}
+          />
+          :
+          <Row
+            project_id = {project.project_id}
+            table_number = {project.table_number}
+            project_name = {project.project_name}
+            project_url = {project.project_url}
+            challenges = {project.challenges}
+            origin={this.props.origin}
+            width={this.state.width}
+            counter={counter}
+            show_attempted_challenges={this.props.show_attempted_challenges}
+          />
+        )
       );
+      counter += 1;
     });
+
     return (
-      <div class="row">
-      <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <table>
+       <table>
+        { this.props.origin === "home" ?
+          <thead>
+            <tr>
+              {table}
+              <th>Project Information</th>
+            </tr>
+          </thead>
+          :
+          ( this.state.width >= 460 ?
             <thead>
               <tr>
-                <th>Table</th>
-                <th>Project Information</th>
+                <th>Select</th>
+                {table}
+                <th>Project</th>
               </tr>
             </thead>
-            <tbody>
-              {rows}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      </div>
-      </div>
+            :
+            <Fragment></Fragment>
+          )
+        }
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
     );
   }
 
-}
-
-export class ChallengeCard extends Component {
-  constructor() {
-    super();
-    this.handleToggleClick = this.handleToggleClick.bind(this);
-    this.state = { expanded : true };
-  }
-
-  handleToggleClick() {
-    this.setState({
-      expanded: !this.state.expanded
-    });
-  }
-
-  render() {
-    let winnerCard = (
-      <button>
-        <img src={TechnicaRibbon} className="Icon" />
-          <b>{this.props.challenge_name}&nbsp;&nbsp;</b>
-          |&nbsp;&nbsp;{this.props.company}
-      </button>
-    );
-
-    const isExpanded = this.state.expanded;
-    let challengeCard = (
-      <div className="Challenge-Card" onClick={this.handleToggleClick}>
-        <table className="Challenge-Card">
-          <tr>
-            <td className="info">
-              <b>{this.props.challenge_name} </b>
-              <div style={{display: "inline-block"}} >|&nbsp;&nbsp;{this.props.company}</div>
-            </td>
-            {/*<td className="indicator"><FontAwesomeIcon icon={indicator} /></td>*/}
-          </tr>
-        </table>
-      </div>
-    );
-
-    return (
-      <div>
-        {this.props.won ? winnerCard : challengeCard}
-      </div>
-    )
-  }
 }
 
 // Japneet's old Table code

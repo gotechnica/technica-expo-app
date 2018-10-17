@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -8,11 +8,10 @@ import axios from 'axios'
 
 import Card from './Card.js';
 import Table from './Table.js';
-import NewTable from './NewTable.js';
 
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
-import { VotingTable, WelcomeHeader } from './Sponsor';
+import { WelcomeHeader, VotingTable } from './Sponsor';
 
 const CHALLENGES = [
   { company_id: 'C0',
@@ -358,13 +357,19 @@ class SearchandFilter extends Component {
         value: challenges[0],
         toggle_off: true,
         challenges: CHALLENGES,
-        workingdata: this.setSponsorWorkingData(challenges)
+        workingdata: this.setSponsorWorkingData(challenges),
+        width: window.innerWidth
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleToggle = this.handleToggle.bind(this);
       this.getSponsorChallenges = this.getSponsorChallenges.bind(this);
       this.getSponsorData = this.getSponsorData.bind(this);
       this.setSponsorWorkingData = this.setSponsorWorkingData.bind(this);
+      this.updateDimensions = this.updateDimensions.bind(this);
+    }
+
+    updateDimensions() {
+      this.setState({ width: window.innerWidth});
     }
 
     componentDidMount() {
@@ -378,6 +383,12 @@ class SearchandFilter extends Component {
           workingdata: response['data']
         });
       })*/
+      this.updateDimensions();
+      window.addEventListener("resize", this.updateDimensions);
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener("resize", this.updateDimensions);
     }
 
     handleChange(e){
@@ -576,11 +587,13 @@ class SearchandFilter extends Component {
       let voting_data = this.getSponsorChallenges(sponsor_challenges);
       let table = (
         this.props.origin === "home" ?
-          <Table
+          <div id="Home"><Table
             projects={this.state.workingdata}
             value={this.state.value}
             show_attempted_challenges={this.state.toggle_off}
-          />
+            headers={['Project Information']}
+            origin={this.props.origin}
+          /></div>
           :
           /*<VotingTable
             company={this.props.loggedIn}
@@ -589,17 +602,18 @@ class SearchandFilter extends Component {
             voting_data={voting_data}
             sponsor_challenges={sponsor_challenges}
           />*/
-          <NewTable
+          <VotingTable
           company={this.props.loggedIn}
           projects={this.state.workingdata}
           value={this.state.value}
           voting_data={voting_data}
           sponsor_challenges={sponsor_challenges}
+          origin={this.props.origin}
           />
       );
 
-      let toggle_style = ( this.props.origin === "home" ? { display: "inline-block" } : { display: "none" } );
-
+      let toggle_style = ( this.props.origin === "home" ? { display: "inline-block",textAlign: "left",backgroundColor:"#2f2f2f",marginTop:"10px",border:"0px solid",height:"30px",outline:"none" } : { display: "none" } );
+      let style = (this.state.width < 460 ? "center" : "left");
       return (
         <div>
           { this.props.origin === "sponsor" ? <WelcomeHeader company={this.props.loggedIn} data={sponsor_challenges}/>: <div></div>}
@@ -620,18 +634,42 @@ class SearchandFilter extends Component {
                   {select}
                 </div>
               </div>
-              <div style={toggle_style}>
+
+              <div style={{textAlign: style}}><div class="btn-group">
+                <button style={toggle_style} disabled>
                 <div className="toggle" onChange={this.handleToggle}>
                   <label className="switch">
                     { this.state.toggle_off ? <input type="checkbox" /> : <input type="checkbox" checked /> }
                     <div className="slider round"></div>
                   </label>
-                </div>
-                <div className="toggle-label">Show Attempted Challenges</div>
-              </div>
-            </form>{this.props.origin === 'sponsor' ? table : <div></div>}</div>
+
+                </div></button>
+                {this.props.origin === "sponsor" ? <Fragment></Fragment> :
+                (this.state.width >= 460 ?
+                <button disabled class="toggle-label"
+                style={{textAlign:"center",
+                backgroundColor:"#2f2f2f",
+                border:"0px solid",outline:"none",
+                color:"white",
+                 marginTop:"10px"}}>
+                Show Attempted Challenges</button>: <Fragment></Fragment>)}
+                </div></div>
+                {this.state.width < 460 ? <div><button disabled class="toggle-label"
+                style={{textAlign:"center",
+                backgroundColor:"#2f2f2f",
+                border:"0px solid",outline:"none",
+                color:"white",
+                 marginTop:"0px"}}>
+                Show Attempted Challenges</button></div> : <Fragment></Fragment>}
+
+
+            </form>{this.props.origin === 'sponsor' ? table : <div></div>}
+            </div>
           </div>
-          {this.props.origin === 'home' ? table : <div></div>}
+          {this.props.origin === 'home' ? <div class="row">
+           <div class="col">
+           <div class="card">
+             <div class="card-body">{table}</div></div></div></div> : <div></div>}
       </div>
     )
   }
