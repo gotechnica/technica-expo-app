@@ -742,12 +742,11 @@ class SponsorModule extends Component {
     }
 
     render() {
-      const WinnerRouteModule = withRouter(WinnerModule);
       return (
         SiteWrapper(
           <div className="row">
             <div className="col">
-              < WinnerRouteModule/>
+              <WinnerModule/>
               <SponsorModule/>
             </div>
             <div className="col">
