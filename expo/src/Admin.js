@@ -167,8 +167,8 @@ class ProjectModule extends Component {
           skipEveryOtherTable: true,
         });
       })
-      .catch((error) => { // Flash error message
-        this.setState({ // Flash success message
+      .catch((error) => {
+        this.setState({ // Flash error message
           tableAssignmentStatus: 'Oops! Something went wrong...'
         });
         console.error('Error:', error);
