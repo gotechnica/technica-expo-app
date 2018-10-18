@@ -142,6 +142,9 @@ class ProjectModule extends Component {
 
   onAutoAssignTableNumbers(e) {
     e.preventDefault();
+    this.setState({
+      tableAssignmentStatus: 'Processing your request to assign table numbers...',
+    });
     axios.post(
       `${Backend.httpFunctions.url}api/projects/assign_tables`,
       {
