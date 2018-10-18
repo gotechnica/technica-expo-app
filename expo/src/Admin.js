@@ -143,6 +143,12 @@ class ProjectModule extends Component {
 
   onAutoAssignTableNumbers(e) {
     e.preventDefault();
+    if (this.state.tableAssignmentSchema == '') {
+      this.setState({
+        tableAssignmentStatus: 'Please first select a schema for assigning table numbers.',
+      });
+      return;
+    }
     this.setState({
       tableAssignmentStatus: 'Processing your request to assign table numbers...',
     });
