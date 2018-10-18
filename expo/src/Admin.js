@@ -52,10 +52,11 @@ class ProjectModule extends Component {
       ],
       uploadStatus:'',
       tableAssignmentSchema:'',
+      tableAssignmentStatus: '',
       tableStartLetter: '',
-      tableStartNumber: '',
+      tableStartNumber: 0,
       tableEndLetter: '',
-      tableEndNumber: '',
+      tableEndNumber: 0,
       skipEveryOtherTable: true,
     }
     // this.createAllChallenges = this.createAllChallenges.bind(this);
@@ -144,11 +145,34 @@ class ProjectModule extends Component {
 
   onAutoAssignTableNumbers(e) {
     e.preventDefault();
-    if (this.state.tableAssignmentSchema === "custom") {
-      alert(`Auto-assign table numbers from ${this.state.tableStartLetter}${this.state.tableStartNumber} to ${this.state.tableEndLetter}${this.state.tableEndNumber}`);
-    } else {
-      alert('Selected ' + this.state.tableAssignmentSchema);
-    }
+    axios.post(
+      `${Backend.httpFunctions.url}api/projects/assign_tables`,
+      {
+        table_assignment_schema: this.state.tableAssignmentSchema,
+        table_start_letter: this.state.tableStartLetter,
+        table_start_number: parseInt(this.state.tableStartNumber),
+        table_end_letter: this.state.tableEndLetter,
+        table_end_number: parseInt(this.state.tableEndNumber),
+        skip_every_other_table: this.state.skipEveryOtherTable,
+      }
+    )
+      .then((response) => {
+        this.setState({ // Flash success message
+          tableAssignmentStatus: response.data,
+          tableAssignmentSchema: '',
+          tableStartLetter: '',
+          tableStartNumber: 0,
+          tableEndLetter: '',
+          tableEndNumber: 0,
+          skipEveryOtherTable: true,
+        });
+      })
+      .catch((error) => { // Flash error message
+        this.setState({ // Flash success message
+          tableAssignmentStatus: 'Oops! Something went wrong...'
+        });
+        console.error('Error:', error);
+      });
   }
 
   render() {
@@ -198,35 +222,39 @@ class ProjectModule extends Component {
             onSubmit={this.onAutoAssignTableNumbers.bind(this)}
           >
             <div onChange={this.handleInputChange.bind(this)} style={{"margin-bottom": "1rem"}}>
-              <div><input type="radio" name="tableAssignmentSchema" value="numeric" /> Numeric (1, 2, 3...)</div>
-              <div><input type="radio" name="tableAssignmentSchema" value="odds" /> Odds (1, 3, 5...)</div>
-              <div><input type="radio" name="tableAssignmentSchema" value="evens" /> Evens (2, 4, 6...)</div>
-              <div><input type="radio" name="tableAssignmentSchema" value="custom" /> Custom</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="numeric" checked={this.state.tableAssignmentSchema=="numeric"} /> Numeric (1, 2, 3...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="odds" checked={this.state.tableAssignmentSchema=="odds"} /> Odds (1, 3, 5...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="evens" checked={this.state.tableAssignmentSchema=="evens"} /> Evens (2, 4, 6...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="custom" checked={this.state.tableAssignmentSchema=="custom"} /> Custom</div>
             </div>
             {this.state.tableAssignmentSchema === "custom" &&
             <div style={{"margin-bottom": "1rem"}}>
               <p>Enter the starting and ending/maximum alphanumeric combinations (e.g. A1 to Z15).</p>
               <div className="form-group custom-table-assignment-container">
-                <input type="text"
+                <input
+                  type="text"
                   name="tableStartLetter"
                   className="form-control custom-table-assignment-child"
                   placeholder="ex: A"
                   onChange={this.handleInputChange.bind(this)}
                 />
-                <input type="text"
+                <input
+                  type="number"
                   name="tableStartNumber"
                   className="form-control custom-table-assignment-child"
                   placeholder="ex: 1"
                   onChange={this.handleInputChange.bind(this)}
                 />
                 to
-                <input type="text"
+                <input
+                  type="text"
                   name="tableEndLetter"
                   className="form-control custom-table-assignment-child"
                   placeholder="ex: Z"
                   onChange={this.handleInputChange.bind(this)}
                 />
-                <input type="text"
+                <input
+                  type="number"
                   name="tableEndNumber"
                   className="form-control custom-table-assignment-child"
                   placeholder="ex: 15"
@@ -243,6 +271,11 @@ class ProjectModule extends Component {
             <button type="submit" className="button button-primary">
               Assign Tables
             </button>
+            {this.state.tableAssignmentStatus != '' &&
+              <div className="row col" style={{'padding-top': '1rem'}}>
+                {this.state.tableAssignmentStatus}
+              </div>
+            }
           </form>
 
           <br/>
