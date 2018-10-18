@@ -39,7 +39,7 @@ class ProjectModule extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      textSearch:'',
+      textSearch: '',
       projects:[
         {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge1'},
         {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge2'},
@@ -50,9 +50,9 @@ class ProjectModule extends Component {
         {project_name: 'peaches', table_number: '7',url:'www.hello.com',challenge_name:'challenge1'},
         {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
       ],
-      uploadStatus:'',
-      tableAssignmentSchema:'',
+      uploadStatus: '',
       tableAssignmentStatus: '',
+      tableAssignmentSchema: '',
       tableStartLetter: '',
       tableStartNumber: 0,
       tableEndLetter: '',
