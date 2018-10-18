@@ -229,7 +229,7 @@ class ProjectModule extends Component {
             <button className="button button-primary" type="submit">Upload</button>
             {this.state.uploadStatus != '' &&
               <div className="row col" style={{'padding-top': '1rem'}}>
-                {this.state.uploadStatus}
+                <i>{this.state.uploadStatus}</i>
               </div>
             }
           </form>
@@ -297,7 +297,7 @@ class ProjectModule extends Component {
             </button>
             {this.state.tableAssignmentStatus != '' &&
               <div className="row col" style={{'padding-top': '1rem'}}>
-                {this.state.tableAssignmentStatus}
+                <i>{this.state.tableAssignmentStatus}</i>
               </div>
             }
           </form>
