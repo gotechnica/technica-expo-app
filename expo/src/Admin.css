@@ -78,7 +78,11 @@
   margin-left: 1em;
 }
 
-.upload_icon{
+.font-weight-normal {
+  font-weight: normal;
+}
+
+.upload_icon {
   margin-right: 0.6rem;
 }
 

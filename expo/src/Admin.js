@@ -225,7 +225,7 @@ class ProjectModule extends Component {
             <div className="form-group">
               <label>Upload Devpost CSV for parsing</label><br/>
               <div className="upload-btn-wrapper">
-                <button className="button button-primary m-r-m"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</button>
+                <button className="button button-primary font-weight-normal m-r-m"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</button>
                 <input type="file" id="file" name="projectsCSV" onChange={this.handleInputChange.bind(this)} ref={(ref) => { this.projects_csv = ref; }} />
                 {this.state.projectsCSV.replace("C:\\fakepath\\", "")}
               </div>
