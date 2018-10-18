@@ -189,6 +189,27 @@ def char_range(c1, c2):
     for c in range(ord(c1), ord(c2)+1):
         yield chr(c)
 
+@app.route('/api/projects/clear_table_assignments', methods=['POST'])
+def remove_all_table_numbers():
+    projects = mongo.db.projects
+    all_projects = projects.find()
+
+    db_update_operations = []
+    for p in all_projects:
+        db_update_operations.append(UpdateOne(
+            {'_id': ObjectId(p['_id'])},
+            {'$set': {'table_number': ''}}
+        ))
+    if (len(db_update_operations) > 0):
+        result = projects.bulk_write(db_update_operations)
+        num_modified = result.bulk_api_result.get('nModified')
+        if current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION']:
+            return f'Cleared {num_modified} projects of table assignments. Remember to manually assign table numbers to projects requesting a specific table.'
+        else:
+            return f'Cleared {num_modified} projects of table assignments.'
+    else:
+        return 'No table assignments were cleared.'
+
 @app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
 def update_publish_winners_flag():
     global publish_winners  # Use the var defined at top of file
