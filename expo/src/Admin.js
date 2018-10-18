@@ -305,6 +305,7 @@ class ProjectModule extends Component {
           <br/>
           <br/>
 
+          <h5>Projects ({filteredProjects.length})</h5>
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
