@@ -2,7 +2,7 @@ const backendDevURL = 'http://localhost:5000/';
 const devURL = 'http://ec2-34-201-45-125.compute-1.amazonaws.com/';
 const prodURL = '';
 
-const URL = devURL;
+const URL = backendDevURL;
 
 // Use the following functions to use post and get requests
 let httpFunctions = {
