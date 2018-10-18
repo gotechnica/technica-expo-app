@@ -113,22 +113,19 @@ class ProjectModule extends Component {
         uploadStatus: 'Please select a file before hitting upload!'
       });
     } else {
-      fetch(`${Backend.URL}parse_csv`, {
-        method: 'POST',
-        body: data,
-      })
+      axios.post(`${Backend.URL}parse_csv`, data)
         .catch((error) => {
-          this.state.uploadStatus = 'Oops! Something went wrong...'; // Flash success message
+          this.setState({ // Flash error message
+            uploadStatus: 'Oops! Something went wrong...'
+          });
           console.error('Error:', error);
         })
         .then((response) => {
-          return response.text();
-        })
-        .then((data) => {  // data = parsed version of the JSON from above endpoint.
           this.projects_csv.value = ''; // Clear input field
           this.setState({ // Flash success message
-            uploadStatus: data
+            uploadStatus: response.data
           });
+          return response.text();
         });
     }
 	}
