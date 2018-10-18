@@ -52,7 +52,8 @@ class AdminLogin extends Component {
       Backend.httpFunctions.postCallback('api/login/admin', {
           access_code: accessCode
         }, (status)=> {
-          if(status == 200) {
+          console.log(status);
+          if(status == "Logged in as admin") {
             // Log in was successful
             // Clear errors on component
             this.setState({loggedIn:true, error:""});
