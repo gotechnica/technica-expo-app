@@ -204,7 +204,7 @@ def remove_all_table_numbers():
         result = projects.bulk_write(db_update_operations)
         num_modified = result.bulk_api_result.get('nModified')
         if current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION']:
-            return f'Cleared {num_modified} projects of table assignments. Remember to manually assign table numbers to projects requesting a specific table.'
+            return f'Cleared table assignments from {num_modified} projects. Remember to manually assign table numbers to projects requesting a specific table.'
         else:
             return f'Cleared {num_modified} projects of table assignments.'
     else:
