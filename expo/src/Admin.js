@@ -510,6 +510,8 @@ class SponsorModule extends Component {
           showPreview: false
         });
       } else {
+        // Get a data dump
+        // sponsor - challenge - winner project names
         this.loadWinners();
         this.setState({
           showPreview: true
@@ -517,19 +519,8 @@ class SponsorModule extends Component {
       }
     }
 
-    componentWillMount() {
-      // Get a data dump
-      // sponsor - challenge - winner project names
-      // Get sponsors, then projects
-      this.loadWinners();
-    }
-
-    moveToLogin() {
-
-    }
-
     logout() {
-      // Direct back to login page
+      // Direct back to login page and end session
       Backend.httpFunctions.postCallback(Backend.httpFunctions.url + 'api/logout', {},
         this.props.history.push('/adminLogin') );
     }
@@ -603,10 +594,12 @@ class SponsorModule extends Component {
   /* Final class containing admin page */
   class Admin extends Component {
 
+    // LF6K3G6RR3Q4VX4S
     componentWillMount() {
       // If not logged in, redirect to login page
       axios.get(Backend.httpFunctions.url + 'api/whoami')
         .then((response)=>{
+          console.log("admin page attempt " +JSON.stringify(response));
           let credentials = response['data'];
           if(credentials == undefined || credentials.user_type != 'admin') {
             this.props.history.push({
@@ -617,12 +610,11 @@ class SponsorModule extends Component {
     }
 
     render() {
-      const WinnerRouteModule = withRouter(WinnerModule);
       return (
         SiteWrapper(
           <div className="row">
             <div className="col">
-              < WinnerRouteModule/>
+              <WinnerModule/>
               <SponsorModule/>
             </div>
             <div className="col">
