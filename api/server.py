@@ -146,8 +146,7 @@ def assign_remaining_table_numbers():
         duplicates = list(set([x for x in used_tables_array if used_tables_array.count(x) > 1]))
         return f'Error: there exists {len(duplicates)} duplicate table number(s) in the DB. Please resolve duplicate before continuing.\n{duplicates}'
 
-    table_assignment_schema = request.json['table_assignment_schema']
-    available_tables_list = get_available_table_numbers(table_assignment_schema, used_tables_set, all_projects.count())
+    available_tables_list = get_available_table_numbers(request.json, used_tables_set, all_projects.count())
     i = 0
     db_update_operations = []
     for p in all_projects:
@@ -166,8 +165,9 @@ def assign_remaining_table_numbers():
     else:
         return 'No projects have been assigned new tables.'
 
-# Valid schemas: 'numeric', 'evens', 'odds'
-def get_available_table_numbers(table_assignment_schema, used_tables_set, num_projects):
+# Valid schemas: 'numeric', 'evens', 'odds', 'custom'
+def get_available_table_numbers(request_params, used_tables_set, num_projects):
+    table_assignment_schema = request_params['table_assignment_schema']
     max_table_numbers_list = []
     num_tables_needed = num_projects + len(used_tables_set)
     if table_assignment_schema == 'evens':
@@ -176,7 +176,18 @@ def get_available_table_numbers(table_assignment_schema, used_tables_set, num_pr
         max_table_numbers_list = range(1, num_tables_needed * 2 + 1, 2)
     elif table_assignment_schema == 'numeric':
         max_table_numbers_list = range(1, num_tables_needed + 1)
+    elif table_assignment_schema == 'custom':
+        for letter in char_range(request_params['table_start_letter'], request_params['table_end_letter']):
+            for number in range(request_params['table_start_number'], request_params['table_end_number'] + 1):
+                max_table_numbers_list.append(letter + str(number))
+        if request_params['skip_every_other_table']:
+            max_table_numbers_list = max_table_numbers_list[::2]
     return list(set(max_table_numbers_list) - used_tables_set) # Remove used table numbers
+
+def char_range(c1, c2):
+    """Generates the characters from `c1` to `c2`, inclusive."""
+    for c in range(ord(c1), ord(c2)+1):
+        yield chr(c)
 
 @app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
 def update_publish_winners_flag():
