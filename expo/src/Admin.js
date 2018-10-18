@@ -175,6 +175,27 @@ class ProjectModule extends Component {
       });
   }
 
+  onRemoveAllTableAssignments(e) {
+    e.preventDefault();
+    if (window.confirm('Are you sure you want to remove ALL table assignments from your database?')) {
+      this.setState({
+        tableAssignmentStatus: 'Processing your request to remove table assignments...',
+      });
+      axios.post(`${Backend.httpFunctions.url}api/projects/clear_table_assignments`)
+        .then((response) => {
+          this.setState({ // Flash success message
+            tableAssignmentStatus: response.data,
+          });
+        })
+        .catch((error) => {
+          this.setState({ // Flash error message
+            tableAssignmentStatus: 'Oops! Something went wrong...'
+          });
+          console.error('Error:', error);
+        });
+    }
+  }
+
   render() {
     console.log(this.sortData())
     let filteredProjects = this.sortData();
@@ -268,8 +289,11 @@ class ProjectModule extends Component {
                 onChange={this.handleInputChange.bind(this)}
               /> Skip every other table? (Provides more spacious expo)
             </div>}
-            <button type="submit" className="button button-primary">
+            <button type="submit" className="button button-primary m-r-m">
               Assign Tables
+            </button>
+            <button className="button button-secondary" onClick={this.onRemoveAllTableAssignments.bind(this)}>
+              Remove All Table Assignments
             </button>
             {this.state.tableAssignmentStatus != '' &&
               <div className="row col" style={{'padding-top': '1rem'}}>
