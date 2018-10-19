@@ -13,8 +13,7 @@ import os
 from seed_db import *
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
-CORS(app)
+CORS(app, supports_credentials=True)
 app.config.from_object('config')
 mongo = PyMongo(app)
 

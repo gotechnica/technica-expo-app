@@ -14,6 +14,7 @@ let httpFunctions = {
   post: (route, postObject) => {
     let http = new XMLHttpRequest();
     http.open("POST", URL + route, true);
+    http.withCredentials = true;
     http.setRequestHeader('Content-Type', 'application/json');
     http.send(JSON.stringify(postObject));
   },
@@ -21,6 +22,7 @@ let httpFunctions = {
   postCallback: (route, postObject, callback) => {
     let http = new XMLHttpRequest();
     http.open("POST", URL + route, true);
+    http.withCredentials = true;
     http.setRequestHeader('Content-Type', 'application/json');
     http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
@@ -39,7 +41,7 @@ let httpFunctions = {
           callback(xmlHttp.responseText);
         }
     }
-    xmlHttp.withCredentials = false;
+    xmlHttp.withCredentials = true;
     xmlHttp.open("GET", URL + route, true);
     xmlHttp.send(null);
   },
