@@ -257,12 +257,14 @@ def update_project(project_id):
 
     return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
 
-@app.route('/api/projects/delete', methods=['DELETE'])
-def delete_project():
+@app.route('/api/projects/id/<project_id>', methods=['DELETE'])
+def delete_project(project_id):
     projects = mongo.db.projects
-
-    project_id = request.json['project_id']
-    projects.delete_one({'_id': project_id})
+    result = projects.delete_one({'_id': ObjectId(project_id)})
+    if result.deleted_count == 1:
+        return "Deleted project " + project_id
+    else:
+        return "Did not find project " + project_id
 
 
 @app.route('/api/projects/deleteAll', methods=['DELETE'])
@@ -323,6 +325,16 @@ def update_company_name_or_code(company_id):
     )
 
     return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
+
+@app.route('/api/companies/id/<company_id>', methods=['DELETE'])
+def delete_company(company_id):
+    companies = mongo.db.companies
+    result = companies.delete_one({'_id': ObjectId(company_id)})
+    # TODO(timothychen01): Explore adding additional side effect for challenges
+    if result.deleted_count == 1:
+        return "Deleted company " + company_id
+    else:
+        return "Did not find company " + company_id
 
 @app.route('/api/companies/id/<company_id>/challenges/add', methods=['POST'])
 def add_challenge_to_company(company_id):
