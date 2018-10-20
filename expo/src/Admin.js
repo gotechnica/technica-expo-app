@@ -42,6 +42,13 @@ class ProjectModule extends Component {
       textSearch:'',
       projects:[],
       uploadStatus:'',
+      tableAssignmentStatus: '',
+      tableAssignmentSchema: '',
+      tableStartLetter: '',
+      tableStartNumber: 0,
+      tableEndLetter: '',
+      tableEndNumber: 0,
+      skipEveryOtherTable: true,
     }
     // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
@@ -117,7 +124,7 @@ class ProjectModule extends Component {
     return finalProjectsData;
   }
   onUploadCSVSubmitForm(e) {
-		e.preventDefault()
+		e.preventDefault();
 
     const data = new FormData();
     data.append('projects_csv', this.projects_csv.files[0]);
@@ -127,25 +134,94 @@ class ProjectModule extends Component {
         uploadStatus: 'Please select a file before hitting upload!'
       });
     } else {
-      fetch(`${Backend.URL}parse_csv`, {
-        method: 'POST',
-        body: data,
-      })
-        .catch((error) => {
-          this.state.uploadStatus = 'Oops! Something went wrong...'; // Flash success message
-          console.error('Error:', error);
-        })
+      axios.post(`${Backend.httpFunctions.url}parse_csv`, data)
         .then((response) => {
-          return response.text();
-        })
-        .then((data) => {  // data = parsed version of the JSON from above endpoint.
           this.projects_csv.value = ''; // Clear input field
-          this.setState({ // Flash success message
-            uploadStatus: data
+          this.setState({ // Flash success message and clear input display
+            uploadStatus: response.data,
+            projectsCSV: ''
           });
+        })
+        .catch((error) => {
+          this.setState({ // Flash error message
+            uploadStatus: 'Oops! Something went wrong...'
+          });
+          console.error('Error:', error);
         });
     }
 	}
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  onAutoAssignTableNumbers(e) {
+    e.preventDefault();
+    if (this.state.tableAssignmentSchema == '') {
+      this.setState({
+        tableAssignmentStatus: 'Please first select a schema for assigning table numbers.',
+      });
+      return;
+    }
+    this.setState({
+      tableAssignmentStatus: 'Processing your request to assign table numbers...',
+    });
+    axios.post(
+      `${Backend.httpFunctions.url}api/projects/assign_tables`,
+      {
+        table_assignment_schema: this.state.tableAssignmentSchema,
+        table_start_letter: this.state.tableStartLetter,
+        table_start_number: parseInt(this.state.tableStartNumber),
+        table_end_letter: this.state.tableEndLetter,
+        table_end_number: parseInt(this.state.tableEndNumber),
+        skip_every_other_table: this.state.skipEveryOtherTable,
+      }
+    )
+      .then((response) => {
+        this.setState({ // Flash success message
+          tableAssignmentStatus: response.data,
+          tableAssignmentSchema: '',
+          tableStartLetter: '',
+          tableStartNumber: 0,
+          tableEndLetter: '',
+          tableEndNumber: 0,
+          skipEveryOtherTable: true,
+        });
+      })
+      .catch((error) => {
+        this.setState({ // Flash error message
+          tableAssignmentStatus: 'Oops! Something went wrong...'
+        });
+        console.error('Error:', error);
+      });
+  }
+
+  onRemoveAllTableAssignments(e) {
+    e.preventDefault();
+    if (window.confirm('Are you sure you want to remove ALL table assignments from your database?')) {
+      this.setState({
+        tableAssignmentStatus: 'Processing your request to remove table assignments...',
+      });
+      axios.post(`${Backend.httpFunctions.url}api/projects/clear_table_assignments`)
+        .then((response) => {
+          this.setState({ // Flash success message
+            tableAssignmentStatus: response.data,
+          });
+        })
+        .catch((error) => {
+          this.setState({ // Flash error message
+            tableAssignmentStatus: 'Oops! Something went wrong...'
+          });
+          console.error('Error:', error);
+        });
+    }
+  }
 
   render() {
     console.log(this.sortData())
@@ -162,49 +238,104 @@ class ProjectModule extends Component {
     return (
       <div className="card">
         <div className="card-header">
-          <h5>Projects</h5>
+          <h4>Projects</h4>
         </div>
+
         <div className="card-body">
+          <h5>Seed Database</h5>
           <form
             method="post"
-            enctype="multipart/form-data"
-            onSubmit={this.onUploadCSVSubmitForm.bind(this)}>
+            encType="multipart/form-data"
+            onSubmit={this.onUploadCSVSubmitForm.bind(this)}
+          >
             <div className="form-group">
-              <label>Upload CSV to Database</label>
-              <input type="file" id="file" className="inputfile" name="projects_csv" ref={(ref) => { this.projects_csv = ref; }} />
-              <label for="file"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</label>
+              <label>Upload Devpost CSV for parsing</label><br/>
+              <div className="upload-btn-wrapper">
+                <button className="button button-primary font-weight-normal m-r-m"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</button>
+                <input type="file" id="file" name="projectsCSV" onChange={this.handleInputChange.bind(this)} ref={(ref) => { this.projects_csv = ref; }} />
+                {this.state.projectsCSV.replace("C:\\fakepath\\", "")}
+              </div>
             </div>
             <button className="button button-primary" type="submit">Upload</button>
             {this.state.uploadStatus != '' &&
               <div className="row col" style={{'padding-top': '1rem'}}>
-                {this.state.uploadStatus}
+                <i>{this.state.uploadStatus}</i>
               </div>
             }
           </form>
+
           <br/>
           <br/>
-          <div className="custom-control custom-radio">
-            <input type="radio" id="table2" className="custom-control-input"/>
-            <label className="custom-control-label" >Numeric (1, 2, 3...)</label>
-          </div>
-          <div className="custom-control custom-radio">
-            <input type="radio" id="table1" className="custom-control-input"/>
-            <label className="custom-control-label" >Odd (1, 3, 5...)</label>
-          </div>
-          <div className="custom-control custom-radio">
-            <input type="radio" id="table3" className="custom-control-input"/>
-            <label className="custom-control-label" >Alternative</label>
-          </div>
+
+          <h5>Auto Assign Table Numbers</h5>
+          <form
+            method="post"
+            onSubmit={this.onAutoAssignTableNumbers.bind(this)}
+          >
+            <div onChange={this.handleInputChange.bind(this)} style={{"margin-bottom": "1rem"}}>
+              <div><input type="radio" name="tableAssignmentSchema" value="numeric" checked={this.state.tableAssignmentSchema=="numeric"} /> Numeric (1, 2, 3...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="odds" checked={this.state.tableAssignmentSchema=="odds"} /> Odds (1, 3, 5...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="evens" checked={this.state.tableAssignmentSchema=="evens"} /> Evens (2, 4, 6...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="custom" checked={this.state.tableAssignmentSchema=="custom"} /> Custom</div>
+            </div>
+            {this.state.tableAssignmentSchema === "custom" &&
+            <div style={{"margin-bottom": "1rem"}}>
+              <p>Enter the starting and ending/maximum alphanumeric combinations (e.g. A1 to Z15).</p>
+              <div className="form-group custom-table-assignment-container">
+                <input
+                  type="text"
+                  name="tableStartLetter"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: A"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                <input
+                  type="number"
+                  name="tableStartNumber"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: 1"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                to
+                <input
+                  type="text"
+                  name="tableEndLetter"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: Z"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+                <input
+                  type="number"
+                  name="tableEndNumber"
+                  className="form-control custom-table-assignment-child"
+                  placeholder="ex: 15"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <input
+                name="skipEveryOtherTable"
+                type="checkbox"
+                checked={this.state.skipEveryOtherTable}
+                onChange={this.handleInputChange.bind(this)}
+              /> Skip every other table? (Provides more spacious expo)
+            </div>}
+            <button type="submit" className="button button-primary m-r-m">
+              Assign Tables
+            </button>
+            <button className="button button-secondary" onClick={this.onRemoveAllTableAssignments.bind(this)}>
+              Remove All Table Assignments
+            </button>
+            {this.state.tableAssignmentStatus != '' &&
+              <div className="row col" style={{'padding-top': '1rem'}}>
+                <i>{this.state.tableAssignmentStatus}</i>
+              </div>
+            }
+          </form>
+
           <br/>
-          <button className="button button-primary"
-            onClick={(event) => {
-              //TODO set table assignment
-              alert("assign table click");
-            }}>
-            Assign Tables
-          </button>
           <br/>
-          <br/>
+
+          <h5>Projects ({filteredProjects.length})</h5>
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
@@ -357,14 +488,14 @@ class SponsorModule extends Component {
       return (
         <div className="card">
           <div className="card-header">
-            <h5>Sponsors</h5>
+            <h4>Sponsors</h4>
           </div>
           <div className="card-body">
             <CreateSponsorModal
               createID="modalCreateSponsor"
               onCreate={this.loadCompanies.bind(this)}
               />
-            <button className="link-button"
+            <button className="button button-primary"
               type="button"
               data-toggle="modal"
               data-target="#modalCreateSponsor"
@@ -535,29 +666,13 @@ class SponsorModule extends Component {
           showPreview: false
         });
       } else {
+        // Get a data dump
+        // sponsor - challenge - winner project names
         this.loadWinners();
         this.setState({
           showPreview: true
         });
       }
-    }
-
-    componentWillMount() {
-      // Get a data dump
-      // sponsor - challenge - winner project names
-      // Get sponsors, then projects
-      this.loadWinners();
-    }
-
-    // TODO correct context of function call for login here :^(
-    moveToLogin() {
-      this.props.history.push('/adminLogin');
-    }
-
-    logout() {
-      // Direct back to login page
-      Backend.httpFunctions.postCallback(Backend.httpFunctions.url + 'api/logout', {},
-        this.moveToLogin());
     }
 
     render() {
@@ -570,19 +685,23 @@ class SponsorModule extends Component {
       return (
         <div className="card">
           <div className="card-header">
-            <div class="d-flex">
+            <div className="d-flex">
               <div>
                 <h5>Administration</h5>
               </div>
               <div class="ml-auto">
-                <button type="button" className="link-button" onClick={(e)=>{
-                    this.logout(e);
-                  }}>Logout</button>
+                <button
+                  type="button"
+                  className="link-button"
+                  onClick={this.props.logout}
+                >
+                  Logout
+                </button>
               </div>
             </div>
           </div>
           <div className="card-body">
-            <div class="d-flex">
+            <div className="d-flex">
                 <div>
                   <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
                     {!this.state.showPreview ?
@@ -592,7 +711,7 @@ class SponsorModule extends Component {
                     {caret}
                   </button>
                 </div>
-                <div class="ml-auto">
+                <div className="ml-auto">
                   {this.state.winnersRevealed ?
                     <button type="button" className="button button-secondary">
                       Hide Public Winners
@@ -628,12 +747,46 @@ class SponsorModule extends Component {
 
   /* Final class containing admin page */
   class Admin extends Component {
+
+    // LF6K3G6RR3Q4VX4S
+    componentWillMount() {
+      // If not logged in, redirect to login page
+
+      /*axios.get(Backend.httpFunctions.url + 'api/whoami')
+        .then((response)=>{
+          console.log("admin page attempt " +JSON.stringify(response));
+          let credentials = response['data'];
+          if(credentials == undefined || credentials.user_type != 'admin') {
+            this.props.history.push({
+             pathname: '/adminlogin'
+            });
+          }
+        });*/
+
+      Backend.httpFunctions.getAsync('api/whoami', (response) => {
+        const credentials = JSON.parse(response);
+        if(credentials == undefined || credentials.user_type != 'admin') {
+          this.props.history.push({
+           pathname: '/adminlogin'
+          });
+        }
+      });
+    }
+
+
+    logout() {
+      // Direct back to login page and end session
+      Backend.httpFunctions.postCallback('api/logout', {}, () => {
+        this.props.history.push('/adminLogin');
+      });
+    }
+
     render() {
       return (
         SiteWrapper(
           <div className="row">
             <div className="col">
-              <WinnerModule/>
+              <WinnerModule logout={this.logout.bind(this)}/>
               <SponsorModule/>
             </div>
             <div className="col">

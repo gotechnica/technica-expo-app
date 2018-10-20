@@ -1,4 +1,6 @@
+import axios from 'axios';
 
+const backendDevURL = 'http://localhost:5000/';
 const devURL = 'http://ec2-34-201-45-125.compute-1.amazonaws.com/';
 const prodURL = '';
 
@@ -14,6 +16,7 @@ let httpFunctions = {
   post: (route, postObject) => {
     let http = new XMLHttpRequest();
     http.open("POST", URL + route, true);
+    http.withCredentials = true;
     http.setRequestHeader('Content-Type', 'application/json');
     http.send(JSON.stringify(postObject));
   },
@@ -21,10 +24,11 @@ let httpFunctions = {
   postCallback: (route, postObject, callback) => {
     let http = new XMLHttpRequest();
     http.open("POST", URL + route, true);
+    http.withCredentials = true;
     http.setRequestHeader('Content-Type', 'application/json');
     http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
-          callback(200);
+          callback(http.response);
         }
     }
     http.send(JSON.stringify(postObject));
@@ -39,7 +43,7 @@ let httpFunctions = {
           callback(xmlHttp.responseText);
         }
     }
-    xmlHttp.withCredentials = false;
+    xmlHttp.withCredentials = true;
     xmlHttp.open("GET", URL + route, true);
     xmlHttp.send(null);
   },
@@ -71,4 +75,38 @@ let callback = (getResponse) => {
 Backend.httpFunctions.getAsync('api/projects', callback);
 */
 
-export { httpFunctions };
+
+
+// axiosRequest usage examples:
+/*
+--- PASS IN ROUTE AND PARAMS JSON ---
+axiosRequest.get('fake/route', {param_key: 'param_value'})
+  .then((data) => {
+    console.log(data);
+  })
+--- OR ONLY PASS IN ROUTE ---
+axiosRequest.get('fake/route')
+  .then((data) => {
+    console.log(data);
+  })
+*/
+
+const axiosRequest = {
+  get: (route, params) => makeAxiosRequest('get', route, params),
+  post: (route, params) => makeAxiosRequest('post', route, params),
+  delete: (route, params) => makeAxiosRequest('delete', route, params),
+}
+
+const makeAxiosRequest = (method, route, params) => {
+    return axios({
+      method: method,
+      url: `${URL}${route}`,
+      data: params,
+      withCredentials: true,
+    })
+      .then((response) => {
+        return response.data
+      })
+}
+
+export { httpFunctions, axiosRequest };

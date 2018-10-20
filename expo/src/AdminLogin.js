@@ -28,23 +28,28 @@ class AdminLogin extends Component {
 
   componentWillMount() {
     // If already logged in, move directly to admin page
-    if(this.state.loggedIn) {
-      this.props.history.push({
-       pathname: '/admin'
-      });
-    } else {
-      axios.get(Backend.httpFunctions.url + 'api/whoami')
-        .then((response)=>{
-          let credentials = response['data'];
-          if(credentials != undefined && credentials.user_type == 'admin') {
-            this.setState({loggedIn:true, error:""});
 
-            this.props.history.push({
-             pathname: '/admin'
-            });
-          }
+    /*axios.get(Backend.httpFunctions.url + 'api/whoami')
+      .then((response)=>{
+        let credentials = response['data'];
+        if(credentials != undefined && credentials.user_type == 'admin') {
+          this.setState({loggedIn:true, error:""});
+
+          this.props.history.push({
+           pathname: '/admin'
+          });
+        }
+      });*/
+
+    Backend.httpFunctions.getAsync('api/whoami', (response) => {
+      const credentials = JSON.parse(response);
+      if(credentials != undefined && credentials.user_type == 'admin') {
+        this.setState({loggedIn:true, error:""});
+        this.props.history.push({
+         pathname: '/admin'
         });
-    }
+      }
+    });
   }
 
   onLogin(e, accessCode) {
@@ -58,7 +63,8 @@ class AdminLogin extends Component {
       Backend.httpFunctions.postCallback('api/login/admin', {
           access_code: accessCode
         }, (status)=> {
-          if(status == 200) {
+          console.log(status);
+          if(status == "Logged in as admin") {
             // Log in was successful
             // Clear errors on component
             this.setState({loggedIn:true, error:""});

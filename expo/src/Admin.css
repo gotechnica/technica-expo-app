@@ -74,10 +74,42 @@
   background-color: #00C7C7;
   display: inline-block;
   cursor: pointer;
-  border-radius: 4px; 
+  border-radius: 4px;
   margin-left: 1em;
 }
 
-.upload_icon{
+.font-weight-normal {
+  font-weight: normal;
+}
+
+.upload_icon {
   margin-right: 0.6rem;
+}
+
+.custom-table-assignment-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-table-assignment-child {
+  flex-basis: 6rem;
+}
+
+.m-r-m {
+  margin-right: 1rem;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
