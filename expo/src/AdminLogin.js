@@ -28,7 +28,8 @@ class AdminLogin extends Component {
 
   componentWillMount() {
     // If already logged in, move directly to admin page
-    axios.get(Backend.httpFunctions.url + 'api/whoami')
+
+    /*axios.get(Backend.httpFunctions.url + 'api/whoami')
       .then((response)=>{
         let credentials = response['data'];
         if(credentials != undefined && credentials.user_type == 'admin') {
@@ -38,7 +39,17 @@ class AdminLogin extends Component {
            pathname: '/admin'
           });
         }
-      });
+      });*/
+
+    Backend.httpFunctions.getAsync('api/whoami', (response) => {
+      const credentials = JSON.parse(response);
+      if(credentials != undefined && credentials.user_type == 'admin') {
+        this.setState({loggedIn:true, error:""});
+        this.props.history.push({
+         pathname: '/admin'
+        });
+      }
+    });
   }
 
   onLogin(e, accessCode) {
