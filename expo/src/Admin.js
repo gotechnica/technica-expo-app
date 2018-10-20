@@ -40,58 +40,79 @@ class ProjectModule extends Component {
     super(props);
     this.state = {
       textSearch:'',
-      projects:[
-        {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge1'},
-        {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge2'},
-        {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge3'},
-        {project_name: 'dog', table_number: '3',url:'www.hello.com',challenge_name:'challenge1'},
-        {project_name: 'dog', table_number: '3',url:'www.hello.com',challenge_name:'challenge4'},
-        {project_name: 'apple', table_number: '5',url:'www.hello.com',challenge_name:'challenge1'},
-        {project_name: 'peaches', table_number: '7',url:'www.hello.com',challenge_name:'challenge1'},
-        {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
-      ],
+      projects:[],
       uploadStatus:'',
     }
     // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
+
+  loadProjects() {
+    Backend.httpFunctions.getAsync('api/projects', (item) => {
+      let project = JSON.parse(item)
+      this.setState({
+        projects: project.projects
+      })
+      console.log(project.projects);
+    });
+  }
+
+  componentWillMount() {
+    this.loadProjects();
+  }
+
   createAllChallenges(obj){
     console.log(obj)
     let allChallenges = [];
     obj.map((item)=>{
-      console.log(item.challenges)
-      item.challenges.map((challenge)=>{
-        if(allChallenges.indexOf(challenge)===-1)
+      item.company_challenge.map((challenge)=>{
+        if(allChallenges.indexOf(challenge.challenge_name)===-1)
           allChallenges.push(challenge);
       })
     })
+    console.log(allChallenges);
     return allChallenges;
   }
   sortData(){
     let data = this.state.projects;
+    console.log(data);
     let finalProjectsData = [];
     let seen = undefined;
     data.map((obj)=>{
-      if(obj.table_number !== seen){
-        finalProjectsData.push(
-          {
-            project_name: obj.project_name,
-            table_number: obj.table_number,
-            url: obj.url,
-            challenges: [obj.challenge_name],
-            checkVal: true
-          }
-        )
-      }
-      else{
-        finalProjectsData.map((item)=>{
-          if(item.table_number === seen){
-            item.challenges.push(obj.challenge_name);
-          }
-        })
-      }
-     seen = obj.table_number;
+      let challenge = [];
+      obj.challenges.map((item)=>{
+        challenge.push(item.challenge_name);
+      })
+      finalProjectsData.push(
+        {
+          project_id : obj.project_id,
+          project_name: obj.project_name,
+          table_number: obj.table_number,
+          url: obj.project_url,
+          challenges: challenge,
+          company_challenge: obj.challenges
+        }
+      )
+    //   if(obj.table_number !== seen){
+    //     finalProjectsData.push(
+    //       {
+    //         project_name: obj.project_name,
+    //         table_number: obj.table_number,
+    //         url: obj.url,
+    //         challenges: [obj.challenge_name],
+    //         checkVal: true
+    //       }
+    //     )
+    //   }
+    //   else{
+    //     finalProjectsData.map((item)=>{
+    //       if(item.table_number === seen){
+    //         item.challenges.push(obj.challenge_name);
+    //       }
+    //     })
+    //   }
+    //  seen = obj.table_number;
     })
-    console.log("aassa",finalProjectsData)
+    console.log(finalProjectsData)
     this.createAllChallenges(finalProjectsData);
     return finalProjectsData;
   }
@@ -216,13 +237,14 @@ class ProjectModule extends Component {
                 <div className="col">
                   <EditProjectModal
                     editID={"modalEditProject"+index.toString()}
-                    projectID="0"
+                    projectID={elt.project_id}
                     project_name= {elt.project_name}
                     project_table = {elt.table_number}
                     url = {elt.url}
                     challenges = {elt.challenges}
                     toggle = {elt.checkVal}
                     allChallenges = {allChallenges}
+                    company_challenge = {elt.company_challenge}
                     />
                   <button className="link-button"
                     type="button"
@@ -232,6 +254,8 @@ class ProjectModule extends Component {
                     Edit
                   </button>
                 </div>
+                <br/>
+                <br/>
               </div>
             )
           })}
@@ -254,6 +278,7 @@ class SponsorModule extends Component {
 
   loadCompanies() {
     Backend.httpFunctions.getAsync('api/companies', (sponsors) => {
+      console.log(JSON.parse(sponsors))
       this.setState({
         sponsors: JSON.parse(sponsors)
       })
