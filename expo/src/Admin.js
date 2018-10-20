@@ -642,29 +642,13 @@ class SponsorModule extends Component {
           showPreview: false
         });
       } else {
+        // Get a data dump
+        // sponsor - challenge - winner project names
         this.loadWinners();
         this.setState({
           showPreview: true
         });
       }
-    }
-
-    componentWillMount() {
-      // Get a data dump
-      // sponsor - challenge - winner project names
-      // Get sponsors, then projects
-      this.loadWinners();
-    }
-
-    // TODO correct context of function call for login here :^(
-    moveToLogin() {
-      this.props.history.push('/adminLogin');
-    }
-
-    logout() {
-      // Direct back to login page
-      Backend.httpFunctions.postCallback(Backend.httpFunctions.url + 'api/logout', {},
-        this.moveToLogin());
     }
 
     render() {
@@ -681,10 +665,14 @@ class SponsorModule extends Component {
               <div>
                 <h5>Administration</h5>
               </div>
-              <div className="ml-auto">
-                <button type="button" className="link-button" onClick={(e)=>{
-                    this.logout(e);
-                  }}>Logout</button>
+              <div class="ml-auto">
+                <button
+                  type="button"
+                  className="link-button"
+                  onClick={this.props.logout}
+                >
+                  Logout
+                </button>
               </div>
             </div>
           </div>
@@ -735,12 +723,46 @@ class SponsorModule extends Component {
 
   /* Final class containing admin page */
   class Admin extends Component {
+
+    // LF6K3G6RR3Q4VX4S
+    componentWillMount() {
+      // If not logged in, redirect to login page
+
+      /*axios.get(Backend.httpFunctions.url + 'api/whoami')
+        .then((response)=>{
+          console.log("admin page attempt " +JSON.stringify(response));
+          let credentials = response['data'];
+          if(credentials == undefined || credentials.user_type != 'admin') {
+            this.props.history.push({
+             pathname: '/adminlogin'
+            });
+          }
+        });*/
+
+      Backend.httpFunctions.getAsync('api/whoami', (response) => {
+        const credentials = JSON.parse(response);
+        if(credentials == undefined || credentials.user_type != 'admin') {
+          this.props.history.push({
+           pathname: '/adminlogin'
+          });
+        }
+      });
+    }
+
+
+    logout() {
+      // Direct back to login page and end session
+      Backend.httpFunctions.postCallback('api/logout', {}, () => {
+        this.props.history.push('/adminLogin');
+      });
+    }
+
     render() {
       return (
         SiteWrapper(
           <div className="row">
             <div className="col">
-              <WinnerModule/>
+              <WinnerModule logout={this.logout.bind(this)}/>
               <SponsorModule/>
             </div>
             <div className="col">
