@@ -71,8 +71,8 @@ class ProjectModule extends Component {
     console.log(obj)
     let allChallenges = [];
     obj.map((item)=>{
-      item.company_challenge.map((challenge)=>{
-        if(allChallenges.indexOf(challenge.challenge_name)===-1)
+      item.challenges.map((challenge)=>{
+        if(allChallenges.indexOf(challenge)===-1)
           allChallenges.push(challenge);
       })
     })
