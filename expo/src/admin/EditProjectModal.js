@@ -13,32 +13,43 @@ import {
   faTimes,
   faCheck
 } from '../../node_modules/@fortawesome/fontawesome-free-solid'
+import axios from 'axios';
 library.add(faTimes);
 library.add(faCheck);
+let backend = require('../Backend.js');
 let challengeStore = [];
-
+let company = [];
 class EditProjectModal extends Component {
 
   // Expect the project ID from this.props as projectID
   constructor(props) {
     super(props);
     this.state = {
+      project_id : this.props.projectID,
       project_name: this.props.project_name,
       table_number: this.props.project_table,
-      projectId: this.props.projectID,
       project_url: this.props.url,
       challenges: this.props.challenges,
       allChallenges: this.props.allChallenges,
       erorr: false,
-      challenge_error: false
+      challenge_error: false,
+      company_challenge:this.props.company_challenge
     }
     this.handleChange = this.handleChange.bind(this)
   }
   componentWillMount() {
+    company = [];
     this.state.challenges.map((challenge) => {
+      if(challengeStore.indexOf(challenge) === -1)
       challengeStore.push(challenge);
     })
+    this.state.company_challenge.map((com) => {
+      console.log(company.indexOf(com))
+      if(company.indexOf(com) === -1)
+        company.push(com);
+    })
     console.log(challengeStore);
+    console.log(company);
   }
   saveProject(e) {
     let valid = true;
@@ -71,6 +82,12 @@ class EditProjectModal extends Component {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
       // Close modal
+      // Backend.httpFunctions.postCallback('api/projects/id/' + this.state.project_id, {
+      //   "project_name": this.state.project_name,
+      //   "project_url": this.state.project_url,
+      //   "table_number": this.state.table_number,
+      //   "challenges": this.state.company_challenge
+      // }, this.props.onEdit);
       if (checks) {
         this.setState({
           challenges: challengeStore
@@ -92,26 +109,30 @@ class EditProjectModal extends Component {
     console.log(this.state)
   }
 
-
   handleChange(color, index, e) {
-    console.log(e.target)
-    console.log(index);
+    console.log(e)
+    let lol = index;
     let allChallenges = this.state.allChallenges;
     challengeStore = this.state.challenges;
+    company = this.state.company_challenge;
     console.log(color);
-    if (color === true) {
+    if (color) {
       console.log("sup");
-      console.log(e.target.textContent)
-      let word = e.target.textContent;
+      console.log(lol)
+      let label = (document.getElementById(`${lol}label`))
+      let word = label.innerHTML;
       word = word.trim();
       console.log(word)
-      let index = this.state.challenges.indexOf(word)
+      let ind = this.state.challenges.indexOf(word)
       let index_all = this.state.allChallenges.indexOf(word);
-      console.log(index)
-      challengeStore.splice(index, 1);
+      console.log(ind)
+      challengeStore.splice(ind, 1);
       console.log(challengeStore)
-    } else if (color === false) {
-      let word = e.target.textContent;
+      company.pop();
+      console.log(company);
+    } else if (!color) {
+      let label = (document.getElementById(`${lol}label`))
+      let word = label.innerHTML
       word = word.trim();
       if (!challengeStore.includes(word) && word.length > 0)
         challengeStore.push(word);
@@ -122,9 +143,10 @@ class EditProjectModal extends Component {
   }
 
   render() {
+    console.log(this.state.project_id)
       //let toggle = true;
-      console.log(this.props)
-      console.log(this.state)
+     // console.log(this.props)
+     // console.log(this.state)
       return ( 
         <div className = "modal fade"
         id = {
@@ -191,11 +213,11 @@ class EditProjectModal extends Component {
           <div className = "form-group">
             <label> Attempted Challenges </label> 
             <br/> {
-              console.log(this.state.challenges)
+              //console.log(this.state.challenges)
             } {
               this.state.allChallenges.map((challenge, index) => {
                 if (challenge !== undefined) {
-                  console.log(challenge)
+                 // console.log(challenge)
                   if (this.state.challenges.indexOf(challenge) < 0) {
                     return ( <Checkbox handleChange = {this.handleChange}
                       value = {
@@ -211,7 +233,10 @@ class EditProjectModal extends Component {
                       }
                       id = {
                         index
-                      } > 
+                      } 
+                      project_id = {
+                        this.state.project_id
+                      }> 
                       </Checkbox>
                     )
                   } else {
@@ -232,7 +257,10 @@ class EditProjectModal extends Component {
                       }
                       id = {
                         index
-                      } > </Checkbox>
+                      } 
+                      project_id = {
+                        this.state.project_id
+                      }> </Checkbox>
                     )
                   }
                 }
@@ -276,12 +304,13 @@ class EditProjectModal extends Component {
           this.changeState = this.changeState.bind(this);
         }
 
-        handleClick(e) {
+        handleClick(e,id) {
+          console.log(this.state.color)
           this.setState({
             color: !this.state.color
           });
-          console.log(this)
-          this.props.handleChange(this.state.color, this.props.id, e);
+          console.log(this.state.color)
+          this.props.handleChange(this.state.color, id, e);
         }
 
         changeState(checkbox) {
@@ -293,26 +322,36 @@ class EditProjectModal extends Component {
         }
 
         render() {
-          console.log(this)
-          let color = this.state.color ? "pink" : "black";
-          let icon = this.state.color ? "check" : "times";
-          console.log(this);
-          console.log(color)
+          console.log(this.props.project_id)
+          let id = `defaultChecked${this.props.id}${this.props.project_id}`;
+          let label = `defaultChecked${this.props.id}${this.props.project_id}label`;
+          // console.log(this);
+          // console.log(color)
           return ( 
-            <span class = "badge badge-primary check"
-            id = {
-              this.props.id
-            }
-            className = {
-              color
-            }
-            onClick = {
-              (e) => this.handleClick(e)
-            }><FontAwesomeIcon icon = {
-              icon
-            }></FontAwesomeIcon> {this.props.value}</span >
+            <div class="custom-control custom-checkbox" onChange={(e)=>{this.handleClick(e,id)}}>
+              {this.state.color ? 
+                <input type="checkbox" class="custom-control-input" id = {id}  checked/>
+                :
+                <input type="checkbox" class="custom-control-input"  id = {id} />
+              }
+              <label class="custom-control-label" for={id} id={label}>{this.props.value}</label>
+            </div>
           )
         }
       }
 
       export default EditProjectModal;
+
+
+      // <input type='checkbox' class = "custom-control-input check"
+            // id = {
+            //   this.props.id
+            // }
+            // className = {
+            //   color
+            // }
+            // onClick = {
+            //   (e) => this.handleClick(e)
+            // }><FontAwesomeIcon icon = {
+            //   icon
+            // }></FontAwesomeIcon>{this.props.value}

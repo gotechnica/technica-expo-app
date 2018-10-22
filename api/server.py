@@ -13,8 +13,7 @@ import os
 from seed_db import *
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
-CORS(app)
+CORS(app, supports_credentials=True)
 app.config.from_object('config')
 mongo = PyMongo(app)
 
@@ -146,8 +145,7 @@ def assign_remaining_table_numbers():
         duplicates = list(set([x for x in used_tables_array if used_tables_array.count(x) > 1]))
         return f'Error: there exists {len(duplicates)} duplicate table number(s) in the DB. Please resolve duplicate before continuing.\n{duplicates}'
 
-    table_assignment_schema = request.json['table_assignment_schema']
-    available_tables_list = get_available_table_numbers(table_assignment_schema, used_tables_set, all_projects.count())
+    available_tables_list = get_available_table_numbers(request.json, used_tables_set, all_projects.count())
     i = 0
     db_update_operations = []
     for p in all_projects:
@@ -166,8 +164,9 @@ def assign_remaining_table_numbers():
     else:
         return 'No projects have been assigned new tables.'
 
-# Valid schemas: 'numeric', 'evens', 'odds'
-def get_available_table_numbers(table_assignment_schema, used_tables_set, num_projects):
+# Valid schemas: 'numeric', 'evens', 'odds', 'custom'
+def get_available_table_numbers(request_params, used_tables_set, num_projects):
+    table_assignment_schema = request_params['table_assignment_schema']
     max_table_numbers_list = []
     num_tables_needed = num_projects + len(used_tables_set)
     if table_assignment_schema == 'evens':
@@ -176,7 +175,39 @@ def get_available_table_numbers(table_assignment_schema, used_tables_set, num_pr
         max_table_numbers_list = range(1, num_tables_needed * 2 + 1, 2)
     elif table_assignment_schema == 'numeric':
         max_table_numbers_list = range(1, num_tables_needed + 1)
+    elif table_assignment_schema == 'custom':
+        for letter in char_range(request_params['table_start_letter'], request_params['table_end_letter']):
+            for number in range(request_params['table_start_number'], request_params['table_end_number'] + 1):
+                max_table_numbers_list.append(letter + str(number))
+        if request_params['skip_every_other_table']:
+            max_table_numbers_list = max_table_numbers_list[::2]
     return list(set(max_table_numbers_list) - used_tables_set) # Remove used table numbers
+
+def char_range(c1, c2):
+    """Generates the characters from `c1` to `c2`, inclusive."""
+    for c in range(ord(c1), ord(c2)+1):
+        yield chr(c)
+
+@app.route('/api/projects/clear_table_assignments', methods=['POST'])
+def remove_all_table_numbers():
+    projects = mongo.db.projects
+    all_projects = projects.find()
+
+    db_update_operations = []
+    for p in all_projects:
+        db_update_operations.append(UpdateOne(
+            {'_id': ObjectId(p['_id'])},
+            {'$set': {'table_number': ''}}
+        ))
+    if (len(db_update_operations) > 0):
+        result = projects.bulk_write(db_update_operations)
+        num_modified = result.bulk_api_result.get('nModified')
+        if current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION']:
+            return f'Cleared table assignments from {num_modified} projects. Remember to manually assign table numbers to projects requesting a specific table.'
+        else:
+            return f'Cleared {num_modified} projects of table assignments.'
+    else:
+        return 'No table assignments were cleared.'
 
 @app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
 def update_publish_winners_flag():
@@ -226,12 +257,14 @@ def update_project(project_id):
 
     return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
 
-@app.route('/api/projects/delete', methods=['DELETE'])
-def delete_project():
+@app.route('/api/projects/id/<project_id>', methods=['DELETE'])
+def delete_project(project_id):
     projects = mongo.db.projects
-
-    project_id = request.json['project_id']
-    projects.delete_one({'_id': project_id})
+    result = projects.delete_one({'_id': ObjectId(project_id)})
+    if result.deleted_count == 1:
+        return "Deleted project " + project_id
+    else:
+        return "Did not find project " + project_id
 
 
 @app.route('/api/projects/deleteAll', methods=['DELETE'])
@@ -292,6 +325,16 @@ def update_company_name_or_code(company_id):
     )
 
     return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
+
+@app.route('/api/companies/id/<company_id>', methods=['DELETE'])
+def delete_company(company_id):
+    companies = mongo.db.companies
+    result = companies.delete_one({'_id': ObjectId(company_id)})
+    # TODO(timothychen01): Explore adding additional side effect for challenges
+    if result.deleted_count == 1:
+        return "Deleted company " + company_id
+    else:
+        return "Did not find company " + company_id
 
 @app.route('/api/companies/id/<company_id>/challenges/add', methods=['POST'])
 def add_challenge_to_company(company_id):

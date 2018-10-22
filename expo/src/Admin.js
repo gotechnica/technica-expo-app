@@ -40,64 +40,86 @@ class ProjectModule extends Component {
     super(props);
     this.state = {
       textSearch:'',
-      projects:[
-        {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge1'},
-        {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge2'},
-        {project_name: 'cat', table_number: '1',url:'www.hello.com',challenge_name:'challenge3'},
-        {project_name: 'dog', table_number: '3',url:'www.hello.com',challenge_name:'challenge1'},
-        {project_name: 'dog', table_number: '3',url:'www.hello.com',challenge_name:'challenge4'},
-        {project_name: 'apple', table_number: '5',url:'www.hello.com',challenge_name:'challenge1'},
-        {project_name: 'peaches', table_number: '7',url:'www.hello.com',challenge_name:'challenge1'},
-        {project_name: 'small', table_number: '9',url:'www.hello.com',challenge_name:'challenge1'},
-      ],
+      projects:[],
       uploadStatus:'',
-      tableAssignmentSchema:'',
+      tableAssignmentStatus: '',
+      tableAssignmentSchema: '',
       tableStartLetter: '',
-      tableStartNumber: '',
+      tableStartNumber: 0,
       tableEndLetter: '',
-      tableEndNumber: '',
+      tableEndNumber: 0,
       skipEveryOtherTable: true,
     }
     // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
+
+  loadProjects() {
+    Backend.httpFunctions.getAsync('api/projects', (item) => {
+      let project = JSON.parse(item)
+      this.setState({
+        projects: project.projects
+      })
+      console.log(project.projects);
+    });
+  }
+
+  componentWillMount() {
+    this.loadProjects();
+  }
+
   createAllChallenges(obj){
     console.log(obj)
     let allChallenges = [];
     obj.map((item)=>{
-      console.log(item.challenges)
       item.challenges.map((challenge)=>{
         if(allChallenges.indexOf(challenge)===-1)
           allChallenges.push(challenge);
       })
     })
+    console.log(allChallenges);
     return allChallenges;
   }
   sortData(){
     let data = this.state.projects;
+    console.log(data);
     let finalProjectsData = [];
     let seen = undefined;
     data.map((obj)=>{
-      if(obj.table_number !== seen){
-        finalProjectsData.push(
-          {
-            project_name: obj.project_name,
-            table_number: obj.table_number,
-            url: obj.url,
-            challenges: [obj.challenge_name],
-            checkVal: true
-          }
-        )
-      }
-      else{
-        finalProjectsData.map((item)=>{
-          if(item.table_number === seen){
-            item.challenges.push(obj.challenge_name);
-          }
-        })
-      }
-     seen = obj.table_number;
+      let challenge = [];
+      obj.challenges.map((item)=>{
+        challenge.push(item.challenge_name);
+      })
+      finalProjectsData.push(
+        {
+          project_id : obj.project_id,
+          project_name: obj.project_name,
+          table_number: obj.table_number,
+          url: obj.project_url,
+          challenges: challenge,
+          company_challenge: obj.challenges
+        }
+      )
+    //   if(obj.table_number !== seen){
+    //     finalProjectsData.push(
+    //       {
+    //         project_name: obj.project_name,
+    //         table_number: obj.table_number,
+    //         url: obj.url,
+    //         challenges: [obj.challenge_name],
+    //         checkVal: true
+    //       }
+    //     )
+    //   }
+    //   else{
+    //     finalProjectsData.map((item)=>{
+    //       if(item.table_number === seen){
+    //         item.challenges.push(obj.challenge_name);
+    //       }
+    //     })
+    //   }
+    //  seen = obj.table_number;
     })
-    console.log("aassa",finalProjectsData)
+    console.log(finalProjectsData)
     this.createAllChallenges(finalProjectsData);
     return finalProjectsData;
   }
@@ -112,22 +134,19 @@ class ProjectModule extends Component {
         uploadStatus: 'Please select a file before hitting upload!'
       });
     } else {
-      fetch(`${Backend.URL}parse_csv`, {
-        method: 'POST',
-        body: data,
-      })
-        .catch((error) => {
-          this.state.uploadStatus = 'Oops! Something went wrong...'; // Flash success message
-          console.error('Error:', error);
-        })
+      axios.post(`${Backend.httpFunctions.url}parse_csv`, data)
         .then((response) => {
-          return response.text();
-        })
-        .then((data) => {  // data = parsed version of the JSON from above endpoint.
           this.projects_csv.value = ''; // Clear input field
-          this.setState({ // Flash success message
-            uploadStatus: data
+          this.setState({ // Flash success message and clear input display
+            uploadStatus: response.data,
+            projectsCSV: ''
           });
+        })
+        .catch((error) => {
+          this.setState({ // Flash error message
+            uploadStatus: 'Oops! Something went wrong...'
+          });
+          console.error('Error:', error);
         });
     }
 	}
@@ -144,10 +163,63 @@ class ProjectModule extends Component {
 
   onAutoAssignTableNumbers(e) {
     e.preventDefault();
-    if (this.state.tableAssignmentSchema === "custom") {
-      alert(`Auto-assign table numbers from ${this.state.tableStartLetter}${this.state.tableStartNumber} to ${this.state.tableEndLetter}${this.state.tableEndNumber}`);
-    } else {
-      alert('Selected ' + this.state.tableAssignmentSchema);
+    if (this.state.tableAssignmentSchema == '') {
+      this.setState({
+        tableAssignmentStatus: 'Please first select a schema for assigning table numbers.',
+      });
+      return;
+    }
+    this.setState({
+      tableAssignmentStatus: 'Processing your request to assign table numbers...',
+    });
+    axios.post(
+      `${Backend.httpFunctions.url}api/projects/assign_tables`,
+      {
+        table_assignment_schema: this.state.tableAssignmentSchema,
+        table_start_letter: this.state.tableStartLetter,
+        table_start_number: parseInt(this.state.tableStartNumber),
+        table_end_letter: this.state.tableEndLetter,
+        table_end_number: parseInt(this.state.tableEndNumber),
+        skip_every_other_table: this.state.skipEveryOtherTable,
+      }
+    )
+      .then((response) => {
+        this.setState({ // Flash success message
+          tableAssignmentStatus: response.data,
+          tableAssignmentSchema: '',
+          tableStartLetter: '',
+          tableStartNumber: 0,
+          tableEndLetter: '',
+          tableEndNumber: 0,
+          skipEveryOtherTable: true,
+        });
+      })
+      .catch((error) => {
+        this.setState({ // Flash error message
+          tableAssignmentStatus: 'Oops! Something went wrong...'
+        });
+        console.error('Error:', error);
+      });
+  }
+
+  onRemoveAllTableAssignments(e) {
+    e.preventDefault();
+    if (window.confirm('Are you sure you want to remove ALL table assignments from your database?')) {
+      this.setState({
+        tableAssignmentStatus: 'Processing your request to remove table assignments...',
+      });
+      axios.post(`${Backend.httpFunctions.url}api/projects/clear_table_assignments`)
+        .then((response) => {
+          this.setState({ // Flash success message
+            tableAssignmentStatus: response.data,
+          });
+        })
+        .catch((error) => {
+          this.setState({ // Flash error message
+            tableAssignmentStatus: 'Oops! Something went wrong...'
+          });
+          console.error('Error:', error);
+        });
     }
   }
 
@@ -177,14 +249,17 @@ class ProjectModule extends Component {
             onSubmit={this.onUploadCSVSubmitForm.bind(this)}
           >
             <div className="form-group">
-              <label>Upload CSV for parsing</label>
-              <input type="file" id="file" className="inputfile" name="projects_csv" ref={(ref) => { this.projects_csv = ref; }} />
-              <label><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</label>
+              <label>Upload Devpost CSV for parsing</label><br/>
+              <div className="upload-btn-wrapper">
+                <button className="button button-primary font-weight-normal m-r-m"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</button>
+                <input type="file" id="file" name="projectsCSV" onChange={this.handleInputChange.bind(this)} ref={(ref) => { this.projects_csv = ref; }} />
+                {this.state.projectsCSV.replace("C:\\fakepath\\", "")}
+              </div>
             </div>
             <button className="button button-primary" type="submit">Upload</button>
             {this.state.uploadStatus != '' &&
               <div className="row col" style={{'padding-top': '1rem'}}>
-                {this.state.uploadStatus}
+                <i>{this.state.uploadStatus}</i>
               </div>
             }
           </form>
@@ -198,35 +273,39 @@ class ProjectModule extends Component {
             onSubmit={this.onAutoAssignTableNumbers.bind(this)}
           >
             <div onChange={this.handleInputChange.bind(this)} style={{"margin-bottom": "1rem"}}>
-              <div><input type="radio" name="tableAssignmentSchema" value="numeric" /> Numeric (1, 2, 3...)</div>
-              <div><input type="radio" name="tableAssignmentSchema" value="odds" /> Odds (1, 3, 5...)</div>
-              <div><input type="radio" name="tableAssignmentSchema" value="evens" /> Evens (2, 4, 6...)</div>
-              <div><input type="radio" name="tableAssignmentSchema" value="custom" /> Custom</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="numeric" checked={this.state.tableAssignmentSchema=="numeric"} /> Numeric (1, 2, 3...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="odds" checked={this.state.tableAssignmentSchema=="odds"} /> Odds (1, 3, 5...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="evens" checked={this.state.tableAssignmentSchema=="evens"} /> Evens (2, 4, 6...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="custom" checked={this.state.tableAssignmentSchema=="custom"} /> Custom</div>
             </div>
             {this.state.tableAssignmentSchema === "custom" &&
             <div style={{"margin-bottom": "1rem"}}>
               <p>Enter the starting and ending/maximum alphanumeric combinations (e.g. A1 to Z15).</p>
               <div className="form-group custom-table-assignment-container">
-                <input type="text"
+                <input
+                  type="text"
                   name="tableStartLetter"
                   className="form-control custom-table-assignment-child"
                   placeholder="ex: A"
                   onChange={this.handleInputChange.bind(this)}
                 />
-                <input type="text"
+                <input
+                  type="number"
                   name="tableStartNumber"
                   className="form-control custom-table-assignment-child"
                   placeholder="ex: 1"
                   onChange={this.handleInputChange.bind(this)}
                 />
                 to
-                <input type="text"
+                <input
+                  type="text"
                   name="tableEndLetter"
                   className="form-control custom-table-assignment-child"
                   placeholder="ex: Z"
                   onChange={this.handleInputChange.bind(this)}
                 />
-                <input type="text"
+                <input
+                  type="number"
                   name="tableEndNumber"
                   className="form-control custom-table-assignment-child"
                   placeholder="ex: 15"
@@ -240,14 +319,23 @@ class ProjectModule extends Component {
                 onChange={this.handleInputChange.bind(this)}
               /> Skip every other table? (Provides more spacious expo)
             </div>}
-            <button type="submit" className="button button-primary">
+            <button type="submit" className="button button-primary m-r-m">
               Assign Tables
             </button>
+            <button className="button button-secondary" onClick={this.onRemoveAllTableAssignments.bind(this)}>
+              Remove All Table Assignments
+            </button>
+            {this.state.tableAssignmentStatus != '' &&
+              <div className="row col" style={{'padding-top': '1rem'}}>
+                <i>{this.state.tableAssignmentStatus}</i>
+              </div>
+            }
           </form>
 
           <br/>
           <br/>
 
+          <h5>Projects ({filteredProjects.length})</h5>
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
@@ -280,13 +368,14 @@ class ProjectModule extends Component {
                 <div className="col">
                   <EditProjectModal
                     editID={"modalEditProject"+index.toString()}
-                    projectID="0"
+                    projectID={elt.project_id}
                     project_name= {elt.project_name}
                     project_table = {elt.table_number}
                     url = {elt.url}
                     challenges = {elt.challenges}
                     toggle = {elt.checkVal}
                     allChallenges = {allChallenges}
+                    company_challenge = {elt.company_challenge}
                     />
                   <button className="link-button"
                     type="button"
@@ -296,6 +385,8 @@ class ProjectModule extends Component {
                     Edit
                   </button>
                 </div>
+                <br/>
+                <br/>
               </div>
             )
           })}
@@ -318,6 +409,7 @@ class SponsorModule extends Component {
 
   loadCompanies() {
     Backend.httpFunctions.getAsync('api/companies', (sponsors) => {
+      console.log(JSON.parse(sponsors))
       this.setState({
         sponsors: JSON.parse(sponsors)
       })
@@ -574,29 +666,13 @@ class SponsorModule extends Component {
           showPreview: false
         });
       } else {
+        // Get a data dump
+        // sponsor - challenge - winner project names
         this.loadWinners();
         this.setState({
           showPreview: true
         });
       }
-    }
-
-    componentWillMount() {
-      // Get a data dump
-      // sponsor - challenge - winner project names
-      // Get sponsors, then projects
-      this.loadWinners();
-    }
-
-    // TODO correct context of function call for login here :^(
-    moveToLogin() {
-      this.props.history.push('/adminLogin');
-    }
-
-    logout() {
-      // Direct back to login page
-      Backend.httpFunctions.postCallback(Backend.httpFunctions.url + 'api/logout', {},
-        this.moveToLogin());
     }
 
     render() {
@@ -613,10 +689,14 @@ class SponsorModule extends Component {
               <div>
                 <h5>Administration</h5>
               </div>
-              <div className="ml-auto">
-                <button type="button" className="link-button" onClick={(e)=>{
-                    this.logout(e);
-                  }}>Logout</button>
+              <div class="ml-auto">
+                <button
+                  type="button"
+                  className="link-button"
+                  onClick={this.props.logout}
+                >
+                  Logout
+                </button>
               </div>
             </div>
           </div>
@@ -667,12 +747,46 @@ class SponsorModule extends Component {
 
   /* Final class containing admin page */
   class Admin extends Component {
+
+    // LF6K3G6RR3Q4VX4S
+    componentWillMount() {
+      // If not logged in, redirect to login page
+
+      /*axios.get(Backend.httpFunctions.url + 'api/whoami')
+        .then((response)=>{
+          console.log("admin page attempt " +JSON.stringify(response));
+          let credentials = response['data'];
+          if(credentials == undefined || credentials.user_type != 'admin') {
+            this.props.history.push({
+             pathname: '/adminlogin'
+            });
+          }
+        });*/
+
+      Backend.httpFunctions.getAsync('api/whoami', (response) => {
+        const credentials = JSON.parse(response);
+        if(credentials == undefined || credentials.user_type != 'admin') {
+          this.props.history.push({
+           pathname: '/adminlogin'
+          });
+        }
+      });
+    }
+
+
+    logout() {
+      // Direct back to login page and end session
+      Backend.httpFunctions.postCallback('api/logout', {}, () => {
+        this.props.history.push('/adminLogin');
+      });
+    }
+
     render() {
       return (
         SiteWrapper(
           <div className="row">
             <div className="col">
-              <WinnerModule/>
+              <WinnerModule logout={this.logout.bind(this)}/>
               <SponsorModule/>
             </div>
             <div className="col">
