@@ -3,6 +3,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Table.css';
 import SmallerParentheses from './SmallerParentheses.js';
 
+import { SubmitModal } from './Sponsor.js';
+
 import TechnicaRibbon from './imgs/technica_award_ribbon.png';
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
@@ -265,32 +267,67 @@ export class Table extends Component {
       counter += 1;
     });
 
+    let selections = [];
+    if (this.props.origin === "sponsor") {
+      Object.keys(this.props.checked).forEach((project_id) => {
+        let challenges = this.props.checked[project_id];
+        Object.keys(challenges).forEach((challenge) => {
+          if (challenge === this.props.value && challenges[challenge] === true) {
+            selections.push(project_id);
+          }
+        });
+      });
+    }
+
     return (
-       <table>
-        { this.props.origin === "home" ?
-          <thead>
-            <tr>
-              {table}
-              <th>Project Information</th>
-            </tr>
-          </thead>
-          :
-          ( this.state.width >= 460 ?
+      rows.length > 0 ?
+        <Fragment>
+          <table>
+          { this.props.origin === "home" ?
             <thead>
               <tr>
-                <th>Select</th>
                 {table}
-                <th>Project</th>
+                <th>Project Information</th>
               </tr>
             </thead>
             :
-            <Fragment></Fragment>
-          )
-        }
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+            ( this.state.width >= 460 ?
+              <thead>
+                <tr>
+                  <th>Select</th>
+                  {table}
+                  <th>Project</th>
+                </tr>
+              </thead>
+              :
+              <Fragment></Fragment>
+            )
+          }
+          <tbody>
+            {rows}
+          </tbody>
+        </table>
+        {this.props.origin === "sponsor" ? ( this.props.state ?
+        <div>
+          <button className="button button-secondary clear" disabled>Clear</button>
+          <button className="button button-primary submit" disabled>Submit</button>
+        </div>
+        :
+        <div>
+          <button className="button button-secondary clear" onClick={this.props.clear}>Clear</button>
+          <button className="button button-primary submit" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.props.submit}>Submit</button>
+          <SubmitModal
+            value={this.props.value}
+            project_dict={this.props.project_dict}
+            votes={selections}
+            challenge_info={this.props.sponsor_challenges[this.props.value]}
+          />
+        </div>) : <Fragment></Fragment>}
+      </Fragment>
+      :
+      <div className="card no-submissions">
+        <h2>No Submissions</h2>
+      </div>
     );
   }
 
