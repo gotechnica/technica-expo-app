@@ -392,11 +392,14 @@ class SearchandFilter extends Component {
     }
 
     handleChange(e){
+    
       console.log(e.target.name)
       if (e.target.name === 'input') {
         let val =(e.target.value);
         console.log(val);
+        if (val != "") {
         let updatedList = this.state.data;
+
         updatedList = updatedList.filter((item) => {
           return item.project_name.toLowerCase().indexOf(val.toLowerCase()) !==-1;
         });
@@ -404,6 +407,7 @@ class SearchandFilter extends Component {
         this.setState(() => {
           return ({ workingdata: updatedList })
         })
+        }
       } else if (e.target.name === "selectProject") {
         let val = (e.target.value);
         this.setState({ value: val });

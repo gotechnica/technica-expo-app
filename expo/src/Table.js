@@ -245,7 +245,7 @@ export class Table extends Component {
             project_name = {project.project_name}
             project_url = {project.project_url}
             handler = {this.props.handler}
-            checked = {this.props.checked[project.project_id][this.props.value]}
+            checked = {this.props.checked[project.project_id] === undefined ? false : this.props.checked[project.project_id][[this.props.value]]}
             disabled = {this.props.sponsor_challenges[this.props.value].submitted}
             origin={this.props.origin}
             width={this.state.width}
@@ -282,6 +282,7 @@ export class Table extends Component {
     return (
       rows.length > 0 ?
         <Fragment>
+        {/*alert(JSON.stringify(this.props.checked))*/}
           <table>
           { this.props.origin === "home" ?
             <thead>

@@ -193,8 +193,10 @@ export class VotingTable extends Component {
 
   handleVoteEvent(project_id) {
     let new_checked = this.state.checked;
-    new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
-    this.setState({ checked: new_checked });
+    if (new_checked[project_id] !== undefined) {
+      new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
+      this.setState({ checked: new_checked });
+    }
   }
 
   render() {
