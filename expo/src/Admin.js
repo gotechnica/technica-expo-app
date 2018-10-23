@@ -42,6 +42,7 @@ class ProjectModule extends Component {
       textSearch:'',
       projects:[],
       uploadStatus:'',
+      projectsCSV:'',
       tableAssignmentStatus: '',
       tableAssignmentSchema: '',
       tableStartLetter: '',
