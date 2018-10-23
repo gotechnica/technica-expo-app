@@ -9,12 +9,14 @@ import {
 import SiteWrapper from './SiteWrapper.js';
 import Login from './Login.js';
 
+const Backend = require('./Backend.js');
+
 const InvalidErr = (
   <div className="alert alert-danger">
     <strong>Invalid login! </strong>
-      Please see a member of the Technica staff if
+      {`Please see a member of the Technica staff if
       you don't know your access code or are having
-      trouble logging in.
+      trouble logging in.`}
   </div>
 );
 
@@ -31,20 +33,26 @@ class SponsorLogin extends Component {
   }
 
   onLogin(e, accessCode) {
-    // TODO Validate login against DB
-    let validLogin = true;
-
-    if (validLogin) {
-      this.setState({logggedIn:true, error:""});
-
-      // TODO Set logged in cookie
-
-      this.props.history.push({
-       pathname: '/sponsor'
+    Backend.axiosRequest.post('api/login/sponsor', {access_code: accessCode})
+      .then((data) => {
+        if (data.includes('Logged in')) {
+          this.setState({
+            loggedIn: true,
+            error: ''
+          });
+          this.props.history.push({
+            pathname: '/sponsor'
+          });
+        } else {
+          this.setState({
+            loggedIn: false,
+            error: InvalidErr
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    } else {
-      this.setState({loggedIn:false, error:InvalidErr});
-    }
   }
 
   render() {

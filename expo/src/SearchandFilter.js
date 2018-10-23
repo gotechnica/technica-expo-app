@@ -623,7 +623,7 @@ class SearchandFilter extends Component {
       let style = (this.state.width < 460 ? "center" : "left");
       return (
         <div>
-          { this.props.origin === "sponsor" ? <WelcomeHeader company={this.props.loggedIn} data={sponsor_challenges} project_dict={voting_data[1]}/>: <div></div>}
+          { this.props.origin === "sponsor" ? <WelcomeHeader company={this.props.loggedIn} data={sponsor_challenges} project_dict={voting_data[1]} logout={this.props.logout} />: <div></div>}
           <div class="card">
           {this.props.origin === 'sponsor' ?
           <div class="card-header">

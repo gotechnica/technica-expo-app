@@ -1,5 +1,6 @@
 /* react components */
 import React, { Component, Fragment } from 'react';
+import './App.css';
 import './Sponsor.css';
 import {
   BrowserRouter as Router,
@@ -8,7 +9,6 @@ import {
 } from 'react-router-dom';
 
 import SiteWrapper from './SiteWrapper.js';
-import Card from './Card.js';
 import SearchandFilter from './SearchandFilter.js';
 import Error from './Error.js';
 import Table from './Table.js';
@@ -29,6 +29,8 @@ library.add(faTimesCircle);
 library.add(faCircle);
 library.add(faCheckCircle);
 library.add(faExclamationTriangle);
+
+const Backend = require('./Backend.js');
 
 export class SubmitModal extends Component {
 
@@ -239,41 +241,97 @@ export class WelcomeHeader extends Component {
     });
 
     return (
-      <Card
-        title={"Welcome " + this.props.company + "!"}
-        content={
+      <div className="card">
+        <div className="card-header">
+          <div className="d-flex">
+            <div>
+              <h5>Welcome {this.props.company}!</h5>
+            </div>
+            <div class="ml-auto">
+              <button
+                type="button"
+                className="link-button"
+                onClick={this.props.logout}
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="card-body">
           <Fragment>
             <div className="task-header">
               <h5>Tasks</h5>
             </div>
             {tasks}
           </Fragment>
-        }
-      />
+        </div>
+      </div>
     );
   }
 }
 
-/* Sponsor page content (see PRD) <VotingTable />*/
-const Sponsor = () => (
-SiteWrapper(
-    <div id="Sponsor">
-      <div class="row">
-        <div class="col">
-          <SearchandFilter
-            origin = "sponsor"
-            loggedIn = "Booz Allen Hamilton"
-            title = {
-              <div>
-                Vote For Your Challenge Winner
-                <SmallerParentheses font_size="15px">s</SmallerParentheses>
-              </div>
-            }
-          />
-        </div>
-      </div>
-    </div>
-  )
-);
 
-export default Sponsor;
+export default class Sponsor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+      loggedInAs: ''
+    };
+    Backend.axiosRequest.get('api/whoami')
+      .then((credentials) => {
+        if(credentials != undefined && credentials.user_type == 'sponsor') {
+          this.setState({
+            loggedIn: true,
+            loggedInAs: credentials.name
+          });
+        } else {
+          this.props.history.push({
+            pathname: '/sponsorLogin'
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  onLogout() {
+    Backend.axiosRequest.post('api/logout')
+      .then((data) => {
+        this.props.history.push({
+          pathname: '/sponsorLogin'
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  render() {
+    if (this.state.loggedIn) {
+      return SiteWrapper(
+        <div id="Sponsor">
+          <div class="row">
+            <div class="col">
+              <SearchandFilter
+                origin="sponsor"
+                loggedIn={this.state.loggedInAs}
+                title={
+                  <div>
+                    Vote For Your Challenge Winner
+                    <SmallerParentheses font_size="15px">s</SmallerParentheses>
+                  </div>
+                }
+                logout={this.onLogout.bind(this)}
+              />
+            </div>
+          </div>
+        </div>
+      )
+    } else {
+      return SiteWrapper()
+    }
+  }
+}
