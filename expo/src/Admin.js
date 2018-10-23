@@ -42,6 +42,7 @@ class ProjectModule extends Component {
       textSearch:'',
       projects:[],
       uploadStatus:'',
+      projectsCSV:'',
       tableAssignmentStatus: '',
       tableAssignmentSchema: '',
       tableStartLetter: '',
@@ -747,54 +748,56 @@ class SponsorModule extends Component {
 
   /* Final class containing admin page */
   class Admin extends Component {
-
-    // LF6K3G6RR3Q4VX4S
-    componentWillMount() {
-      // If not logged in, redirect to login page
-
-      /*axios.get(Backend.httpFunctions.url + 'api/whoami')
-        .then((response)=>{
-          console.log("admin page attempt " +JSON.stringify(response));
-          let credentials = response['data'];
-          if(credentials == undefined || credentials.user_type != 'admin') {
+    constructor(props) {
+      super(props);
+      this.state = {
+        loggedIn: false,
+        loggedInAs: ''
+      };
+      // LF6K3G6RR3Q4VX4S
+      Backend.axiosRequest.get('api/whoami')
+        .then((credentials) => {
+          if(credentials != undefined && credentials.user_type == 'admin') {
+            this.setState({
+              loggedIn: true,
+              loggedInAs: 'admin'
+            });
+          } else {
             this.props.history.push({
-             pathname: '/adminlogin'
+              pathname: '/adminLogin'
             });
           }
-        });*/
-
-      Backend.httpFunctions.getAsync('api/whoami', (response) => {
-        const credentials = JSON.parse(response);
-        if(credentials == undefined || credentials.user_type != 'admin') {
-          this.props.history.push({
-           pathname: '/adminlogin'
-          });
-        }
-      });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
 
-
     logout() {
-      // Direct back to login page and end session
+      // Redirect back to admin login page and end session
       Backend.httpFunctions.postCallback('api/logout', {}, () => {
         this.props.history.push('/adminLogin');
       });
     }
 
     render() {
-      return (
-        SiteWrapper(
-          <div className="row">
-            <div className="col">
-              <WinnerModule logout={this.logout.bind(this)}/>
-              <SponsorModule/>
+      if (this.state.loggedIn) {
+        return (
+          SiteWrapper(
+            <div className="row">
+              <div className="col">
+                <WinnerModule logout={this.logout.bind(this)}/>
+                <SponsorModule/>
+              </div>
+              <div className="col">
+                <ProjectModule/>
+              </div>
             </div>
-            <div className="col">
-              <ProjectModule/>
-            </div>
-          </div>
-        )
-      );
+          )
+        );
+      } else {
+        return SiteWrapper();
+      }
     }
   }
 
