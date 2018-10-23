@@ -31,16 +31,22 @@ library.add(faCheckCircle);
 library.add(faExclamationTriangle);
 
 export class SubmitModal extends Component {
+
   render() {
     let parentheses = <SmallerParentheses font_size="12px">s</SmallerParentheses>;
+    let vote_limit = this.props.challenge_info.vote_limit;
+    let votes = [];
+    this.props.votes.forEach((project_id) =>{
+      votes.push(<li>{this.props.project_dict[project_id]}</li>);
+    });
     let modal =
       { error:
         { icon: faTimesCircle,
           iconstyle: "fa-times-circle",
           message:
             <Fragment>
-              Error: Too many projects selected, only X project
-              {parentheses}
+              Error: Too many projects selected, only {vote_limit} project
+              {vote_limit > 1 ? 's' : ''}
               &nbsp;may be selected to win this challenge.
             </Fragment>
         },
@@ -49,9 +55,9 @@ export class SubmitModal extends Component {
             iconstyle: "fa-exclamation-triangle",
             message:
               <Fragment>
-                Warning: This challenge allows X winning project
-                {parentheses}
-                , but only Y was/were selected
+                Warning: This challenge allows {vote_limit} winning project
+                {vote_limit > 1 ? 's' : ''}
+                , but {votes.length === 0 ? "none" : ("only " + votes.length)} {votes.length == 1 ? 'was' : 'were'} selected
               </Fragment>
           }
       };
@@ -67,26 +73,38 @@ export class SubmitModal extends Component {
             </div>
             <div class="modal-body">
 
-              <Error icon={modal.error.icon} iconstyle={modal.error.iconstyle}>
-                {modal.error.message}
-              </Error>
+              {votes.length != vote_limit ?
+                (votes.length > vote_limit ?
+                <Error icon={modal.error.icon} iconstyle={modal.error.iconstyle}>
+                  {modal.error.message}
+                </Error>
+                :
+                <Error icon={modal.warning.icon} iconstyle={modal.warning.iconstyle}>
+                  {modal.warning.message}
+                </Error>
+                )
+                :
+                <Fragment></Fragment>
+              }
               <Error
                 technica_icon = {TechnicaIcon}
                 iconstyle = "technica-icon"
                 text="Attention: All submitted votes are final."
               />
               <h5 className="modal-challenge">
-                Best Hack to Help in a Crisis Winners
+                {this.props.value + " Winners"}
               </h5>
               <ul className="selection-list">
-                <li>Safety Net</li>
-                <li>Faze One</li>
-                <li>Mining Malware</li>
+                {votes}
               </ul>
             </div>
             <div class="modal-footer">
               <button className="button button-secondary" data-dismiss="modal">Cancel</button>
-              <button className="button button-primary" data-dismiss="modal">Submit</button>
+              { votes.length > vote_limit ?
+                <button className="button button-primary" disabled>Submit</button>
+                :
+                <button className="button button-primary" data-dismiss="modal">Submit</button>
+              }
             </div>
           </div>
         </div>
@@ -98,6 +116,11 @@ export class SubmitModal extends Component {
 class Task extends Component {
   render() {
     let winners = []
+    if (this.props.winners.length > 0) {
+      this.props.winners.forEach((project_id) => {
+        winners.push(<li>{this.props.project_dict[project_id]}</li>);
+      })
+    }
     let circle = this.props.submitted ? faCheckCircle : faCircle;
 
     return(
@@ -110,11 +133,9 @@ class Task extends Component {
             Place votes for {this.props.challenge}
           </button>
         </div>
-        { this.props.challenge === "Best ML/AI Hack" ?
+        { winners.length > 0 ?
         <ul className="selection-list" style={{marginLeft:"50px", marginBottom: "0px"}}>
-          <li>Smart Home Security</li>
-          <li>Faze One</li>
-          <li>Connect in Crisis</li>
+          {winners}
         </ul>
         :
         <Fragment></Fragment> }
@@ -157,9 +178,9 @@ export class VotingTable extends Component {
         winners.push(ckbx.value);
       }
     }
-    /*alert(winners);*/
-    /*alert(JSON.stringify(this.props.voting_data));
-    alert(JSON.stringify(this.props.sponsor_challenges));*/
+    //alert(winners);
+    //alert(JSON.stringify(this.state.checked));
+    /*alert(JSON.stringify(this.props.sponsor_challenges));*/
   }
 
   handleClearEvent() {
@@ -172,13 +193,13 @@ export class VotingTable extends Component {
 
   handleVoteEvent(project_id) {
     let new_checked = this.state.checked;
-    new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
-    this.setState({ checked: new_checked });
-
+    if (new_checked[project_id] !== undefined) {
+      new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
+      this.setState({ checked: new_checked });
+    }
   }
 
   render() {
-    let state = this.props.sponsor_challenges[this.props.value].submitted;
     return (
       <div style={{marginTop:"20px"}} id="Sponsor">
         <Table headers={['Select','Table','Project']}
@@ -188,18 +209,11 @@ export class VotingTable extends Component {
           sponsor_challenges={this.props.sponsor_challenges}
           handler={this.handleVoteEvent}
           origin={this.props.origin}
+          state={this.props.sponsor_challenges[this.props.value].submitted}
+          project_dict={this.props.project_dict}
+          clear={this.handleClearEvent}
+          submit={this.handleSubmitEvent}
         />
-        { state ?
-        <div>
-          <button className="button button-secondary clear" disabled>Clear</button>
-          <button className="button button-primary submit" disabled>Submit</button>
-        </div>
-        :
-        <div>
-          <button className="button button-secondary clear" onClick={this.handleClearEvent}>Clear</button>
-          <button className="button button-primary submit" data-toggle="modal" data-target="#exampleModalCenter">Submit</button>
-        </div> }
-        <SubmitModal />
       </div>
     );
   }
@@ -216,6 +230,7 @@ export class WelcomeHeader extends Component {
           challenge={challenge}
           submitted={this.props.data[challenge].submitted}
           winners={this.props.data[challenge].winners}
+          project_dict={this.props.project_dict}
         />
       );
       if (this.props.data[challenge].submitted === false) {

@@ -11,22 +11,22 @@ import Table from './Table.js';
 
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
-import { WelcomeHeader, VotingTable } from './Sponsor';
+import { WelcomeHeader, VotingTable } from './Sponsor.js';
 
 const CHALLENGES = [
   { company_id: 'C0',
     access_code: '00000',
     company_name: 'Booz Allen Hamilton',
     challenge_name: 'Best ML/AI Hack',
-    num_winners: 3,
-    winners: ['P4','P7', 'P8']
+    num_winners: 2,
+    winners: []
   },
   { company_id: 'C1',
     access_code: '11111',
     company_name: 'Booz Allen Hamilton',
     challenge_name: 'Best Hack to Help in a Crisis',
-    num_winners: 2,
-    winners: []
+    num_winners: 3,
+    winners: ['P1','P8','P5']
   },
   { company_id: 'C2',
     access_code: '11111',
@@ -392,17 +392,21 @@ class SearchandFilter extends Component {
     }
 
     handleChange(e){
+    
       console.log(e.target.name)
       if (e.target.name === 'input') {
         let val =(e.target.value);
         console.log(val);
+        if (val != "") {
         let updatedList = this.state.data;
+
         updatedList = updatedList.filter((item) => {
           return item.project_name.toLowerCase().indexOf(val.toLowerCase()) !==-1;
         });
         this.setState(() => {
           return ({ workingdata: updatedList })
         })
+        }
       } else if (e.target.name === "selectProject") {
         let val = (e.target.value);
         this.setState({ value: val });
@@ -522,24 +526,26 @@ class SearchandFilter extends Component {
     }
 
     getSponsorChallenges(challenges) {
-      let s = {};
+      let voting_data = {};
+      let project_dict = {}
       this.state.data.map((obj) => {
-        let j = {};
+        let temp = {};
         obj.challenges.map((item) => {
           if (Object.keys(challenges).indexOf(item.challenge_name) !== -1) {
-          let data = challenges[item.challenge_name]['winners'];
+            let data = challenges[item.challenge_name]['winners'];
             if (data.length > 0 && data.indexOf(obj.project_id) !== -1) {
-              j[item.challenge_name] = true;
+              temp[item.challenge_name] = true;
             } else {
-              j[item.challenge_name] = false;
+              temp[item.challenge_name] = false;
             }
           }
         });
-        if (Object.keys(j).length > 0) {
-          s[obj.project_id] = j;
+        if (Object.keys(temp).length > 0) {
+          voting_data[obj.project_id] = temp;
         }
+        project_dict[obj.project_id] = obj.project_name;
       });
-      return s;
+      return [voting_data,project_dict]
     }
 
     setSponsorWorkingData(sponsor_challenges) {
@@ -605,7 +611,8 @@ class SearchandFilter extends Component {
           company={this.props.loggedIn}
           projects={this.state.workingdata}
           value={this.state.value}
-          voting_data={voting_data}
+          voting_data={voting_data[0]}
+          project_dict={voting_data[1]}
           sponsor_challenges={sponsor_challenges}
           origin={this.props.origin}
           />
@@ -615,7 +622,7 @@ class SearchandFilter extends Component {
       let style = (this.state.width < 460 ? "center" : "left");
       return (
         <div>
-          { this.props.origin === "sponsor" ? <WelcomeHeader company={this.props.loggedIn} data={sponsor_challenges}/>: <div></div>}
+          { this.props.origin === "sponsor" ? <WelcomeHeader company={this.props.loggedIn} data={sponsor_challenges} project_dict={voting_data[1]}/>: <div></div>}
           <div class="card">
           {this.props.origin === 'sponsor' ?
           <div class="card-header">
@@ -634,6 +641,8 @@ class SearchandFilter extends Component {
                 </div>
               </div>
 
+              {this.props.origin === "sponsor" ? <Fragment></Fragment> :
+              <Fragment>
               <div style={{textAlign: style}}><div class="btn-group">
                 <button style={toggle_style} disabled>
                 <div className="toggle" onChange={this.handleToggle}>
@@ -643,23 +652,24 @@ class SearchandFilter extends Component {
                   </label>
 
                 </div></button>
-                {this.props.origin === "sponsor" ? <Fragment></Fragment> :
-                (this.state.width > 425 ?
+
+                {this.state.width >= 427 ?
                 <button disabled class="toggle-label"
-                style={{textAlign:"center",
+                style={{textAlign:"left",
                 backgroundColor:"#2f2f2f",
                 border:"0px solid",outline:"none",
                 color:"white",
-                 marginTop:"10px"}}>
-                Show Attempted Challenges</button>: <Fragment></Fragment>)}
+                 marginTop:"10px", marginLeft: "-7px"}}>
+                Show Attempted Challenges</button>: <Fragment></Fragment>}
                 </div></div>
-                {this.state.width <= 425 ? <div style={{textAlign:"center"}}><button disabled class="toggle-label"
+
+                {this.state.width < 427 ? <div style={{textAlign:"center"}}><button disabled class="toggle-label"
                 style={{textAlign:"center",
                 backgroundColor:"#2f2f2f",
                 border:"0px solid",outline:"none",
                 color:"white",
                  marginTop:"0px"}}>
-                Show Attempted Challenges</button></div> : <Fragment></Fragment>}
+                Show Attempted Challenges</button></div> : <Fragment></Fragment>}</Fragment>}
 
 
             </form>{this.props.origin === 'sponsor' ? table : <div></div>}
