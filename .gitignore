@@ -6,3 +6,4 @@ config.cfg
 *.pyc
 *.pem
 node_modules/
+.vscode/
