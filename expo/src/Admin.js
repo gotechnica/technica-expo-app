@@ -68,6 +68,17 @@ class ProjectModule extends Component {
     this.loadProjects();
   }
 
+  createMap() {
+    let companies = new Map();
+    this.state.projects.map((obj)=>{
+      obj.challenges.map((company)=>{
+        if(!companies.has(company.challenge_name))
+          companies.set(company.challenge_name,company.company);
+      })
+    })
+    console.log(companies);
+    return companies;
+  }
   createAllChallenges(obj){
     console.log(obj)
     let allChallenges = [];
@@ -228,6 +239,7 @@ class ProjectModule extends Component {
     console.log(this.sortData())
     let filteredProjects = this.sortData();
     let allChallenges = this.createAllChallenges(filteredProjects);
+    let map = this.createMap();
     console.log("ass",allChallenges);
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredProjects = filteredProjects.filter(elt =>
@@ -376,7 +388,7 @@ class ProjectModule extends Component {
                     challenges = {elt.challenges}
                     toggle = {elt.checkVal}
                     allChallenges = {allChallenges}
-                    company_challenge = {elt.company_challenge}
+                    company_map = {map}
                     />
                   <button className="link-button"
                     type="button"

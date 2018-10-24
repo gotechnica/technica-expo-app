@@ -33,25 +33,31 @@ class EditProjectModal extends Component {
       allChallenges: this.props.allChallenges,
       erorr: false,
       challenge_error: false,
-      company_challenge:this.props.company_challenge
+      company_map:this.props.company_map
     }
     this.handleChange = this.handleChange.bind(this)
   }
   componentWillMount() {
-    company = [];
     this.state.challenges.map((challenge) => {
       if(challengeStore.indexOf(challenge) === -1)
       challengeStore.push(challenge);
     })
-    this.state.company_challenge.map((com) => {
-      console.log(company.indexOf(com))
-      if(company.indexOf(com) === -1)
-        company.push(com);
-    })
     console.log(challengeStore);
-    console.log(company);
   }
   saveProject(e) {
+    //create challenges to POST
+    let challenges = [];
+    this.state.challenges.map((item)=>{
+      let object = {}
+      if(this.state.company_map.has(item))
+        object = {
+          challenge_name: item,
+          company: this.state.company_map.get(item),
+          won: false
+        }
+      challenges.push(object);
+    })
+    console.log(challenges);
     let valid = true;
     let checks = document.querySelector('.black');
     console.log(checks);
@@ -82,12 +88,12 @@ class EditProjectModal extends Component {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
       // Close modal
-      // Backend.httpFunctions.postCallback('api/projects/id/' + this.state.project_id, {
-      //   "project_name": this.state.project_name,
-      //   "project_url": this.state.project_url,
-      //   "table_number": this.state.table_number,
-      //   "challenges": this.state.company_challenge
-      // }, this.props.onEdit);
+      console.log(challenges);
+      backend.httpFunctions.postCallback('api/projects/id/' + this.state.project_id, {
+        "project_name": this.state.project_name,
+        "project_url": this.state.project_url,
+        "table_number": this.state.table_number
+      }, this.props.onEdit);
       if (checks) {
         this.setState({
           challenges: challengeStore
@@ -128,8 +134,6 @@ class EditProjectModal extends Component {
       console.log(ind)
       challengeStore.splice(ind, 1);
       console.log(challengeStore)
-      company.pop();
-      console.log(company);
     } else if (!color) {
       let label = (document.getElementById(`${lol}label`))
       let word = label.innerHTML
