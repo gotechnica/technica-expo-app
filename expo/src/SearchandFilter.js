@@ -403,7 +403,6 @@ class SearchandFilter extends Component {
         updatedList = updatedList.filter((item) => {
           return item.project_name.toLowerCase().indexOf(val.toLowerCase()) !==-1;
         });
-
         this.setState(() => {
           return ({ workingdata: updatedList })
         })
