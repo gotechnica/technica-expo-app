@@ -244,35 +244,21 @@ def bulk_add_project():
 @app.route('/api/projects/id/<project_id>', methods =['POST'])
 def update_project(project_id):
     projects = mongo.db.projects
-    project_obj = projects.find_one({'_id': ObjectId(project_id)})
 
-    try:
-        attempted_challenges_obj = request.json['attempted_challenges']
-        already_attempted_challenges = get_all_attempted_challenge_strings(project_obj)
-        for potential_new_challenge in attempted_challenges_obj:
-            if (potential_new_challenge not in already_attempted_challenges):
-                # Need to add a new attempted challenge to project object
-                new_challenge_name, challenge_company_name = potential_new_challenge.split(' - ')
-                project_obj['challenges'].append({
-                    'challenge_name': new_challenge_name,
-                    'company': challenge_company_name,
-                    'won': False
-                })
-    except:
-        print("No update to attempted_challenges")
+    updated_project_obj = {
+        'table_number': request.json['table_number'],
+        'project_name': request.json['project_name'],
+        'project_url': request.json['project_url'],
+        'challenges': request.json['challenges'],
+        # 'challenges_won': []  // Don't update challenges_won array
+    }
 
-    project_properties = ['table_number', 'project_name', 'project_url']
-    for prop in project_properties:
-        try:
-            project_obj[prop] = request.json[prop]
-        except:
-            print("No " + prop + " to update")
-    updated_project_obj = projects.find_one_and_update(
+    old_project_obj = projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
-        {'$set': project_obj}
+        {'$set': updated_project_obj}
     )
 
-    return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
+    return "The following project data was overridden: " + json.dumps(old_project_obj, default=json_util.default)
 
 def get_all_attempted_challenge_strings(project_obj):
     output = []
