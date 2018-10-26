@@ -12,7 +12,7 @@ import Table from './Table.js';
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
 import { WelcomeHeader, VotingTable } from './Sponsor.js';
-
+let Backend = require('./Backend.js');
 const CHALLENGES = [
   { company_id: 'C0',
     access_code: '00000',
@@ -375,14 +375,37 @@ class SearchandFilter extends Component {
     componentDidMount() {
       // TODO(timothychen01): Replace this URL with final URL
       // TODO(timothychen01): Explore replacing URL string with environment vars
-      /*axios.get('http://ec2-34-201-45-125.compute-1.amazonaws.com/api/projects')
+      /*axios.get('api/projects')
       .then(response => {
         console.log(JSON.stringify(response['data']));  // TODO: Remove logging
-        this.setState({
+        alert(JSON.stringify(response['data']));
+        /*this.setState({
           data: response['data'],
           workingdata: response['data']
+        });*/
+      /*})*/
+      Backend.axiosRequest.get('api/projects')
+      .then((project_data) => {
+        alert(JSON.stringify(project_data['projects']));
+        this.setState({
+          data: project_data['projects'],
+          workingdata: project_data['projects']
         });
-      })*/
+      });
+
+      Backend.axiosRequest.get('api/companies')
+      .then((company_data) => {
+        alert(JSON.stringify(company_data));
+        this.setState({
+          challenges: company_data
+        });
+      });
+
+      /*Backend.httpFunctions.getAsync('api/projects', (item) => {
+        let project = JSON.parse(item)
+        alert(JSON.stringify(project.projects));
+      });*/
+
       this.updateDimensions();
       window.addEventListener("resize", this.updateDimensions);
     }
@@ -392,7 +415,7 @@ class SearchandFilter extends Component {
     }
 
     handleChange(e){
-    
+
       console.log(e.target.name)
       if (e.target.name === 'input') {
         let val =(e.target.value);
@@ -516,9 +539,9 @@ class SearchandFilter extends Component {
             winners: challenge.winners,
             submitted: false
           };
-          if (challenge.winners.length > 0) {
+          /*if (challenge.winners.length > 0) {
             obj.submitted = true;
-          }
+          }*/
           challenges[challenge.challenge_name] = obj;
         }
       })
