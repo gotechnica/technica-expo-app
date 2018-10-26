@@ -389,6 +389,7 @@ class ProjectModule extends Component {
                     toggle = {elt.checkVal}
                     allChallenges = {allChallenges}
                     company_map = {map}
+                    onEdit = {this.loadProjects.bind(this)}
                     />
                   <button className="link-button"
                     type="button"

@@ -92,8 +92,9 @@ class EditProjectModal extends Component {
       backend.httpFunctions.postCallback('api/projects/id/' + this.state.project_id, {
         "project_name": this.state.project_name,
         "project_url": this.state.project_url,
-        "table_number": this.state.table_number
-      }, this.props.onEdit);
+        "table_number": this.state.table_number,
+        "challenges": challenges
+      },this.props.onEdit);
       if (checks) {
         this.setState({
           challenges: challengeStore
@@ -334,7 +335,7 @@ class EditProjectModal extends Component {
           return ( 
             <div class="custom-control custom-checkbox" onChange={(e)=>{this.handleClick(e,id)}}>
               {this.state.color ? 
-                <input type="checkbox" class="custom-control-input" id = {id}  checked/>
+                <input type="checkbox" class="custom-control-input" id = {id}  checked disabled/>
                 :
                 <input type="checkbox" class="custom-control-input"  id = {id} />
               }
