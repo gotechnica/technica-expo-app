@@ -355,6 +355,7 @@ class SearchandFilter extends Component {
       this.state = {
         data: PROJECTS,
         value: challenges[0],
+        textSearch: "",
         toggle_off: true,
         challenges: CHALLENGES,
         workingdata: this.setSponsorWorkingData(challenges),
@@ -391,22 +392,61 @@ class SearchandFilter extends Component {
       window.removeEventListener("resize", this.updateDimensions);
     }
 
+    applyFilters() {
+      let updatedList = this.state.data;
+      updatedList = updatedList.filter((item)=> {
+
+          // Check text filter
+          let textFilter = this.state.textSearch == undefined
+            || this.state.textSearch == ""
+            || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase());
+
+          // Check challenge filter
+          let challengeFilter = this.state.value == undefined
+              || this.state.value == "All Challenges"
+              || item.challenges.reduce((acc, chal) => {
+                if(chal.challenge_name == this.state.value) {
+                  return true;
+                } else {
+                  return acc;
+                }
+              }, false);
+
+          return textFilter && challengeFilter;
+      });
+      this.setState({
+          workingdata: updatedList
+      });
+    }
+
     handleChange(e){
-    
+
+      // TODO ADJUST FILTER CHECKS HERE
       console.log(e.target.name)
       if (e.target.name === 'input') {
-        let val =(e.target.value);
-        console.log(val);
-        if (val != "") {
-        let updatedList = this.state.data;
 
-        updatedList = updatedList.filter((item) => {
-          return item.project_name.toLowerCase().indexOf(val.toLowerCase()) !==-1;
-        });
-        this.setState(() => {
-          return ({ workingdata: updatedList })
-        })
-        }
+        /*let val =(e.target.value);
+        console.log(val);*/
+        let searchVal = e.target.value;
+        this.setState({
+            textSearch:searchVal
+          }, () => this.applyFilters());
+
+        //alert(this.state.textSearch);
+        //this.applyFilters();
+
+        /*if (val != "") {
+          let updatedList = this.state.data;
+          updatedList = updatedList.filter((item) => {
+
+
+            return item.project_name.toLowerCase().indexOf(val.toLowerCase()) !==-1;
+          });
+
+          this.setState(() => {
+            return ({ workingdata: updatedList })
+          })
+        }*/
       } else if (e.target.name === "selectProject") {
         let val = (e.target.value);
         this.setState({ value: val });
@@ -422,8 +462,15 @@ class SearchandFilter extends Component {
           return({ workingdata: updatedList })
         })
       } else if (e.target.name === "selectChallenges") {
+        //console.log("SELECT CHAL");
+
         let val = (e.target.value);
-        this.setState({ value: val });
+        alert(val);
+        this.setState({
+          value: val
+        }, ()=>this.applyFilters());
+
+        /*this.setState({ value: val });
         let updatedList = this.state.data;
         updatedList = updatedList.filter((item) => {
           let challenges_data = [];
@@ -441,8 +488,10 @@ class SearchandFilter extends Component {
         this.setState(() => {
           console.log(updatedList);
           return({ workingdata: updatedList })
-        })
+        })*/
+
       }
+
     }
 
     componentWillMount(){
@@ -571,6 +620,7 @@ class SearchandFilter extends Component {
     // }
 
     render() {
+
       let challenge_array = (this.createChallengeArray().map((obj,index) => {
           return (<option key={index}>{obj}</option>)
         })
@@ -632,7 +682,12 @@ class SearchandFilter extends Component {
           <div style={{marginTop:"15px"}}></div>}
           <div class="card-body"><form>
               <div className="form-group">
-                <input type="text" placeholder="Filter projects by name" className="form-control" onChange={this.handleChange} name="input" />
+                <input type="text" placeholder="Filter projects by name" className="form-control" onChange={(event) => {
+                    this.setState({
+                    textSearch: event.target.value
+                  });
+                  this.handleChange(event);
+                  }} name="input" />
               </div>
               <div className="form-row">
                 <div style={{margin:"0px 5px", width:"100%"}}>
