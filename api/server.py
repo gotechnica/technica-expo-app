@@ -604,6 +604,8 @@ def return_session_info():
 def sponsor_login():
     companies = mongo.db.companies
     attempted_access_code = request.json['access_code']
+    if attempted_access_code == '':
+        return "Access denied."
     company_obj = companies.find_one({'access_code': re.compile(attempted_access_code, re.IGNORECASE)})
     if company_obj == None:
         return "Access denied."
