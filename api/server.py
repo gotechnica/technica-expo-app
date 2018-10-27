@@ -245,17 +245,43 @@ def bulk_add_project():
 def update_project(project_id):
     projects = mongo.db.projects
 
-    updated_project = {
+    updated_project_obj = {
         'table_number': request.json['table_number'],
         'project_name': request.json['project_name'],
-        'project_url': request.json['project_url']
+        'project_url': request.json['project_url'],
+        'challenges': request.json['challenges'],
+        # 'challenges_won': []  // Don't update challenges_won array
     }
-    updated_project_obj = projects.find_one_and_update(
+
+    old_project_obj = projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
-        {'$set': updated_project}
+        {'$set': updated_project_obj}
     )
 
-    return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
+    return "The following project data was overridden: " + json.dumps(old_project_obj, default=json_util.default)
+
+def get_all_attempted_challenge_strings(project_obj):
+    output = []
+    for challenge_obj in project_obj['challenges']:
+        output.append(challenge_obj['challenge_name'] + ' - ' + challenge_obj['company'])
+    return output
+
+# Note: this helper not currently used
+def get_all_possible_challenges():
+    companies = mongo.db.companies
+    output = []
+    for curr_company in companies.find():
+        output.append(format_company_obj_to_old_schema(curr_company))
+    companies_list = [y for x in output for y in x]
+
+    challenges = []
+    for comp in companies_list:
+        try:
+            challenges.append(comp['challenge_name'])
+        except:
+            # Do nothing if no challenge in that comp
+            None
+    return challenges
 
 @app.route('/api/projects/id/<project_id>', methods=['DELETE'])
 def delete_project(project_id):
