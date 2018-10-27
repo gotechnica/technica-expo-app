@@ -38,8 +38,7 @@ class EditSponsorModal extends Component {
     });
   }
 
-  saveSponsor(e) {
-
+  saveSponsor = () => {
     axios.get(Backend.httpFunctions.url + 'api/companies')
       .then(response => {
         let sponsors = response['data'];
@@ -102,6 +101,20 @@ class EditSponsorModal extends Component {
       });
   }
 
+  deleteSponsor = () => {
+    Backend.axiosRequest.delete(`api/companies/id/${this.state.sponsor_id}`)
+      .then((data) => {
+        this.props.onEdit();
+        // Reset state and close modal
+        this.setState({
+          missing_company: false,
+          invalid_access: false,
+          missing_access: false
+        });
+        document.getElementById("btnCancelEditSponsorModal" + this.props.editID).click();
+      });
+  }
+
   render() {
     console.log(this.state)
     console.log(this.props)
@@ -136,15 +149,29 @@ class EditSponsorModal extends Component {
               </div>
             </div>
             <div className="modal-footer">
-              <button type="button"
+              <div>
+                <button
+                  type="button"
+                  className="button button-warning float-left"
+                  onClick={() => { if (window.confirm(`Are you sure you want to delete ${this.state.company_name} from the database?`)) this.deleteSponsor() }}
+                >
+                  Delete
+                </button>
+              </div>
+              <button
+                type="button"
+                className="button button-primary"
+                onClick={this.saveSponsor}
+              >
+                Save
+              </button>
+              <button
+                type="button"
                 className="button button-secondary"
                 data-dismiss="modal"
-                id={"btnCancelEditSponsorModal" + this.props.editID}>Cancel</button>
-              <button type="button" className="button button-primary"
-                onClick={(event) => {
-                    this.saveSponsor(event);
-                  }}>
-                  Save
+                id={"btnCancelEditSponsorModal" + this.props.editID}
+              >
+                Cancel
               </button>
             </div>
           </div>

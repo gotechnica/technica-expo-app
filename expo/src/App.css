@@ -90,6 +90,15 @@ html {
   border: 3px solid #FF7BAC;
 }
 
+/* Warning button styles */
+.button-warning:not([disabled]):hover {
+  background-color: #DF3B57;
+  border: 3px solid #DF3B57;
+}
+.button-warning {
+  background-color: #FC4363;
+  border: 3px solid #FC4363;
+}
 
 /* Link style button */
 .link-button {
@@ -134,4 +143,9 @@ html {
 }
 .fa-exclamation-triangle {
   color: #00ffff;
+}
+
+/* Layout */
+.float-left {
+  margin: 0px 240px;
 }

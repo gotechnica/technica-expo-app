@@ -16,7 +16,7 @@ import {
 import axios from 'axios';
 library.add(faTimes);
 library.add(faCheck);
-let backend = require('../Backend.js');
+let Backend = require('../Backend.js');
 let challengeStore = [];
 let save = false;
 let company = [];
@@ -98,7 +98,7 @@ class EditProjectModal extends Component {
         if(checkboxes[i].children[0].checked)
           checkboxes[i].children[0].disabled = true;
       }
-      backend.httpFunctions.postCallback('api/projects/id/' + this.state.project_id, {
+      Backend.httpFunctions.postCallback('api/projects/id/' + this.state.project_id, {
         "project_name": this.state.project_name,
         "project_url": this.state.project_url,
         "table_number": this.state.table_number,
@@ -154,6 +154,15 @@ class EditProjectModal extends Component {
     }
     console.log(challengeStore)
     return challengeStore;
+  }
+
+  deleteProject = () => {
+    Backend.axiosRequest.delete(`api/projects/id/${this.state.project_id}`)
+      .then((data) => {
+        this.props.onEdit();
+        // Reset state and close modal
+        document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
+      });
   }
 
   render() {
@@ -296,19 +305,31 @@ class EditProjectModal extends Component {
               </form> 
               </div> 
               <div className = "modal-footer">
-              <button type = "button"
-              className = "button button-secondary"
-              id = {
-                "btnCancelEditProjectModal" + this.props.editID
-              }
-              data-dismiss = "modal" > Cancel </button> 
-              <button type = "button"
-              className = "button button-primary"
-              onClick = {
-                (event) => {
-                  this.saveProject(event);
-                }
-              }> Save </button> 
+                <div>
+                  <button
+                    type="button"
+                    className="button button-warning float-left"
+                    onClick={() => { if (window.confirm(`Are you sure you want to delete ${this.state.project_name} from the database?`)) this.deleteProject() }}
+                  >
+                    Delete
+                </button>
+                </div>
+                <button type = "button"
+                  className = "button button-secondary"
+                  id = {"btnCancelEditProjectModal" + this.props.editID}
+                  data-dismiss = "modal"
+                >
+                  Cancel
+                </button> 
+                <button type = "button"
+                  className = "button button-primary"
+                  onClick = {
+                    (event) => {
+                      this.saveProject(event);
+                    }
+                }>
+                  Save
+                </button> 
               </div> 
               </div> 
               </div> 
