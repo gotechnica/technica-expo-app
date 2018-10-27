@@ -36,7 +36,7 @@ export class SubmitModal extends Component {
 
   render() {
     let parentheses = <SmallerParentheses font_size="12px">s</SmallerParentheses>;
-    let vote_limit = this.props.challenge_info.vote_limit;
+    let vote_limit = (this.props.challenge_info === undefined ? 0 : this.props.challenge_info.vote_limit);
     let votes = [];
     this.props.votes.forEach((project_id) =>{
       votes.push(<li>{this.props.project_dict[project_id]}</li>);
@@ -118,11 +118,12 @@ export class SubmitModal extends Component {
 class Task extends Component {
   render() {
     let winners = []
+    if(this.props.winners != undefined) {
     if (this.props.winners.length > 0) {
       this.props.winners.forEach((project_id) => {
         winners.push(<li>{this.props.project_dict[project_id]}</li>);
       })
-    }
+    }}
     let circle = this.props.submitted ? faCheckCircle : faCircle;
 
     return(
@@ -211,7 +212,7 @@ export class VotingTable extends Component {
           sponsor_challenges={this.props.sponsor_challenges}
           handler={this.handleVoteEvent}
           origin={this.props.origin}
-          state={this.props.sponsor_challenges[this.props.value].submitted}
+          state={this.props.sponsor_challenges[this.props.value] !== undefined ? this.props.sponsor_challenges[this.props.value].submitted : false}
           project_dict={this.props.project_dict}
           clear={this.handleClearEvent}
           submit={this.handleSubmitEvent}
