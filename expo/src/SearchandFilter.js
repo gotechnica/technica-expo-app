@@ -443,77 +443,17 @@ class SearchandFilter extends Component {
     }
 
     handleChange(e){
-
-      console.log(e.target.name)
       if (e.target.name === 'input') {
-
-        /*let val =(e.target.value);
-        console.log(val);*/
         let searchVal = e.target.value;
         this.setState({
             textSearch:searchVal
           }, () => this.applyFilters());
-
-        //alert(this.state.textSearch);
-        //this.applyFilters();
-
-        /*if (val != "") {
-          let updatedList = this.state.data;
-          updatedList = updatedList.filter((item) => {
-
-
-            return item.project_name.toLowerCase().indexOf(val.toLowerCase()) !==-1;
-          });
-
-          this.setState(() => {
-            return ({ workingdata: updatedList })
-          })
-        }*/
-      } else if (e.target.name === "selectProject") {
-        let val = (e.target.value);
-        this.setState({ value: val });
-        let updatedList = this.state.data;
-        updatedList = updatedList.filter((item) => {
-          if (val === "Project")
-            return true
-          else
-            return item.project_name.includes(val)
-        })
-
-        this.setState(() => {
-          return({ workingdata: updatedList })
-        })
       } else if (e.target.name === "selectChallenges") {
-        //console.log("SELECT CHAL");
-
         let val = (e.target.value);
-        alert(val);
         this.setState({
           value: val
         }, ()=>this.applyFilters());
-
-        /*this.setState({ value: val });
-        let updatedList = this.state.data;
-        updatedList = updatedList.filter((item) => {
-          let challenges_data = [];
-          item.challenges.map((obj) => {
-            challenges_data.push(obj.challenge_name);
-          })
-          if (val === "All Challenges") {
-            return true
-          } else {
-            console.log(challenges_data.indexOf(val) > -1)
-            return challenges_data.indexOf(val) > -1
-          }
-        })
-
-        this.setState(() => {
-          console.log(updatedList);
-          return({ workingdata: updatedList })
-        })*/
-
       }
-
     }
 
     componentWillMount(){
@@ -636,10 +576,6 @@ class SearchandFilter extends Component {
         toggle_off: !this.state.toggle_off
       });
     }
-
-    // handleChange(e){
-    //     this.props.handleChange(e);
-    // }
 
     render() {
 
