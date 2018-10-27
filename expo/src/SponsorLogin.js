@@ -8,17 +8,14 @@ import {
 
 import SiteWrapper from './SiteWrapper.js';
 import Login from './Login.js';
+import Error from './Error.js';
 
 const Backend = require('./Backend.js');
 
-const InvalidErr = (
-  <div className="alert alert-danger">
-    <strong>Invalid login! </strong>
-      {`Please see a member of the Technica staff if
-      you don't know your access code or are having
-      trouble logging in.`}
-  </div>
-);
+const InvalidErr = <Error text="Invalid login code!
+  Please see a member of the Technica staff if
+  you don't know your access code or are having
+  trouble logging in." />;
 
 /* Sponsor login page content (see PRD) */
 class SponsorLogin extends Component {
@@ -33,26 +30,35 @@ class SponsorLogin extends Component {
   }
 
   onLogin(e, accessCode) {
-    Backend.axiosRequest.post('api/login/sponsor', {access_code: accessCode})
-      .then((data) => {
-        if (data.includes('Logged in')) {
-          this.setState({
-            loggedIn: true,
-            error: ''
-          });
-          this.props.history.push({
-            pathname: '/sponsor'
-          });
-        } else {
-          this.setState({
-            loggedIn: false,
-            error: InvalidErr
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+    let codeExists = accessCode != undefined && accessCode != '';
+
+    if(codeExists) {
+      Backend.axiosRequest.post('api/login/sponsor', {access_code: accessCode})
+        .then((data) => {
+          if (data.includes('Logged in')) {
+            this.setState({
+              loggedIn: true,
+              error: ''
+            });
+            this.props.history.push({
+              pathname: '/sponsor'
+            });
+          } else {
+            this.setState({
+              loggedIn: false,
+              error: InvalidErr
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      this.setState({
+        loggedIn: false,
+        error: InvalidErr
       });
+    }
   }
 
   render() {
