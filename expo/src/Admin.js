@@ -332,10 +332,10 @@ class ProjectModule extends Component {
                 onChange={this.handleInputChange.bind(this)}
               /> Skip every other table? (Provides more spacious expo)
             </div>}
-            <button type="submit" className="button button-primary m-r-m">
+            <button type="submit" className="button button-primary m-r-m assign_button1">
               Assign Tables
             </button>
-            <button className="button button-secondary" onClick={this.onRemoveAllTableAssignments.bind(this)}>
+            <button className="button button-secondary assign_button2" onClick={this.onRemoveAllTableAssignments.bind(this)}>
               Remove All Table Assignments
             </button>
             {this.state.tableAssignmentStatus != '' &&
