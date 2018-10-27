@@ -18,6 +18,7 @@ library.add(faTimes);
 library.add(faCheck);
 let backend = require('../Backend.js');
 let challengeStore = [];
+let save = false;
 let company = [];
 class EditProjectModal extends Component {
 
@@ -33,7 +34,8 @@ class EditProjectModal extends Component {
       allChallenges: this.props.allChallenges,
       erorr: false,
       challenge_error: false,
-      company_map:this.props.company_map
+      company_map:this.props.company_map,
+      editable: true
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -46,6 +48,7 @@ class EditProjectModal extends Component {
   }
   saveProject(e) {
     //create challenges to POST
+
     let challenges = [];
     this.state.challenges.map((item)=>{
       let object = {}
@@ -88,7 +91,13 @@ class EditProjectModal extends Component {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
       // Close modal
-      console.log(challenges);
+      console.log(document.getElementById("attempted").children)
+      let checkboxes = document.getElementById("attempted").children;
+      let count = document.getElementById("attempted").childElementCount;
+      for(let i=2;i<count;i++){
+        if(checkboxes[i].children[0].checked)
+          checkboxes[i].children[0].disabled = true;
+      }
       backend.httpFunctions.postCallback('api/projects/id/' + this.state.project_id, {
         "project_name": this.state.project_name,
         "project_url": this.state.project_url,
@@ -215,7 +224,7 @@ class EditProjectModal extends Component {
         </div> 
         {
           this.state.erorr ? <Error text= "One or more fields are empty!"></Error> : ''} 
-          <div className = "form-group">
+          <div className = "form-group" id="attempted">
             <label> Attempted Challenges </label> 
             <br/> {
               //console.log(this.state.challenges)
@@ -241,7 +250,11 @@ class EditProjectModal extends Component {
                       } 
                       project_id = {
                         this.state.project_id
-                      }> 
+                      }
+                      edit = {
+                        this.state.editable
+                      }
+                      > 
                       </Checkbox>
                     )
                   } else {
@@ -265,7 +278,12 @@ class EditProjectModal extends Component {
                       } 
                       project_id = {
                         this.state.project_id
-                      }> </Checkbox>
+                      }
+                      edit = {
+                        this.state.editable
+                      }
+                      >
+                      </Checkbox>
                     )
                   }
                 }
@@ -306,24 +324,19 @@ class EditProjectModal extends Component {
             color: this.props.check
           }
           this.handleClick = this.handleClick.bind(this)
-          this.changeState = this.changeState.bind(this);
         }
 
         handleClick(e,id) {
           console.log(this.state.color)
+          console.log(save);
+          console.log(this.props.edit);
+          if(this.state.color !== false){
           this.setState({
             color: !this.state.color
           });
+        }
           console.log(this.state.color)
           this.props.handleChange(this.state.color, id, e);
-        }
-
-        changeState(checkbox) {
-          console.log(this)
-          this.setState({
-            color: true
-          });
-          console.log(this)
         }
 
         render() {
@@ -331,7 +344,7 @@ class EditProjectModal extends Component {
           let id = `defaultChecked${this.props.id}${this.props.project_id}`;
           let label = `defaultChecked${this.props.id}${this.props.project_id}label`;
           // console.log(this);
-          // console.log(color)
+          console.log(this.state.color)
           return ( 
             <div class="custom-control custom-checkbox" onChange={(e)=>{this.handleClick(e,id)}}>
               {this.state.color ? 
@@ -346,17 +359,3 @@ class EditProjectModal extends Component {
       }
 
       export default EditProjectModal;
-
-
-      // <input type='checkbox' class = "custom-control-input check"
-            // id = {
-            //   this.props.id
-            // }
-            // className = {
-            //   color
-            // }
-            // onClick = {
-            //   (e) => this.handleClick(e)
-            // }><FontAwesomeIcon icon = {
-            //   icon
-            // }></FontAwesomeIcon>{this.props.value}
