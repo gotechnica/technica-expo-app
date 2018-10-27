@@ -91,9 +91,9 @@ class EditProjectModal extends Component {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
       // Close modal
-      console.log(document.getElementById("attempted").children)
-      let checkboxes = document.getElementById("attempted").children;
-      let count = document.getElementById("attempted").childElementCount;
+      console.log(document.getElementById(this.state.project_id).children)
+      let checkboxes = document.getElementById(this.state.project_id).children;
+      let count = document.getElementById(this.state.project_id).childElementCount;
       for(let i=2;i<count;i++){
         if(checkboxes[i].children[0].checked)
           checkboxes[i].children[0].disabled = true;
@@ -224,7 +224,7 @@ class EditProjectModal extends Component {
         </div> 
         {
           this.state.erorr ? <Error text= "One or more fields are empty!"></Error> : ''} 
-          <div className = "form-group" id="attempted">
+          <div className = "form-group" id={this.state.project_id}>
             <label> Attempted Challenges </label> 
             <br/> {
               //console.log(this.state.challenges)
