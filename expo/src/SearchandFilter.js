@@ -386,7 +386,7 @@ class SearchandFilter extends Component {
       /*})*/
       Backend.axiosRequest.get('api/projects')
       .then((project_data) => {
-        alert(JSON.stringify(project_data['projects']));
+        /*alert(JSON.stringify(project_data['projects']));*/
         this.setState({
           data: project_data['projects'],
           workingdata: project_data['projects']
@@ -395,7 +395,7 @@ class SearchandFilter extends Component {
 
       Backend.axiosRequest.get('api/companies')
       .then((company_data) => {
-        alert(JSON.stringify(company_data));
+        /*alert(JSON.stringify(company_data));*/
         this.setState({
           challenges: company_data
         });
