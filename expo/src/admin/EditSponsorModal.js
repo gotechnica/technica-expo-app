@@ -102,17 +102,19 @@ class EditSponsorModal extends Component {
   }
 
   deleteSponsor = () => {
-    Backend.axiosRequest.delete(`api/companies/id/${this.state.sponsor_id}`)
-      .then((data) => {
-        this.props.onEdit();
-        // Reset state and close modal
-        this.setState({
-          missing_company: false,
-          invalid_access: false,
-          missing_access: false
+    if (window.confirm(`Are you sure you want to delete ${this.state.company_name} from the database?`)) {
+      Backend.axiosRequest.delete(`api/companies/id/${this.props.sponsorID}`)
+        .then((data) => {
+          this.props.onEdit();
+          // Reset state and close modal
+          this.setState({
+            missing_company: false,
+            invalid_access: false,
+            missing_access: false
+          });
+          document.getElementById("btnCancelEditSponsorModal" + this.props.editID).click();
         });
-        document.getElementById("btnCancelEditSponsorModal" + this.props.editID).click();
-      });
+    }
   }
 
   render() {
@@ -153,7 +155,7 @@ class EditSponsorModal extends Component {
                 <button
                   type="button"
                   className="button button-warning float-left"
-                  onClick={() => { if (window.confirm(`Are you sure you want to delete ${this.state.company_name} from the database?`)) this.deleteSponsor() }}
+                  onClick={this.deleteSponsor}
                 >
                   Delete
                 </button>
