@@ -5,6 +5,8 @@ from pymongo import MongoClient, UpdateOne
 from flask_cors import CORS
 from bson.objectid import ObjectId
 from bson import json_util
+import random
+import string
 import json
 import hashlib
 import io
@@ -336,14 +338,9 @@ def add_company():
 
     company_name = request.json['company_name']
     access_code = request.json['access_code']
-
-    # TODO(kjeffc) Make prize selection compatible with this system
-    # (e.g. Company X is in the DB twice, but with same access token - they
-    # shouldn't notice a difference/have to re-login etc...)
-
-    # TODO(timothychen01): Remove challenge related details in initial creation
-    # challenge_name = request.json['challenge_name']
-    # num_winners = request.json['num_winners']
+    # Autogenerate 8-character access code if blank one was sent
+    if access_code == '':
+        access_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
 
     company = {
         'company_name': company_name,
