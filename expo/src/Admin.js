@@ -23,7 +23,6 @@ import EditSponsorModal from './admin/EditSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 import SmallerParentheses from './SmallerParentheses.js';
-import axios from 'axios';
 import './App.css';
 import './Admin.css';
 
@@ -59,13 +58,13 @@ class ProjectModule extends Component {
   }
 
   loadProjects() {
-    Backend.httpFunctions.getAsync('api/projects', (item) => {
-      let project = JSON.parse(item)
-      this.setState({
-        projects: project.projects
-      })
-      console.log(project.projects);
-    });
+    Backend.axiosRequest.get('api/projects')
+      .then((data) => {
+        this.setState({
+          projects: data.projects
+        })
+        console.log(data.projects);
+      });
   }
 
   componentWillMount() {
@@ -150,7 +149,7 @@ class ProjectModule extends Component {
         uploadStatus: 'Please select a file before hitting upload!'
       });
     } else {
-      axios.post(`${Backend.httpFunctions.url}parse_csv`, data)
+      Backend.axiosRequest.post('parse_csv', data)
         .then((response) => {
           this.projects_csv.value = ''; // Clear input field
           this.setState({ // Flash success message and clear input display
@@ -189,8 +188,8 @@ class ProjectModule extends Component {
     this.setState({
       tableAssignmentStatus: 'Processing your request to assign table numbers...',
     });
-    axios.post(
-      `${Backend.httpFunctions.url}api/projects/assign_tables`,
+    Backend.axiosRequest.post(
+      'api/projects/assign_tables',
       {
         table_assignment_schema: this.state.tableAssignmentSchema,
         table_start_letter: this.state.tableStartLetter,
@@ -200,9 +199,9 @@ class ProjectModule extends Component {
         skip_every_other_table: this.state.skipEveryOtherTable,
       }
     )
-      .then((response) => {
+      .then((data) => {
         this.setState({ // Flash success message
-          tableAssignmentStatus: response.data,
+          tableAssignmentStatus: data,
           tableAssignmentSchema: '',
           tableStartLetter: '',
           tableStartNumber: 0,
@@ -226,10 +225,10 @@ class ProjectModule extends Component {
       this.setState({
         tableAssignmentStatus: 'Processing your request to remove table assignments...',
       });
-      axios.post(`${Backend.httpFunctions.url}api/projects/clear_table_assignments`)
-        .then((response) => {
+      Backend.axiosRequest.post('api/projects/clear_table_assignments')
+        .then((data) => {
           this.setState({ // Flash success message
-            tableAssignmentStatus: response.data,
+            tableAssignmentStatus: data,
           });
           this.loadProjects();
         })
@@ -480,12 +479,12 @@ class SponsorModule extends Component {
   }
 
   loadCompanies() {
-    Backend.httpFunctions.getAsync('api/companies', (sponsors) => {
-      console.log(JSON.parse(sponsors))
-      this.setState({
-        sponsors: JSON.parse(sponsors)
-      })
-    });
+    Backend.axiosRequest.get('api/companies')
+      .then((sponsors) => {
+        this.setState({
+          sponsors: sponsors
+        })
+      });
   }
 
   // Pull data for sponsor list
@@ -684,17 +683,13 @@ class SponsorModule extends Component {
       // toggle based on state
 
       // Pull data, add to state, and show
-      axios.get(Backend.httpFunctions.url + 'api/companies')
-        .then(response1 => {
+      Backend.axiosRequest.get('api/companies')
+        .then((sponsors) => {
+          Backend.axiosRequest.get('api/projects')
+            .then((response) => {
+              console.log(response);
 
-          let sponsors = response1['data'];
-
-          axios.get(Backend.httpFunctions.url + 'api/projects')
-            .then(response2 => {
-
-              console.log(response2['data']);
-
-              let projects = response2['data']['projects'].filter(elt => {
+              let projects = response['projects'].filter(elt => {
                 return elt.challenges_won != undefined
                   && elt.challenges_won.length > 0;
               });
@@ -846,9 +841,10 @@ class SponsorModule extends Component {
 
     logout() {
       // Redirect back to admin login page and end session
-      Backend.httpFunctions.postCallback('api/logout', {}, () => {
-        this.props.history.push('/adminLogin');
-      });
+      Backend.axiosRequest.post('api/logout')
+        .then(() => {
+          this.props.history.push('/adminLogin');
+        });
     }
 
     render() {
