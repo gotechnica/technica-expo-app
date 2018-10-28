@@ -338,18 +338,32 @@ def add_company():
 
     company_name = request.json['company_name']
     access_code = request.json['access_code']
+    
     # Autogenerate 8-character access code if blank one was sent
     if access_code == '':
-        access_code = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+        access_code = generate_random_access_code(8)
+        company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+        # Keep generating codes until unique
+        while company_obj != None:
+            access_code = generate_random_access_code(8)
+            company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+    else:
+        # Check if user-defined access code is already used
+        company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+        if company_obj != None:
+            return "Access code already in use."
 
     company = {
         'company_name': company_name,
         'access_code': access_code,
         'challenges': {}
     }
-
     company_id = str(companies.insert(company))
     return company_id
+
+def generate_random_access_code(length):
+    # Only allow characters that are not ambiguous (I, L, O, 1, 0)
+    return ''.join(random.choice('ABCDEFGHJKMNPQRSTUVWXYZ23456789') for _ in range(length))
 
 @app.route('/api/companies/id/<company_id>', methods=['POST'])
 def update_company_name_or_code(company_id):
