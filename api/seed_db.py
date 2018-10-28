@@ -144,18 +144,18 @@ def seed_hackers():
         moving[hacker].table_number = number_to_table(place)
 
 
-def add_project(projects):
-    url = "http://127.0.0.1:5000/api/projects/add"
+# def add_project(projects):
+#     url = "http://127.0.0.1:5000/api/projects/add"
 
-    for project_name in projects:
-        info = {
-            'table_number': projects[project_name].table_number,
-            'project_name': project_name,
-            'project_url': projects[project_name].project_url,
-            'challenges': projects[project_name].challenges,
-            'challenges_won': []
-        }
-        r = requests.post(url, json=info)
+#     for project_name in projects:
+#         info = {
+#             'table_number': projects[project_name].table_number,
+#             'project_name': project_name,
+#             'project_url': projects[project_name].project_url,
+#             'challenges': projects[project_name].challenges,
+#             'challenges_won': []
+#         }
+#         r = requests.post(url, json=info)
 
 
 

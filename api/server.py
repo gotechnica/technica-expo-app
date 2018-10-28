@@ -223,7 +223,10 @@ def add_project():
     table_number = request.json['table_number']
     project_name = request.json['project_name']
     project_url = request.json['project_url']
-    challenges = format_challenges(request.json['challenges'])
+    try:
+        challenges = format_challenges(request.json['challenges'])
+    except:
+        challenges = []
 
     project = {
         'table_number': table_number,
