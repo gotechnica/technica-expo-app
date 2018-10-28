@@ -1,5 +1,6 @@
 /* react components */
 import React, { Component } from 'react';
+import SmallerParentheses from '../SmallerParentheses.js';
 import Error from '../Error.js';
 import axios from 'axios';
 
@@ -17,7 +18,6 @@ class CreateSponsorModal extends Component {
     this.state = {
       access_code: '',
       invalid_access: false,
-      missing_access: false,
       company_name: '',
       missing_company: false,
       challenge_name: '',
@@ -39,13 +39,10 @@ class CreateSponsorModal extends Component {
           }
         }
 
-        let missingAccess = this.state.access_code == ''
-          || this.state.access_code == undefined;
-
         let missingCompany = this.state.company_name == ''
           || this.state.company_name == undefined;
 
-        let valid = validAccess && !missingAccess && !missingCompany;
+        let valid = validAccess && !missingCompany;
 
         if(valid) {
           Backend.httpFunctions.postCallback('api/companies/add', {
@@ -75,12 +72,6 @@ class CreateSponsorModal extends Component {
           } else {
             this.setState({missing_company: false});
           }
-
-          if (missingAccess) {
-            this.setState({missing_access: true});
-          } else {
-            this.setState({missing_access: false});
-          }
         }
 
       });
@@ -100,21 +91,20 @@ class CreateSponsorModal extends Component {
             <div className="modal-body">
 
                 <div className="form-group">
-                  <label>Access Code</label>
-                  <input type="text" className="form-control"
-                    id="lblAccessCode"
-                    placeholder="Enter an access code"
-                    onChange = {(event) => this.setState({access_code:event.target.value})}/>
-                  {this.state.invalid_access ? InvalidAccessErr : ""}
-                  {this.state.missing_access ? MissingFieldErr : ""}
-                </div>
-                <div className="form-group">
                   <label>Sponsor Name</label>
                   <input type="text" className="form-control"
                     id="lblSponsorName"
                     placeholder="Enter the sponsor or company name"
                     onChange = {(event) => this.setState({company_name:event.target.value})}/>
                   {this.state.missing_company ? MissingFieldErr : ""}
+                </div>
+                <div className="form-group">
+                  <label>Access Code <SmallerParentheses font_size="15px">leave blank to auto generate</SmallerParentheses></label>
+                  <input type="text" className="form-control"
+                    id="lblAccessCode"
+                    placeholder="Enter an access code"
+                    onChange = {(event) => this.setState({access_code:event.target.value})}/>
+                  {this.state.invalid_access ? InvalidAccessErr : ""}
                 </div>
 
             </div>
