@@ -168,175 +168,123 @@ class EditProjectModal extends Component {
 
   render() {
     console.log(this.state.project_id)
-      //let toggle = true;
-     // console.log(this.props)
-     // console.log(this.state)
-      return ( 
-        <div className = "modal fade"
-        id = {
-          this.props.editID
-        }>
-        <div className = "modal-dialog"
-        role = "document">
-        <div className = "modal-content">
-        <div className = "modal-header">
-        <h5 className = "modal-title"> Edit Project </h5> 
-        <button type = "button"
-        className = "close"
-        data-dismiss = "modal"
-        aria-label = "Close">
-        <span aria-hidden = "true"> &times;</span> 
-        </button> 
-        </div> 
-        <div className = "modal-body">
-        <form>
-        <div className = "form-group" >
-        <label> Project Name </label> 
-        <input className = "form-control input"
-        type = "text"
-        value = {
-          this.state.project_name.toString()
-        }
-        onChange = {
-          (event) => this.setState({
-            project_name: event.target.value
-          })
-        }
-        /> 
-        </div> 
-        <div className = "form-group" >
-        <label> Table Number </label> 
-        <input className = "form-control"
-        type = "text"
-        value = {
-          this.state.table_number.toString()
-        }
-        onChange = {
-          (event) => this.setState({
-            table_number: event.target.value
-          })
-        }
-        /> 
-        </div> 
-        <div className = "form-group" >
-        <label> Project URL </label> 
-        <input className = "form-control"
-        type = "text"
-        value = {
-          this.state.project_url.toString()
-        }
-        onChange = {
-          (event) => this.setState({
-            project_url: event.target.value
-          })
-        }
-        /> 
-        </div> 
-        {
-          this.state.erorr ? <Error text= "One or more fields are empty!"></Error> : ''} 
-          <div className = "form-group" id={this.state.project_id}>
-            <label> Attempted Challenges </label> 
-            <br/> {
-              //console.log(this.state.challenges)
-            } {
-              this.state.allChallenges.map((challenge, index) => {
-                if (challenge !== undefined) {
-                 // console.log(challenge)
-                  if (this.state.challenges.indexOf(challenge) < 0) {
-                    return ( <Checkbox handleChange = {this.handleChange}
-                      value = {
-                        challenge
-                      }
-                      ref = {
-                        instance => {
-                          this.Checkbox = instance;
-                        }
-                      }
-                      check = {
-                        false
-                      }
-                      id = {
-                        index
-                      } 
-                      project_id = {
-                        this.state.project_id
-                      }
-                      edit = {
-                        this.state.editable
-                      }
-                      > 
-                      </Checkbox>
-                    )
-                  } else {
-                    return ( 
-                      <Checkbox handleChange = {
-                        this.handleChange
-                      }
-                      value = {
-                        challenge
-                      }
-                      ref = {
-                        instance => {
-                          this.Checkbox = instance;
-                        }
-                      }
-                      check = {
-                        true
-                      }
-                      id = {
-                        index
-                      } 
-                      project_id = {
-                        this.state.project_id
-                      }
-                      edit = {
-                        this.state.editable
-                      }
-                      >
-                      </Checkbox>
-                    )
+    //let toggle = true;
+    // console.log(this.props)
+    // console.log(this.state)
+    return (
+      <div className="modal fade" id={this.props.editID}>
+        <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title"> Edit Project </h5>
+            <button type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"> &times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <form>
+              <div className="form-group" >
+                <label> Project Name </label>
+                <input className="form-control input"
+                  type="text"
+                  value={
+                    this.state.project_name.toString()
                   }
-                }
-              })
-            } 
-            </div> 
-            <br/> 
-            {
-              this.state.challenge_error ? <Error text="Select atleast one challenge"></Error>: ''} 
-              </form> 
-              </div> 
-              <div className = "modal-footer">
-                <div>
-                  <button
-                    type="button"
-                    className="button button-warning float-left"
-                    onClick={() => { if (window.confirm(`Are you sure you want to delete ${this.state.project_name} from the database?`)) this.deleteProject() }}
-                  >
-                    Delete
-                </button>
-                </div>
-                <button type = "button"
-                  className = "button button-secondary"
-                  id = {"btnCancelEditProjectModal" + this.props.editID}
-                  data-dismiss = "modal"
-                >
-                  Cancel
-                </button> 
-                <button type = "button"
-                  className = "button button-primary"
-                  onClick = {
-                    (event) => {
-                      this.saveProject(event);
-                    }
-                }>
-                  Save
-                </button> 
-              </div> 
-              </div> 
-              </div> 
+                  onChange={
+                    (event) => this.setState({
+                      project_name: event.target.value
+                    })
+                  }
+                />
               </div>
-            );
-        }
-      }
+              <div className="form-group" >
+                <label> Table Number </label>
+                <input className="form-control"
+                  type="text"
+                  value={
+                    this.state.table_number.toString()
+                  }
+                  onChange={
+                    (event) => this.setState({
+                      table_number: event.target.value
+                    })
+                  }
+                />
+              </div>
+              <div className="form-group" >
+                <label> Project URL </label>
+                <input className="form-control"
+                  type="text"
+                  value={
+                    this.state.project_url.toString()
+                  }
+                  onChange={
+                    (event) => this.setState({
+                      project_url: event.target.value
+                    })
+                  }
+                />
+              </div>
+              {
+                this.state.erorr ? <Error text="One or more fields are empty!"></Error> : ''}
+              <div className="form-group" id={this.state.project_id}>
+                <label> Attempted Challenges </label>
+                <br />
+                {this.state.allChallenges.map((challenge, index) => {
+                  if (challenge !== undefined) {
+                    return (
+                      <Checkbox handleChange={this.handleChange}
+                        value={challenge}
+                        ref={instance => {this.Checkbox = instance}}
+                        check={this.state.challenges.indexOf(challenge) < 0}
+                        id={index}
+                        project_id={this.state.project_id}
+                        edit={this.state.editable}
+                      />
+                    );
+                  }
+                })}
+              </div>
+              <br />
+              {this.state.challenge_error ? <Error text="Select atleast one challenge"></Error> : ''}
+            </form>
+          </div>
+          <div className="modal-footer">
+            <div>
+              <button
+                type="button"
+                className="button button-warning float-left"
+                onClick={() => { if (window.confirm(`Are you sure you want to delete ${this.state.project_name} from the database?`)) this.deleteProject() }}
+              >
+                Delete
+                </button>
+            </div>
+            <button type="button"
+              className="button button-secondary"
+              id={"btnCancelEditProjectModal" + this.props.editID}
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button"
+              className="button button-primary"
+              onClick={
+                (event) => {
+                  this.saveProject(event);
+                }
+              }>
+              Save
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+    );
+  }
+}
 
-      export default EditProjectModal;
+export default EditProjectModal;
