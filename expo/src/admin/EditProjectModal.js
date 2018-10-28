@@ -264,13 +264,6 @@ class EditProjectModal extends Component {
                 </button>
             </div>
             <button type="button"
-              className="button button-secondary"
-              id={"btnCancelEditProjectModal" + this.props.editID}
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button type="button"
               className="button button-primary"
               onClick={
                 (event) => {
@@ -278,6 +271,13 @@ class EditProjectModal extends Component {
                 }
               }>
               Save
+            </button>
+            <button type="button"
+              className="button button-secondary"
+              id={"btnCancelEditProjectModal" + this.props.editID}
+              data-dismiss="modal"
+            >
+              Cancel
             </button>
           </div>
         </div>

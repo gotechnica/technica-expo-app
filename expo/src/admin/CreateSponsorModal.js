@@ -119,14 +119,16 @@ class CreateSponsorModal extends Component {
 
             </div>
             <div className="modal-footer">
-              <button type="button" className="button button-secondary"
-                id={"btnHideCreateSponsorModal" + this.props.createID}
-                data-dismiss="modal">Cancel</button>
               <button type="button" className="button button-primary"
                 onClick={(event) => {
                   this.saveSponsor(event);
                 }}>
                 Save
+              </button>
+              <button type="button" className="button button-secondary"
+                id={"btnHideCreateSponsorModal" + this.props.createID}
+                data-dismiss="modal">
+                Cancel
               </button>
             </div>
           </div>
