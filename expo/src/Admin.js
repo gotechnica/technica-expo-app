@@ -737,7 +737,7 @@ class SponsorModule extends Component {
               <div>
                 <h5>Administration</h5>
               </div>
-              <div class="ml-auto">
+              <div className="ml-auto">
                 <button
                   type="button"
                   className="link-button"
