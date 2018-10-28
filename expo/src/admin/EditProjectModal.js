@@ -240,7 +240,7 @@ class EditProjectModal extends Component {
                       <Checkbox handleChange={this.handleChange}
                         value={challenge}
                         ref={instance => {this.Checkbox = instance}}
-                        check={this.state.challenges.indexOf(challenge) < 0}
+                        check={this.state.challenges.indexOf(challenge) >= 0}
                         id={index}
                         project_id={this.state.project_id}
                         edit={this.state.editable}
