@@ -405,7 +405,7 @@ def add_challenge_to_company(company_id):
     challenge_id = company_obj['company_name'] + '_challenge' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     challenges_obj[challenge_id] = {
         'challenge_name': request.json['challenge_name'],
-        'num_winners': request.json['num_winners'],
+        'num_winners': int(request.json['num_winners']),
         'winners': []
     }
 
@@ -425,7 +425,7 @@ def update_company_challenge(company_id, challenge_id):
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     challenges_obj = company_obj['challenges']
     challenges_obj[challenge_id]['challenge_name'] = request.json['challenge_name']
-    challenges_obj[challenge_id]['num_winners'] = request.json['num_winners']
+    challenges_obj[challenge_id]['num_winners'] = int(request.json['num_winners'])
 
     updated_company = {
         'challenges': challenges_obj
