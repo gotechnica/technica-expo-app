@@ -155,6 +155,7 @@ class ProjectModule extends Component {
             uploadStatus: response.data,
             projectsCSV: ''
           });
+          this.loadProjects();
         })
         .catch((error) => {
           this.setState({ // Flash error message
@@ -207,6 +208,7 @@ class ProjectModule extends Component {
           tableEndNumber: 0,
           skipEveryOtherTable: true,
         });
+        this.loadProjects();
       })
       .catch((error) => {
         this.setState({ // Flash error message
@@ -227,6 +229,7 @@ class ProjectModule extends Component {
           this.setState({ // Flash success message
             tableAssignmentStatus: response.data,
           });
+          this.loadProjects();
         })
         .catch((error) => {
           this.setState({ // Flash error message
