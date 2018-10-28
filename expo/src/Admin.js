@@ -42,6 +42,7 @@ class ProjectModule extends Component {
     this.state = {
       textSearch:'',
       projects:[],
+      projectIndexToEdit:-1,
       uploadStatus:'',
       projectsCSV:'',
       tableAssignmentStatus: '',
@@ -236,6 +237,24 @@ class ProjectModule extends Component {
     }
   }
 
+  renderEditProjectModal = (elt, index, allChallenges, map) => {
+    return (
+      <EditProjectModal
+        index = {index}
+        editID={"modalEditProject" + index.toString()}
+        projectID={elt.project_id}
+        project_name={elt.project_name}
+        project_table={elt.table_number}
+        url={elt.url}
+        challenges={elt.challenges}
+        toggle={elt.checkVal}
+        allChallenges={allChallenges}
+        company_map={map}
+        onEdit={this.loadProjects.bind(this)}
+      />
+    );
+  }
+
   render() {
     console.log(this.sortData())
     let filteredProjects = this.sortData();
@@ -395,28 +414,27 @@ class ProjectModule extends Component {
                   {elt.table_number}
                 </div>
                 <div className="col">
-                  <EditProjectModal
-                    editID={"modalEditProject"+index.toString()}
-                    projectID={elt.project_id}
-                    project_name= {elt.project_name}
-                    project_table = {elt.table_number}
-                    url = {elt.url}
-                    challenges = {elt.challenges}
-                    toggle = {elt.checkVal}
-                    allChallenges = {allChallenges}
-                    company_map = {map}
-                    onEdit = {this.loadProjects.bind(this)}
-                    />
-                  <button className="link-button"
+                  <button
+                    className="link-button"
+                    id = {`editProject${index.toString()}Btn`}
                     type="button"
                     data-toggle="modal"
                     data-target={"#modalEditProject"+index.toString()}
-                    >
+                    // Hacky solution to only mount the modal when necessary
+                    // (helps if huge amount of projects in DB)
+                    onMouseOver={() => {
+                      this.setState({ projectIndexToEdit: index });
+                    }}
+                  >
                     Edit
                   </button>
                 </div>
                 <br/>
                 <br/>
+                {this.state.projectIndexToEdit === index ?
+                    this.renderEditProjectModal(elt, index, allChallenges, map) :
+                    null
+                }
               </div>
             )
           })}
