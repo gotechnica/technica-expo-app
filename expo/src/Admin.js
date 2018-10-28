@@ -22,6 +22,7 @@ import CreateProjectModal from './admin/CreateProjectModal';
 import EditSponsorModal from './admin/EditSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
+import SmallerParentheses from './SmallerParentheses.js';
 import axios from 'axios';
 import './App.css';
 import './Admin.css';
@@ -384,7 +385,7 @@ class ProjectModule extends Component {
           <br/>
           <br/>
 
-          <h5>Projects ({filteredProjects.length})</h5>
+          <h5>Projects <SmallerParentheses font_size="15px">{filteredProjects.length}</SmallerParentheses></h5>
           <CreateProjectModal
             createID="modalCreateProject"
             onCreate={this.loadProjects.bind(this)}
@@ -416,7 +417,7 @@ class ProjectModule extends Component {
               />
           </div>
           <div className="row">
-            <div className="col">
+            <div className="col grow-5">
               Project
             </div>
             <div className="col">
@@ -430,7 +431,7 @@ class ProjectModule extends Component {
             console.log(elt.checkVal);
             return (
               <div className="row" key={index}>
-                <div className="col">
+                <div className="col grow-5">
                   {elt.project_name}
                 </div>
                 <div className="col">
