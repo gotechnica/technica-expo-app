@@ -195,7 +195,12 @@ def get_available_table_numbers(request_params, used_tables_set, num_projects):
                 max_table_numbers_list.append(letter + str(number))
         if request_params['skip_every_other_table']:
             max_table_numbers_list = max_table_numbers_list[::2]
-    return list(set(max_table_numbers_list) - used_tables_set) # Remove used table numbers
+    # Remove used table numbers
+    for table in max_table_numbers_list:
+        if table in used_tables_set:
+            max_table_numbers_list.remove(table)
+    print(max_table_numbers_list)
+    return max_table_numbers_list
 
 def char_range(c1, c2):
     """Generates the characters from `c1` to `c2`, inclusive."""
