@@ -23,6 +23,7 @@ import EditSponsorModal from './admin/EditSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 import axios from 'axios';
+import './App.css';
 import './Admin.css';
 
 library.add(faUpload);
@@ -240,6 +241,18 @@ class ProjectModule extends Component {
     }
   }
 
+  deleteAllProjects = () => {
+    if (window.confirm('Are you sure you want to remove ALL projects from your database?')) {
+      if (window.confirm('This action is not reversable.')) {
+        Backend.axiosRequest.delete('api/projects/deleteAll')
+          .then(() => {
+            console.log("DELETED ALL PROJECTS");
+            this.loadProjects();
+          });
+      }
+    }
+  }
+
   renderEditProjectModal = (elt, index, allChallenges, map) => {
     return (
       <EditProjectModal
@@ -378,12 +391,19 @@ class ProjectModule extends Component {
             allChallenges={allChallenges}
             company_map={map}
           />
-          <button className="button button-primary"
+          <button className="button button-primary m-r-m"
             type="button"
             data-toggle="modal"
             data-target="#modalCreateProject"
           >
             Create New Project
+          </button>
+          <button
+            className="button button-warning"
+            type="button"
+            onClick={this.deleteAllProjects}
+          >
+            Delete ALL Projects
           </button>
           <br />
           <br />
