@@ -18,6 +18,7 @@ import {faUpload,
 import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
 import CreateSponsorModal from './admin/CreateSponsorModal';
 import CreateChallengeModal from './admin/CreateChallengeModal';
+import CreateProjectModal from './admin/CreateProjectModal';
 import EditSponsorModal from './admin/EditSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
@@ -349,6 +350,21 @@ class ProjectModule extends Component {
           <br/>
 
           <h5>Projects ({filteredProjects.length})</h5>
+          <CreateProjectModal
+            createID="modalCreateProject"
+            onCreate={this.loadProjects.bind(this)}
+            allChallenges={allChallenges}
+            company_map={map}
+          />
+          <button className="button button-primary"
+            type="button"
+            data-toggle="modal"
+            data-target="#modalCreateProject"
+          >
+            Create New Project
+          </button>
+          <br />
+          <br />
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
