@@ -67,6 +67,20 @@ def get_project(project_id):
 
     return jsonify(temp_project)
 
+@app.route('/api/challenges', methods=['GET'])
+def get_all_challenges():
+    companies = mongo.db.companies
+    output = {}
+    for curr_company in companies.find():
+        if not curr_company['challenges']:
+            output[curr_company['company_name']] = []
+        else:
+            curr_challenges_list = []
+            for curr_challenge_id, curr_challenge in curr_company['challenges'].items():
+                curr_challenges_list.append(curr_challenge['challenge_name'])
+            output[curr_company['company_name']] = curr_challenges_list
+    return jsonify(output)
+
 
 # Admin routes #################################################################
 # All endpoints under the Admin routes should require admin authorization.
