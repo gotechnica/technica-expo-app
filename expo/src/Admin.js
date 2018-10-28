@@ -321,14 +321,14 @@ class ProjectModule extends Component {
             method="post"
             onSubmit={this.onAutoAssignTableNumbers.bind(this)}
           >
-            <div onChange={this.handleInputChange.bind(this)} style={{"margin-bottom": "1rem"}}>
+            <div onChange={this.handleInputChange.bind(this)} className="m-b-m">
               <div><input type="radio" name="tableAssignmentSchema" value="numeric" checked={this.state.tableAssignmentSchema=="numeric"} /> Numeric (1, 2, 3...)</div>
               <div><input type="radio" name="tableAssignmentSchema" value="odds" checked={this.state.tableAssignmentSchema=="odds"} /> Odds (1, 3, 5...)</div>
               <div><input type="radio" name="tableAssignmentSchema" value="evens" checked={this.state.tableAssignmentSchema=="evens"} /> Evens (2, 4, 6...)</div>
               <div><input type="radio" name="tableAssignmentSchema" value="custom" checked={this.state.tableAssignmentSchema=="custom"} /> Custom</div>
             </div>
             {this.state.tableAssignmentSchema === "custom" &&
-            <div style={{"margin-bottom": "1rem"}}>
+            <div className="m-b-m">
               <p>Enter the starting and ending/maximum alphanumeric combinations (e.g. A1 to Z15).</p>
               <div className="form-group custom-table-assignment-container">
                 <input
@@ -429,7 +429,7 @@ class ProjectModule extends Component {
           {filteredProjects.map((elt,index) => {
             console.log(elt.checkVal);
             return (
-              <div className="row" key={index}>
+              <div className="row" key={index} id={`project-${elt.project_id}`}>
                 <div className="col grow-5">
                   {elt.project_name}
                 </div>
@@ -768,7 +768,7 @@ class SponsorModule extends Component {
             </div>
           </div>
           <div className="card-body">
-            <div className="d-flex">
+            <div className="d-flex m-b-m">
                 <div>
                   <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
                     {!this.state.showPreview ?
@@ -797,9 +797,11 @@ class SponsorModule extends Component {
                  "No winners have been selected"
                  :
                  this.state.data.map(elt => {
-                   return (<div>
-                     {elt.sponsor + " - " + elt.challenge + " - " + elt.winners.join(", ")}
-                   </div>);
+                   return (
+                    <div>
+                      {`[${elt.sponsor}] ${elt.challenge} - ${elt.winners.join(", ")}`}
+                    </div>
+                   );
                  })
                :
                ""
