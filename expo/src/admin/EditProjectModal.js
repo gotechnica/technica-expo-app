@@ -33,8 +33,7 @@ class EditProjectModal extends Component {
       project_url: this.props.url,
       challenges: this.props.challenges,
       allChallenges: this.props.allChallenges,
-      erorr: false,
-      challenge_error: false,
+      error: false,
       company_map:this.props.company_map,
       editable: true
     }
@@ -72,23 +71,16 @@ class EditProjectModal extends Component {
       this.state.table_number === '' ||
       this.state.project_url === ''
     let check = 0;
-    for (let i = 0; i < this.state.challenges.length; i++) {
-      if (this.state.challenges[i])
-        check++;
-    }
-    let challenge = check > 0 ? false : true;
-    if (missing || challenge)
-      valid = false;
-    else {
-      this.setState({
-        erorr: false
-      })
-      this.setState({
-        challenge_error: false
-      })
-    }
-    console.log(valid);
-    if (valid) {
+    // Note: removed requirement to have at least one checked challenge
+    // for (let i = 0; i < this.state.challenges.length; i++) {
+    //   if (this.state.challenges[i])
+    //     check++;
+    // }
+    // let challenge = check > 0 ? false : true;
+    this.setState({
+      error: missing
+    });
+    if (!missing) {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
       // Close modal
@@ -110,18 +102,8 @@ class EditProjectModal extends Component {
           challenges: challengeStore
         })
       }
-      console.log(this.state.erorr)
+      console.log(this.state.error)
       document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
-    } else {
-      // Show errors
-      if (missing)
-        this.setState({
-          erorr: true
-        });
-      else
-        this.setState({
-          challenge_error: true
-        })
     }
     console.log(this.state)
   }
@@ -229,8 +211,7 @@ class EditProjectModal extends Component {
                   }
                 />
               </div>
-              {
-                this.state.erorr ? <Error text="One or more fields are empty!"></Error> : ''}
+              {this.state.error ? <Error text="One or more fields are empty!"></Error> : null}
               <div className="form-group" id={this.state.project_id}>
                 <label> Attempted Challenges </label>
                 <br />
@@ -250,7 +231,6 @@ class EditProjectModal extends Component {
                 })}
               </div>
               <br />
-              {this.state.challenge_error ? <Error text="Select atleast one challenge"></Error> : ''}
             </form>
           </div>
           <div className="modal-footer">
