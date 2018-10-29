@@ -614,21 +614,20 @@ class SponsorModule extends Component {
                           {elt.company_name + "'s challenges"}
                         </span>
                         <span className="ml-auto">
-
                           <CreateChallengeModal
                             createID={"modalCreateChallenge"+key.toString()}
                             company={elt.company_name}
                             sponsorID={elt.id}
                             onCreate={this.loadCompanies.bind(this)}
                             />
-                          <button className="link-button"
-                              type="button"
-                              data-toggle="modal"
-                              data-target={"#modalCreateChallenge"+key.toString()}
-                              >
-                              Create Challenge
-                            </button>
-
+                          <button
+                            className="link-button shrink-0"
+                            type="button"
+                            data-toggle="modal"
+                            data-target={"#modalCreateChallenge"+key.toString()}
+                          >
+                            Create Challenge
+                          </button>
                         </span>
                       </div>
 
