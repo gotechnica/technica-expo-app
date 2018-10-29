@@ -12,6 +12,7 @@ import Table from './Table.js';
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
 import { WelcomeHeader, VotingTable } from './Sponsor.js';
+import { sortByTableNumber } from './helpers.js';
 let Backend = require('./Backend.js');
 
 
@@ -45,9 +46,11 @@ class SearchandFilter extends Component {
       .then((project_data) => {
         Backend.axiosRequest.get('api/challenges')
         .then((challenge_data) => {
-
+          // Check first project element and see if table numbers consist of both alpha and numeric portions
+          const tableNumbersAreOnlyNumeric = project_data['projects'].length > 0
+            && /^[0-9]+$/.test(project_data['projects'][0]['table_number']);
           this.setState({
-            data: project_data['projects'],
+            data: sortByTableNumber(project_data['projects'], !tableNumbersAreOnlyNumeric),
             challenges: challenge_data,
             workingdata: this.setSponsorWorkingData(project_data['projects'],challenge_data)
           });
@@ -65,27 +68,27 @@ class SearchandFilter extends Component {
     applyFilters() {
       let updatedList = this.state.data;
       updatedList = updatedList.filter((item)=> {
+        // Check text filter
+        let matchesTextFilter = this.state.textSearch == undefined
+          || this.state.textSearch == ""
+          || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase());
 
-          // Check text filter
-          let textFilter = this.state.textSearch == undefined
-            || this.state.textSearch == ""
-            || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase());
+        // Check challenge filter
+        let matchesChallengeFilter = this.state.value === undefined
+          || this.state.value === ""
+          || this.state.value === "All Challenges"
+          || (item.challenges.reduce((acc, chal) => {
+              if (chal.challenge_name === this.state.value) {
+                return true;
+              } else {
+                return acc;
+              }
+            }, false));
 
-          // Check challenge filter
-          let challengeFilter = this.state.value === undefined
-              || this.state.value === "All Challenges"
-              || item.challenges.reduce((acc, chal) => {
-                if(chal.challenge_name === this.state.value) {
-                  return true;
-                } else {
-                  return acc;
-                }
-              }, false);
-
-          return textFilter && challengeFilter;
+        return matchesTextFilter && matchesChallengeFilter;
       });
       this.setState({
-          workingdata: updatedList
+        workingdata: updatedList
       });
     }
 

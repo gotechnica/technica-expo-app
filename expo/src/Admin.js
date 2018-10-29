@@ -25,6 +25,7 @@ import EditProjectModal from './admin/EditProjectModal';
 import SmallerParentheses from './SmallerParentheses.js';
 import './App.css';
 import './Admin.css';
+import { sortByTableNumber } from './helpers.js';
 
 library.add(faUpload);
 library.add(faCaretDown);
@@ -42,7 +43,6 @@ class ProjectModule extends Component {
     super(props);
     this.state = {
       textSearch:'',
-      projects:[],
       projectIndexToEdit:-1,
       uploadStatus:'',
       projectsCSV:'',
@@ -57,23 +57,9 @@ class ProjectModule extends Component {
     // this.createAllChallenges = this.createAllChallenges.bind(this);
   }
 
-  loadProjects() {
-    Backend.axiosRequest.get('api/projects')
-      .then((data) => {
-        this.setState({
-          projects: data.projects
-        })
-        console.log(data.projects);
-      });
-  }
-
-  componentWillMount() {
-    this.loadProjects();
-  }
-
   createMap() {
     let companies = new Map();
-    this.state.projects.map((obj)=>{
+    this.props.projects.map((obj)=>{
       obj.challenges.map((company)=>{
         if(!companies.has(company.challenge_name))
           companies.set(company.challenge_name,company.company);
@@ -95,7 +81,7 @@ class ProjectModule extends Component {
     return allChallenges;
   }
   sortData(){
-    let data = this.state.projects;
+    let data = this.props.projects;
     console.log(data);
     let finalProjectsData = [];
     let seen = undefined;
@@ -156,7 +142,7 @@ class ProjectModule extends Component {
             uploadStatus: response.data,
             projectsCSV: ''
           });
-          this.loadProjects();
+          this.props.loadProjects();
         })
         .catch((error) => {
           this.setState({ // Flash error message
@@ -209,7 +195,7 @@ class ProjectModule extends Component {
           tableEndNumber: 0,
           skipEveryOtherTable: true,
         });
-        this.loadProjects();
+        this.props.loadProjects();
       })
       .catch((error) => {
         this.setState({ // Flash error message
@@ -230,7 +216,7 @@ class ProjectModule extends Component {
           this.setState({ // Flash success message
             tableAssignmentStatus: data,
           });
-          this.loadProjects();
+          this.props.loadProjects();
         })
         .catch((error) => {
           this.setState({ // Flash error message
@@ -247,7 +233,7 @@ class ProjectModule extends Component {
         Backend.axiosRequest.delete('api/projects/deleteAll')
           .then(() => {
             console.log("DELETED ALL PROJECTS");
-            this.loadProjects();
+            this.props.loadProjects();
           });
       }
     }
@@ -266,7 +252,7 @@ class ProjectModule extends Component {
         toggle={elt.checkVal}
         allChallenges={allChallenges}
         company_map={map}
-        onEdit={this.loadProjects.bind(this)}
+        onEdit={this.props.loadProjects}
       />
     );
   }
@@ -278,10 +264,11 @@ class ProjectModule extends Component {
     let map = this.createMap();
     console.log("ass",allChallenges);
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
-      filteredProjects = filteredProjects.filter(elt =>
-        elt.project_name.includes(this.state.textSearch) ||
-        elt.table_number.includes(this.state.textSearch)
-      );
+      filteredProjects = filteredProjects.filter(elt => {
+        const upperCaseTextSearch = this.state.textSearch.toUpperCase();
+        return elt.project_name.toUpperCase().includes(upperCaseTextSearch) ||
+               elt.table_number.toUpperCase().includes(upperCaseTextSearch);
+      });
     }
 
     return (
@@ -387,7 +374,7 @@ class ProjectModule extends Component {
           <h5>Projects <SmallerParentheses font_size="15px">{filteredProjects.length}</SmallerParentheses></h5>
           <CreateProjectModal
             createID="modalCreateProject"
-            onCreate={this.loadProjects.bind(this)}
+            onCreate={this.props.loadProjects}
             allChallenges={allChallenges}
             company_map={map}
           />
@@ -614,21 +601,20 @@ class SponsorModule extends Component {
                           {elt.company_name + "'s challenges"}
                         </span>
                         <span className="ml-auto">
-
                           <CreateChallengeModal
                             createID={"modalCreateChallenge"+key.toString()}
                             company={elt.company_name}
                             sponsorID={elt.id}
                             onCreate={this.loadCompanies.bind(this)}
                             />
-                          <button className="link-button"
-                              type="button"
-                              data-toggle="modal"
-                              data-target={"#modalCreateChallenge"+key.toString()}
-                              >
-                              Create Challenge
-                            </button>
-
+                          <button
+                            className="link-button shrink-0"
+                            type="button"
+                            data-toggle="modal"
+                            data-target={"#modalCreateChallenge"+key.toString()}
+                          >
+                            Create Challenge
+                          </button>
                         </span>
                       </div>
 
@@ -685,45 +671,38 @@ class SponsorModule extends Component {
       // Pull data, add to state, and show
       Backend.axiosRequest.get('api/companies')
         .then((sponsors) => {
-          Backend.axiosRequest.get('api/projects')
-            .then((response) => {
-              console.log(response);
+          let projects = this.props.projects.filter(elt => {
+            return elt.challenges_won != undefined
+              && elt.challenges_won.length > 0;
+          });
 
-              let projects = response['projects'].filter(elt => {
-                return elt.challenges_won != undefined
-                  && elt.challenges_won.length > 0;
-              });
+          //Build sponsor - challenge - winners struct
+          let data = sponsors.filter(elt => {
+            return elt.challenge_name != undefined
+              && elt.winners != undefined && elt.winners.length > 0;
+          }).map(elt => {
 
-              //Build sponsor - challenge - winners struct
-              let data = sponsors.filter(elt => {
-                return elt.challenge_name != undefined
-                  && elt.winners != undefined && elt.winners.length > 0;
-              }).map(elt => {
+            // elt.winners => winner IDs
+            // for each project, if proj.challenges_won contains elt.challenge_id
+            // add proj.project_name to winners
+            let winners = [];
+            for(let i = 0; i < projects.length; i++) {
+              if(projects[i].challenges_won.includes(elt.challenge_id)) {
+                winners.push(projects[i].project_name);
+              }
+            }
 
-                // elt.winners => winner IDs
-                // for each project, if proj.challenges_won contains elt.challenge_id
-                // add proj.project_name to winners
-                let winners = [];
-                for(let i = 0; i < projects.length; i++) {
-                  if(projects[i].challenges_won.includes(elt.challenge_id)) {
-                    winners.push(projects[i].project_name);
-                  }
-                }
+            return {
+              sponsor: elt.company_name,
+              challenge: elt.challenge_name,
+              winners: winners
+            }
+          });
 
-                return {
-                  sponsor: elt.company_name,
-                  challenge: elt.challenge_name,
-                  winners: winners
-                }
-              });
-
-              this.setState({
-                data: data.sort((s1, s2) => {
-                  return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
-              });
-
-            });
-
+          this.setState({
+            data: data.sort((s1, s2) => {
+              return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
+          });
         });
     }
 
@@ -820,7 +799,8 @@ class SponsorModule extends Component {
       super(props);
       this.state = {
         loggedIn: false,
-        loggedInAs: ''
+        loggedInAs: '',
+        projects: [],
       };
       // LF6K3G6RR3Q4VX4S
       Backend.axiosRequest.get('api/whoami')
@@ -841,6 +821,22 @@ class SponsorModule extends Component {
         });
     }
 
+    componentWillMount() {
+      this.loadProjects();
+    }
+
+    loadProjects = () => {
+      Backend.axiosRequest.get('api/projects')
+        .then((projectData) => {
+          // Check first project element and see if table numbers consist of both alpha and numeric portions
+          const tableNumbersAreOnlyNumeric = projectData['projects'].length > 0 &&
+            /^[0-9]+$/.test(projectData['projects'][0]['table_number']);
+          this.setState({
+            projects: sortByTableNumber(projectData['projects'], !tableNumbersAreOnlyNumeric),
+          });
+        });
+    }
+
     logout() {
       // Redirect back to admin login page and end session
       Backend.axiosRequest.post('api/logout')
@@ -855,11 +851,11 @@ class SponsorModule extends Component {
           SiteWrapper(
             <div className="row">
               <div className="col">
-                <WinnerModule logout={this.logout.bind(this)}/>
-                <SponsorModule/>
+                <WinnerModule projects={this.state.projects} loadProjects={this.loadProjects} logout={this.logout.bind(this)}/>
+                <SponsorModule />
               </div>
               <div className="col">
-                <ProjectModule/>
+                <ProjectModule projects={this.state.projects} loadProjects={this.loadProjects} />
               </div>
             </div>
           )
