@@ -19,7 +19,7 @@ import Home from './Home.js';
 
 /* Routing control for app overall */
 const Routing = () => (
-  <Router>
+  <Router basename="/expo">
     <div>
       <Route exact path="/" component={Home}/>
       <Route path="/admin" component={Admin}/>
