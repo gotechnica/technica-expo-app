@@ -12,6 +12,7 @@ import Table from './Table.js';
 import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
 import { WelcomeHeader, VotingTable } from './Sponsor.js';
+import { sortByTableNumber } from './helpers.js';
 let Backend = require('./Backend.js');
 
 
@@ -45,9 +46,11 @@ class SearchandFilter extends Component {
       .then((project_data) => {
         Backend.axiosRequest.get('api/challenges')
         .then((challenge_data) => {
-
+          // Check first project element and see if table numbers consist of both alpha and numeric portions
+          const tableNumbersAreOnlyNumeric = project_data['projects'].length > 0
+            && /^[0-9]+$/.test(project_data['projects'][0]['table_number']);
           this.setState({
-            data: project_data['projects'],
+            data: sortByTableNumber(project_data['projects'], !tableNumbersAreOnlyNumeric),
             challenges: challenge_data,
             workingdata: this.setSponsorWorkingData(project_data['projects'],challenge_data)
           });
