@@ -86,6 +86,10 @@
   margin-right: 0.6rem;
 }
 
+.grow-5 {
+  flex-grow: 5;
+}
+
 .custom-table-assignment-container {
   display: flex;
   align-items: center;
@@ -98,6 +102,10 @@
 
 .m-r-m {
   margin-right: 1rem;
+}
+
+.m-b-m {
+  margin-bottom: 1rem;
 }
 
 .upload-btn-wrapper {

@@ -240,7 +240,7 @@ class EditProjectModal extends Component {
                       <Checkbox handleChange={this.handleChange}
                         value={challenge}
                         ref={instance => {this.Checkbox = instance}}
-                        check={this.state.challenges.indexOf(challenge) < 0}
+                        check={this.state.challenges.indexOf(challenge) >= 0}
                         id={index}
                         project_id={this.state.project_id}
                         edit={this.state.editable}
@@ -264,13 +264,6 @@ class EditProjectModal extends Component {
                 </button>
             </div>
             <button type="button"
-              className="button button-secondary"
-              id={"btnCancelEditProjectModal" + this.props.editID}
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button type="button"
               className="button button-primary"
               onClick={
                 (event) => {
@@ -278,6 +271,13 @@ class EditProjectModal extends Component {
                 }
               }>
               Save
+            </button>
+            <button type="button"
+              className="button button-secondary"
+              id={"btnCancelEditProjectModal" + this.props.editID}
+              data-dismiss="modal"
+            >
+              Cancel
             </button>
           </div>
         </div>

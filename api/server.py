@@ -5,6 +5,8 @@ from pymongo import MongoClient, UpdateOne
 from flask_cors import CORS
 from bson.objectid import ObjectId
 from bson import json_util
+import random
+import string
 import json
 import hashlib
 import io
@@ -195,7 +197,12 @@ def get_available_table_numbers(request_params, used_tables_set, num_projects):
                 max_table_numbers_list.append(letter + str(number))
         if request_params['skip_every_other_table']:
             max_table_numbers_list = max_table_numbers_list[::2]
-    return list(set(max_table_numbers_list) - used_tables_set) # Remove used table numbers
+    # Remove used table numbers
+    for table in max_table_numbers_list:
+        if table in used_tables_set:
+            max_table_numbers_list.remove(table)
+    print(max_table_numbers_list)
+    return max_table_numbers_list
 
 def char_range(c1, c2):
     """Generates the characters from `c1` to `c2`, inclusive."""
@@ -331,23 +338,32 @@ def add_company():
 
     company_name = request.json['company_name']
     access_code = request.json['access_code']
-
-    # TODO(kjeffc) Make prize selection compatible with this system
-    # (e.g. Company X is in the DB twice, but with same access token - they
-    # shouldn't notice a difference/have to re-login etc...)
-
-    # TODO(timothychen01): Remove challenge related details in initial creation
-    # challenge_name = request.json['challenge_name']
-    # num_winners = request.json['num_winners']
+    
+    # Autogenerate 8-character access code if blank one was sent
+    if access_code == '':
+        access_code = generate_random_access_code(8)
+        company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+        # Keep generating codes until unique
+        while company_obj != None:
+            access_code = generate_random_access_code(8)
+            company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+    else:
+        # Check if user-defined access code is already used
+        company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+        if company_obj != None:
+            return "Access code already in use."
 
     company = {
         'company_name': company_name,
         'access_code': access_code,
         'challenges': {}
     }
-
     company_id = str(companies.insert(company))
     return company_id
+
+def generate_random_access_code(length):
+    # Only allow characters that are not ambiguous (I, L, O, 1, 0)
+    return ''.join(random.choice('ABCDEFGHJKMNPQRSTUVWXYZ23456789') for _ in range(length))
 
 @app.route('/api/companies/id/<company_id>', methods=['POST'])
 def update_company_name_or_code(company_id):
@@ -389,7 +405,7 @@ def add_challenge_to_company(company_id):
     challenge_id = company_obj['company_name'] + '_challenge' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     challenges_obj[challenge_id] = {
         'challenge_name': request.json['challenge_name'],
-        'num_winners': request.json['num_winners'],
+        'num_winners': int(request.json['num_winners']),
         'winners': []
     }
 
@@ -409,7 +425,7 @@ def update_company_challenge(company_id, challenge_id):
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     challenges_obj = company_obj['challenges']
     challenges_obj[challenge_id]['challenge_name'] = request.json['challenge_name']
-    challenges_obj[challenge_id]['num_winners'] = request.json['num_winners']
+    challenges_obj[challenge_id]['num_winners'] = int(request.json['num_winners'])
 
     updated_company = {
         'challenges': challenges_obj

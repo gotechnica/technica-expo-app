@@ -28,7 +28,7 @@ class CreateProjectModal extends Component {
       "table_number": this.state.table_number
     })
       .then((data) => {
-        this.props.onCreate;
+        this.props.onCreate();
         document.getElementById("btnCancelCreateProjectModal").click();
       });
   }
@@ -53,7 +53,7 @@ class CreateProjectModal extends Component {
           </div>
 
           <div className="modal-body">
-            <form onSubmit={this.createProject}>
+            <form>
               <div className="form-group" >
                 <label>Project Name</label>
                 <input className="form-control input"
@@ -89,8 +89,9 @@ class CreateProjectModal extends Component {
 
           <div className="modal-footer">
             <button
-              type="submit"
+              type="button"
               className="button button-primary"
+              onClick={this.createProject}
             >
               Create
             </button>
