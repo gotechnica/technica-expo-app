@@ -13,6 +13,7 @@
     "font-awesome": "^4.7.0",
     "material-ui": "^0.20.2",
     "muicss": "^0.9.41",
+    "npm": "^6.4.1",
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.5.2",
