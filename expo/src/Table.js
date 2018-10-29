@@ -105,14 +105,17 @@ class ProjectColumn extends Component {
           </a>
           { this.props.width < 460 ?
             ( this.props.origin === "home" ?
+              ( this.props.table_number === "" ?
+              <Fragment></Fragment>
+              :
               <div>
-                <button className="Table" style={{backgroundColor: colors[index]}}>
+                <button className="Table" style={{ backgroundColor: colors[index] }}>
                   <div className="Table">Table</div>
                   <div className="Table-Number">
                     {this.props.table_number}
                   </div>
                 </button>
-              </div>
+              </div> )
               :
               <div className="Sponsor-Table">Table: {this.props.table_number}</div>
             )
@@ -123,22 +126,25 @@ class ProjectColumn extends Component {
         { this.props.origin === "home" ?
           <Fragment>
             <div className="challenges-won">{challenges_won}</div>
-            { this.props.width < 460 ? <hr className="attempted-challenges"/> : <Fragment></Fragment> }
-            <div className="attempted-challenges">
-              { this.props.show_attempted_challenges ?
-                <b>
-                  Attempted Challenge
-                  <SmallerParentheses font_size="12px">s</SmallerParentheses>
-                  : {attempted_challenges.length}
-                </b>
-                :
-                attempted_challenges
-              }
-            </div>
+            { attempted_challenges.length > 0 ?
+              <Fragment>
+                { this.props.width < 460 ? <hr className="attempted-challenges"/> : <Fragment></Fragment> }
+                <div className="attempted-challenges">
+                  { this.props.show_attempted_challenges ?
+                    <b>
+                      Attempted Challenge
+                      <SmallerParentheses font_size="12px">s</SmallerParentheses>
+                      : {attempted_challenges.length}
+                    </b>
+                    :
+                    attempted_challenges }
+                </div>
+              </Fragment>
+              :
+              <Fragment></Fragment> }
           </Fragment>
-          :
-          <Fragment></Fragment>
-        }
+        :
+        <Fragment></Fragment>}
       </td>
     );
   }
@@ -182,7 +188,7 @@ class ChallengeCard extends Component {
 export class Row extends Component {
   render() {
     let table = ( this.props.width >= 460 ?
-      <td className="Table-Number">{this.props.table_number}</td>
+      <td className="Table-Number">{this.props.table_number === "" ? '-' : this.props.table_number}</td>
       :
       <Fragment></Fragment> );
     return (
@@ -236,6 +242,8 @@ export class Table extends Component {
     let rows = [];
     let counter = 0;
     let table = ( this.state.width >= 460 ? <th>Table</th> : <Fragment></Fragment> );
+    /*alert("Table.js: "+ JSON.stringify(this.props.checked));*/
+    if (this.props.projects != undefined) {
     this.props.projects.forEach((project) => {
       rows.push(
         ( this.props.origin === "sponsor" ?
@@ -245,8 +253,8 @@ export class Table extends Component {
             project_name = {project.project_name}
             project_url = {project.project_url}
             handler = {this.props.handler}
-            checked = {this.props.checked[project.project_id] === undefined ? false : this.props.checked[project.project_id][[this.props.value]]}
-            disabled = {this.props.sponsor_challenges === undefined ? true : (this.props.sponsor_challenges[this.props.value] === undefined ? true : this.props.sponsor_challenges[this.props.value].submitted)}
+            checked = {this.props.checked[project.project_id] === undefined ? false : this.props.checked[project.project_id][this.props.value]}
+            disabled = {false/*this.props.sponsor_challenges === undefined ? true : (this.props.sponsor_challenges[this.props.value] === undefined ? true : this.props.sponsor_challenges[this.props.value].submitted)*/}
             origin={this.props.origin}
             width={this.state.width}
           />
@@ -266,9 +274,10 @@ export class Table extends Component {
       );
       counter += 1;
     });
+  }
 
     let selections = [];
-    if (this.props.origin === "sponsor") {
+    /*if (this.props.origin === "sponsor") {
       Object.keys(this.props.checked).forEach((project_id) => {
         let challenges = this.props.checked[project_id];
         Object.keys(challenges).forEach((challenge) => {
@@ -277,12 +286,11 @@ export class Table extends Component {
           }
         });
       });
-    }
+    }*/
 
     return (
       rows.length > 0 ?
         <Fragment>
-        {/*alert(JSON.stringify(this.props.checked))*/}
           <table>
           { this.props.origin === "home" ?
             <thead>
@@ -321,7 +329,7 @@ export class Table extends Component {
             value={this.props.value}
             project_dict={this.props.project_dict}
             votes={selections}
-            challenge_info={this.props.sponsor_challenges[this.props.value]}
+            challenge_info={{}/*this.props.sponsor_challenges[this.props.value]*/}
           />
         </div>) : <Fragment></Fragment>}
       </Fragment>

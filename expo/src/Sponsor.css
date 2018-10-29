@@ -62,26 +62,7 @@
   float: right;
   width: 200px;
 }
-#Sponsor div.no-submissions {
-  text-align: center;
-  white-space: pre-wrap;
 
-  margin: 10px 0px;
-  height: 200px;
-
-  background-color: #1c1c1c;
-
-  opacity: 0.75;
-
-  display: -webkit-flex;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#Sponsor div.no-submissions h2 {
-  font-weight: bolder;
-}
 /* ================================================== */
 
 

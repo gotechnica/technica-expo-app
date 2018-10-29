@@ -13,359 +13,26 @@ import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
 import { WelcomeHeader, VotingTable } from './Sponsor.js';
 let Backend = require('./Backend.js');
-const CHALLENGES = [
-  { company_id: 'C0',
-    access_code: '00000',
-    company_name: 'Booz Allen Hamilton',
-    challenge_name: 'Best ML/AI Hack',
-    num_winners: 2,
-    winners: []
-  },
-  { company_id: 'C1',
-    access_code: '11111',
-    company_name: 'Booz Allen Hamilton',
-    challenge_name: 'Best Hack to Help in a Crisis',
-    num_winners: 3,
-    winners: ['P1','P8','P5']
-  },
-  { company_id: 'C2',
-    access_code: '11111',
-    company_name: 'Booz Allen Hamilton',
-    challenge_name: 'Best Data Science Hack',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C3',
-    access_code: '33333',
-    company_name: 'Mantech',
-    challenge_name: 'Cybersecurity Hack',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C4',
-    access_code: '44444',
-    company_name: 'JP Morgan',
-    challenge_name: 'Best Hack for Social Good',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C5',
-    access_code: '55555',
-    company_name: 'Capital One',
-    challenge_name: 'Best Financial Hack',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C6',
-    access_code: '66666',
-    company_name: 'Amazon Web Services',
-    challenge_name: 'Best Use of AWS',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C7',
-    access_code: '77777',
-    company_name: 'GE Digital',
-    challenge_name: 'Best Digital Industrial Hack',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C8',
-    access_code: '88888',
-    company_name: 'Bloomberg',
-    challenge_name: 'Best Education/Diversity and Inclusion Hack',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C9',
-    access_code: '99999',
-    company_name: 'ViaSat',
-    challenge_name: 'Best Device Connectivity',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C10',
-    access_code: '101010',
-    company_name: 'Liberty Mutual',
-    challenge_name: 'Rise and Shine Challenge',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C11',
-    access_code: '111111',
-    company_name: 'Altamira',
-    challenge_name: 'Best Hardware Hack',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C12',
-    access_code: '121212',
-    company_name: 'Qualcomm',
-    challenge_name: 'Qualcomm DragonBoard™ 410c Hack',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C13',
-    access_code: '131313',
-    company_name: 'Facebook/Oculus',
-    challenge_name: 'Best VR Hack',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C14',
-    access_code: '141414',
-    company_name: 'Microsoft',
-    challenge_name: 'Best Use of Microsoft Cognitive Services API',
-    num_winners: 1,
-    winners: []
-  },
-  { company_id: 'C15',
-    access_code: '151515',
-    company_name: 'Booz Allen Hamilton',
-    challenge_name: 'Best Future Hack',
-    num_winners: 3,
-    winners: []
-  }
-];
 
-const PROJECTS = [
-  { project_id: 'P1',
-    table_number: 23,
-    project_name: 'Mining Malware',
-    project_url: 'https://devpost.com/software/mining-malware',
-    challenges: [
-      { company: 'Mantech',
-        challenge_id: 'C3',
-        challenge_name: 'Cybersecurity Hack',
-        won: true
-      },
-      { company: 'JP Morgan',
-        challenge_id: 'C4',
-        challenge_name: 'Best Hack for Social Good',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C0',
-        challenge_name: 'Best ML/AI Hack',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C1',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C2',
-        challenge_name: 'Best Data Science Hack',
-        won: false
-      },
-      { company: 'Capital One',
-        challenge_id: 'C5',
-        challenge_name: 'Best Financial Hack',
-        won: false
-      },
-      { company: 'Amazon Web Services',
-        challenge_id: 'C6',
-        challenge_name: 'Best Use of AWS',
-        won: true
-      },
-      { company: 'GE Digital',
-        challenge_id: 'C7',
-        challenge_name: 'Best Digital Industrial Hack',
-        won: false
-      }
-    ],
-  },
-  { project_id: 'P2',
-    table_number: 4,
-    project_name: 'Leveraging the First Steps',
-    project_url: 'https://devpost.com/software/leveraging-the-first-steps',
-    challenges: [
-      { company: 'JP Morgan',
-        challenge_id: 'C4',
-        challenge_name: 'Best Hack for Social Good',
-        won: true
-      },
-      { company: 'Bloomberg',
-        challenge_id: 'C8',
-        challenge_name: 'Best Education/Diversity and Inclusion Hack',
-        won: false
-      }
-    ],
-  },
-  { project_id: 'P3',
-    table_number: 12,
-    project_name: 'Safety Net',
-    project_url: 'https://devpost.com/software/safety-net-cjr0nv',
-    challenges: [
-      { company: 'ViaSat',
-        challenge_id: 'C9',
-        challenge_name: 'Best Device Connectivity',
-        won: true
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C1',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C2',
-        challenge_name: 'Best Data Science Hack',
-        won: false
-      }
-    ],
-  },
-  { project_id: 'P4',
-    table_number: 3,
-    project_name: 'Smart Home Security',
-    project_url: 'https://devpost.com/software/technica2017-alexa-securitycam',
-    challenges: [
-      { company: 'ViaSat',
-        challenge_id: 'C9',
-        challenge_name: 'Best Device Connectivity',
-        won: false
-      },
-      { company: 'Liberty Mutual',
-        challenge_id: 'C10',
-        challenge_name: 'Rise and Shine Challenge',
-        won: true
-      },
-      { company: 'Altamira',
-        challenge_id: 'C11',
-        challenge_name: 'Best Hardware Hack',
-        won: false
-      },
-      { company: 'Qualcomm',
-        challenge_id: 'C12',
-        challenge_name: 'Qualcomm DragonBoard™ 410c Hack',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C0',
-        challenge_name: 'Best ML/AI Hack',
-        won: false
-      }
-    ],
-  },
-  { project_id: 'P5',
-    table_number: 49,
-    project_name: 'HelpHub',
-    project_url: 'https://devpost.com/software/helphub-wme2q3',
-    challenges: [
-      { company: 'ViaSat',
-        challenge_id: 'C9',
-        challenge_name: 'Best Device Connectivity',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C0',
-        challenge_name: 'Best ML/AI Hack',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C1',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      },
-      { company: 'Liberty Mutual',
-        challenge_id: 'C10',
-        challenge_name: 'Rise and Shine Challenge',
-        won: false
-      },
-      { company: 'Facebook/Oculus',
-        challenge_id: 'C13',
-        challenge_name: 'Best VR Hack',
-        won: true
-      },
-      { company: 'Microsoft',
-        challenge_id: 'C14',
-        challenge_name: 'Best Use of Microsoft Cognitive Services API',
-        won: false
-      },
-      { company: 'Altamira',
-        challenge_id: 'C11',
-        challenge_name: 'Best Hardware Hack',
-        won: false
-      },
-      { company: 'Bloomberg',
-        challenge_id: 'C8',
-        challenge_name: 'Best Education/Diversity and Inclusion Hack',
-        won: false
-      }
-    ]
-  },
-  { project_id: 'P6',
-    table_number: 7,
-    project_name: 'Survival Aid',
-    project_url: 'https://devpost.com/software/survival-aid',
-    challenges: [
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C1',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C2',
-        challenge_name: 'Best Data Science Hack',
-        won: false
-      }
-    ]
-  },
-  { project_id: 'P7',
-    table_number: 2,
-    project_name: 'Faze One',
-    project_url: 'https://devpost.com/software/faze-one',
-    challenges: [
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C1',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C0',
-        challenge_name: 'Best ML/AI Hack',
-        won: false
-      }
-    ]
-  },
-  { project_id: 'P8',
-    table_number: 55,
-    project_name: 'Connect in Crisis',
-    project_url: 'https://devpost.com/software/connect-in-crisis',
-    challenges: [
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C1',
-        challenge_name: 'Best Hack to Help in a Crisis',
-        won: false
-      },
-      { company: 'Booz Allen Hamilton',
-        challenge_id: 'C0',
-        challenge_name: 'Best ML/AI Hack',
-        won: false
-      }
-    ]
-  }
-];
 
 class SearchandFilter extends Component {
 
     constructor(props) {
       super(props);
-      let challenges = this.createChallengeSponsorArray(CHALLENGES);
+
       this.state = {
-        data: PROJECTS,
-        value: challenges[0],
+        data: [],
+        value: "",
         textSearch: "",
         toggle_off: true,
-        challenges: CHALLENGES,
-        workingdata: this.setSponsorWorkingData(challenges),
+        challenges: {},
+        workingdata: [],
         width: window.innerWidth
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleToggle = this.handleToggle.bind(this);
-      this.getSponsorChallenges = this.getSponsorChallenges.bind(this);
-      this.getSponsorData = this.getSponsorData.bind(this);
       this.setSponsorWorkingData = this.setSponsorWorkingData.bind(this);
+      this.makeVotingData = this.makeVotingData.bind(this);
       this.updateDimensions = this.updateDimensions.bind(this);
     }
 
@@ -374,38 +41,18 @@ class SearchandFilter extends Component {
     }
 
     componentDidMount() {
-      // TODO(timothychen01): Replace this URL with final URL
-      // TODO(timothychen01): Explore replacing URL string with environment vars
-      /*axios.get('api/projects')
-      .then(response => {
-        console.log(JSON.stringify(response['data']));  // TODO: Remove logging
-        alert(JSON.stringify(response['data']));
-        /*this.setState({
-          data: response['data'],
-          workingdata: response['data']
-        });*/
-      /*})*/
       Backend.axiosRequest.get('api/projects')
       .then((project_data) => {
-        /*alert(JSON.stringify(project_data['projects']));*/
-        this.setState({
-          data: project_data['projects'],
-          workingdata: project_data['projects']
+        Backend.axiosRequest.get('api/challenges')
+        .then((challenge_data) => {
+
+          this.setState({
+            data: project_data['projects'],
+            challenges: challenge_data,
+            workingdata: this.setSponsorWorkingData(project_data['projects'],challenge_data)
+          });
         });
       });
-
-      Backend.axiosRequest.get('api/companies')
-      .then((company_data) => {
-        /*alert(JSON.stringify(company_data));*/
-        this.setState({
-          challenges: company_data
-        });
-      });
-
-      /*Backend.httpFunctions.getAsync('api/projects', (item) => {
-        let project = JSON.parse(item)
-        alert(JSON.stringify(project.projects));
-      });*/
 
       this.updateDimensions();
       window.addEventListener("resize", this.updateDimensions);
@@ -425,10 +72,10 @@ class SearchandFilter extends Component {
             || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase());
 
           // Check challenge filter
-          let challengeFilter = this.state.value == undefined
-              || this.state.value == "All Challenges"
+          let challengeFilter = this.state.value === undefined
+              || this.state.value === "All Challenges"
               || item.challenges.reduce((acc, chal) => {
-                if(chal.challenge_name == this.state.value) {
+                if(chal.challenge_name === this.state.value) {
                   return true;
                 } else {
                   return acc;
@@ -449,127 +96,82 @@ class SearchandFilter extends Component {
             textSearch:searchVal
           }, () => this.applyFilters());
       } else if (e.target.name === "selectChallenges") {
-        let val = (e.target.value);
+        let val = (e.target.value.split(' - ')[0]);
         this.setState({
           value: val
         }, ()=>this.applyFilters());
       }
     }
 
-    componentWillMount(){
-      if (this.props.origin === 'sponsor') {
-        this.setState({ workingdata: this.state.workingdata });
+    createChallengeArray(){
+      let challenges = [];
+      Object.keys(this.state.challenges).forEach((company) => {
+        this.state.challenges[company].forEach((challenge) => {
+          if (challenges.indexOf(challenge) === -1) {
+            challenges.push(challenge + " - " + company);
+          }
+        });
+      })
+      challenges = challenges.sort(function (a, b) {
+        if (a < b) return -1;
+        else if (a > b) return 1;
+        return 0;
+      });
+      return challenges;
+    }
+
+    createChallengeSponsorArray(challenge_data){
+      let challenges = [];
+      if (this.props.loggedIn != undefined) {
+        if (challenge_data[this.props.loggedIn] !== undefined) {
+          challenges = challenge_data[this.props.loggedIn];
+          challenges = challenges.sort(function (a, b) {
+            if (a < b) return -1;
+            else if (a > b) return 1;
+            return 0;
+          });
+        }
+      }
+      return challenges;
+    }
+
+    setSponsorWorkingData(projects,challenges) {
+      if (this.props.origin === "sponsor") {
+        let firstChallenge = this.createChallengeSponsorArray(challenges)[0];
+        let initialData = [];
+        projects.map((obj) => {
+          obj.challenges.map((item) => {
+            if (item.company === this.props.loggedIn && item.challenge_name == firstChallenge) {
+              initialData.push(obj);
+            }
+          });
+        });
+        this.setState({ value: firstChallenge });
+        return initialData;
       } else {
-        this.setState({ workingdata: this.state.data });
+        return projects;
       }
     }
 
-    // constructor(props){
-    //     super(props);
-    //     this.handleChange = this.handleChange.bind(this);
-    // }
-
-    createChallengeArray(){
-      /*let options = [];
-      this.state.data.map((obj) => {
-        {obj.challenges.map((item) => {
-          options.push(item.challenge_name);
-        })}
-      })
-      console.log(options);
-      return options;*/
-      let challenges = [];
-      this.state.challenges.map((obj) => {
-        if (challenges.indexOf(obj.company_name) === -1) {
-          challenges.push(obj.challenge_name);
-        }
-      })
-      challenges = challenges.sort(function (a, b) {
-        if (a < b) return -1;
-        else if (a > b) return 1;
-        return 0;
-      });
-      return challenges;
-    }
-
-    createChallengeSponsorArray(challenges_data){
-      /*let options = [];
-      console.log(this.props.loggedIn)
-      this.state.data.map((obj) => {
-        obj.challenges.map((item) => {
-          if (item.company === this.props.loggedIn && options.indexOf(item.challenge_name) == -1)
-            options.push(item.challenge_name);
-        })
-      })
-      console.log(options)
-      return options;*/
-      let challenges = [];
-      challenges_data.map((obj) => {
-        if (obj.company_name == this.props.loggedIn) {
-          challenges.push(obj.challenge_name);
-        }
-      })
-      challenges = challenges.sort(function (a, b) {
-        if (a < b) return -1;
-        else if (a > b) return 1;
-        return 0;
-      });
-      return challenges;
-    }
-
-    getSponsorData() {
-      let challenges = {};
-      this.state.challenges.map((challenge) => {
-        if (challenge.company_name == this.props.loggedIn) {
-          let obj = {
-            challenge_id: challenge.company_id,
-            vote_limit: challenge.num_winners,
-            winners: challenge.winners,
-            submitted: false
-          };
-          /*if (challenge.winners.length > 0) {
-            obj.submitted = true;
-          }*/
-          challenges[challenge.challenge_name] = obj;
-        }
-      })
-      return challenges;
-    }
-
-    getSponsorChallenges(challenges) {
-      let voting_data = {};
-      let project_dict = {}
-      this.state.data.map((obj) => {
-        let temp = {};
-        obj.challenges.map((item) => {
-          if (Object.keys(challenges).indexOf(item.challenge_name) !== -1) {
-            let data = challenges[item.challenge_name]['winners'];
-            if (data.length > 0 && data.indexOf(obj.project_id) !== -1) {
-              temp[item.challenge_name] = true;
-            } else {
-              temp[item.challenge_name] = false;
+    makeVotingData(challenges) {
+      if (this.props.origin === "sponsor") {
+        let voting_data = {};
+        this.state.data.map((obj) => {
+          let temp = {}
+          obj.challenges.map((item) => {
+            if (item.company === this.props.loggedIn) {
+              if (challenges.indexOf(item.challenge_name) !== -1) {
+                temp[item.challenge_name] = false;
+              }
             }
+          });
+          if (temp != {}) {
+            voting_data[obj.project_id] = temp;
           }
         });
-        if (Object.keys(temp).length > 0) {
-          voting_data[obj.project_id] = temp;
-        }
-        project_dict[obj.project_id] = obj.project_name;
-      });
-      return [voting_data,project_dict]
-    }
-
-    setSponsorWorkingData(sponsor_challenges) {
-      let firstChallenge = sponsor_challenges[0];
-      let initialData = [];
-      PROJECTS.map((obj) => {
-        obj.challenges.map((item) => {
-          if (item.company === this.props.loggedIn && item.challenge_name == firstChallenge)
-            initialData.push(obj);
-        })
-      })
-      return initialData;
-    }
+        return voting_data;
+      }
+  }
 
     handleToggle() {
       this.setState({
@@ -578,7 +180,6 @@ class SearchandFilter extends Component {
     }
 
     render() {
-
       let challenge_array = (this.createChallengeArray().map((obj,index) => {
           return (<option key={index}>{obj}</option>)
         })
@@ -591,127 +192,156 @@ class SearchandFilter extends Component {
 
       let select = (
         <select className="form-control" id="challenges" onChange={this.handleChange} name="selectChallenges">
-          { this.props.origin === "home" ? <option>All Challenges</option> : <div></div>}
-          { this.props.origin === "home" ? challenge_array : challenge_sponsor_array }
+          { this.props.origin === "home" ?
+            <Fragment>
+              <option>All Challenges</option>
+              {challenge_array}
+            </Fragment>
+            :
+            challenge_sponsor_array }
         </select>
       );
 
-      let sponsor_challenges = this.getSponsorData();
-      let voting_data = this.getSponsorChallenges(sponsor_challenges);
+      let sponsor_challenges = this.createChallengeSponsorArray(this.state.challenges);
+      let voting_data = this.makeVotingData(sponsor_challenges);
       let table = (
         this.props.origin === "home" ?
-          <div id="Home"><Table
-            projects={this.state.workingdata}
-            value={this.state.value}
-            show_attempted_challenges={this.state.toggle_off}
-            headers={['Project Information']}
-            origin={this.props.origin}
-          /></div>
+          <div id="Home">
+            <Table
+              projects={this.state.workingdata}
+              value={this.state.value}
+              show_attempted_challenges={this.state.toggle_off}
+              headers={['Project Information']}
+              origin={this.props.origin}
+            />
+          </div>
           :
-          /*<VotingTable
+          <VotingTable
             company={this.props.loggedIn}
             projects={this.state.workingdata}
-            value={this.state.value}
             voting_data={voting_data}
             sponsor_challenges={sponsor_challenges}
-          />*/
-          <VotingTable
-          company={this.props.loggedIn}
-          projects={this.state.workingdata}
-          value={this.state.value}
-          voting_data={voting_data[0]}
-          project_dict={voting_data[1]}
-          sponsor_challenges={sponsor_challenges}
-          origin={this.props.origin}
+            value={this.state.value}
+            origin={this.props.origin}
           />
       );
+      let welcome_header = ( this.props.origin === "sponsor" ?
+        <WelcomeHeader
+          company={this.props.loggedIn}
+          data={sponsor_challenges}
+          project_dict={""}
+          logout={this.props.logout}
+        />
+        :
+        <Fragment></Fragment>
+      );
 
-      let toggle_style = ( this.props.origin === "home" ? { display: "inline-block",textAlign: "left",backgroundColor:"#2f2f2f",marginTop:"10px",border:"0px solid",height:"30px",outline:"none" } : { display: "none" } );
-      let style = (this.state.width < 460 ? "center" : "left");
+      let toggle_style = ( this.props.origin === "home" ?
+        { display: "inline-block",
+          textAlign: "left",
+          backgroundColor:"#2f2f2f",
+          marginTop:"10px",
+          border:"0px solid",
+          height:"30px",
+          outline:"none" }
+        :
+        { display: "none" } );
+      let style = ( this.state.width < 460 ? "center" : "left" );
+
       return (
         <div>
-          { this.props.origin === "sponsor" ? <WelcomeHeader company={this.props.loggedIn} data={sponsor_challenges} project_dict={voting_data[1]} logout={this.props.logout} />: <div></div>}
           <div class="card">
-          {this.props.origin === 'sponsor' ?
-          <div class="card-header">
-            <h5>{this.props.title}</h5>
-          </div>
-          :
-          <div style={{marginTop:"15px"}}></div>}
-          <div class="card-body"><form>
-              <div className="form-group">
-                <input type="text" placeholder="Filter projects by name" className="form-control" onChange={(event) => {
-                    this.setState({
-                    textSearch: event.target.value
-                  });
-                  this.handleChange(event);
-                  }} name="input" />
+            { this.props.origin === 'sponsor' ?
+              <div class="card-header">
+                <h5>{this.props.title}</h5>
               </div>
-              <div className="form-row">
-                <div style={{margin:"0px 5px", width:"100%"}}>
-                  { this.props.origin === "home" ? <div></div> : <div style={{marginBottom: "5px"}}>Select a Challenge to Vote For</div> }
-                  {select}
+              :
+              <div style={{marginTop:"15px"}}></div>}
+              <div class="card-body">
+                <form>
+                  <div className="form-group">
+                    <input type="text" placeholder="Filter projects by name" className="form-control"
+                      onChange={(event) => {
+                        this.setState({
+                          textSearch: event.target.value
+                        });
+                        this.handleChange(event);
+                      }} name="input" />
+                  </div>
+                  <div className="form-row">
+                    <div style={{margin:"0px 5px", width:"100%"}}>
+                      { this.props.origin === "home" ?
+                        <Fragment></Fragment>
+                        :
+                        <div style={{ marginBottom: "5px" }}>Select a Challenge to Vote For</div>
+                      }
+                      {select}
+                    </div>
+                  </div>
+                  {/* Show Attempted Challenge Toggle */}
+                  { this.props.origin === "sponsor" ?
+                  <Fragment></Fragment>
+                  :
+                  <Fragment>
+                    <div style={{textAlign: style}}><div class="btn-group">
+                      <button style={toggle_style} disabled>
+                        <div className="toggle" onChange={this.handleToggle}>
+                          <label className="switch">
+                            { this.state.toggle_off ? <input type="checkbox" /> : <input type="checkbox" checked /> }
+                            <div className="slider round"></div>
+                          </label>
+                        </div>
+                      </button>
+                      { this.state.width >= 427 ?
+                        <button disabled class="toggle-label"
+                          style={{textAlign:"left",
+                          backgroundColor:"#2f2f2f",
+                          border:"0px solid",outline:"none",
+                          color:"white",
+                          marginTop:"10px", marginLeft: "-7px"}}>
+                          Show Attempted Challenges
+                        </button>
+                        :
+                        <Fragment></Fragment> }
+                      </div>
+                    </div>
+
+                    { this.state.width < 427 ?
+                      <div style={{textAlign:"center"}}>
+                        <button
+                          class="toggle-label"
+                          style={{ textAlign:"center",
+                                   backgroundColor:"#2f2f2f",
+                                   border:"0px solid",
+                                   outline:"none",
+                                   color:"white",
+                                   marginTop:"0px" }}
+                          disabled>
+                          Show Attempted Challenges
+                        </button>
+                      </div>
+                      :
+                      <Fragment></Fragment> }
+                  </Fragment> }
+                </form>
+                { this.props.origin === 'sponsor' ? table : <Fragment></Fragment> }
+              </div>
+            </div>
+            { this.props.origin === 'home' ?
+            <div class="row">
+              <div class="col">
+                <div class="card">
+                  <div class="card-body">
+                    {table}
+                  </div>
                 </div>
               </div>
-
-              {this.props.origin === "sponsor" ? <Fragment></Fragment> :
-              <Fragment>
-              <div style={{textAlign: style}}><div class="btn-group">
-                <button style={toggle_style} disabled>
-                <div className="toggle" onChange={this.handleToggle}>
-                  <label className="switch">
-                    { this.state.toggle_off ? <input type="checkbox" /> : <input type="checkbox" checked /> }
-                    <div className="slider round"></div>
-                  </label>
-
-                </div></button>
-
-                {this.state.width >= 427 ?
-                <button disabled class="toggle-label"
-                style={{textAlign:"left",
-                backgroundColor:"#2f2f2f",
-                border:"0px solid",outline:"none",
-                color:"white",
-                 marginTop:"10px", marginLeft: "-7px"}}>
-                Show Attempted Challenges</button>: <Fragment></Fragment>}
-                </div></div>
-
-                {this.state.width < 427 ? <div style={{textAlign:"center"}}><button disabled class="toggle-label"
-                style={{textAlign:"center",
-                backgroundColor:"#2f2f2f",
-                border:"0px solid",outline:"none",
-                color:"white",
-                 marginTop:"0px"}}>
-                Show Attempted Challenges</button></div> : <Fragment></Fragment>}</Fragment>}
-
-
-            </form>{this.props.origin === 'sponsor' ? table : <div></div>}
             </div>
+            :
+            <Fragment></Fragment> }
           </div>
-          {this.props.origin === 'home' ? <div class="row">
-           <div class="col">
-           <div class="card">
-             <div class="card-body">{table}</div></div></div></div> : <div></div>}
-      </div>
     )
   }
 }
 
 export default SearchandFilter;
-
-// <option selected>Project</option>
-//                 <option>login</option>
-//                 <option>web</option>
-//                 <option>design</option>
-//                 <option>backend</option>
-
-// <div className="col-6">
-                // <select className="form-control" id="project" onChange={this.handleChange} name="selectProject">
-                // <option selected>Project</option>
-                //     {this.state.data.map((obj)=>{
-                //         return (
-                //             <option key={obj.table_number}>{obj.project_name}</option>
-                //         )
-                //     })}
-                // </select>
-                // </div>

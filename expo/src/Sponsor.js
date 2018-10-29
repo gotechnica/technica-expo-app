@@ -35,11 +35,10 @@ const Backend = require('./Backend.js');
 export class SubmitModal extends Component {
 
   render() {
-    let parentheses = <SmallerParentheses font_size="12px">s</SmallerParentheses>;
     let vote_limit = (this.props.challenge_info === undefined ? 0 : this.props.challenge_info.vote_limit);
     let votes = [];
     this.props.votes.forEach((project_id) =>{
-      votes.push(<li>{this.props.project_dict[project_id]}</li>);
+      votes.push(<li>project_id</li>);
     });
     let modal =
       { error:
@@ -59,7 +58,10 @@ export class SubmitModal extends Component {
               <Fragment>
                 Warning: This challenge allows {vote_limit} winning project
                 {vote_limit > 1 ? 's' : ''}
-                , but {votes.length === 0 ? "none" : ("only " + votes.length)} {votes.length == 1 ? 'was' : 'were'} selected
+                , but
+                { votes.length === 0 ? "none" : ("only " + votes.length) }
+                { votes.length === 1 ? 'was' : 'were' }
+                selected
               </Fragment>
           }
       };
@@ -75,7 +77,7 @@ export class SubmitModal extends Component {
             </div>
             <div class="modal-body">
 
-              {votes.length != vote_limit ?
+              { votes.length !== vote_limit ?
                 (votes.length > vote_limit ?
                 <Error icon={modal.error.icon} iconstyle={modal.error.iconstyle}>
                   {modal.error.message}
@@ -118,7 +120,7 @@ export class SubmitModal extends Component {
 class Task extends Component {
   render() {
     let winners = []
-    if(this.props.winners != undefined) {
+    if(this.props.winners !== undefined) {
     if (this.props.winners.length > 0) {
       this.props.winners.forEach((project_id) => {
         winners.push(<li>{this.props.project_dict[project_id]}</li>);
@@ -166,8 +168,45 @@ export class VotingTable extends Component {
     this.handleSubmitEvent = this.handleSubmitEvent.bind(this);
     this.handleClearEvent = this.handleClearEvent.bind(this);
     this.handleVoteEvent = this.handleVoteEvent.bind(this);
-    this.state = { checked: this.props.voting_data,
+    //this.setVotingState = this.setVotingState.bind(this);
+    this.state = { checked: {},
+                   challenges: {},
                    width:  window.innerWidth }
+  }
+
+  /* Force VotingTable component to re-render once GET requests were granted */
+
+  componentDidUpdate(prevProps, prevState) {
+  // only update chart if the data has changed
+  if (prevProps.voting_data !== this.props.voting_data) {
+    if (Object.keys(this.state.checked).length == 0) {
+      this.setState({ checked:this.props.voting_data },
+        function(){}.bind(this)
+      );
+    }
+  }
+}
+
+  componentDidMount() {
+    Backend.axiosRequest.get('api/v2/companies')
+    .then((company_data) => {
+      let sponsor_challenges = {};
+      company_data.forEach((company) => {
+        if (company.company_name === this.props.company) {
+          Object.keys(company.challenges).forEach((challenge) => {
+            let challenge_obj = company.challenges[challenge];
+            sponsor_challenges[challenge_obj.challenge_name] = {
+              challenge_id: challenge,
+              winners: challenge_obj.winners,
+              vote_limit: challenge_obj.num_winners
+            }
+          })
+          this.setState({
+            challenges: sponsor_challenges,
+          });
+        }
+      });
+    });
   }
 
   handleSubmitEvent() {
@@ -196,13 +235,13 @@ export class VotingTable extends Component {
 
   handleVoteEvent(project_id) {
     let new_checked = this.state.checked;
-    if (new_checked[project_id] !== undefined) {
-      new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
-      this.setState({ checked: new_checked });
-    }
+    new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
+    this.setState({ checked: new_checked });
   }
 
+
   render() {
+    //alert(JSON.stringify(this.state.checked));
     return (
       <div style={{marginTop:"20px"}} id="Sponsor">
         <Table headers={['Select','Table','Project']}
@@ -212,8 +251,7 @@ export class VotingTable extends Component {
           sponsor_challenges={this.props.sponsor_challenges}
           handler={this.handleVoteEvent}
           origin={this.props.origin}
-          state={this.props.sponsor_challenges[this.props.value] !== undefined ? this.props.sponsor_challenges[this.props.value].submitted : false}
-          project_dict={this.props.project_dict}
+          state={false/*this.props.sponsor_challenges[this.props.value] !== undefined ? this.props.sponsor_challenges[this.props.value].submitted : false*/}
           clear={this.handleClearEvent}
           submit={this.handleSubmitEvent}
         />
@@ -282,10 +320,10 @@ export default class Sponsor extends Component {
     };
     Backend.axiosRequest.get('api/whoami')
       .then((credentials) => {
-        if(credentials != undefined && credentials.user_type == 'sponsor') {
+        if(credentials !== undefined && credentials.user_type === 'sponsor') {
           this.setState({
             loggedIn: true,
-            loggedInAs: credentials.name
+            loggedInAs: credentials.name,
           });
         } else {
           this.props.history.push({

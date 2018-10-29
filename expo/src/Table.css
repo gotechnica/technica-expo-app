@@ -71,7 +71,7 @@
   border: 0px solid;
   font-weight: bold;
   color: white;
-  width: 70px;
+  width: 80px;
   outline: none;
 }
 #Home table tbody tr td div.Project button.Table div.Table {
@@ -138,14 +138,41 @@
   #Home div.attempted-challenges button {
     text-align: center;
   }
-}
-
-@media screen and (max-width: 374px) {
   #Sponsor table tbody tr td div.Project,
   #Home table tbody tr td div.Project {
-    word-break: break-all;
+    font-size: 20px;
+  }
+  #Home div.attempted-challenges button {
+    font-size: 15px;
   }
 }
+
+#Sponsor div.no-submissions, #Home div.no-submissions {
+  text-align: center;
+  white-space: pre-wrap;
+
+  margin: 10px 0px;
+  height: 200px;
+
+  background-color: #1c1c1c;
+
+  opacity: 0.75;
+
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#Sponsor div.no-submissions h2, #Home div.no-submissions h2 {
+  font-weight: bolder;
+}
+
+#Sponsor table tbody tr td div.Project,
+#Home table tbody tr td div.Project {
+  word-break: break-all;
+}
+
 @media screen and (max-width: 319px) {
   #Home div.attempted-challenges button,
   #Home div.challenges-won div {
