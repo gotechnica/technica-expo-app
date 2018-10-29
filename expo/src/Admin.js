@@ -278,10 +278,11 @@ class ProjectModule extends Component {
     let map = this.createMap();
     console.log("ass",allChallenges);
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
-      filteredProjects = filteredProjects.filter(elt =>
-        elt.project_name.includes(this.state.textSearch) ||
-        elt.table_number.includes(this.state.textSearch)
-      );
+      filteredProjects = filteredProjects.filter(elt => {
+        const upperCaseTextSearch = this.state.textSearch.toUpperCase();
+        return elt.project_name.toUpperCase().includes(upperCaseTextSearch) ||
+               elt.table_number.toUpperCase().includes(upperCaseTextSearch);
+      });
     }
 
     return (
