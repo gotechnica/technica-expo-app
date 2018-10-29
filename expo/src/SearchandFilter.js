@@ -65,27 +65,27 @@ class SearchandFilter extends Component {
     applyFilters() {
       let updatedList = this.state.data;
       updatedList = updatedList.filter((item)=> {
+        // Check text filter
+        let matchesTextFilter = this.state.textSearch == undefined
+          || this.state.textSearch == ""
+          || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase());
 
-          // Check text filter
-          let textFilter = this.state.textSearch == undefined
-            || this.state.textSearch == ""
-            || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase());
+        // Check challenge filter
+        let matchesChallengeFilter = this.state.value === undefined
+          || this.state.value === ""
+          || this.state.value === "All Challenges"
+          || (item.challenges.reduce((acc, chal) => {
+              if (chal.challenge_name === this.state.value) {
+                return true;
+              } else {
+                return acc;
+              }
+            }, false));
 
-          // Check challenge filter
-          let challengeFilter = this.state.value === undefined
-              || this.state.value === "All Challenges"
-              || item.challenges.reduce((acc, chal) => {
-                if(chal.challenge_name === this.state.value) {
-                  return true;
-                } else {
-                  return acc;
-                }
-              }, false);
-
-          return textFilter && challengeFilter;
+        return matchesTextFilter && matchesChallengeFilter;
       });
       this.setState({
-          workingdata: updatedList
+        workingdata: updatedList
       });
     }
 
