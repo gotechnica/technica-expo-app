@@ -35,10 +35,10 @@ const Backend = require('./Backend.js');
 export class SubmitModal extends Component {
 
   render() {
-    let vote_limit = (this.props.challenge_info === undefined ? 0 : this.props.challenge_info.vote_limit);
+    let vote_limit = this.props.vote_limit;
     let votes = [];
-    this.props.votes.forEach((project_id) =>{
-      votes.push(<li>project_id</li>);
+    this.props.votes.forEach((project) =>{
+      votes.push(<li>{project}</li>);
     });
     let modal =
       { error:
@@ -59,14 +59,14 @@ export class SubmitModal extends Component {
                 Warning: This challenge allows {vote_limit} winning project
                 {vote_limit > 1 ? 's' : ''}
                 , but
-                { votes.length === 0 ? "none" : ("only " + votes.length) }
-                { votes.length === 1 ? 'was' : 'were' }
-                selected
+                { votes.length === 0 ? ' none ' : (' only ' + votes.length) }
+                { votes.length === 1 ? ' was ' : ' were ' }
+                selected.
               </Fragment>
           }
       };
     return (
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -76,8 +76,7 @@ export class SubmitModal extends Component {
               </button>
             </div>
             <div class="modal-body">
-
-              { votes.length !== vote_limit ?
+              { votes.length != vote_limit ?
                 (votes.length > vote_limit ?
                 <Error icon={modal.error.icon} iconstyle={modal.error.iconstyle}>
                   {modal.error.message}
@@ -96,10 +95,10 @@ export class SubmitModal extends Component {
                 text="Attention: All submitted votes are final."
               />
               <h5 className="modal-challenge">
-                {this.props.value + " Winners"}
+                {this.props.value +  " Winner" + (votes.length > 1 ? "s" : "")}
               </h5>
               <ul className="selection-list">
-                {votes}
+                { votes.length > 0 ? votes : <li>No Projects Selected</li>}
               </ul>
             </div>
             <div class="modal-footer">
@@ -107,7 +106,12 @@ export class SubmitModal extends Component {
               { votes.length > vote_limit ?
                 <button className="button button-primary" disabled>Submit</button>
                 :
-                <button className="button button-primary" data-dismiss="modal">Submit</button>
+                <button
+                  className="button button-primary"
+                  data-dismiss="modal"
+                  onClick={this.props.submit_handler.bind(this,this.props.company_id,this.props.challenge_id)}>
+                Submit
+                </button>
               }
             </div>
           </div>
@@ -120,12 +124,11 @@ export class SubmitModal extends Component {
 class Task extends Component {
   render() {
     let winners = []
-    if(this.props.winners !== undefined) {
     if (this.props.winners.length > 0) {
       this.props.winners.forEach((project_id) => {
-        winners.push(<li>{this.props.project_dict[project_id]}</li>);
+        winners.push(<li>{this.props.project_hash[project_id]}</li>);
       })
-    }}
+    }
     let circle = this.props.submitted ? faCheckCircle : faCircle;
 
     return(
@@ -149,15 +152,14 @@ class Task extends Component {
   }
 }
 
-
-
-
 /* this.props.voting_data =
-   { project_id:
-    { challenge_name_1 : false,
-      challenge_name_2 : false,
+   { PROJECT_ID:
+    checked: {
+      CHALLENGE_NAME_1 : false,
+      CHALLENGE_NAME_2 : false,
       ...
-    }
+    },
+    project_name: PROJECT_NAME
     ...
   }
 */
@@ -168,90 +170,82 @@ export class VotingTable extends Component {
     this.handleSubmitEvent = this.handleSubmitEvent.bind(this);
     this.handleClearEvent = this.handleClearEvent.bind(this);
     this.handleVoteEvent = this.handleVoteEvent.bind(this);
-    //this.setVotingState = this.setVotingState.bind(this);
     this.state = { checked: {},
                    challenges: {},
                    width:  window.innerWidth }
   }
 
   /* Force VotingTable component to re-render once GET requests were granted */
-
   componentDidUpdate(prevProps, prevState) {
-  // only update chart if the data has changed
-  if (prevProps.voting_data !== this.props.voting_data) {
-    if (Object.keys(this.state.checked).length == 0) {
-      this.setState({ checked:this.props.voting_data },
-        function(){}.bind(this)
-      );
+    if (prevProps.voting_data !== this.props.voting_data) {
+      if (Object.keys(this.state.checked).length === 0) {
+        /* Force state to update once GET calls and login goes through */
+        this.setState({
+          checked: this.props.voting_data,
+          challenges: this.props.sponsor_data },
+          function(){}.bind(this)
+        );
+        /* Updates voting data for challenges where votes have been submitted */
+        let challenge_data = this.state.challenges;
+        Object.keys(challenge_data).forEach((challenge) => {
+          let winners = challenge_data[challenge].winners;
+          if (winners > 0) {
+            winners.forEach((project_id) => {
+              this.handleVoteEvent(project_id);
+            });
+          }
+        });
+      }
     }
   }
-}
 
-  componentDidMount() {
-    Backend.axiosRequest.get('api/v2/companies')
-    .then((company_data) => {
-      let sponsor_challenges = {};
-      company_data.forEach((company) => {
-        if (company.company_name === this.props.company) {
-          Object.keys(company.challenges).forEach((challenge) => {
-            let challenge_obj = company.challenges[challenge];
-            sponsor_challenges[challenge_obj.challenge_name] = {
-              challenge_id: challenge,
-              winners: challenge_obj.winners,
-              vote_limit: challenge_obj.num_winners
-            }
-          })
-          this.setState({
-            challenges: sponsor_challenges,
-          });
-        }
-      });
-    });
-  }
-
-  handleSubmitEvent() {
+  handleSubmitEvent(company_id,challenge_id) {
     const checkboxes = document.getElementsByClassName("voting-checkbox");
-    let count = 0;
-    let winners = [];
     for (let i = 0; i < checkboxes.length; i++) {
       let ckbx = checkboxes[i];
       if (ckbx.checked) {
-        count += 1;
-        winners.push(ckbx.value);
+        let params = {
+          company_id: company_id,
+	        challenge_id: challenge_id
+        };
+        let route = 'api/projects/id/' + ckbx.value + '/makeWinner';
+        Backend.axiosRequest.post(route, params)
+        .then((response) => {
+          alert(JSON.stringify(response));
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
       }
     }
-    //alert(winners);
-    //alert(JSON.stringify(this.state.checked));
-    /*alert(JSON.stringify(this.props.sponsor_challenges));*/
   }
 
   handleClearEvent() {
     let cleared = this.state.checked;
     Object.keys(this.state.checked).forEach((key) => {
-      cleared[key][this.props.value] = false;
+      cleared[key].checked[this.props.value] = false;
     });
     this.setState({ checked: cleared });
   }
 
   handleVoteEvent(project_id) {
     let new_checked = this.state.checked;
-    new_checked[project_id][this.props.value] = !new_checked[project_id][this.props.value];
+    new_checked[project_id].checked[this.props.value] = !new_checked[project_id].checked[this.props.value];
     this.setState({ checked: new_checked });
   }
 
 
   render() {
-    //alert(JSON.stringify(this.state.checked));
     return (
       <div style={{marginTop:"20px"}} id="Sponsor">
         <Table headers={['Select','Table','Project']}
+          company_id={this.props.company_id}
           projects={this.props.projects}
           value={this.props.value}
           checked={this.state.checked}
-          sponsor_challenges={this.props.sponsor_challenges}
+          sponsor_data={this.state.challenges}
           handler={this.handleVoteEvent}
           origin={this.props.origin}
-          state={false/*this.props.sponsor_challenges[this.props.value] !== undefined ? this.props.sponsor_challenges[this.props.value].submitted : false*/}
           clear={this.handleClearEvent}
           submit={this.handleSubmitEvent}
         />
@@ -265,16 +259,16 @@ export class WelcomeHeader extends Component {
   render() {
     let tasks = [];
     let all_submitted = true;
-    Object.keys(this.props.data).forEach((challenge) => {
+    Object.keys(this.props.sponsor_data).forEach((challenge) => {
       tasks.push(
         <Task
           challenge={challenge}
-          submitted={this.props.data[challenge].submitted}
-          winners={this.props.data[challenge].winners}
-          project_dict={this.props.project_dict}
+          submitted={this.props.sponsor_data[challenge].votes_submitted}
+          winners={this.props.sponsor_data[challenge].winners}
+          project_hash={this.props.project_hash}
         />
       );
-      if (this.props.data[challenge].submitted === false) {
+      if (this.props.sponsor_data[challenge].votes_submitted === false) {
         all_submitted = false;
       }
     });
@@ -324,6 +318,28 @@ export default class Sponsor extends Component {
           this.setState({
             loggedIn: true,
             loggedInAs: credentials.name,
+            company_id: credentials.id,
+            sponsor_data: {},
+          });
+          Backend.axiosRequest.get('api/v2/companies')
+          .then((company_data) => {
+            let sponsor_challenges = {};
+            company_data.forEach((company) => {
+              if (company.company_name === this.state.loggedInAs) {
+                Object.keys(company.challenges).forEach((challenge) => {
+                  let challenge_obj = company.challenges[challenge];
+                  sponsor_challenges[challenge_obj.challenge_name] = {
+                    challenge_id: challenge,
+                    vote_limit: challenge_obj.num_winners,
+                    votes_submitted: (challenge_obj.winners.length > 0 ? true : false),
+                    winners: challenge_obj.winners
+                  }
+                })
+                this.setState({
+                  sponsor_data: sponsor_challenges
+                });
+              }
+            });
           });
         } else {
           this.props.history.push({
@@ -357,12 +373,14 @@ export default class Sponsor extends Component {
               <SearchandFilter
                 origin="sponsor"
                 loggedIn={this.state.loggedInAs}
+                company_id={this.state.company_id}
                 title={
                   <div>
                     Vote For Your Challenge Winner
                     <SmallerParentheses font_size="15px">s</SmallerParentheses>
                   </div>
                 }
+                sponsor_data={this.state.sponsor_data}
                 logout={this.onLogout.bind(this)}
               />
             </div>

@@ -165,8 +165,8 @@ class SearchandFilter extends Component {
               }
             }
           });
-          if (temp != {}) {
-            voting_data[obj.project_id] = temp;
+          if (Object.keys(temp).length !== 0) {
+            voting_data[obj.project_id] = { checked: temp, project_name: obj.project_name };
           }
         });
         return voting_data;
@@ -203,7 +203,14 @@ class SearchandFilter extends Component {
       );
 
       let sponsor_challenges = this.createChallengeSponsorArray(this.state.challenges);
-      let voting_data = this.makeVotingData(sponsor_challenges);
+      let voting_data = {};
+      let project_hash = {};
+      if (this.props.origin === "sponsor") {
+      voting_data = this.makeVotingData(sponsor_challenges);
+      Object.keys(voting_data).forEach((project_id) => {
+        project_hash[project_id] = voting_data[project_id].project_name
+      });
+      }
       let table = (
         this.props.origin === "home" ?
           <div id="Home">
@@ -218,9 +225,10 @@ class SearchandFilter extends Component {
           :
           <VotingTable
             company={this.props.loggedIn}
+            company_id={this.props.company_id}
             projects={this.state.workingdata}
             voting_data={voting_data}
-            sponsor_challenges={sponsor_challenges}
+            sponsor_data={this.props.sponsor_data}
             value={this.state.value}
             origin={this.props.origin}
           />
@@ -228,8 +236,8 @@ class SearchandFilter extends Component {
       let welcome_header = ( this.props.origin === "sponsor" ?
         <WelcomeHeader
           company={this.props.loggedIn}
-          data={sponsor_challenges}
-          project_dict={""}
+          sponsor_data={this.props.sponsor_data}
+          project_hash={project_hash}
           logout={this.props.logout}
         />
         :
@@ -250,6 +258,7 @@ class SearchandFilter extends Component {
 
       return (
         <div>
+        {welcome_header}
           <div class="card">
             { this.props.origin === 'sponsor' ?
               <div class="card-header">

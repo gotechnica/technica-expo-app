@@ -242,8 +242,6 @@ export class Table extends Component {
     let rows = [];
     let counter = 0;
     let table = ( this.state.width >= 460 ? <th>Table</th> : <Fragment></Fragment> );
-    /*alert("Table.js: "+ JSON.stringify(this.props.checked));*/
-    if (this.props.projects != undefined) {
     this.props.projects.forEach((project) => {
       rows.push(
         ( this.props.origin === "sponsor" ?
@@ -253,8 +251,8 @@ export class Table extends Component {
             project_name = {project.project_name}
             project_url = {project.project_url}
             handler = {this.props.handler}
-            checked = {this.props.checked[project.project_id] === undefined ? false : this.props.checked[project.project_id][this.props.value]}
-            disabled = {false/*this.props.sponsor_challenges === undefined ? true : (this.props.sponsor_challenges[this.props.value] === undefined ? true : this.props.sponsor_challenges[this.props.value].submitted)*/}
+            checked = {this.props.checked[project.project_id] === undefined ? false : this.props.checked[project.project_id].checked[this.props.value]}
+            disabled = {this.props.sponsor_data[this.props.value].votes_submitted}
             origin={this.props.origin}
             width={this.state.width}
           />
@@ -274,19 +272,17 @@ export class Table extends Component {
       );
       counter += 1;
     });
-  }
-
     let selections = [];
-    /*if (this.props.origin === "sponsor") {
+    if (this.props.origin === "sponsor") {
       Object.keys(this.props.checked).forEach((project_id) => {
         let challenges = this.props.checked[project_id];
-        Object.keys(challenges).forEach((challenge) => {
-          if (challenge === this.props.value && challenges[challenge] === true) {
-            selections.push(project_id);
+        Object.keys(challenges.checked).forEach((challenge) => {
+          if (challenge === this.props.value && challenges.checked[challenge] === true) {
+            selections.push(challenges.project_name);
           }
         });
       });
-    }*/
+    }
 
     return (
       rows.length > 0 ?
@@ -324,12 +320,14 @@ export class Table extends Component {
         :
         <div>
           <button className="button button-secondary clear" onClick={this.props.clear}>Clear</button>
-          <button className="button button-primary submit" data-toggle="modal" data-target="#exampleModalCenter" onClick={this.props.submit}>Submit</button>
+          <button className="button button-primary submit" data-toggle="modal" data-target="#submitModal">Submit</button>
           <SubmitModal
             value={this.props.value}
-            project_dict={this.props.project_dict}
             votes={selections}
-            challenge_info={{}/*this.props.sponsor_challenges[this.props.value]*/}
+            vote_limit={this.props.sponsor_data[this.props.value].vote_limit}
+            submit_handler={this.props.submit}
+            company_id={this.props.company_id}
+            challenge_id={this.props.sponsor_data[this.props.value].challenge_id}
           />
         </div>) : <Fragment></Fragment>}
       </Fragment>
