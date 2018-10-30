@@ -179,29 +179,36 @@ export class VotingTable extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.voting_data !== this.props.voting_data) {
       if (Object.keys(this.state.checked).length === 0) {
+        /* Updates voting data for challenges where votes have been submitted */
+        let challenge_data = this.state.challenges;
+        let updated_voting_data = this.props.voting_data;
+        if (Object.keys(updated_voting_data).length > 0) {
+          Object.keys(challenge_data).forEach((challenge) => {
+            let winners = challenge_data[challenge].winners;
+            if (winners.length > 0) {
+              winners.forEach((project_id) => {
+                updated_voting_data[project_id].checked[challenge] = true;
+              });
+            }
+          });
+        }
         /* Force state to update once GET calls and login goes through */
         this.setState({
-          checked: this.props.voting_data,
+          checked: updated_voting_data,
           challenges: this.props.sponsor_data },
           function(){}.bind(this)
         );
-        /* Updates voting data for challenges where votes have been submitted */
-        let challenge_data = this.state.challenges;
-        Object.keys(challenge_data).forEach((challenge) => {
-          let winners = challenge_data[challenge].winners;
-          if (winners > 0) {
-            winners.forEach((project_id) => {
-              this.handleVoteEvent(project_id);
-            });
-          }
-        });
       }
     }
   }
 
   handleSubmitEvent(company_id,challenge_id) {
+    console.log('company_id: ', company_id);
+    console.log('challenge_id: ', challenge_id);
     const checkboxes = document.getElementsByClassName("voting-checkbox");
+
     for (let i = 0; i < checkboxes.length; i++) {
+      console.log('checkboxes: ', checkboxes[i].outerHTML);
       let ckbx = checkboxes[i];
       if (ckbx.checked) {
         let params = {
@@ -209,6 +216,7 @@ export class VotingTable extends Component {
 	        challenge_id: challenge_id
         };
         let route = 'api/projects/id/' + ckbx.value + '/makeWinner';
+        console.log('ckbx.value: ', ckbx.value);
         Backend.axiosRequest.post(route, params)
         .then((response) => {
           alert(JSON.stringify(response));

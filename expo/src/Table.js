@@ -312,7 +312,7 @@ export class Table extends Component {
             {rows}
           </tbody>
         </table>
-        {this.props.origin === "sponsor" ? ( this.props.state ?
+        {this.props.origin === "sponsor" ? ( this.props.sponsor_data[this.props.value].votes_submitted ?
         <div>
           <button className="button button-secondary clear" disabled>Clear</button>
           <button className="button button-primary submit" disabled>Submit</button>
