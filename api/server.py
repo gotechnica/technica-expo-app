@@ -402,7 +402,8 @@ def add_challenge_to_company(company_id):
     challenges_obj = company_obj['challenges']
 
     # TODO: Come up with better id creation method
-    challenge_id = company_obj['company_name'] + '_challenge' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    company_name_no_spaces = "".join(company_obj['company_name'].split())
+    challenge_id = company_name_no_spaces + '_challenge' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     challenges_obj[challenge_id] = {
         'challenge_name': request.json['challenge_name'],
         'num_winners': int(request.json['num_winners']),
@@ -562,7 +563,7 @@ def make_winner(project_id):
     # Error if the challenge cannot accept more winners
     challenge_winners_cap = challenge_obj['num_winners']
     curr_num_winners = len(challenge_obj['winners'])
-    if curr_num_winners >= challenge_winners_cap:
+    if curr_num_winners >= int(challenge_winners_cap):
         return "Error: Challenge " + challenge_id + " is capped at " + str(challenge_winners_cap) + " winner(s)"
 
     # Modify company object
