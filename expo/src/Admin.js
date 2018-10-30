@@ -400,16 +400,10 @@ class ProjectModule extends Component {
               onChange = {(event) => this.setState({textSearch:event.target.value})}
               />
           </div>
-          <div className="row">
-            <div className="col grow-5">
-              Project
-            </div>
-            <div className="col">
-              Table
-            </div>
-            <div className="col">
-
-            </div>
+          <div className="row m-b-m">
+            <div className="col grow-5">Project</div>
+            <div className="col">Table</div>
+            <div className="col" />
           </div>
           {filteredProjects.map((elt,index) => {
             console.log(elt.checkVal);
