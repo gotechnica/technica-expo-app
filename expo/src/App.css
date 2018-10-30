@@ -149,3 +149,7 @@ html {
 .float-left {
   margin: 0px 240px;
 }
+
+.break-word {
+  word-break: break-word;
+}

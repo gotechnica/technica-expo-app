@@ -378,7 +378,7 @@ class ProjectModule extends Component {
             allChallenges={allChallenges}
             company_map={map}
           />
-          <button className="button button-primary m-r-m"
+          <button className="button button-primary m-r-m m-b-m"
             type="button"
             data-toggle="modal"
             data-target="#modalCreateProject"
@@ -386,14 +386,12 @@ class ProjectModule extends Component {
             Create New Project
           </button>
           <button
-            className="button button-warning"
+            className="button button-warning m-b-m"
             type="button"
             onClick={this.deleteAllProjects}
           >
             Delete ALL Projects
           </button>
-          <br />
-          <br />
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
@@ -416,8 +414,8 @@ class ProjectModule extends Component {
           {filteredProjects.map((elt,index) => {
             console.log(elt.checkVal);
             return (
-              <div className="row" key={index} id={`project-${elt.project_id}`}>
-                <div className="col grow-5">
+              <div className="row m-b-m" key={index} id={`project-${elt.project_id}`}>
+                <div className="col grow-5 break-word">
                   {elt.project_name}
                 </div>
                 <div className="col">
@@ -439,8 +437,6 @@ class ProjectModule extends Component {
                     Edit
                   </button>
                 </div>
-                <br/>
-                <br/>
                 {this.state.projectIndexToEdit === index ?
                     this.renderEditProjectModal(elt, index, allChallenges, map) :
                     null
@@ -553,15 +549,13 @@ class SponsorModule extends Component {
               createID="modalCreateSponsor"
               onCreate={this.loadCompanies.bind(this)}
               />
-            <button className="button button-primary"
+            <button className="button button-primary m-b-m"
               type="button"
               data-toggle="modal"
               data-target="#modalCreateSponsor"
               >
               Create New Sponsor
             </button>
-            <br/>
-            <br/>
             <div className="form-group">
               <input type="text"
                 id="txtSponsorSearch"
