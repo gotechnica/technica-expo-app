@@ -170,12 +170,12 @@
 
 #Sponsor table tbody tr td div.Project,
 #Home table tbody tr td div.Project {
-  word-break: break-all;
+  word-break: break-word;
 }
 
 @media screen and (max-width: 319px) {
   #Home div.attempted-challenges button,
   #Home div.challenges-won div {
-    word-break: break-all;
+    word-break: break-word;
   }
 }
