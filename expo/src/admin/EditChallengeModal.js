@@ -1,9 +1,7 @@
-/* react components */
 import React, { Component } from 'react';
-import Error from '../Error.js';
-import axios from 'axios';
+import axiosRequest from '../Backend.js';
 
-let Backend = require('../Backend.js');
+import Error from '../Error.js';
 
 
 let InvalidWinnerErr = <Error text="Invalid number of winners!
@@ -35,9 +33,8 @@ class EditChallengeModal extends Component {
 
   saveChallenge(e) {
 
-    axios.get(Backend.httpFunctions.url + 'api/companies/id/' + this.props.sponsorID)
-      .then(response => {
-        let challenges = response['data'];
+    axiosRequest.get(`api/companies/id/${this.props.sponsorID}`)
+      .then((challenges) => {
         let winners = [];
         for(let i = 0; i < challenges.length; i++) {
           if(challenges[i].challenge_id == this.props.challengeID) {
@@ -59,11 +56,14 @@ class EditChallengeModal extends Component {
         if(valid) {
           // Send challenge name and num challenges to db if validates
           // Update state against db change
-          Backend.httpFunctions.postCallback('api/companies/id/'
-            + this.props.sponsorID + '/challenges/' + this.props.challengeID, {
+          axiosRequest.post(
+            `api/companies/id/${this.props.sponsorID}/challenges/${this.props.challengeID}`,
+            {
               "challenge_name": this.state.challenge_title,
       	      "num_winners": this.state.num_winners
-          }, this.props.onCreate);
+            }
+          )
+            .then(this.props.onCreate);
 
           // Reset state and close modal
           this.setState({

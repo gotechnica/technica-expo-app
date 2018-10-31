@@ -1,28 +1,20 @@
-/* react components */
 import React, { Component, Fragment } from 'react';
+import axiosRequest from './Backend.js';
+
+import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
+import Error from './Error.js';
+import TechnicaIcon from './imgs/technica-circle-small.png';
+import SearchandFilter from './SearchandFilter.js';
+import SiteWrapper from './SiteWrapper.js';
+import SmallerParentheses from './SmallerParentheses.js';
+import Table from './Table.js';
+
 import './App.css';
 import './Sponsor.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
 
-import SiteWrapper from './SiteWrapper.js';
-import SearchandFilter from './SearchandFilter.js';
-import Error from './Error.js';
-import Table from './Table.js';
-import SmallerParentheses from './SmallerParentheses.js';
-
-import TechnicaIcon from './imgs/technica-circle-small.png';
-
+import { faCircle, faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import { faCheckCircle, faCheckSquare, faExclamationTriangle, faTimesCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faCheckSquare,
-         faCheckCircle,
-         faTimesCircle,
-         faExclamationTriangle} from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { faSquare, faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
 library.add(faCheckSquare);
 library.add(faSquare);
 library.add(faTimesCircle);
@@ -30,7 +22,6 @@ library.add(faCircle);
 library.add(faCheckCircle);
 library.add(faExclamationTriangle);
 
-const Backend = require('./Backend.js');
 
 export class SubmitModal extends Component {
 
@@ -214,7 +205,7 @@ export class VotingTable extends Component {
 	        challenge_id: challenge_id
         };
         let route = 'api/projects/id/' + ckbx.value + '/makeWinner';
-        Backend.axiosRequest.post(route, params)
+        axiosRequest.post(route, params)
         .then((response) => {
           update(challenge_name, winners);
         })
@@ -315,7 +306,7 @@ export default class Sponsor extends Component {
       loggedIn: false,
       loggedInAs: ''
     };
-    Backend.axiosRequest.get('api/whoami')
+    axiosRequest.get('api/whoami')
       .then((credentials) => {
         if(credentials !== undefined && credentials.user_type === 'sponsor') {
           this.setState({
@@ -324,7 +315,7 @@ export default class Sponsor extends Component {
             company_id: credentials.id,
             sponsor_data: {},
           });
-          Backend.axiosRequest.get('api/v2/companies')
+          axiosRequest.get('api/v2/companies')
           .then((company_data) => {
             let sponsor_challenges = {};
             company_data.forEach((company) => {
@@ -368,7 +359,7 @@ export default class Sponsor extends Component {
   }
 
   onLogout() {
-    Backend.axiosRequest.post('api/logout')
+    axiosRequest.post('api/logout')
       .then((data) => {
         this.props.history.push({
           pathname: '/sponsorLogin'

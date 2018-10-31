@@ -1,9 +1,8 @@
-/* react components */
 import React, { Component } from 'react';
-import Error from '../Error.js';
-import axios from 'axios';
+import axiosRequest from '../Backend.js';
 
-let Backend = require('../Backend.js');
+import Error from '../Error.js';
+
 
 const InvalidWinnerErr = <Error text="Invalid number of winners!
   A challenge must have one or more winner(s)."/>;
@@ -45,11 +44,14 @@ class CreateChallengeModal extends Component {
     if(valid) {
       // Send challenge name and num challenges to db if validates
       // Update state against db change
-      Backend.httpFunctions.postCallback('api/companies/id/'
-        + this.props.sponsorID + '/challenges/add', {
+      axiosRequest.post(
+        `api/companies/id/${this.props.sponsorID}/challenges/add`,
+        {
           "challenge_name": this.state.challenge_title,
   	      "num_winners": this.state.num_winners
-      }, this.props.onCreate);
+        }
+      )
+        .then(this.props.onCreate);
 
       // Reset state and close modal
       this.setState({

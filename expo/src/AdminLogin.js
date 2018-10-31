@@ -1,16 +1,12 @@
-/* react components */
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import axiosRequest from './Backend.js';
 
-import SiteWrapper from './SiteWrapper.js';
-import Login from './Login.js';
 import Error from './Error.js';
-import axios from 'axios';
-let Backend = require('./Backend.js');
+import Login from './Login.js';
+import SiteWrapper from './SiteWrapper.js';
+
+import './App.css';
+
 
 const InvalidErr = <Error text="Invalid login code!" />;
 
@@ -28,15 +24,15 @@ class AdminLogin extends Component {
 
   componentWillMount() {
     // If already logged in, move directly to admin page
-    Backend.httpFunctions.getAsync('api/whoami', (response) => {
-      const credentials = JSON.parse(response);
-      if(credentials != undefined && credentials.user_type == 'admin') {
-        this.setState({loggedIn:true, error:""});
-        this.props.history.push({
-         pathname: '/admin'
-        });
-      }
-    });
+    axiosRequest.get('api/whoami')
+      .then((credentials) => {
+        if(credentials != undefined && credentials.user_type == 'admin') {
+          this.setState({loggedIn:true, error:""});
+          this.props.history.push({
+            pathname: '/admin'
+          });
+        }
+      });
   }
 
   onLogin(e, accessCode) {
@@ -47,10 +43,11 @@ class AdminLogin extends Component {
       this.setState({logggedIn:true, error:""});
 
       // Try to set logged in state for admin
-      Backend.httpFunctions.postCallback('api/login/admin', {
-          access_code: accessCode
-        }, (status)=> {
-          console.log(status);
+      axiosRequest.post(
+        'api/login/admin', 
+        { access_code: accessCode }
+      )
+        .then((status)=> {
           if(status == "Logged in as admin") {
             // Log in was successful
             // Clear errors on component
@@ -58,7 +55,7 @@ class AdminLogin extends Component {
 
             // Move to admin page
             this.props.history.push({
-             pathname: '/admin'
+              pathname: '/admin'
             });
           } else {
             // Log in failed, show error

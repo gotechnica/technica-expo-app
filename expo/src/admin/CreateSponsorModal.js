@@ -1,10 +1,9 @@
-/* react components */
 import React, { Component } from 'react';
-import SmallerParentheses from '../SmallerParentheses.js';
-import Error from '../Error.js';
-import axios from 'axios';
+import axiosRequest from '../Backend.js';
 
-let Backend = require('../Backend.js');
+import Error from '../Error.js';
+import SmallerParentheses from '../SmallerParentheses.js';
+
 
 const InvalidAccessErr = <Error text="Invalid access code!
   This access code is already in use. Please enter a different code."/>;
@@ -28,10 +27,8 @@ class CreateSponsorModal extends Component {
   }
 
   saveSponsor(e) {
-    axios.get(Backend.httpFunctions.url + 'api/companies')
-      .then(response => {
-        let sponsors = response['data'];
-
+    axiosRequest.get('api/companies')
+      .then(sponsors => {
         let validAccess = true;
         for(let i = 0; i < sponsors.length; i++) {
           if(sponsors[i].access_code == this.state.access_code) {
@@ -45,12 +42,14 @@ class CreateSponsorModal extends Component {
         let valid = validAccess && !missingCompany;
 
         if(valid) {
-          Backend.httpFunctions.postCallback('api/companies/add', {
-            "company_name": this.state.company_name,
-          	"access_code": this.state.access_code,
-          	"challenge_name": "NEED TO ADD THIS FIELD",
-          	"num_winners": "1"
-          }, this.props.onCreate);
+          axiosRequest.post(
+            'api/companies/add', 
+            {
+              "company_name": this.state.company_name,
+              "access_code": this.state.access_code
+            }
+          )
+            .then(this.props.onCreate);
 
           // Reset state and close modal
           this.setState({

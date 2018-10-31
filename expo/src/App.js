@@ -1,21 +1,15 @@
-/* react components */
-import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-/* Overarching styles */
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-/* custom components */
 import Admin from './Admin.js';
-import Sponsor from './Sponsor.js';
 import AdminLogin from './AdminLogin.js';
-import SponsorLogin from './SponsorLogin.js';
 import Home from './Home.js';
+import Sponsor from './Sponsor.js';
+import SponsorLogin from './SponsorLogin.js';
+
 
 /* Routing control for app overall */
 const Routing = () => (

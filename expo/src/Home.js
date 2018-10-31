@@ -1,17 +1,10 @@
-/* react components */
-import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import React from 'react';
 
-/* custom components */
-import Card from './Card.js';
-import Table from './Table.js';
-import Sponsor from './Sponsor.js';
-import SiteWrapper from './SiteWrapper.js';
 import SearchandFilter from './SearchandFilter';
+import SiteWrapper from './SiteWrapper.js';
+
+import './App.css';
+
 
 // const PROJECTS = [
 //   { table_number: 23,

@@ -233,7 +233,7 @@ def remove_all_table_numbers():
 @app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
 def update_publish_winners_flag():
     global publish_winners  # Use the var defined at top of file
-    if request.method == 'POST' and request.json['publish_winners']:
+    if request.method == 'POST':
         publish_winners = request.json['publish_winners']
     return str(publish_winners)
 

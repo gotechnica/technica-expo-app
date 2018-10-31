@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
+
 export class SmallerParentheses extends Component {
   render() {
     let reducedFontSize = { fontSize: this.props.font_size };

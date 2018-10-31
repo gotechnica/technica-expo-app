@@ -1,39 +1,30 @@
-/* react components */
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
-import { withRouter } from 'react-router';
+import axiosRequest from './Backend.js';
 
-import SiteWrapper from './SiteWrapper.js';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUpload,
-  faCaretDown,
-  faCaretUp,
-  faCheckSquare,
-  faAllergies} from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
-import CreateSponsorModal from './admin/CreateSponsorModal';
 import CreateChallengeModal from './admin/CreateChallengeModal';
 import CreateProjectModal from './admin/CreateProjectModal';
-import EditSponsorModal from './admin/EditSponsorModal';
+import CreateSponsorModal from './admin/CreateSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
-import SmallerParentheses from './SmallerParentheses.js';
-import './App.css';
+import EditSponsorModal from './admin/EditSponsorModal';
+
 import './Admin.css';
+import './App.css';
 import { sortByTableNumber } from './helpers.js';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SiteWrapper from './SiteWrapper.js';
+import SmallerParentheses from './SmallerParentheses.js';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from '../node_modules/@fortawesome/fontawesome-free-solid';
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);
 library.add(faCheckSquare);
 library.add(faSquare);
 
-let Backend = require('./Backend.js');
 
 /* Admin page content (see PRD) */
 
@@ -135,7 +126,7 @@ class ProjectModule extends Component {
         uploadStatus: 'Please select a file before hitting upload!'
       });
     } else {
-      Backend.axiosRequest.post('parse_csv', data)
+      axiosRequest.post('parse_csv', data)
         .then((response) => {
           this.projects_csv.value = ''; // Clear input field
           this.setState({ // Flash success message and clear input display
@@ -174,7 +165,7 @@ class ProjectModule extends Component {
     this.setState({
       tableAssignmentStatus: 'Processing your request to assign table numbers...',
     });
-    Backend.axiosRequest.post(
+    axiosRequest.post(
       'api/projects/assign_tables',
       {
         table_assignment_schema: this.state.tableAssignmentSchema,
@@ -211,7 +202,7 @@ class ProjectModule extends Component {
       this.setState({
         tableAssignmentStatus: 'Processing your request to remove table assignments...',
       });
-      Backend.axiosRequest.post('api/projects/clear_table_assignments')
+      axiosRequest.post('api/projects/clear_table_assignments')
         .then((data) => {
           this.setState({ // Flash success message
             tableAssignmentStatus: data,
@@ -230,7 +221,7 @@ class ProjectModule extends Component {
   deleteAllProjects = () => {
     if (window.confirm('Are you sure you want to remove ALL projects from your database?')) {
       if (window.confirm('This action is not reversable.')) {
-        Backend.axiosRequest.delete('api/projects/deleteAll')
+        axiosRequest.delete('api/projects/deleteAll')
           .then(() => {
             console.log("DELETED ALL PROJECTS");
             this.props.loadProjects();
@@ -386,7 +377,7 @@ class ProjectModule extends Component {
             Create New Project
           </button>
           <button
-            className="button button-warning m-b-m"
+            className="button button-secondary m-b-m"
             type="button"
             onClick={this.deleteAllProjects}
           >
@@ -456,7 +447,7 @@ class SponsorModule extends Component {
   }
 
   loadCompanies() {
-    Backend.axiosRequest.get('api/companies')
+    axiosRequest.get('api/companies')
       .then((sponsors) => {
         this.setState({
           sponsors: sponsors
@@ -654,7 +645,7 @@ class SponsorModule extends Component {
     }
 
     componentWillMount() {
-      Backend.axiosRequest.get('api/projects/publish_winners_status')
+      axiosRequest.get('api/projects/publish_winners_status')
         .then((status) => {
           this.setState({
             winnersRevealed: status == "True"
@@ -666,7 +657,7 @@ class SponsorModule extends Component {
       // toggle based on state
 
       // Pull data, add to state, and show
-      Backend.axiosRequest.get('api/companies')
+      axiosRequest.get('api/companies')
         .then((sponsors) => {
           let projects = this.props.projects.filter(elt => {
             return elt.challenges_won != undefined
@@ -723,7 +714,7 @@ class SponsorModule extends Component {
     }
 
     showWinners() {
-      Backend.axiosRequest.post('api/projects/publish_winners_status', {
+      axiosRequest.post('api/projects/publish_winners_status', {
         "publish_winners": true
       }).then((data) => {
         this.setState({
@@ -733,7 +724,7 @@ class SponsorModule extends Component {
     }
 
     hideWinners() {
-      Backend.axiosRequest.post('api/projects/publish_winners_status', {
+      axiosRequest.post('api/projects/publish_winners_status', {
         "publish_winners": false
       }).then((data) => {
         this.setState({
@@ -828,7 +819,7 @@ class SponsorModule extends Component {
         projects: [],
       };
       // LF6K3G6RR3Q4VX4S
-      Backend.axiosRequest.get('api/whoami')
+      axiosRequest.get('api/whoami')
         .then((credentials) => {
           if(credentials != undefined && credentials.user_type == 'admin') {
             this.setState({
@@ -851,7 +842,7 @@ class SponsorModule extends Component {
     }
 
     loadProjects = () => {
-      Backend.axiosRequest.get('api/projects')
+      axiosRequest.get('api/projects')
         .then((projectData) => {
           // Check first project element and see if table numbers consist of both alpha and numeric portions
           const tableNumbersAreOnlyNumeric = projectData['projects'].length > 0 &&
@@ -864,7 +855,7 @@ class SponsorModule extends Component {
 
     logout() {
       // Redirect back to admin login page and end session
-      Backend.axiosRequest.post('api/logout')
+      axiosRequest.post('api/logout')
         .then(() => {
           this.props.history.push('/adminLogin');
         });

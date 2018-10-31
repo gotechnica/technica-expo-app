@@ -1,19 +1,19 @@
 import React, { Component, Fragment } from 'react';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './Table.css';
-import SmallerParentheses from './SmallerParentheses.js';
 
+import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
+import TechnicaRibbon from './imgs/technica_award_ribbon.png';
+import SmallerParentheses from './SmallerParentheses.js';
 import { SubmitModal } from './Sponsor.js';
 
-import TechnicaRibbon from './imgs/technica_award_ribbon.png';
-import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './Table.css';
+
 import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import { faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 library.add(faCheckSquare);
 library.add(faSquare);
 
-let Backend = require('./Backend.js');
 
 export class CheckBoxColumn extends Component {
   render() {
