@@ -1,21 +1,24 @@
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
-import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
-import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import './Admin.css';
+import axiosRequest from './Backend.js';
+
 import CreateChallengeModal from './admin/CreateChallengeModal';
 import CreateProjectModal from './admin/CreateProjectModal';
 import CreateSponsorModal from './admin/CreateSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 import EditSponsorModal from './admin/EditSponsorModal';
+
+import './Admin.css';
 import './App.css';
-import axiosRequest from './Backend.js';
 import { sortByTableNumber } from './helpers.js';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SiteWrapper from './SiteWrapper.js';
 import SmallerParentheses from './SmallerParentheses.js';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from '../node_modules/@fortawesome/fontawesome-free-solid';
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);

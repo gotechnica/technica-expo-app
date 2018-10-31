@@ -1,18 +1,20 @@
 import React, { Component, Fragment } from 'react';
-import { faCircle, faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
-import { faCheckCircle, faCheckSquare, faExclamationTriangle, faTimesCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import './App.css';
 import axiosRequest from './Backend.js';
+
+import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
 import Error from './Error.js';
 import TechnicaIcon from './imgs/technica-circle-small.png';
 import SearchandFilter from './SearchandFilter.js';
 import SiteWrapper from './SiteWrapper.js';
 import SmallerParentheses from './SmallerParentheses.js';
-import './Sponsor.css';
 import Table from './Table.js';
 
+import './App.css';
+import './Sponsor.css';
+
+import { faCircle, faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import { faCheckCircle, faCheckSquare, faExclamationTriangle, faTimesCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 library.add(faCheckSquare);
 library.add(faSquare);
 library.add(faTimesCircle);

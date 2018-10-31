@@ -1,9 +1,10 @@
-import { library } from '@fortawesome/fontawesome-svg-core';
 import React, { Component } from 'react';
-import { faCheck, faTimes } from '../../node_modules/@fortawesome/fontawesome-free-solid';
 import axiosRequest from '../Backend.js';
+
 import Error from '../Error';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCheck, faTimes } from '../../node_modules/@fortawesome/fontawesome-free-solid';
 library.add(faTimes);
 library.add(faCheck);
 

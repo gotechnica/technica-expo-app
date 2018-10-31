@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { faExclamationTriangle } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
 
+import { faExclamationTriangle } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 library.add(faExclamationTriangle);
 
 
