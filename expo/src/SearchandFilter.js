@@ -28,13 +28,27 @@ class SearchandFilter extends Component {
         toggle_off: true,
         challenges: {},
         workingdata: [],
-        width: window.innerWidth
+        width: window.innerWidth,
+        winnersRevealed: false
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleToggle = this.handleToggle.bind(this);
       this.setSponsorWorkingData = this.setSponsorWorkingData.bind(this);
       this.makeVotingData = this.makeVotingData.bind(this);
       this.updateDimensions = this.updateDimensions.bind(this);
+    }
+
+    checkReveal() {
+      Backend.axiosRequest.get('api/projects/publish_winners_status')
+        .then((status) => {
+          this.setState({
+            winnersRevealed: status == "True"
+          })
+        });
+    }
+
+    componentWillMount() {
+      this.checkReveal();
     }
 
     updateDimensions() {
@@ -214,6 +228,7 @@ class SearchandFilter extends Component {
         project_hash[project_id] = voting_data[project_id].project_name
       });
       }
+
       let table = (
         this.props.origin === "home" ?
           <div id="Home">
@@ -223,6 +238,7 @@ class SearchandFilter extends Component {
               show_attempted_challenges={this.state.toggle_off}
               headers={['Project Information']}
               origin={this.props.origin}
+              winnersRevealed={this.state.winnersRevealed}
             />
           </div>
           :
