@@ -1,8 +1,7 @@
-/* react components */
 import React, { Component } from 'react';
 import axiosRequest from '../Backend.js';
-import SmallerParentheses from '../SmallerParentheses.js';
 import Error from '../Error.js';
+import SmallerParentheses from '../SmallerParentheses.js';
 
 
 const InvalidAccessErr = <Error text="Invalid access code!

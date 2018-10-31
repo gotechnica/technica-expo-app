@@ -1,10 +1,6 @@
-/* react components */
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+
+
 /*
 Generic login component for Admins and Sponsors
 Required this.props

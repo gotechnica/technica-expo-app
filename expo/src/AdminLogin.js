@@ -1,15 +1,9 @@
-/* react components */
 import React, { Component } from 'react';
 import axiosRequest from './Backend.js';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
-
-import SiteWrapper from './SiteWrapper.js';
-import Login from './Login.js';
 import Error from './Error.js';
+import Login from './Login.js';
+import SiteWrapper from './SiteWrapper.js';
+
 
 const InvalidErr = <Error text="Invalid login code!" />;
 

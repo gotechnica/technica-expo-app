@@ -1,13 +1,12 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
 import React, { Component } from 'react';
+import { faCheck, faTimes } from '../../node_modules/@fortawesome/fontawesome-free-solid';
 import axiosRequest from '../Backend.js';
 import Error from '../Error';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTimes, faCheck } from '../../node_modules/@fortawesome/fontawesome-free-solid'
-import Checkbox from './Checkbox'
+
 library.add(faTimes);
 library.add(faCheck);
 
-let save = false;
 
 class CreateProjectModal extends Component {
   constructor(props) {

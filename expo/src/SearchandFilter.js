@@ -1,18 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import axiosRequest from './Backend.js';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
-
-import Card from './Card.js';
-import Table from './Table.js';
-
-import SiteWrapper from './SiteWrapper.js';
-import './SliderOption.css';
-import { WelcomeHeader, VotingTable } from './Sponsor.js';
 import { sortByTableNumber } from './helpers.js';
+import './SliderOption.css';
+import { VotingTable, WelcomeHeader } from './Sponsor.js';
+import Table from './Table.js';
 
 
 class SearchandFilter extends Component {

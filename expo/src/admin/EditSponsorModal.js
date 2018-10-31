@@ -1,7 +1,7 @@
-/* react components */
 import React, { Component } from 'react';
 import axiosRequest from '../Backend.js';
 import Error from '../Error.js';
+
 
 const InvalidAccessErr = <Error text="Invalid access code!
   This access code is already in use. Please enter a different code."/>;

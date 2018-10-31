@@ -1,25 +1,17 @@
-/* react components */
-import React, {
-  Component
-} from 'react';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import React, { Component } from 'react';
+import { faCheck, faTimes } from '../../node_modules/@fortawesome/fontawesome-free-solid';
 import axiosRequest from '../Backend.js';
 import Error from '../Error';
-import {
-  library
-} from '@fortawesome/fontawesome-svg-core';
-import {
-  FontAwesomeIcon
-} from '@fortawesome/react-fontawesome';
-import {
-  faTimes,
-  faCheck
-} from '../../node_modules/@fortawesome/fontawesome-free-solid'
-import Checkbox from './Checkbox'
+import Checkbox from './Checkbox';
+
 library.add(faTimes);
 library.add(faCheck);
+
+
 let challengeStore = [];
-let save = false;
 let company = [];
+
 class EditProjectModal extends Component {
 
   // Expect the project ID from this.props as projectID

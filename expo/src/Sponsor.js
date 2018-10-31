@@ -1,29 +1,18 @@
-/* react components */
 import React, { Component, Fragment } from 'react';
-import axiosRequest from './Backend.js';
-import './App.css';
-import './Sponsor.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
-
-import SiteWrapper from './SiteWrapper.js';
-import SearchandFilter from './SearchandFilter.js';
-import Error from './Error.js';
-import Table from './Table.js';
-import SmallerParentheses from './SmallerParentheses.js';
-
-import TechnicaIcon from './imgs/technica-circle-small.png';
-
+import { faCircle, faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import { faCheckCircle, faCheckSquare, faExclamationTriangle, faTimesCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import { faCheckSquare,
-         faCheckCircle,
-         faTimesCircle,
-         faExclamationTriangle} from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { faSquare, faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import './App.css';
+import axiosRequest from './Backend.js';
+import Error from './Error.js';
+import TechnicaIcon from './imgs/technica-circle-small.png';
+import SearchandFilter from './SearchandFilter.js';
+import SiteWrapper from './SiteWrapper.js';
+import SmallerParentheses from './SmallerParentheses.js';
+import './Sponsor.css';
+import Table from './Table.js';
+
 library.add(faCheckSquare);
 library.add(faSquare);
 library.add(faTimesCircle);

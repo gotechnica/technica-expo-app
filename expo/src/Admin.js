@@ -1,38 +1,27 @@
-/* react components */
-import React, { Component } from 'react';
-import axiosRequest from './Backend.js';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
-import { withRouter } from 'react-router';
-
-import SiteWrapper from './SiteWrapper.js';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUpload,
-  faCaretDown,
-  faCaretUp,
-  faCheckSquare,
-  faAllergies} from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { Component } from 'react';
 import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
-import CreateSponsorModal from './admin/CreateSponsorModal';
+import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import './Admin.css';
 import CreateChallengeModal from './admin/CreateChallengeModal';
 import CreateProjectModal from './admin/CreateProjectModal';
-import EditSponsorModal from './admin/EditSponsorModal';
+import CreateSponsorModal from './admin/CreateSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
-import SmallerParentheses from './SmallerParentheses.js';
+import EditSponsorModal from './admin/EditSponsorModal';
 import './App.css';
-import './Admin.css';
+import axiosRequest from './Backend.js';
 import { sortByTableNumber } from './helpers.js';
+import SiteWrapper from './SiteWrapper.js';
+import SmallerParentheses from './SmallerParentheses.js';
 
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);
 library.add(faCheckSquare);
 library.add(faSquare);
+
 
 /* Admin page content (see PRD) */
 

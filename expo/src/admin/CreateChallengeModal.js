@@ -1,7 +1,7 @@
-/* react components */
 import React, { Component } from 'react';
 import axiosRequest from '../Backend.js';
 import Error from '../Error.js';
+
 
 const InvalidWinnerErr = <Error text="Invalid number of winners!
   A challenge must have one or more winner(s)."/>;
