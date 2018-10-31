@@ -57,6 +57,8 @@ v1 of this expo app makes a few assumptions about how Devpost is set up. Not fol
 
 ## Deployment
 
+### Middleware
+
 One way to deploy the application is to use a WYSWG server to host the Flask app
 locally, and use Nginx to reverse proxy incoming requests. One WYSWG server is
 Gunicorn, which can be installed with:
@@ -75,6 +77,8 @@ This will host the application locally on port `8000`.
 
 Port 8000 should not be exposed to the public, as it is currently being served
 via HTTP. Expose ports `80` and `443`, and set install Nginx.
+
+### Certificates
 
 Once Nginx is installed, also install CertBot and the `python-certbot-nginx`
 plugin.
@@ -145,3 +149,39 @@ $ sudo certbot renew
 ```
 
 to renew your certificates.
+
+### Securing Nginx
+
+To get an SSL A+ grade, you'll need to generate a secure DH group with OpenSSL
+and add a few headers to the Nginx configuration. The headers are used to
+prevent HTTPS downgrade attacks and to prevent vulnerable TLS versions or
+ciphers from being used.
+
+To generate a secure DH group, run:
+
+```bash
+$ sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+```
+
+and change the `ssl_dhparam` path to `/etc/ssl/certs/dhparam.pem`.
+
+Add the following commands within the `server` block:
+
+```
+ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:!DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+ssl_protocols TLSv1.2;
+ssl_session_timeout 1d;
+ssl_session_cache shared:SSL:50m;
+ssl_stapling on;
+ssl_stapling_verify on;
+add_header Strict-Transport-Security max-age=15768000;
+```
+
+A brief description of the important options is as follows:
+
+* `ssl_ciphers`: List which ciphers are supported (colon seperated) or disabled
+  (with `!` prefixed)
+* `ssl_protocols`: Which versions of TLS are supported. Don't use anything older
+  than v1.2 due to Heartbleed.
+* `add_header Strict-Transport-Security`: forces HSTS to prevent HTTPS
+  downgrade attacks.
