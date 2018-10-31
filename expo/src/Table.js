@@ -13,6 +13,8 @@ import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular'
 library.add(faCheckSquare);
 library.add(faSquare);
 
+let Backend = require('./Backend.js');
+
 export class CheckBoxColumn extends Component {
   render() {
     let checkbox = ( this.props.checked ? faCheckSquare : faSquare);
@@ -75,6 +77,10 @@ export class CheckBoxColumn extends Component {
 
 class ProjectColumn extends Component {
 
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     let attempted_challenges = [];
     let challenges_won = [];
@@ -87,7 +93,8 @@ class ProjectColumn extends Component {
             won={challenge.won}
             width={this.props.width}
           />;
-          if (challenge.won) {
+
+        if (challenge.won && this.props.winnersRevealed) {
             challenges_won.push(challenge_card);
           } else {
             attempted_challenges.push(challenge_card);
@@ -213,6 +220,7 @@ export class Row extends Component {
           origin={this.props.origin}
           counter={this.props.counter}
           show_attempted_challenges={this.props.show_attempted_challenges}
+          winnersRevealed={this.props.winnersRevealed}
         />
       </tr>
     );
@@ -255,6 +263,7 @@ export class Table extends Component {
             disabled = {this.props.sponsor_data[this.props.value].votes_submitted}
             origin={this.props.origin}
             width={this.state.width}
+            winnersRevealed={this.props.winnersRevealed}
           />
           :
           <Row
@@ -267,6 +276,7 @@ export class Table extends Component {
             width={this.state.width}
             counter={counter}
             show_attempted_challenges={this.props.show_attempted_challenges}
+            winnersRevealed={this.props.winnersRevealed}
           />
         )
       );

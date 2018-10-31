@@ -653,6 +653,15 @@ class SponsorModule extends Component {
       }
     }
 
+    componentWillMount() {
+      Backend.axiosRequest.get('api/projects/publish_winners_status')
+        .then((status) => {
+          this.setState({
+            winnersRevealed: status == "True"
+          })
+        });
+    }
+
     loadWinners() {
       // toggle based on state
 
@@ -689,6 +698,10 @@ class SponsorModule extends Component {
 
           this.setState({
             data: data.sort((s1, s2) => {
+              if(s1.sponsor_name == undefined || s1.sponsor_name == undefined) {
+                return 0;
+              }
+
               return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
           });
         });
@@ -707,6 +720,26 @@ class SponsorModule extends Component {
           showPreview: true
         });
       }
+    }
+
+    showWinners() {
+      Backend.axiosRequest.post('api/projects/publish_winners_status', {
+        "publish_winners": true
+      }).then((data) => {
+        this.setState({
+          winnersRevealed: true
+        });
+      });
+    }
+
+    hideWinners() {
+      Backend.axiosRequest.post('api/projects/publish_winners_status', {
+        "publish_winners": false
+      }).then((data) => {
+        this.setState({
+          winnersRevealed: false
+        });
+      });
     }
 
     render() {
@@ -747,11 +780,13 @@ class SponsorModule extends Component {
                 </div>
                 <div className="ml-auto">
                   {this.state.winnersRevealed ?
-                    <button type="button" className="button button-secondary">
+                    <button type="button" className="button button-secondary"
+                      onClick={()=>{this.hideWinners()}}>
                       Hide Public Winners
                     </button>
                     :
-                    <button type="button" className="button button-primary">
+                    <button type="button" className="button button-primary"
+                      onClick={()=>{this.showWinners()}}>
                       Reveal Public Winners
                     </button>
                   }
@@ -767,6 +802,8 @@ class SponsorModule extends Component {
                    return (
                     <div>
                       {`[${elt.sponsor}] ${elt.challenge} - ${elt.winners.join(", ")}`}
+                      <br/>
+                      <br/>
                     </div>
                    );
                  })
