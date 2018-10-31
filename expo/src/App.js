@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
 import Admin from './Admin.js';
 import AdminLogin from './AdminLogin.js';
 import Home from './Home.js';
 import Sponsor from './Sponsor.js';
 import SponsorLogin from './SponsorLogin.js';
-
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 
 
 /* Routing control for app overall */

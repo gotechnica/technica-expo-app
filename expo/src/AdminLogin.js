@@ -5,6 +5,8 @@ import Error from './Error.js';
 import Login from './Login.js';
 import SiteWrapper from './SiteWrapper.js';
 
+import './App.css';
+
 
 const InvalidErr = <Error text="Invalid login code!" />;
 

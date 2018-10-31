@@ -3,6 +3,8 @@ import React from 'react';
 import SearchandFilter from './SearchandFilter';
 import SiteWrapper from './SiteWrapper.js';
 
+import './App.css';
+
 
 // const PROJECTS = [
 //   { table_number: 23,
