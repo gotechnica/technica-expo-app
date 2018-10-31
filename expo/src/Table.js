@@ -61,7 +61,7 @@ export class CheckBoxColumn extends Component {
       <FontAwesomeIcon
         icon={checkbox}
         className={checkboxStyle}
-        onClick={this.props.handler.bind(this, this.props.project_id)}
+        onClick={this.props.vote_handler.bind(this, this.props.project_id)}
       />
     );
     return (
@@ -195,7 +195,7 @@ export class Row extends Component {
      <tr className="voting-row">
         { this.props.origin === "sponsor" ?
           <CheckBoxColumn
-            handler={this.props.handler}
+            vote_handler={this.props.vote_handler}
             project_id={this.props.project_id}
             checked={this.props.checked}
             disabled={this.props.disabled}
@@ -226,10 +226,6 @@ export class Table extends Component {
     this.state = { width: window.innerWidth }
   }
 
-  updateDimensions() {
-    this.setState({ width: window.innerWidth});
-  }
-
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
@@ -238,6 +234,11 @@ export class Table extends Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
   }
+
+  updateDimensions() {
+    this.setState({ width: window.innerWidth});
+  }
+
   render() {
     let rows = [];
     let counter = 0;
@@ -250,7 +251,7 @@ export class Table extends Component {
             table_number = {project.table_number}
             project_name = {project.project_name}
             project_url = {project.project_url}
-            handler = {this.props.handler}
+            vote_handler = {this.props.vote_handler}
             checked = {this.props.checked[project.project_id] === undefined ? false : this.props.checked[project.project_id].checked[this.props.value]}
             disabled = {this.props.sponsor_data[this.props.value].votes_submitted}
             origin={this.props.origin}
@@ -328,6 +329,7 @@ export class Table extends Component {
             submit_handler={this.props.submit}
             company_id={this.props.company_id}
             challenge_id={this.props.sponsor_data[this.props.value].challenge_id}
+            after_submission_handler={this.props.after_submission_handler}
           />
         </div>) : <Fragment></Fragment>}
       </Fragment>

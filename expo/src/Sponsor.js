@@ -109,7 +109,7 @@ export class SubmitModal extends Component {
                 <button
                   className="button button-primary"
                   data-dismiss="modal"
-                  onClick={this.props.submit_handler.bind(this,this.props.company_id,this.props.challenge_id)}>
+                  onClick={this.props.submit_handler.bind(this,this.props.company_id, this.props.challenge_id, this.props.value, this.props.after_submission_handler)}>
                 Submit
                 </button>
               }
@@ -202,24 +202,21 @@ export class VotingTable extends Component {
     }
   }
 
-  handleSubmitEvent(company_id,challenge_id) {
-    console.log('company_id: ', company_id);
-    console.log('challenge_id: ', challenge_id);
+  handleSubmitEvent(company_id,challenge_id,challenge_name, update) {
     const checkboxes = document.getElementsByClassName("voting-checkbox");
-
+    let winners = [];
     for (let i = 0; i < checkboxes.length; i++) {
-      console.log('checkboxes: ', checkboxes[i].outerHTML);
       let ckbx = checkboxes[i];
       if (ckbx.checked) {
+        winners.push(ckbx.value);
         let params = {
           company_id: company_id,
 	        challenge_id: challenge_id
         };
         let route = 'api/projects/id/' + ckbx.value + '/makeWinner';
-        console.log('ckbx.value: ', ckbx.value);
         Backend.axiosRequest.post(route, params)
         .then((response) => {
-          alert(JSON.stringify(response));
+          update(challenge_name, winners);
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -252,10 +249,11 @@ export class VotingTable extends Component {
           value={this.props.value}
           checked={this.state.checked}
           sponsor_data={this.state.challenges}
-          handler={this.handleVoteEvent}
+          vote_handler={this.handleVoteEvent}
           origin={this.props.origin}
           clear={this.handleClearEvent}
           submit={this.handleSubmitEvent}
+          after_submission_handler={this.props.after_submission_handler}
         />
       </div>
     );
@@ -266,7 +264,6 @@ export class WelcomeHeader extends Component {
 
   render() {
     let tasks = [];
-    let all_submitted = true;
     Object.keys(this.props.sponsor_data).forEach((challenge) => {
       tasks.push(
         <Task
@@ -276,9 +273,6 @@ export class WelcomeHeader extends Component {
           project_hash={this.props.project_hash}
         />
       );
-      if (this.props.sponsor_data[challenge].votes_submitted === false) {
-        all_submitted = false;
-      }
     });
 
     return (
@@ -316,6 +310,7 @@ export class WelcomeHeader extends Component {
 export default class Sponsor extends Component {
   constructor(props) {
     super(props);
+    this.handleAfterSubmission = this.handleAfterSubmission.bind(this);
     this.state = {
       loggedIn: false,
       loggedInAs: ''
@@ -360,6 +355,18 @@ export default class Sponsor extends Component {
       });
   }
 
+  handleAfterSubmission(challenge, winners) {
+    console.log("I got home");
+    if (this.state.sponsor_data != undefined && Object.keys(this.state.sponsor_data).length > 0) {
+      let updated_sponsor_data = this.state.sponsor_data;
+      updated_sponsor_data[challenge].votes_submitted = true;
+      updated_sponsor_data[challenge].winners = winners;
+      this.setState({
+        sponsor_data: updated_sponsor_data
+      });
+    }
+  }
+
   onLogout() {
     Backend.axiosRequest.post('api/logout')
       .then((data) => {
@@ -388,6 +395,7 @@ export default class Sponsor extends Component {
                     <SmallerParentheses font_size="15px">s</SmallerParentheses>
                   </div>
                 }
+                after_submission_handler = {this.handleAfterSubmission}
                 sponsor_data={this.state.sponsor_data}
                 logout={this.onLogout.bind(this)}
               />
