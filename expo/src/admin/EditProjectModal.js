@@ -4,6 +4,8 @@ import axiosRequest from '../Backend.js';
 import Error from '../Error';
 import Checkbox from './Checkbox';
 
+import '../App.css';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, faTimes } from '../../node_modules/@fortawesome/fontawesome-free-solid';
 library.add(faTimes);
@@ -238,37 +240,33 @@ class EditProjectModal extends Component {
               <br />
             </form>
           </div>
-          <div className="modal-footer">
-            <div>
-              <button
-                type="button"
-                className="button button-warning float-left"
-                onClick={() => { if (window.confirm(`Are you sure you want to delete ${this.state.project_name} from the database?`)) this.deleteProject() }}
-              >
-                Delete
-                </button>
-            </div>
-            <button type="button"
-              className="button button-primary"
-              onClick={
-                (event) => {
-                  this.saveProject(event);
-                }
-              }>
-              Save
-            </button>
-            <button type="button"
-              className="button button-secondary"
-              onClick = {
-                (e) =>{
-                  this.cancelProject(e);
-                }
-              }
-              id={"btnCancelEditProjectModal" + this.props.editID}
-              data-dismiss="modal"
+          <div className="modal-footer flex justify-space-between">
+            <button
+              type="button"
+              className="button button-warning"
+              onClick={() => { if (window.confirm(`Are you sure you want to delete ${this.state.project_name} from the database?`)) this.deleteProject() }}
             >
-              Cancel
+              Delete
             </button>
+            <div>
+              <button type="button"
+                className="button button-primary m-r-s"
+                onClick={
+                  (event) => {
+                    this.saveProject(event);
+                  }
+                }>
+                Save
+              </button>
+              <button type="button"
+                className="button button-secondary"
+                onClick = {(e) => {this.cancelProject(e)}}
+                id={"btnCancelEditProjectModal" + this.props.editID}
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
         </div>
