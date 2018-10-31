@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import axiosRequest from './Backend.js';
+import './Card.css';
 import { sortByTableNumber } from './helpers.js';
 import './SliderOption.css';
 import { VotingTable, WelcomeHeader } from './Sponsor.js';
 import Table from './Table.js';
-
 
 class SearchandFilter extends Component {
 
