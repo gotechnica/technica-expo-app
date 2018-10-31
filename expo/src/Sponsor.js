@@ -1,5 +1,6 @@
 /* react components */
 import React, { Component, Fragment } from 'react';
+import axiosRequest from './Backend.js';
 import './App.css';
 import './Sponsor.css';
 import {
@@ -30,7 +31,6 @@ library.add(faCircle);
 library.add(faCheckCircle);
 library.add(faExclamationTriangle);
 
-const Backend = require('./Backend.js');
 
 export class SubmitModal extends Component {
 
@@ -214,7 +214,7 @@ export class VotingTable extends Component {
 	        challenge_id: challenge_id
         };
         let route = 'api/projects/id/' + ckbx.value + '/makeWinner';
-        Backend.axiosRequest.post(route, params)
+        axiosRequest.post(route, params)
         .then((response) => {
           update(challenge_name, winners);
         })
@@ -315,7 +315,7 @@ export default class Sponsor extends Component {
       loggedIn: false,
       loggedInAs: ''
     };
-    Backend.axiosRequest.get('api/whoami')
+    axiosRequest.get('api/whoami')
       .then((credentials) => {
         if(credentials !== undefined && credentials.user_type === 'sponsor') {
           this.setState({
@@ -324,7 +324,7 @@ export default class Sponsor extends Component {
             company_id: credentials.id,
             sponsor_data: {},
           });
-          Backend.axiosRequest.get('api/v2/companies')
+          axiosRequest.get('api/v2/companies')
           .then((company_data) => {
             let sponsor_challenges = {};
             company_data.forEach((company) => {
@@ -368,7 +368,7 @@ export default class Sponsor extends Component {
   }
 
   onLogout() {
-    Backend.axiosRequest.post('api/logout')
+    axiosRequest.post('api/logout')
       .then((data) => {
         this.props.history.push({
           pathname: '/sponsorLogin'

@@ -1,5 +1,6 @@
 /* react components */
 import React, { Component } from 'react';
+import axiosRequest from './Backend.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -9,8 +10,6 @@ import {
 import SiteWrapper from './SiteWrapper.js';
 import Login from './Login.js';
 import Error from './Error.js';
-
-const Backend = require('./Backend.js');
 
 const InvalidErr = <Error text="Invalid login code!
   Please see a member of the Technica staff if
@@ -33,7 +32,7 @@ class SponsorLogin extends Component {
     let codeExists = accessCode != undefined && accessCode != '';
 
     if(codeExists) {
-      Backend.axiosRequest.post('api/login/sponsor', {access_code: accessCode})
+      axiosRequest.post('api/login/sponsor', {access_code: accessCode})
         .then((data) => {
           if (data.includes('Logged in')) {
             this.setState({

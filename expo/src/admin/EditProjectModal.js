@@ -2,6 +2,7 @@
 import React, {
   Component
 } from 'react';
+import axiosRequest from '../Backend.js';
 import Error from '../Error';
 import {
   library
@@ -14,10 +15,8 @@ import {
   faCheck
 } from '../../node_modules/@fortawesome/fontawesome-free-solid'
 import Checkbox from './Checkbox'
-import axios from 'axios';
 library.add(faTimes);
 library.add(faCheck);
-let Backend = require('../Backend.js');
 let challengeStore = [];
 let save = false;
 let company = [];
@@ -91,12 +90,16 @@ class EditProjectModal extends Component {
         if(checkboxes[i].children[0].checked)
           checkboxes[i].children[0].disabled = true;
       }
-      Backend.httpFunctions.postCallback('api/projects/id/' + this.state.project_id, {
-        "project_name": this.state.project_name,
-        "project_url": this.state.project_url,
-        "table_number": this.state.table_number,
-        "challenges": challenges
-      },this.props.onEdit);
+      axiosRequest.post(
+        `api/projects/id/${this.state.project_id}`,
+        {
+          "project_name": this.state.project_name,
+          "project_url": this.state.project_url,
+          "table_number": this.state.table_number,
+          "challenges": challenges
+        }
+      )
+        .then(this.props.onEdit);
       if (checks) {
         this.setState({
           challenges: challengeStore
@@ -140,7 +143,7 @@ class EditProjectModal extends Component {
   }
 
   deleteProject = () => {
-    Backend.axiosRequest.delete(`api/projects/id/${this.state.project_id}`)
+    axiosRequest.delete(`api/projects/id/${this.state.project_id}`)
       .then((data) => {
         this.props.onEdit();
         // Reset state and close modal

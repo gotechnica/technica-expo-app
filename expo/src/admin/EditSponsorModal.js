@@ -1,10 +1,7 @@
 /* react components */
 import React, { Component } from 'react';
+import axiosRequest from '../Backend.js';
 import Error from '../Error.js';
-import axios from 'axios';
-
-let Backend = require('../Backend.js');
-
 
 const InvalidAccessErr = <Error text="Invalid access code!
   This access code is already in use. Please enter a different code."/>;
@@ -39,10 +36,8 @@ class EditSponsorModal extends Component {
   }
 
   saveSponsor = () => {
-    axios.get(Backend.httpFunctions.url + 'api/companies')
-      .then(response => {
-        let sponsors = response['data'];
-
+    axiosRequest.get('api/companies')
+      .then((sponsors) => {
         let validAccess = true;
         for(let i = 0; i < sponsors.length; i++) {
           // Validate that code does not exist
@@ -65,10 +60,14 @@ class EditSponsorModal extends Component {
         let sponsor_id = this.props.sponsorID;
 
         if(valid) {
-          Backend.httpFunctions.postCallback('api/companies/id/' + sponsor_id, {
-            "company_name": this.state.company_name,
-          	"access_code": this.state.access_code
-          }, this.props.onEdit);
+          axiosRequest.post(
+            `api/companies/id/${sponsor_id}`,
+            {
+              "company_name": this.state.company_name,
+              "access_code": this.state.access_code
+            }
+          )
+            .then(this.props.onEdit);
 
           // Reset state and close modal
           this.setState({
@@ -103,7 +102,7 @@ class EditSponsorModal extends Component {
 
   deleteSponsor = () => {
     if (window.confirm(`Are you sure you want to delete ${this.state.company_name} from the database?`)) {
-      Backend.axiosRequest.delete(`api/companies/id/${this.props.sponsorID}`)
+      axiosRequest.delete(`api/companies/id/${this.props.sponsorID}`)
         .then((data) => {
           this.props.onEdit();
           // Reset state and close modal

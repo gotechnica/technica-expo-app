@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import axiosRequest from '../Backend.js';
 import Error from '../Error';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes, faCheck } from '../../node_modules/@fortawesome/fontawesome-free-solid'
 import Checkbox from './Checkbox'
 library.add(faTimes);
 library.add(faCheck);
-let Backend = require('../Backend.js');
 
 let save = false;
 
@@ -22,7 +22,7 @@ class CreateProjectModal extends Component {
 
   createProject = () => {
     console.log(`CREATING PROJECT ${this.state.project_name} at ${this.state.table_number}`);
-    Backend.axiosRequest.post('api/projects/add', {
+    axiosRequest.post('api/projects/add', {
       "project_name": this.state.project_name,
       "project_url": this.state.project_url,
       "table_number": this.state.table_number

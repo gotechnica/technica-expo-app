@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
+import axiosRequest from './Backend.js';
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom';
-import axios from 'axios'
 
 import Card from './Card.js';
 import Table from './Table.js';
@@ -13,7 +13,6 @@ import SiteWrapper from './SiteWrapper.js';
 import './SliderOption.css';
 import { WelcomeHeader, VotingTable } from './Sponsor.js';
 import { sortByTableNumber } from './helpers.js';
-let Backend = require('./Backend.js');
 
 
 class SearchandFilter extends Component {
@@ -39,7 +38,7 @@ class SearchandFilter extends Component {
     }
 
     checkReveal() {
-      Backend.axiosRequest.get('api/projects/publish_winners_status')
+      axiosRequest.get('api/projects/publish_winners_status')
         .then((status) => {
           this.setState({
             winnersRevealed: status == "True"
@@ -56,9 +55,9 @@ class SearchandFilter extends Component {
     }
 
     componentDidMount() {
-      Backend.axiosRequest.get('api/projects')
+      axiosRequest.get('api/projects')
       .then((project_data) => {
-        Backend.axiosRequest.get('api/challenges')
+        axiosRequest.get('api/challenges')
         .then((challenge_data) => {
           // Check first project element and see if table numbers consist of both alpha and numeric portions
           const tableNumbersAreOnlyNumeric = project_data['projects'].length > 0

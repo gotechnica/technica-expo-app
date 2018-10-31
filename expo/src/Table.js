@@ -13,8 +13,6 @@ import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular'
 library.add(faCheckSquare);
 library.add(faSquare);
 
-let Backend = require('./Backend.js');
-
 export class CheckBoxColumn extends Component {
   render() {
     let checkbox = ( this.props.checked ? faCheckSquare : faSquare);
