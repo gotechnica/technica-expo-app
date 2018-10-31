@@ -38,6 +38,15 @@ class EditProjectModal extends Component {
     })
     console.log(challengeStore);
   }
+  cancelProject(e) {
+    let checkboxes = document.getElementById(this.state.project_id).children;
+    let count = document.getElementById(this.state.project_id).childElementCount;
+    for(let i=2;i<count;i++){
+      if(checkboxes[i].children[0].checked == true && checkboxes[i].children[0].disabled == false)
+        checkboxes[i].children[0].checked = false;
+    }
+
+  }
   saveProject(e) {
     //create challenges to POST
 
@@ -250,6 +259,11 @@ class EditProjectModal extends Component {
             </button>
             <button type="button"
               className="button button-secondary"
+              onClick = {
+                (e) =>{
+                  this.cancelProject(e);
+                }
+              }
               id={"btnCancelEditProjectModal" + this.props.editID}
               data-dismiss="modal"
             >
