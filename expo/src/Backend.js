@@ -2,10 +2,9 @@ import axios from 'axios';
 
 
 const backendDevURL = 'http://localhost:5000/';
-const devURL = 'http://ec2-34-201-45-125.compute-1.amazonaws.com/';
-const prodURL = '';
+const prodURL = 'https://expo-api.gotechnica.org/';
 
-const URL = devURL;
+const URL = prodURL;
 
 // axiosRequest usage examples:
 /*
