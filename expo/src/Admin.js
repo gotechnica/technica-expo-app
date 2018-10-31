@@ -385,7 +385,7 @@ class ProjectModule extends Component {
             Create New Project
           </button>
           <button
-            className="button button-warning m-b-m"
+            className="button button-secondary m-b-m"
             type="button"
             onClick={this.deleteAllProjects}
           >
