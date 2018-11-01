@@ -126,6 +126,10 @@
   opacity: 0;
 }
 
+.modal-warning {
+  top: 20%;
+  
+}
 @media (min-width:768px) and (max-width: 1200px)  {
   .assign_button1 {
     margin-bottom: 1rem;
