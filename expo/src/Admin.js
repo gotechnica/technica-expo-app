@@ -217,13 +217,12 @@ class ProjectModule extends Component {
     console.log(this.state.warning_modal)
   }
   deleteAllProjects = () => {
-    console.log("yay");
     // if (window.confirm('Are you sure you want to remove ALL projects from your database?')) 
     //   if (window.confirm('This action is not reversable.')) 
-        // axiosRequest.delete('api/projects/deleteAll')
-        //   .then(() => {
-        //     this.props.loadProjects();
-        //   });
+        axiosRequest.delete('api/projects/deleteAll')
+          .then(() => {
+            this.props.loadProjects();
+          });
         
   }
 
