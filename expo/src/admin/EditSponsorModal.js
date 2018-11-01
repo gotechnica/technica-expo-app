@@ -120,8 +120,6 @@ class EditSponsorModal extends Component {
   }
 
   render() {
-    console.log(this.state)
-    console.log(this.props)
     return (
       <div className="modal fade" id={this.props.editID}>
         <div className="modal-dialog" role="document">

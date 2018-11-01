@@ -374,7 +374,7 @@ export class Table extends Component {
             <tbody>
             {
             this.props.data.map((object)=>{
-              console.log(object);
+
               return(
                 <tr>
                 <td>{object.project_name}</td>
@@ -382,14 +382,13 @@ export class Table extends Component {
                 <td>{object.table_number}</td>
                 <td>{object.challenges.map((item,index)=>{
                   if(index !== object.challenges.length-1){
-                    //console.log(index);
-                    console.log(object.challenges.length)
+
                     return(
                       item.challenge_name +', '
                     )
                   }
                   else{
-                    console.log(index);
+                    
                     return(
                       item.challenge_name
                     )

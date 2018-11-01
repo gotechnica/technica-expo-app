@@ -11,23 +11,17 @@ export default class Checkbox extends Component {
     }
 
     handleClick(e, id) {
-        console.log(this.state.color)
-        console.log(this.props.edit);
         if (this.state.color !== false) {
             this.setState({
                 color: !this.state.color
             });
         }
-        console.log(this.state.color)
         this.props.handleChange(this.state.color, id, e);
     }
 
     render() {
-        console.log(this.props.project_id)
         let id = `defaultChecked${this.props.id}${this.props.project_id}`;
         let label = `defaultChecked${this.props.id}${this.props.project_id}label`;
-        // console.log(this);
-        console.log(this.state.color)
         return (
             <div class="custom-control custom-checkbox" onChange={(e) => { this.handleClick(e, id) }}>
                 {this.state.color ?
