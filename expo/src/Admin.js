@@ -7,6 +7,7 @@ import CreateSponsorModal from './admin/CreateSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 import EditSponsorModal from './admin/EditSponsorModal';
+import WarningModal from './admin/WarningModal';
 
 import './Admin.css';
 import './App.css';
@@ -44,8 +45,9 @@ class ProjectModule extends Component {
       tableEndLetter: '',
       tableEndNumber: 0,
       skipEveryOtherTable: true,
+      warning_modal:true
     }
-    // this.createAllChallenges = this.createAllChallenges.bind(this);
+    this.warning = this.warning.bind(this);
   }
 
   createMap() {
@@ -210,15 +212,19 @@ class ProjectModule extends Component {
     }
   }
 
+  warning = () => {
+    this.setState({warning_modal:!this.state.warning_modal});
+    console.log(this.state.warning_modal)
+  }
   deleteAllProjects = () => {
-    if (window.confirm('Are you sure you want to remove ALL projects from your database?')) {
-      if (window.confirm('This action is not reversable.')) {
-        axiosRequest.delete('api/projects/deleteAll')
-          .then(() => {
-            this.props.loadProjects();
-          });
-      }
-    }
+    console.log("yay");
+    // if (window.confirm('Are you sure you want to remove ALL projects from your database?')) 
+    //   if (window.confirm('This action is not reversable.')) 
+        // axiosRequest.delete('api/projects/deleteAll')
+        //   .then(() => {
+        //     this.props.loadProjects();
+        //   });
+        
   }
 
   renderEditProjectModal = (elt, index, allChallenges, map) => {
@@ -368,10 +374,13 @@ class ProjectModule extends Component {
           <button
             className="button button-secondary m-b-m"
             type="button"
-            onClick={this.deleteAllProjects}
+            onClick={this.warning}
+            data-toggle = "modal"
+            data-target = "#modalWarning"
           >
             Delete ALL Projects
           </button>
+          {this.state.warning_modal ? <WarningModal deleteAllProjects = {this.deleteAllProjects}></WarningModal> : null}
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"

@@ -114,10 +114,26 @@
   opacity: 0;
 }
 
-.modal-warning {
-  top: 20%;
-  
+#modalWarning {
+  color: white;
 }
+.warning-text {
+  text-align: center;
+}
+.yes {
+  margin-left: 1rem;
+  margin-right: 3rem;
+  width: 6rem;
+}
+
+.no {
+  width: 6rem;
+}
+
+.modal_warning_text {
+  color: white;
+}
+
 @media (min-width:768px) and (max-width: 1200px)  {
   .assign_button1 {
     margin-bottom: 1rem;

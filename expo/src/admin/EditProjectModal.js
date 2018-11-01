@@ -3,7 +3,7 @@ import axiosRequest from '../Backend.js';
 
 import Error from '../Error';
 import Checkbox from './Checkbox';
-import WarningModal from './WarningModal';
+import ConfirmationButton from './ConfirmationButton';
 
 import '../App.css';
 
@@ -31,10 +31,10 @@ class EditProjectModal extends Component {
       error: false,
       company_map:this.props.company_map,
       editable: true,
-      modal_warning: true
+      showConfirmation: false
     }
     this.handleChange = this.handleChange.bind(this)
-   // this.warning = this.warning.bind(this);
+    this.showConfirmation = this.showConfirmation.bind(this);
   }
   componentWillMount() {
     this.state.challenges.map((challenge) => {
@@ -42,10 +42,10 @@ class EditProjectModal extends Component {
       challengeStore.push(challenge);
     })
   }
-  /* warning = () => {
-    console.log("clic");
-    this.setState({modal_warning:!this.state.modal_warning})
-  } */
+  
+  showConfirmation() {
+    this.setState({showConfirmation:!this.state.showConfirmation});
+  }
   cancelProject(e) {
     let checkboxes = document.getElementById(this.state.project_id).children;
     let count = document.getElementById(this.state.project_id).childElementCount;
@@ -137,13 +137,13 @@ class EditProjectModal extends Component {
   }
 
   deleteProject = () => {
-    // axiosRequest.delete(`api/projects/id/${this.state.project_id}`)
-    //   .then((data) => {
-    //     this.props.onEdit();
-    //     // Reset state and close modal
-    //     document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
-    //   });
-    console.log("yay");
+    axiosRequest.delete(`api/projects/id/${this.state.project_id}`)
+      .then((data) => {
+        this.props.onEdit();
+        // Reset state and close modal
+        document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
+      });
+    this.showConfirmation();
   }
 
   render() {
@@ -228,21 +228,18 @@ class EditProjectModal extends Component {
               <br />
             </form>
           </div>
+          {this.state.showConfirmation ? <ConfirmationButton project_name ={this.state.project_name} 
+          deleteProject = {this.deleteProject} showConfirmation = {this.showConfirmation}/> : null}
           <div className="modal-footer flex justify-space-between">
             <div>
               <button
                 type="button"
                 className="button button-warning float-left"
-                id = {`modalWarning${this.state.project_id.toString()}Btn`}
-                data-toggle="modal"
-                data-target={"#modalWarning"+this.state.project_id.toString()}
+                onClick = {this.showConfirmation}
               >
                 Delete
                 </button>
-                
-                {<WarningModal id={"modalWarning"+this.state.project_id.toString()} 
-                project_name = {this.state.project_name} deleteProject = {this.deleteProject}/>}
-
+              
             </div>
               <button type="button"
                 className="button button-primary m-r-s"
