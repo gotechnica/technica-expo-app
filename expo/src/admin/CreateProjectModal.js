@@ -21,7 +21,6 @@ class CreateProjectModal extends Component {
   }
 
   createProject = () => {
-    console.log(`CREATING PROJECT ${this.state.project_name} at ${this.state.table_number}`);
     axiosRequest.post('api/projects/add', {
       "project_name": this.state.project_name,
       "project_url": this.state.project_url,
@@ -34,7 +33,6 @@ class CreateProjectModal extends Component {
   }
 
   handleChange = (e) => {
-    console.log(e);
     let change = {};
     change[e.target.name] = e.target.value;
     this.setState(change);

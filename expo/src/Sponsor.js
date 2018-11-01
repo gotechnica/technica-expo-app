@@ -347,7 +347,6 @@ export default class Sponsor extends Component {
   }
 
   handleAfterSubmission(challenge, winners) {
-    console.log("I got home");
     if (this.state.sponsor_data != undefined && Object.keys(this.state.sponsor_data).length > 0) {
       let updated_sponsor_data = this.state.sponsor_data;
       updated_sponsor_data[challenge].votes_submitted = true;

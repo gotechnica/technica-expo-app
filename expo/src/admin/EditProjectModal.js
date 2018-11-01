@@ -5,6 +5,8 @@ import Error from '../Error';
 import Checkbox from './Checkbox';
 import WarningModal from './WarningModal';
 
+import '../App.css';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, faTimes } from '../../node_modules/@fortawesome/fontawesome-free-solid';
 library.add(faTimes);
@@ -39,7 +41,6 @@ class EditProjectModal extends Component {
       if(challengeStore.indexOf(challenge) === -1)
       challengeStore.push(challenge);
     })
-    console.log(challengeStore);
   }
   /* warning = () => {
     console.log("clic");
@@ -68,13 +69,9 @@ class EditProjectModal extends Component {
         }
       challenges.push(object);
     })
-    console.log(challenges);
     let valid = true;
     let checks = document.querySelector('.black');
-    console.log(checks);
     let input = document.querySelector('.input');
-    console.log(input);
-    console.log(this.state.challenges);
     let missing = this.state.project_name === '' ||
       this.state.table_number === '' ||
       this.state.project_url === ''
@@ -92,7 +89,6 @@ class EditProjectModal extends Component {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
       // Close modal
-      console.log(document.getElementById(this.state.project_id).children)
       let checkboxes = document.getElementById(this.state.project_id).children;
       let count = document.getElementById(this.state.project_id).childElementCount;
       for(let i=2;i<count;i++){
@@ -114,40 +110,29 @@ class EditProjectModal extends Component {
           challenges: challengeStore
         })
       }
-      console.log(this.state.error)
       document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
     }
-    console.log(this.state)
   }
 
   handleChange(color, index, e) {
-    console.log(e)
     let lol = index;
     let allChallenges = this.state.allChallenges;
     challengeStore = this.state.challenges;
     company = this.state.company_challenge;
-    console.log(color);
     if (color) {
-      console.log("sup");
-      console.log(lol)
       let label = (document.getElementById(`${lol}label`))
       let word = label.innerHTML;
       word = word.trim();
-      console.log(word)
       let ind = this.state.challenges.indexOf(word)
       let index_all = this.state.allChallenges.indexOf(word);
-      console.log(ind)
       challengeStore.splice(ind, 1);
-      console.log(challengeStore)
     } else if (!color) {
       let label = (document.getElementById(`${lol}label`))
       let word = label.innerHTML
       word = word.trim();
       if (!challengeStore.includes(word) && word.length > 0)
         challengeStore.push(word);
-      console.log('hello')
     }
-    console.log(challengeStore)
     return challengeStore;
   }
 
@@ -162,10 +147,7 @@ class EditProjectModal extends Component {
   }
 
   render() {
-    console.log(this.state.project_id)
     //let toggle = true;
-    // console.log(this.props)
-    // console.log(this.state)
     return (
       <div className="modal fade" id={this.props.editID}>
         <div className="modal-dialog" role="document">
@@ -246,7 +228,7 @@ class EditProjectModal extends Component {
               <br />
             </form>
           </div>
-          <div className="modal-footer">
+          <div className="modal-footer flex justify-space-between">
             <div>
               <button
                 type="button"
@@ -262,42 +244,60 @@ class EditProjectModal extends Component {
                 project_name = {this.state.project_name} deleteProject = {this.deleteProject}/>}
 
             </div>
-            
-            <button type="button"
-              className="button button-primary"
-              onClick={
-                (event) => {
-                  this.saveProject(event);
-                }
-              }>
-              Save
-            </button>
-            <button type="button"
-              className="button button-secondary"
-              onClick = {
-                (e) =>{
-                  this.cancelProject(e);
-                }
-              }
-              id={"btnCancelEditProjectModal" + this.props.editID}
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
+              <button type="button"
+                className="button button-primary m-r-s"
+                onClick={
+                  (event) => {
+                    this.saveProject(event);
+                  }
+                }>
+                Save
+              </button>
+              <button type="button"
+                className="button button-secondary"
+                onClick = {(e) => {this.cancelProject(e)}}
+                id={"btnCancelEditProjectModal" + this.props.editID}
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
         </div>
-      </div>
     );
   }
 }
 
 export default EditProjectModal;
 
-//{ if (window.confirm(`Are you sure you want to delete ${this.state.project_name} from the database?`)) this.deleteProject() }
-/*{
-  return(
-    <WarningModal warning = {this.warning}></WarningModal>
-  )
-} */
 
+// <button
+//               type="button"
+//               className="button button-warning"
+//               onClick={() => { if (window.confirm(`Are you sure you want to delete ${this.state.project_name} from the database?`)) this.deleteProject() }}
+//             >
+//               Delete
+//             </button>
+
+// <button type="button"
+//               className="button button-primary"
+//               onClick={
+//                 (event) => {
+//                   this.saveProject(event);
+//                 }
+//               }>
+//               Save
+//             </button>
+//             <button type="button"
+//               className="button button-secondary"
+//               onClick = {
+//                 (e) =>{
+//                   this.cancelProject(e);
+//                 }
+//               }
+//               id={"btnCancelEditProjectModal" + this.props.editID}
+//               data-dismiss="modal"
+//             >
+//               Cancel
+//             </button>

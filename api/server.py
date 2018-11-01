@@ -337,25 +337,25 @@ def add_company():
     companies = mongo.db.companies
 
     company_name = request.json['company_name']
-    access_code = request.json['access_code']
+    access_code = request.json['access_code'].upper()
     
     # Autogenerate 8-character access code if blank one was sent
     if access_code == '':
         access_code = generate_random_access_code(8)
-        company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+        company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
         # Keep generating codes until unique
         while company_obj != None:
             access_code = generate_random_access_code(8)
-            company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+            company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
     else:
         # Check if user-defined access code is already used
-        company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+        company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
         if company_obj != None:
             return "Access code already in use."
 
     company = {
         'company_name': company_name,
-        'access_code': access_code,
+        'access_code': access_code.upper(),
         'challenges': {}
     }
     company_id = str(companies.insert(company))
@@ -376,7 +376,7 @@ def update_company_name_or_code(company_id):
     # Both fields must be present in the POST request body
     updated_company = {
         'company_name': request.json['company_name'],
-        'access_code': request.json['access_code']
+        'access_code': request.json['access_code'].upper()
     }
     updated_company_obj = companies.find_one_and_update(
         {'_id': ObjectId(company_id)},
@@ -637,10 +637,10 @@ def return_session_info():
 @app.route('/api/login/sponsor', methods=['POST'])
 def sponsor_login():
     companies = mongo.db.companies
-    attempted_access_code = request.json['access_code']
+    attempted_access_code = request.json['access_code'].upper()
     if attempted_access_code == '':
         return "Access denied."
-    company_obj = companies.find_one({'access_code': re.compile(attempted_access_code, re.IGNORECASE)})
+    company_obj = companies.find_one({'access_code': {'$eq': attempted_access_code.upper()}})
     if company_obj == None:
         return "Access denied."
     else:
@@ -651,7 +651,7 @@ def sponsor_login():
 
 @app.route('/api/login/admin', methods=['POST'])
 def admin_login():
-    attempted_access_code = request.json['access_code']
+    attempted_access_code = request.json['access_code'].upper()
     if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE']:
         return "Access denied."
     else:
