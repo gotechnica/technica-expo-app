@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axiosRequest from '../Backend.js';
 
 import Error from '../Error';
@@ -34,7 +34,7 @@ class EditProjectModal extends Component {
       showConfirmation: false
     }
     this.handleChange = this.handleChange.bind(this)
-    this.showConfirmation = this.showConfirmation.bind(this);
+    this.toggleConfirmation = this.toggleConfirmation.bind(this);
   }
   componentWillMount() {
     this.state.challenges.map((challenge) => {
@@ -43,8 +43,8 @@ class EditProjectModal extends Component {
     })
   }
   
-  showConfirmation() {
-    this.setState({showConfirmation:!this.state.showConfirmation});
+  toggleConfirmation() {
+    this.setState({showConfirmation: !this.state.showConfirmation});
   }
   cancelProject(e) {
     let checkboxes = document.getElementById(this.state.project_id).children;
@@ -141,9 +141,8 @@ class EditProjectModal extends Component {
       .then((data) => {
         this.props.onEdit();
         // Reset state and close modal
-        document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
+        document.getElementById("btnCloseEditProjectModal" + this.props.editID).click();
       });
-    this.showConfirmation();
   }
 
   render() {
@@ -156,6 +155,7 @@ class EditProjectModal extends Component {
             <h5 className="modal-title"> Edit Project </h5>
             <button type="button"
               className="close"
+              id={`btnCloseEditProjectModal${this.props.editID}`}
               data-dismiss="modal"
               aria-label="Close"
             >
@@ -228,73 +228,50 @@ class EditProjectModal extends Component {
               <br />
             </form>
           </div>
-          {this.state.showConfirmation ? <ConfirmationButton project_name ={this.state.project_name} 
-          deleteProject = {this.deleteProject} showConfirmation = {this.showConfirmation}/> : null}
-          <div className="modal-footer flex justify-space-between">
-            <div>
-              <button
-                type="button"
-                className="button button-warning float-left"
-                onClick = {this.showConfirmation}
-              >
-                Delete
-                </button>
-              
-            </div>
-              <button type="button"
-                className="button button-primary m-r-s"
-                onClick={
-                  (event) => {
-                    this.saveProject(event);
-                  }
-                }>
-                Save
-              </button>
-              <button type="button"
-                className="button button-secondary"
-                onClick = {(e) => {this.cancelProject(e)}}
-                id={"btnCancelEditProjectModal" + this.props.editID}
-                data-dismiss="modal"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+          {this.state.showConfirmation ?
+            <ConfirmationButton
+              project_name={this.state.project_name} 
+              deleteProject={this.deleteProject}
+              toggleConfirmation={this.toggleConfirmation}
+            />
+            : (
+              <div className="modal-footer flex justify-space-between">
+                <div>
+                  <button
+                    type="button"
+                    className="button button-warning float-left"
+                    onClick={this.toggleConfirmation}
+                  >
+                    Delete
+                    </button>
+                </div>
+                <div>
+                  <button type="button"
+                    className="button button-primary m-r-s"
+                    onClick={
+                      (event) => {
+                        this.saveProject(event);
+                      }
+                    }>
+                    Save
+                  </button>
+                  <button type="button"
+                    className="button button-secondary"
+                    onClick = {(e) => {this.cancelProject(e)}}
+                    id={"btnCancelEditProjectModal" + this.props.editID}
+                    data-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )
+          }
         </div>
-        </div>
+      </div>
+    </div>
     );
   }
 }
 
 export default EditProjectModal;
-
-
-// <button
-//               type="button"
-//               className="button button-warning"
-//               onClick={() => { if (window.confirm(`Are you sure you want to delete ${this.state.project_name} from the database?`)) this.deleteProject() }}
-//             >
-//               Delete
-//             </button>
-
-// <button type="button"
-//               className="button button-primary"
-//               onClick={
-//                 (event) => {
-//                   this.saveProject(event);
-//                 }
-//               }>
-//               Save
-//             </button>
-//             <button type="button"
-//               className="button button-secondary"
-//               onClick = {
-//                 (e) =>{
-//                   this.cancelProject(e);
-//                 }
-//               }
-//               id={"btnCancelEditProjectModal" + this.props.editID}
-//               data-dismiss="modal"
-//             >
-//               Cancel
-//             </button>

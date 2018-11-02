@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import '../App.css';
+
 class WarningModal extends Component {
     constructor(props) {
         super(props);

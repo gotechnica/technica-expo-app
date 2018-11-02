@@ -170,6 +170,14 @@ html {
   margin-bottom: 1rem;
 }
 
+.p-a-m {
+  padding: 1rem;
+}
+
 .shrink-0 {
   flex-shrink: 0;
+}
+
+.float-right {
+  float: right;
 }
