@@ -559,6 +559,24 @@ def get_all_companies_cleaner_schema():
 # Private / sponsor routes #####################################################
 # All endpoints under the private routes should require the access token.
 
+# Second version of the company endpoints with cleaner output
+# Note: v2 is not used by frontend
+@app.route('/api/v2/companies/current_sponsor', methods=['GET'])
+def get_logged_in_company_cleaner_schema():
+    if 'user_type' in session and session['user_type'] == 'sponsor':
+        companies = mongo.db.companies
+
+        company_obj = companies.find_one({'company_name': {'$eq': session['name']}})
+        output = {
+            'company_id': str(company_obj['_id']),
+            'company_name': company_obj['company_name'],
+            'access_code': company_obj['access_code'],
+            'challenges': company_obj['challenges']
+        }
+        return jsonify(output)
+    else:
+        return 'Error: You are not authorized to complete that request.', 403
+
 @app.route('/api/projects/id/<project_id>/challenge_status', methods=['POST'])
 @is_sponsor_or_admin
 def update_project_challenge_status(project_id):
