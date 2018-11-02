@@ -109,6 +109,11 @@ def get_all_challenges():
             output[curr_company['company_name']] = curr_challenges_list
     return jsonify(output)
 
+@app.route('/api/projects/publish_winners_status', methods=['GET'])
+def get_publish_winners_flag():
+    global publish_winners  # Use the var defined at top of file
+    return str(publish_winners)
+
 
 # Admin routes #################################################################
 # All endpoints under the Admin routes should require admin authorization.
@@ -260,12 +265,11 @@ def remove_all_table_numbers():
     else:
         return 'No table assignments were cleared.'
 
-@app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
+@app.route('/api/projects/publish_winners_status', methods=['POST'])
 @is_admin
 def update_publish_winners_flag():
     global publish_winners  # Use the var defined at top of file
-    if request.method == 'POST':
-        publish_winners = request.json['publish_winners']
+    publish_winners = request.json['publish_winners']
     return str(publish_winners)
 
 @app.route('/api/projects/add', methods=['POST'])
