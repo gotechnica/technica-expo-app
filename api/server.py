@@ -5,6 +5,7 @@ from pymongo import MongoClient, UpdateOne
 from flask_cors import CORS
 from bson.objectid import ObjectId
 from bson import json_util
+import logging
 import random
 import string
 import json
@@ -716,3 +717,8 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.debug')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
