@@ -315,10 +315,9 @@ export default class Sponsor extends Component {
             company_id: credentials.id,
             sponsor_data: {},
           });
-          axiosRequest.get('api/v2/companies')
-          .then((company_data) => {
-            let sponsor_challenges = {};
-            company_data.forEach((company) => {
+          axiosRequest.get('api/v2/companies/current_sponsor')
+            .then((company) => {
+              let sponsor_challenges = {};
               if (company.company_name === this.state.loggedInAs) {
                 Object.keys(company.challenges).forEach((challenge) => {
                   let challenge_obj = company.challenges[challenge];
@@ -334,7 +333,6 @@ export default class Sponsor extends Component {
                 });
               }
             });
-          });
         } else {
           this.props.history.push({
             pathname: '/sponsorLogin'
