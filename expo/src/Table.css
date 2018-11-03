@@ -74,7 +74,7 @@
   border: 0px solid;
   font-weight: bold;
   color: white;
-  width: 80px;
+  min-width: 80px;
   outline: none;
 }
 #Home table tbody tr td div.Project button.Table div.Table {
