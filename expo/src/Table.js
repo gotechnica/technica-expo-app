@@ -166,10 +166,10 @@ class ChallengeCard extends Component {
       this.props.won ?
       ( this.props.width >= 460 ?
         <div className="btn-group">
-          <button className="btn" disabled>
+          <button className="btn">
             <img src={TechnicaRibbon} className="Ribbon"/>
           </button>
-          <button className="btn btn-block" disabled>
+          <button className="btn btn-block">
             <b>{this.props.challenge_name}</b>
             {text}
           </button>
@@ -183,7 +183,7 @@ class ChallengeCard extends Component {
       )
       :
       <div>
-        <button className="btn btn-block" disabled>
+        <button className="btn btn-block">
           <b>{this.props.challenge_name}</b>
           {text}
         </button>
