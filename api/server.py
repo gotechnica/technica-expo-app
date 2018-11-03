@@ -464,14 +464,26 @@ def add_challenge_to_company(company_id):
 
     return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
 
-@app.route('/api/companies/id/<company_id>/challenges/<challenge_id>', methods=['POST'])
+@app.route('/api/companies/id/<company_id>/challenges/<challenge_id>', methods=['POST', 'DELETE'])
 @is_admin
 def update_company_challenge(company_id, challenge_id):
     companies = mongo.db.companies
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     challenges_obj = company_obj['challenges']
-    challenges_obj[challenge_id]['challenge_name'] = request.json['challenge_name']
-    challenges_obj[challenge_id]['num_winners'] = int(request.json['num_winners'])
+
+    if request.method == 'DELETE':
+        try:
+            # Check if there are any winners assigned yet
+            if len(challenges_obj[challenge_id]['winners']) == 0:
+                del challenges_obj[challenge_id]
+                return challenge_id + " has been deleted from " + company_obj['company_name']
+            else:
+                return "Cannot delete challenge " + challenge_id + " because winners have already been selected"
+        except:
+            return "Error deleting challenge " + challenge_id
+    elif request.method == 'POST':
+        challenges_obj[challenge_id]['challenge_name'] = request.json['challenge_name']
+        challenges_obj[challenge_id]['num_winners'] = int(request.json['num_winners'])
 
     updated_company = {
         'challenges': challenges_obj
