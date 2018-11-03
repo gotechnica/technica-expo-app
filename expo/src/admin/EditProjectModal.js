@@ -230,8 +230,8 @@ class EditProjectModal extends Component {
           </div>
           {this.state.showConfirmation ?
             <ConfirmationButton
-              project_name={this.state.project_name} 
-              deleteProject={this.deleteProject}
+              elementToDelete={this.state.project_name} 
+              deleteElement={this.deleteProject}
               toggleConfirmation={this.toggleConfirmation}
             />
             : (
