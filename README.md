@@ -50,7 +50,7 @@ guide! You can find the linter for Atom
 ### Admin Instructions
 
 1. Create your Devpost and add your sponsor's challenges (or your own!) - make
-   sure to follow the Devpost Guidelines outlined below!
+   sure to follow the [Devpost Guidelines](#devpost-guidelines) outlined below!
 2. Log in as `admin` and add sponsors and assign unique access codes.
 3. Add the challenges to each sponsor (*important:* when naming the challenge,
    make sure it is exactly the same string as you created in Devpost, but remove
@@ -76,11 +76,11 @@ following these requirements may lead to unexpected behavior in your deployment.
   `Funniest Hack II - Technica` is not valid since `Funniest Hack I` is a
   substring of `Funniest Hack II`). This is a temporary workaround that will be
   resolved in a future release.
-- A custom field for hacks that need to stay at their current table must be
-  created and should be labeled exactly as the following: `Does your hack need
-  to stay at your current table? (i.e. hardware, VR/AR hacks). If so, what table
-  number are you at?`. A future release will expose an environment/config
-  variable that will be more easily modified.
+- You can create a custom field for hacks that need to stay at their current table.
+  To do this, you can configure the environment/config variable in your
+  `api/config.py` file. This string should be labeled exactly as you configured in
+  Devpost (e.g. `Does your hack need to stay at your current table? (i.e. hardware,
+  VR/AR hacks). If so, what table number are you at?`).
 
 ## Deployment
 
