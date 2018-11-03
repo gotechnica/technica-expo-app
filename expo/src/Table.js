@@ -111,7 +111,7 @@ class ProjectColumn extends Component {
             {this.props.project_name}
           </a>
           { this.props.width < 460 ?
-            ( this.props.table_number === "" ?
+            ( this.props.table_number !== "" ?
               ( this.props.origin === "home" ?
               <div>
                 <button className="Table" style={{ backgroundColor: colors[index] }}>
