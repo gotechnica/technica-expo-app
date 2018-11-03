@@ -152,7 +152,7 @@ class EditChallengeModal extends Component {
             {this.state.showConfirmation ?
               (
                 <ConfirmationButton
-                  elementToDelete={this.state.project_name}
+                  elementToDelete={this.state.challenge_title}
                   deleteElement={this.deleteChallenge}
                   toggleConfirmation={this.toggleConfirmation}
                 />
