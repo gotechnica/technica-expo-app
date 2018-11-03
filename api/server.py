@@ -29,7 +29,7 @@ def is_sponsor_or_admin(func):
     def function_wrapper(*args, **kwargs):
         print("Checking if logged in as sponsor before calling " + func.__name__)
         if 'user_type' in session and (session['user_type'] == 'sponsor' or session['user_type'] == 'admin'):
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         else:
             return 'Error: You are not authorized to complete that request.', 403
     # Renaming the function name:
