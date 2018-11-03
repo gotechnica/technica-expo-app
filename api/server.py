@@ -476,7 +476,6 @@ def update_company_challenge(company_id, challenge_id):
             # Check if there are any winners assigned yet
             if len(challenges_obj[challenge_id]['winners']) == 0:
                 del challenges_obj[challenge_id]
-                return challenge_id + " has been deleted from " + company_obj['company_name']
             else:
                 return "Cannot delete challenge " + challenge_id + " because winners have already been selected"
         except:
@@ -493,6 +492,8 @@ def update_company_challenge(company_id, challenge_id):
         {'$set': updated_company}
     )
 
+    if request.method == 'DELETE':
+        return challenge_id + " has been deleted from " + company_obj['company_name']
     return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
 
 @app.route('/api/companies/id/<company_id>', methods=['GET'])
