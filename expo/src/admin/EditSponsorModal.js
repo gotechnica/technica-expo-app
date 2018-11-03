@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axiosRequest from '../Backend.js';
 
 import Error from '../Error.js';
+import ConfirmationButton from './ConfirmationButton';
 
 import '../App.css';
 
@@ -24,7 +25,8 @@ class EditSponsorModal extends Component {
       invalid_access: false,
       company_name: this.props.sponsorName,
       missing_access: false,
-      missing_company: false
+      missing_company: false,
+      showConfirmation: false,
     };
   }
 
@@ -34,8 +36,13 @@ class EditSponsorModal extends Component {
       invalid_access: false,
       company_name: nextProps.sponsorName,
       missing_access: false,
-      missing_company: false
+      missing_company: false,
+      showConfirmation: false,
     });
+  }
+
+  toggleConfirmation = () => {
+    this.setState({showConfirmation: !this.state.showConfirmation});
   }
 
   saveSponsor = () => {
@@ -104,19 +111,17 @@ class EditSponsorModal extends Component {
   }
 
   deleteSponsor = () => {
-    if (window.confirm(`Are you sure you want to delete ${this.state.company_name} from the database?`)) {
-      axiosRequest.delete(`api/companies/id/${this.props.sponsorID}`)
-        .then((data) => {
-          this.props.onEdit();
-          // Reset state and close modal
-          this.setState({
-            missing_company: false,
-            invalid_access: false,
-            missing_access: false
-          });
-          document.getElementById("btnCancelEditSponsorModal" + this.props.editID).click();
+    axiosRequest.delete(`api/companies/id/${this.props.sponsorID}`)
+      .then((data) => {
+        this.props.onEdit();
+        // Reset state and close modal
+        this.setState({
+          missing_company: false,
+          invalid_access: false,
+          missing_access: false
         });
-    }
+        document.getElementById("btnCloseEditSponsorModal" + this.props.editID).click();
+      });
   }
 
   render() {
@@ -126,7 +131,13 @@ class EditSponsorModal extends Component {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Edit Sponsor</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <button
+                type="button"
+                className="close"
+                id={`btnCloseEditSponsorModal${this.props.editID}`}
+                data-dismiss="modal"
+                aria-label="Close"
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -150,32 +161,44 @@ class EditSponsorModal extends Component {
                 {this.state.missing_company ? MissingFieldErr : ""}
               </div>
             </div>
-            <div className="modal-footer flex justify-space-between">
-              <button
-                type="button"
-                className="button button-warning"
-                onClick={this.deleteSponsor}
-              >
-                Delete
-              </button>
-              <div>
-                <button
-                  type="button"
-                  className="button button-primary m-r-s"
-                  onClick={this.saveSponsor}
-                >
-                  Save
-                </button>
-                <button
-                  type="button"
-                  className="button button-secondary"
-                  data-dismiss="modal"
-                  id={"btnCancelEditSponsorModal" + this.props.editID}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
+
+            {this.state.showConfirmation ?
+              (
+                <ConfirmationButton
+                  elementToDelete={this.state.company_name}
+                  deleteElement={this.deleteSponsor}
+                  toggleConfirmation={this.toggleConfirmation}
+                />
+              ) : (
+                <div className="modal-footer flex justify-space-between">
+                  <div>
+                    <button
+                      type="button"
+                      className="button button-warning float-left"
+                      onClick={this.toggleConfirmation}
+                    >
+                      Delete
+                      </button>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      className="button button-primary m-r-s"
+                      onClick={this.saveSponsor}>
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      className="button button-secondary"
+                      id={"btnCancelEditSponsorModal" + this.props.editID}
+                      data-dismiss="modal"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

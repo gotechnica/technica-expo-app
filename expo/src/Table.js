@@ -138,7 +138,9 @@ class ProjectColumn extends Component {
             }
             { attempted_challenges.length > 0 ?
               <Fragment>
-                { this.props.width < 460 ? <hr className="attempted-challenges"/> : <Fragment></Fragment> }
+                {this.props.width < 460 && !this.props.show_attempted_challenges ? (
+                  <hr className="attempted-challenges" />
+                ) : null}
                 <div className="attempted-challenges">
                   { this.props.show_attempted_challenges ?
                     <b>

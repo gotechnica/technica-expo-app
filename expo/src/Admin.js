@@ -598,12 +598,12 @@ class SponsorModule extends Component {
                         <div>
                           {(i+1).toString() + ") " + challenge.challenge + " "}
                           <EditChallengeModal
-                            createID={"modalEditChallenge"+elt.access_code.toString()+i.toString()}
+                            editID={"modalEditChallenge"+elt.access_code.toString()+i.toString()}
                             challengeTitle={challenge.challenge}
                             numWinners={challenge.num_winners}
                             challengeID={challenge.id}
                             sponsorID={elt.id}
-                            onCreate={this.loadCompanies.bind(this)}
+                            onEdit={this.loadCompanies.bind(this)}
                             />
                           <button className="link-button"
                             type="button"
