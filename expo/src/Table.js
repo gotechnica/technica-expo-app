@@ -111,10 +111,8 @@ class ProjectColumn extends Component {
             {this.props.project_name}
           </a>
           { this.props.width < 460 ?
-            ( this.props.origin === "home" ?
-              ( this.props.table_number === "" ?
-              <Fragment></Fragment>
-              :
+            ( this.props.table_number === "" ?
+              ( this.props.origin === "home" ?
               <div>
                 <button className="Table" style={{ backgroundColor: colors[index] }}>
                   <div className="Table">Table</div>
@@ -122,10 +120,11 @@ class ProjectColumn extends Component {
                     {this.props.table_number}
                   </div>
                 </button>
-              </div> )
+              </div>
               :
-              <div className="Sponsor-Table">Table: {this.props.table_number}</div>
-            )
+              <div className="Sponsor-Table">Table: {this.props.table_number}</div> )
+            :
+            <Fragment></Fragment> )
             :
             <Fragment></Fragment>
           }
@@ -168,10 +167,10 @@ class ChallengeCard extends Component {
       this.props.won ?
       ( this.props.width >= 460 ?
         <div className="btn-group">
-          <button className="btn">
+          <button className="btn" disabled>
             <img src={TechnicaRibbon} className="Ribbon"/>
           </button>
-          <button className="btn btn-block">
+          <button className="btn btn-block" disabled>
             <b>{this.props.challenge_name}</b>
             {text}
           </button>
@@ -185,7 +184,7 @@ class ChallengeCard extends Component {
       )
       :
       <div>
-        <button className="btn btn-block">
+        <button className="btn btn-block" disabled>
           <b>{this.props.challenge_name}</b>
           {text}
         </button>
@@ -388,7 +387,7 @@ export class Table extends Component {
                     )
                   }
                   else{
-                    
+
                     return(
                       item.challenge_name
                     )

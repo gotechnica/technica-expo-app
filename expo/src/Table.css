@@ -15,6 +15,9 @@
   padding: 0px;
 }
 
+#Home button:disabled {
+  opacity: 1.0;
+}
 
 #Home .btn:active,.btn:focus {
   outline: none;
@@ -118,7 +121,7 @@
 
 @media screen and (max-width: 459px) {
   #Sponsor table tbody tr.voting-row td:nth-of-type(1) {
-    width: 60px;
+    width: 50px;
   }
   #Home table tbody tr td div.Project,
   #Home div.challenges-won,
