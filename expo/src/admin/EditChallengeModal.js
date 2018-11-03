@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axiosRequest from '../Backend.js';
 
 import Error from '../Error.js';
+import ConfirmationButton from './ConfirmationButton';
+
+import '../App.css';
 
 
 let InvalidWinnerErr = <Error text="Invalid number of winners!
@@ -19,6 +22,7 @@ class EditChallengeModal extends Component {
       missing_fields: false,
       challenge_title: this.props.challengeTitle,
       num_winners: this.props.numWinners,
+      showConfirmation: false,
     };
   }
 
@@ -28,7 +32,12 @@ class EditChallengeModal extends Component {
       missing_fields: false,
       challenge_title: nextProps.challengeTitle,
       num_winners: nextProps.numWinners,
+      showConfirmation: false,
     });
+  }
+
+  toggleConfirmation = () => {
+    this.setState({showConfirmation: !this.state.showConfirmation});
   }
 
   saveChallenge(e) {
@@ -63,7 +72,7 @@ class EditChallengeModal extends Component {
       	      "num_winners": this.state.num_winners
             }
           )
-            .then(this.props.onCreate);
+            .then(this.props.onEdit);
 
           // Reset state and close modal
           this.setState({
@@ -73,7 +82,7 @@ class EditChallengeModal extends Component {
             missing_fields: false
           });
 
-          document.getElementById("btnHideCreateChallengeModal" + this.props.createID).click();
+          document.getElementById("btnHideCreateChallengeModal" + this.props.editID).click();
         }
 
         // Show errors
@@ -96,14 +105,27 @@ class EditChallengeModal extends Component {
 
   }
 
+  deleteChallenge = () => {
+    axiosRequest.delete(`api/companies/id/${this.props.sponsorID}/challenges/${this.props.challengeID}`)
+      .then(() => {
+        this.props.onEdit();
+        document.getElementById(`btnCloseEditChallengeModal${this.props.challengeID}`).click();
+      });
+  }
+
   render() {
     return (
-      <div className="modal fade" id={this.props.createID}>
+      <div className="modal fade" id={this.props.editID}>
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Edit Challenge</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <button type="button"
+                className="close"
+                id={`btnCloseEditChallengeModal${this.props.challengeID}`}
+                data-dismiss="modal"
+                aria-label="Close"
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -125,21 +147,47 @@ class EditChallengeModal extends Component {
                   {this.state.winner_error ? InvalidWinnerErr : ""}
                   {this.state.missing_fields ? MissingFieldsErr : ""}
                 </div>
+            </div>
 
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="button button-primary"
-                onClick={(event) => {
-                  this.saveChallenge(event);
-                }}>
-                Save
-              </button>
-              <button type="button" className="button button-secondary"
-                ID={"btnHideCreateChallengeModal" + this.props.createID}
-                data-dismiss="modal">
-                Cancel
-              </button>
-            </div>
+            {this.state.showConfirmation ?
+              (
+                <ConfirmationButton
+                  elementToDelete={this.state.project_name}
+                  deleteElement={this.deleteChallenge}
+                  toggleConfirmation={this.toggleConfirmation}
+                />
+              ) : (
+                <div className="modal-footer flex justify-space-between">
+                  <div>
+                    <button
+                      type="button"
+                      className="button button-warning float-left"
+                      onClick={this.toggleConfirmation}
+                    >
+                      Delete
+                      </button>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      className="button button-primary m-r-s"
+                      onClick={(event) => {
+                        this.saveChallenge(event);
+                      }}>
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      className="button button-secondary"
+                      id={"btnHideCreateChallengeModal" + this.props.editID}
+                      data-dismiss="modal"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>
