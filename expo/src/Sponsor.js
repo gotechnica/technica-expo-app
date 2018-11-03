@@ -315,10 +315,9 @@ export default class Sponsor extends Component {
             company_id: credentials.id,
             sponsor_data: {},
           });
-          axiosRequest.get('api/v2/companies')
-          .then((company_data) => {
-            let sponsor_challenges = {};
-            company_data.forEach((company) => {
+          axiosRequest.get('api/v2/companies/current_sponsor')
+            .then((company) => {
+              let sponsor_challenges = {};
               if (company.company_name === this.state.loggedInAs) {
                 Object.keys(company.challenges).forEach((challenge) => {
                   let challenge_obj = company.challenges[challenge];
@@ -334,7 +333,6 @@ export default class Sponsor extends Component {
                 });
               }
             });
-          });
         } else {
           this.props.history.push({
             pathname: '/sponsorLogin'
@@ -347,7 +345,6 @@ export default class Sponsor extends Component {
   }
 
   handleAfterSubmission(challenge, winners) {
-    console.log("I got home");
     if (this.state.sponsor_data != undefined && Object.keys(this.state.sponsor_data).length > 0) {
       let updated_sponsor_data = this.state.sponsor_data;
       updated_sponsor_data[challenge].votes_submitted = true;

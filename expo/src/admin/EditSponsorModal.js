@@ -3,6 +3,8 @@ import axiosRequest from '../Backend.js';
 
 import Error from '../Error.js';
 
+import '../App.css';
+
 
 const InvalidAccessErr = <Error text="Invalid access code!
   This access code is already in use. Please enter a different code."/>;
@@ -118,8 +120,6 @@ class EditSponsorModal extends Component {
   }
 
   render() {
-    console.log(this.state)
-    console.log(this.props)
     return (
       <div className="modal fade" id={this.props.editID}>
         <div className="modal-dialog" role="document">
@@ -150,31 +150,31 @@ class EditSponsorModal extends Component {
                 {this.state.missing_company ? MissingFieldErr : ""}
               </div>
             </div>
-            <div className="modal-footer">
+            <div className="modal-footer flex justify-space-between">
+              <button
+                type="button"
+                className="button button-warning"
+                onClick={this.deleteSponsor}
+              >
+                Delete
+              </button>
               <div>
                 <button
                   type="button"
-                  className="button button-warning float-left"
-                  onClick={this.deleteSponsor}
+                  className="button button-primary m-r-s"
+                  onClick={this.saveSponsor}
                 >
-                  Delete
+                  Save
+                </button>
+                <button
+                  type="button"
+                  className="button button-secondary"
+                  data-dismiss="modal"
+                  id={"btnCancelEditSponsorModal" + this.props.editID}
+                >
+                  Cancel
                 </button>
               </div>
-              <button
-                type="button"
-                className="button button-primary"
-                onClick={this.saveSponsor}
-              >
-                Save
-              </button>
-              <button
-                type="button"
-                className="button button-secondary"
-                data-dismiss="modal"
-                id={"btnCancelEditSponsorModal" + this.props.editID}
-              >
-                Cancel
-              </button>
             </div>
           </div>
         </div>

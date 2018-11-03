@@ -7,6 +7,7 @@ import CreateSponsorModal from './admin/CreateSponsorModal';
 import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 import EditSponsorModal from './admin/EditSponsorModal';
+import WarningModal from './admin/WarningModal';
 
 import './Admin.css';
 import './App.css';
@@ -44,8 +45,9 @@ class ProjectModule extends Component {
       tableEndLetter: '',
       tableEndNumber: 0,
       skipEveryOtherTable: true,
+      warning_modal:true
     }
-    // this.createAllChallenges = this.createAllChallenges.bind(this);
+    this.warning = this.warning.bind(this);
   }
 
   createMap() {
@@ -56,11 +58,9 @@ class ProjectModule extends Component {
           companies.set(company.challenge_name,company.company);
       })
     })
-    console.log(companies);
     return companies;
   }
   createAllChallenges(obj){
-    console.log(obj)
     let allChallenges = [];
     obj.map((item)=>{
       item.challenges.map((challenge)=>{
@@ -68,12 +68,10 @@ class ProjectModule extends Component {
           allChallenges.push(challenge);
       })
     })
-    console.log(allChallenges);
     return allChallenges;
   }
   sortData(){
     let data = this.props.projects;
-    console.log(data);
     let finalProjectsData = [];
     let seen = undefined;
     data.map((obj)=>{
@@ -111,7 +109,6 @@ class ProjectModule extends Component {
     //   }
     //  seen = obj.table_number;
     })
-    console.log(finalProjectsData)
     this.createAllChallenges(finalProjectsData);
     return finalProjectsData;
   }
@@ -139,7 +136,6 @@ class ProjectModule extends Component {
           this.setState({ // Flash error message
             uploadStatus: 'Oops! Something went wrong...'
           });
-          console.error('Error:', error);
         });
     }
 	}
@@ -192,7 +188,6 @@ class ProjectModule extends Component {
         this.setState({ // Flash error message
           tableAssignmentStatus: 'Oops! Something went wrong...'
         });
-        console.error('Error:', error);
       });
   }
 
@@ -213,21 +208,22 @@ class ProjectModule extends Component {
           this.setState({ // Flash error message
             tableAssignmentStatus: 'Oops! Something went wrong...'
           });
-          console.error('Error:', error);
         });
     }
   }
 
+  warning = () => {
+    this.setState({warning_modal:!this.state.warning_modal});
+    console.log(this.state.warning_modal)
+  }
   deleteAllProjects = () => {
-    if (window.confirm('Are you sure you want to remove ALL projects from your database?')) {
-      if (window.confirm('This action is not reversable.')) {
+    // if (window.confirm('Are you sure you want to remove ALL projects from your database?')) 
+    //   if (window.confirm('This action is not reversable.')) 
         axiosRequest.delete('api/projects/deleteAll')
           .then(() => {
-            console.log("DELETED ALL PROJECTS");
             this.props.loadProjects();
           });
-      }
-    }
+        
   }
 
   renderEditProjectModal = (elt, index, allChallenges, map) => {
@@ -249,11 +245,9 @@ class ProjectModule extends Component {
   }
 
   render() {
-    console.log(this.sortData())
     let filteredProjects = this.sortData();
     let allChallenges = this.createAllChallenges(filteredProjects);
     let map = this.createMap();
-    console.log("ass",allChallenges);
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredProjects = filteredProjects.filter(elt => {
         const upperCaseTextSearch = this.state.textSearch.toUpperCase();
@@ -379,10 +373,13 @@ class ProjectModule extends Component {
           <button
             className="button button-secondary m-b-m"
             type="button"
-            onClick={this.deleteAllProjects}
+            onClick={this.warning}
+            data-toggle = "modal"
+            data-target = "#modalWarning"
           >
             Delete ALL Projects
           </button>
+          {this.state.warning_modal ? <WarningModal deleteAllProjects = {this.deleteAllProjects}></WarningModal> : null}
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
@@ -397,7 +394,6 @@ class ProjectModule extends Component {
             <div className="col" />
           </div>
           {filteredProjects.map((elt,index) => {
-            console.log(elt.checkVal);
             return (
               <div className="row m-b-m" key={index} id={`project-${elt.project_id}`}>
                 <div className="col grow-5 break-word">
@@ -601,9 +597,6 @@ class SponsorModule extends Component {
                       return (
                         <div>
                           {(i+1).toString() + ") " + challenge.challenge + " "}
-                          {
-                            console.log(challenge)
-                          }
                           <EditChallengeModal
                             createID={"modalEditChallenge"+elt.access_code.toString()+i.toString()}
                             challengeTitle={challenge.challenge}
@@ -833,7 +826,7 @@ class SponsorModule extends Component {
           }
         })
         .catch((error) => {
-          console.log(error);
+          
         });
     }
 

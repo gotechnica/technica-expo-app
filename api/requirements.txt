@@ -8,6 +8,7 @@ get==1.0.3
 idna==2.7
 itsdangerous==0.24
 Jinja2==2.10
+logger==1.4
 MarkupSafe==1.0
 post==1.0.2
 public==1.0.3

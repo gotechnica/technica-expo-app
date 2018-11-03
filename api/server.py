@@ -5,6 +5,7 @@ from pymongo import MongoClient, UpdateOne
 from flask_cors import CORS
 from bson.objectid import ObjectId
 from bson import json_util
+import logging
 import random
 import string
 import json
@@ -21,6 +22,31 @@ mongo = PyMongo(app)
 
 # Global variables
 publish_winners = False # Flag that admin can flip to show winner status in '/'
+
+
+# Auth Decorators
+def is_sponsor_or_admin(func):
+    def function_wrapper(*args, **kwargs):
+        print("Checking if logged in as sponsor before calling " + func.__name__)
+        if 'user_type' in session and (session['user_type'] == 'sponsor' or session['user_type'] == 'admin'):
+            func(*args, **kwargs)
+        else:
+            return 'Error: You are not authorized to complete that request.', 403
+    # Renaming the function name:
+    function_wrapper.__name__ = func.__name__
+    return function_wrapper
+
+
+def is_admin(func):
+    def function_wrapper(*args, **kwargs):
+        print("Checking if logged in as admin before calling " + func.__name__)
+        if 'user_type' in session and session['user_type'] == 'admin':
+            return func(*args, **kwargs)
+        else:
+            return 'Error: You are not authorized to complete that request.', 403
+    # Renaming the function name:
+    function_wrapper.__name__ = func.__name__
+    return function_wrapper
 
 
 @app.route('/')
@@ -83,6 +109,11 @@ def get_all_challenges():
             output[curr_company['company_name']] = curr_challenges_list
     return jsonify(output)
 
+@app.route('/api/projects/publish_winners_status', methods=['GET'])
+def get_publish_winners_flag():
+    global publish_winners  # Use the var defined at top of file
+    return str(publish_winners)
+
 
 # Admin routes #################################################################
 # All endpoints under the Admin routes should require admin authorization.
@@ -96,6 +127,7 @@ def get_all_challenges():
     # Challenges Won
 
 @app.route('/test/seed_db', methods=['GET'])
+@is_admin
 def csv_tester():
     return """
         <html>
@@ -112,6 +144,7 @@ def csv_tester():
     """
 
 @app.route('/parse_csv', methods=['POST'])
+@is_admin
 def parse_csv():
     file = request.files['projects_csv']
     if not file:
@@ -145,6 +178,7 @@ def bulk_add_projects_internal(packet):
         return result
 
 @app.route('/api/projects/assign_tables', methods=['POST'])
+@is_admin
 def assign_remaining_table_numbers():
     projects = mongo.db.projects
     all_projects = projects.find()
@@ -210,6 +244,7 @@ def char_range(c1, c2):
         yield chr(c)
 
 @app.route('/api/projects/clear_table_assignments', methods=['POST'])
+@is_admin
 def remove_all_table_numbers():
     projects = mongo.db.projects
     all_projects = projects.find()
@@ -230,14 +265,15 @@ def remove_all_table_numbers():
     else:
         return 'No table assignments were cleared.'
 
-@app.route('/api/projects/publish_winners_status', methods=['GET', 'POST'])
+@app.route('/api/projects/publish_winners_status', methods=['POST'])
+@is_admin
 def update_publish_winners_flag():
     global publish_winners  # Use the var defined at top of file
-    if request.method == 'POST':
-        publish_winners = request.json['publish_winners']
+    publish_winners = request.json['publish_winners']
     return str(publish_winners)
 
 @app.route('/api/projects/add', methods=['POST'])
+@is_admin
 def add_project():
     projects = mongo.db.projects
 
@@ -261,11 +297,13 @@ def add_project():
     return str(project_id)
 
 @app.route('/api/projects/bulk_add', methods=['POST'])
+@is_admin
 def bulk_add_project():
     packet = request.json['projects']
     return bulk_add_projects_internal(packet)
 
 @app.route('/api/projects/id/<project_id>', methods =['POST'])
+@is_admin
 def update_project(project_id):
     projects = mongo.db.projects
 
@@ -308,6 +346,7 @@ def get_all_possible_challenges():
     return challenges
 
 @app.route('/api/projects/id/<project_id>', methods=['DELETE'])
+@is_admin
 def delete_project(project_id):
     projects = mongo.db.projects
     result = projects.delete_one({'_id': ObjectId(project_id)})
@@ -318,6 +357,7 @@ def delete_project(project_id):
 
 
 @app.route('/api/projects/deleteAll', methods=['DELETE'])
+@is_admin
 def delete_all_projects():
     projects = mongo.db.projects
 
@@ -333,29 +373,30 @@ def delete_all_projects():
     # ProjectID that won the challenge
 
 @app.route('/api/companies/add', methods=['POST'])
+@is_admin
 def add_company():
     companies = mongo.db.companies
 
     company_name = request.json['company_name']
-    access_code = request.json['access_code']
+    access_code = request.json['access_code'].upper()
     
     # Autogenerate 8-character access code if blank one was sent
     if access_code == '':
         access_code = generate_random_access_code(8)
-        company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+        company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
         # Keep generating codes until unique
         while company_obj != None:
             access_code = generate_random_access_code(8)
-            company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+            company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
     else:
         # Check if user-defined access code is already used
-        company_obj = companies.find_one({'access_code': re.compile(access_code, re.IGNORECASE)})
+        company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
         if company_obj != None:
             return "Access code already in use."
 
     company = {
         'company_name': company_name,
-        'access_code': access_code,
+        'access_code': access_code.upper(),
         'challenges': {}
     }
     company_id = str(companies.insert(company))
@@ -366,6 +407,7 @@ def generate_random_access_code(length):
     return ''.join(random.choice('ABCDEFGHJKMNPQRSTUVWXYZ23456789') for _ in range(length))
 
 @app.route('/api/companies/id/<company_id>', methods=['POST'])
+@is_admin
 def update_company_name_or_code(company_id):
     companies = mongo.db.companies
 
@@ -376,7 +418,7 @@ def update_company_name_or_code(company_id):
     # Both fields must be present in the POST request body
     updated_company = {
         'company_name': request.json['company_name'],
-        'access_code': request.json['access_code']
+        'access_code': request.json['access_code'].upper()
     }
     updated_company_obj = companies.find_one_and_update(
         {'_id': ObjectId(company_id)},
@@ -386,6 +428,7 @@ def update_company_name_or_code(company_id):
     return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
 
 @app.route('/api/companies/id/<company_id>', methods=['DELETE'])
+@is_admin
 def delete_company(company_id):
     companies = mongo.db.companies
     result = companies.delete_one({'_id': ObjectId(company_id)})
@@ -396,6 +439,7 @@ def delete_company(company_id):
         return "Did not find company " + company_id
 
 @app.route('/api/companies/id/<company_id>/challenges/add', methods=['POST'])
+@is_admin
 def add_challenge_to_company(company_id):
     companies = mongo.db.companies
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
@@ -421,6 +465,7 @@ def add_challenge_to_company(company_id):
     return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
 
 @app.route('/api/companies/id/<company_id>/challenges/<challenge_id>', methods=['POST'])
+@is_admin
 def update_company_challenge(company_id, challenge_id):
     companies = mongo.db.companies
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
@@ -439,12 +484,14 @@ def update_company_challenge(company_id, challenge_id):
     return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
 
 @app.route('/api/companies/id/<company_id>', methods=['GET'])
+@is_admin
 def get_company(company_id):
     companies = mongo.db.companies
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     return jsonify(format_company_obj_to_old_schema(company_obj))
 
 @app.route('/api/companies', methods=['GET'])
+@is_admin
 def get_all_companies():
     companies = mongo.db.companies
     output = []
@@ -478,6 +525,7 @@ def format_company_obj_to_old_schema(company_obj):
 # Second version of the company endpoints with cleaner output
 # Note: v2 is not used by frontend
 @app.route('/api/v2/companies/id/<company_id>', methods=['GET'])
+@is_admin
 def get_company_cleaner_schema(company_id):
     companies = mongo.db.companies
 
@@ -491,6 +539,7 @@ def get_company_cleaner_schema(company_id):
     return jsonify(output)
 
 @app.route('/api/v2/companies', methods=['GET'])
+@is_admin
 def get_all_companies_cleaner_schema():
     companies = mongo.db.companies
 
@@ -510,7 +559,26 @@ def get_all_companies_cleaner_schema():
 # Private / sponsor routes #####################################################
 # All endpoints under the private routes should require the access token.
 
+# Second version of the company endpoints with cleaner output
+# Note: v2 is not used by frontend
+@app.route('/api/v2/companies/current_sponsor', methods=['GET'])
+def get_logged_in_company_cleaner_schema():
+    if 'user_type' in session and session['user_type'] == 'sponsor':
+        companies = mongo.db.companies
+
+        company_obj = companies.find_one({'company_name': {'$eq': session['name']}})
+        output = {
+            'company_id': str(company_obj['_id']),
+            'company_name': company_obj['company_name'],
+            'access_code': company_obj['access_code'],
+            'challenges': company_obj['challenges']
+        }
+        return jsonify(output)
+    else:
+        return 'Error: You are not authorized to complete that request.', 403
+
 @app.route('/api/projects/id/<project_id>/challenge_status', methods=['POST'])
+@is_sponsor_or_admin
 def update_project_challenge_status(project_id):
     projects = mongo.db.projects
 
@@ -545,6 +613,7 @@ def update_win_status(project_challenge_obj, company_name, challenge_name, didWi
     return project_challenge_obj
 
 @app.route('/api/projects/id/<project_id>/makeWinner', methods=['POST'])
+@is_sponsor_or_admin
 def make_winner(project_id):
     projects = mongo.db.projects
     companies = mongo.db.companies
@@ -586,6 +655,7 @@ def make_winner(project_id):
     return "Updated project " + project_id
 
 @app.route('/api/projects/id/<project_id>/makeNonWinner', methods=['POST'])
+@is_sponsor_or_admin
 def make_non_winner(project_id):
     projects = mongo.db.projects
     companies = mongo.db.companies
@@ -637,10 +707,10 @@ def return_session_info():
 @app.route('/api/login/sponsor', methods=['POST'])
 def sponsor_login():
     companies = mongo.db.companies
-    attempted_access_code = request.json['access_code']
+    attempted_access_code = request.json['access_code'].upper()
     if attempted_access_code == '':
         return "Access denied."
-    company_obj = companies.find_one({'access_code': re.compile(attempted_access_code, re.IGNORECASE)})
+    company_obj = companies.find_one({'access_code': {'$eq': attempted_access_code.upper()}})
     if company_obj == None:
         return "Access denied."
     else:
@@ -651,7 +721,7 @@ def sponsor_login():
 
 @app.route('/api/login/admin', methods=['POST'])
 def admin_login():
-    attempted_access_code = request.json['access_code']
+    attempted_access_code = request.json['access_code'].upper()
     if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE']:
         return "Access denied."
     else:
@@ -669,3 +739,8 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.debug')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)

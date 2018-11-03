@@ -132,7 +132,9 @@ class ProjectColumn extends Component {
         </div>
         { this.props.origin === "home" ?
           <Fragment>
-            <div className="challenges-won">{challenges_won}</div>
+            {challenges_won.length > 0 &&
+              <div className="challenges-won">{challenges_won}</div>
+            }
             { attempted_challenges.length > 0 ?
               <Fragment>
                 { this.props.width < 460 ? <hr className="attempted-challenges"/> : <Fragment></Fragment> }
@@ -372,7 +374,7 @@ export class Table extends Component {
             <tbody>
             {
             this.props.data.map((object)=>{
-              console.log(object);
+
               return(
                 <tr>
                 <td>{object.project_name}</td>
@@ -380,14 +382,13 @@ export class Table extends Component {
                 <td>{object.table_number}</td>
                 <td>{object.challenges.map((item,index)=>{
                   if(index !== object.challenges.length-1){
-                    //console.log(index);
-                    console.log(object.challenges.length)
+
                     return(
                       item.challenge_name +', '
                     )
                   }
                   else{
-                    console.log(index);
+                    
                     return(
                       item.challenge_name
                     )

@@ -89,10 +89,10 @@ class Home extends React.Component{
 //     this.handleChange = this.handleChange.bind(this);
 //   }
 //   handleChange(e){
-//     console.log(e.target.name)
+//
 //     if(e.target.name === 'input'){
 //     let val =(e.target.value)
-//     console.log(val);
+//
 //     let updatedList = this.state.data;
 //     updatedList = updatedList.filter((item)=>{
 //       return item.project_name.toLowerCase().indexOf(val.toLowerCase()) !==-1;
@@ -133,13 +133,13 @@ class Home extends React.Component{
 //       if(val==="Challenges")
 //       return true
 //       else{
-//         console.log(challenges_data.indexOf(val) >-1)
+//
 //       return challenges_data.indexOf(val) >-1
 //       }
 //     })
 
 //     this.setState(()=>{
-//       console.log(updatedList);
+//       
 //       return({
 //         workingdata: updatedList
 //       }
