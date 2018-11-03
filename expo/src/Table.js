@@ -131,8 +131,10 @@ class ProjectColumn extends Component {
         </div>
         { this.props.origin === "home" ?
           <Fragment>
-            {challenges_won.length > 0 &&
+            { challenges_won.length > 0 ?
               <div className="challenges-won">{challenges_won}</div>
+              :
+              <Fragment></Fragment>
             }
             { attempted_challenges.length > 0 ?
               <Fragment>
