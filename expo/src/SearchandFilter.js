@@ -30,19 +30,6 @@ class SearchandFilter extends Component {
       this.updateDimensions = this.updateDimensions.bind(this);
     }
 
-    checkReveal() {
-      axiosRequest.get('api/projects/publish_winners_status')
-        .then((status) => {
-          this.setState({
-            winnersRevealed: status == "True"
-          })
-        });
-    }
-
-    componentWillMount() {
-      this.checkReveal();
-    }
-
     updateDimensions() {
       this.setState({ width: window.innerWidth});
     }
@@ -60,6 +47,9 @@ class SearchandFilter extends Component {
             challenges: challenge_data,
             workingdata: this.setSponsorWorkingData(project_data['projects'],challenge_data)
           });
+        });
+        this.setState({
+          winnersRevealed: project_data['publish_winners']
         });
       });
 
