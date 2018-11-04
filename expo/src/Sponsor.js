@@ -89,7 +89,6 @@ export class SubmitModal extends Component {
               </ul>
             </div>
             <div class="modal-footer">
-              <button className="button button-secondary" data-dismiss="modal">Cancel</button>
               { votes.length > vote_limit ?
                 <button className="button button-primary" disabled>Submit</button>
                 :
@@ -100,6 +99,7 @@ export class SubmitModal extends Component {
                 Submit
                 </button>
               }
+              <button className="button button-secondary" data-dismiss="modal">Cancel</button>
             </div>
           </div>
         </div>
