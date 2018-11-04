@@ -108,9 +108,10 @@
   border-bottom: 3px solid #1c1c1c;
   margin-top: -1px;
   box-shadow: none;
+  margin-left: 7px;
 }
 
-#Sponsor div.task-header h5 {
+#Sponsor div.task-header h5, p {
   margin-left: 7px;
 }
 

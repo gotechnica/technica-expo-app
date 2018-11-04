@@ -3,6 +3,7 @@ import axiosRequest from './Backend.js';
 
 import { VotingTable, WelcomeHeader } from './Sponsor.js';
 import Table from './Table.js';
+import SmallerParentheses from './SmallerParentheses.js';
 
 import './Card.css';
 import './SliderOption.css';
@@ -264,7 +265,10 @@ class SearchandFilter extends Component {
           <div class="card">
             { this.props.origin === 'sponsor' ?
               <div class="card-header">
-                <h5>{this.props.title}</h5>
+                <h5>
+                  Select Your Challenge Winner
+                  <SmallerParentheses font_size="15px">s</SmallerParentheses>
+                </h5>
               </div>
               :
               <div style={{marginTop:"15px"}}></div>}
@@ -281,11 +285,7 @@ class SearchandFilter extends Component {
                   </div>
                   <div className="form-row">
                     <div style={{margin:"0px 5px", width:"100%"}}>
-                      { this.props.origin === "home" ?
-                        <Fragment></Fragment>
-                        :
-                        <div style={{ marginBottom: "5px" }}>Select a Challenge to Vote For</div>
-                      }
+                      <div style={{ marginBottom: "5px" }}>Filter by challenge</div>
                       {select}
                     </div>
                   </div>
