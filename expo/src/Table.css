@@ -173,16 +173,6 @@
   word-break: break-word;
 }
 
-.sponsor-voting-button-container {
-  float: right;
-}
-
-@media screen and (max-width: 475px) {
-  .sponsor-voting-button-container {
-    float: none !important;
-  }
-}
-
 @media screen and (max-width: 319px) {
   #Home div.attempted-challenges button,
   #Home div.challenges-won div {

@@ -88,12 +88,12 @@ export class SubmitModal extends Component {
                 { votes.length > 0 ? votes : <li>No Projects Selected</li>}
               </ul>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer float-right-desktop">
               { votes.length > vote_limit ?
-                <button className="button button-primary" disabled>Submit</button>
+                <button className="button button-primary m-r-m" disabled>Submit</button>
                 :
                 <button
-                  className="button button-primary"
+                  className="button button-primary m-r-m"
                   data-dismiss="modal"
                   onClick={this.props.submit_handler.bind(this,this.props.company_id, this.props.challenge_id, this.props.value, this.props.after_submission_handler)}>
                 Submit

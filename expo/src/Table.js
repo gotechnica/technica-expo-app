@@ -328,12 +328,12 @@ export class Table extends Component {
           </tbody>
         </table>
         {this.props.origin === "sponsor" ? ( this.props.sponsor_data[this.props.value].votes_submitted ?
-        <div>
-          <button className="button button-primary submit" disabled>Submit</button>
+        <div className="float-right-desktop">
+          <button className="button button-primary submit m-r-m" disabled>Submit</button>
           <button className="button button-secondary clear" disabled>Clear</button>
         </div>
         :
-        <div className="sponsor-voting-button-container">
+        <div className="float-right-desktop">
           <button className="button button-primary submit m-r-m" data-toggle="modal" data-target="#submitModal">Submit</button>
           <button className="button button-secondary clear" onClick={this.props.clear}>Clear</button>
           <SubmitModal
