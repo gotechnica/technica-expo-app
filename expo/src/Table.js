@@ -92,6 +92,7 @@ class ProjectColumn extends Component {
             challenge_name = {challenge.challenge_name}
             won={challenge.won}
             width={this.props.width}
+            winnersRevealed={this.props.winnersRevealed}
           />;
 
         if (challenge.won && this.props.winnersRevealed) {
@@ -168,7 +169,7 @@ class ChallengeCard extends Component {
     (' | ' + this.props.company) :
     <Fragment><br/>{this.props.company}</Fragment>);
     return (
-      this.props.won ?
+      this.props.won && this.props.winnersRevealed ?
       ( this.props.width >= 460 ?
         <div className="btn-group">
           <button className="btn" disabled>

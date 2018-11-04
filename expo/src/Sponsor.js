@@ -37,9 +37,8 @@ export class SubmitModal extends Component {
           iconstyle: "fa-times-circle",
           message:
             <Fragment>
-              Error: Too many projects selected, only {vote_limit} project
-              {vote_limit > 1 ? 's' : ''}
-              &nbsp;may be selected to win this challenge.
+              Oops! Seems too many projects are currently selected, but only {vote_limit} project
+              {vote_limit > 1 ? 's' : ''} may win {this.props.value}.
             </Fragment>
         },
         warning:
@@ -129,7 +128,7 @@ class Task extends Component {
             <FontAwesomeIcon icon={circle} className="fa-circle" />
           </button>
           <button className="task-title">
-            Place votes for {this.props.challenge}
+            Select winners for {this.props.challenge}
           </button>
         </div>
         { winners.length > 0 ?
