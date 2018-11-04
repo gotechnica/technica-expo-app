@@ -181,3 +181,13 @@ html {
 .float-right {
   float: right;
 }
+
+.float-right-desktop {
+  float: right;
+}
+
+@media screen and (max-width: 475px) {
+  .float-right-desktop {
+    float: none !important;
+  }
+}

@@ -6,6 +6,7 @@ import SmallerParentheses from './SmallerParentheses.js';
 import { SubmitModal } from './Sponsor.js';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import './Table.css';
 
 import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
@@ -330,14 +331,14 @@ export class Table extends Component {
           </tbody>
         </table>
         {this.props.origin === "sponsor" ? ( this.props.sponsor_data[this.props.value].votes_submitted ?
-        <div>
+        <div className="float-right-desktop">
+          <button className="button button-primary submit m-r-m" disabled>Submit</button>
           <button className="button button-secondary clear" disabled>Clear</button>
-          <button className="button button-primary submit" disabled>Submit</button>
         </div>
         :
-        <div>
+        <div className="float-right-desktop">
+          <button className="button button-primary submit m-r-m" data-toggle="modal" data-target="#submitModal">Submit</button>
           <button className="button button-secondary clear" onClick={this.props.clear}>Clear</button>
-          <button className="button button-primary submit" data-toggle="modal" data-target="#submitModal">Submit</button>
           <SubmitModal
             value={this.props.value}
             votes={selections}
