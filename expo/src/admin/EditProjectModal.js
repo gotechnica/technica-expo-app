@@ -42,7 +42,7 @@ class EditProjectModal extends Component {
       challengeStore.push(challenge);
     })
   }
-  
+
   toggleConfirmation() {
     this.setState({showConfirmation: !this.state.showConfirmation});
   }
@@ -230,7 +230,7 @@ class EditProjectModal extends Component {
           </div>
           {this.state.showConfirmation ?
             <ConfirmationButton
-              elementToDelete={this.state.project_name} 
+              elementToDelete={this.state.project_name}
               deleteElement={this.deleteProject}
               toggleConfirmation={this.toggleConfirmation}
             />
@@ -246,22 +246,24 @@ class EditProjectModal extends Component {
                     </button>
                 </div>
                 <div>
+
                   <button type="button"
-                    className="button button-primary m-r-s"
+                    className="button button-secondary m-r-s"
+                    onClick = {(e) => {this.cancelProject(e)}}
+                    id={"btnCancelEditProjectModal" + this.props.editID}
+                    data-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+
+                  <button type="button"
+                    className="button button-primary"
                     onClick={
                       (event) => {
                         this.saveProject(event);
                       }
                     }>
                     Save
-                  </button>
-                  <button type="button"
-                    className="button button-secondary"
-                    onClick = {(e) => {this.cancelProject(e)}}
-                    id={"btnCancelEditProjectModal" + this.props.editID}
-                    data-dismiss="modal"
-                  >
-                    Cancel
                   </button>
                 </div>
               </div>

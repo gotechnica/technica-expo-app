@@ -168,21 +168,23 @@ class EditChallengeModal extends Component {
                       </button>
                   </div>
                   <div>
+
                     <button
                       type="button"
-                      className="button button-primary m-r-s"
-                      onClick={(event) => {
-                        this.saveChallenge(event);
-                      }}>
-                      Save
-                    </button>
-                    <button
-                      type="button"
-                      className="button button-secondary"
+                      className="button button-secondary m-r-s"
                       id={"btnHideCreateChallengeModal" + this.props.editID}
                       data-dismiss="modal"
                     >
                       Cancel
+                    </button>
+
+                    <button
+                      type="button"
+                      className="button button-primary"
+                      onClick={(event) => {
+                        this.saveChallenge(event);
+                      }}>
+                      Save
                     </button>
                   </div>
                 </div>

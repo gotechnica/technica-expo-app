@@ -217,13 +217,13 @@ class ProjectModule extends Component {
     console.log(this.state.warning_modal)
   }
   deleteAllProjects = () => {
-    // if (window.confirm('Are you sure you want to remove ALL projects from your database?')) 
-    //   if (window.confirm('This action is not reversable.')) 
+    // if (window.confirm('Are you sure you want to remove ALL projects from your database?'))
+    //   if (window.confirm('This action is not reversable.'))
         axiosRequest.delete('api/projects/deleteAll')
           .then(() => {
             this.props.loadProjects();
           });
-        
+
   }
 
   renderEditProjectModal = (elt, index, allChallenges, map) => {
@@ -571,11 +571,7 @@ class SponsorModule extends Component {
                       </span>
                     </div>
 
-                      <div className="d-flex">
-                        <span className="sponsor-subhead">
-                          {elt.company_name + "'s challenges"}
-                        </span>
-                        <span className="ml-auto">
+                      <div>
                           <CreateChallengeModal
                             createID={"modalCreateChallenge"+key.toString()}
                             company={elt.company_name}
@@ -590,7 +586,6 @@ class SponsorModule extends Component {
                           >
                             Create Challenge
                           </button>
-                        </span>
                       </div>
 
                     {elt.challenges.map((challenge,i) => {
@@ -826,7 +821,7 @@ class SponsorModule extends Component {
           }
         })
         .catch((error) => {
-          
+
         });
     }
 
