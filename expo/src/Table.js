@@ -16,6 +16,7 @@ library.add(faCheckSquare);
 library.add(faSquare);
 
 
+
 export class CheckBoxColumn extends Component {
   render() {
     let checkbox = ( this.props.checked ? faCheckSquare : faSquare);
@@ -183,9 +184,8 @@ class ChallengeCard extends Component {
         </div>
         :
         <div>
-          <img src={TechnicaRibbon} className="Ribbon"/>
           <b>{this.props.challenge_name}</b>
-          {text}
+          {text} <img src={TechnicaRibbon} className="Ribbon"/>
         </div>
       )
       :
@@ -332,13 +332,13 @@ export class Table extends Component {
         </table>
         {this.props.origin === "sponsor" ? ( this.props.sponsor_data[this.props.value].votes_submitted ?
         <div className="float-right-desktop">
-          <button className="button button-primary submit m-r-m" disabled>Submit</button>
-          <button className="button button-secondary clear" disabled>Clear</button>
+          <button className="button button-secondary clear m-r-m" disabled>Clear</button>
+          <button className="button button-primary submit" disabled>Submit</button>
         </div>
         :
         <div className="float-right-desktop">
-          <button className="button button-primary submit m-r-m" data-toggle="modal" data-target="#submitModal">Submit</button>
-          <button className="button button-secondary clear" onClick={this.props.clear}>Clear</button>
+          <button className="button button-secondary clear m-r-m" onClick={this.props.clear}>Clear</button>
+          <button className="button button-primary submit" data-toggle="modal" data-target="#submitModal">Submit</button>
           <SubmitModal
             value={this.props.value}
             votes={selections}
