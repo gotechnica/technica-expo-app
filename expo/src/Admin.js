@@ -45,7 +45,8 @@ class ProjectModule extends Component {
       tableEndLetter: '',
       tableEndNumber: 0,
       skipEveryOtherTable: true,
-      warning_modal:true
+      warning_modal:true,
+      viewable:true
     }
     this.warning = this.warning.bind(this);
   }
@@ -244,6 +245,20 @@ class ProjectModule extends Component {
     );
   }
 
+  toggleView() {
+    if(this.state.viewable) {
+      this.setState({
+        viewable:false
+      });
+      document.getElementById("project-content").style.display="none";
+    } else {
+      this.setState({
+        viewable:true
+      });
+      document.getElementById("project-content").style.display="block";
+    }
+  }
+
   render() {
     let filteredProjects = this.sortData();
     let allChallenges = this.createAllChallenges(filteredProjects);
@@ -259,10 +274,19 @@ class ProjectModule extends Component {
     return (
       <div className="card">
         <div className="card-header">
+          <div className="d-flex">
           <h4>Projects</h4>
+            <span className="ml-auto">
+              <button className="link-button"
+                type="button"
+                onClick={()=> {this.toggleView()}}>
+                {!this.state.viewable ? "Show" : "Hide"}
+              </button>
+            </span>
+          </div>
         </div>
 
-        <div className="card-body">
+        <div className="card-body" id="project-content">
           <h5>Seed Database</h5>
           <form
             method="post"
