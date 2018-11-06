@@ -86,13 +86,7 @@ class CreateProjectModal extends Component {
           </div>
 
           <div className="modal-footer">
-            <button
-              type="button"
-              className="button button-primary"
-              onClick={this.createProject}
-            >
-              Create
-            </button>
+
             <button
               type="button"
               className="button button-secondary"
@@ -100,6 +94,14 @@ class CreateProjectModal extends Component {
               data-dismiss="modal"
             >
               Cancel
+            </button>
+
+            <button
+              type="button"
+              className="button button-primary"
+              onClick={this.createProject}
+            >
+              Create
             </button>
           </div>
 

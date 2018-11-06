@@ -1,3 +1,6 @@
+h5 {
+  font-weight: bold;
+}
 
 .sponsor-name {
   color: #FF7BAC;
@@ -121,8 +124,8 @@
   text-align: center;
 }
 .yes {
-  margin-left: 1rem;
-  margin-right: 3rem;
+  /*margin-left: 1rem;
+  margin-right: 3rem;*/
   width: 6rem;
 }
 

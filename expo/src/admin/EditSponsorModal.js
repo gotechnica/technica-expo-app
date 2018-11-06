@@ -181,19 +181,29 @@ class EditSponsorModal extends Component {
                       </button>
                   </div>
                   <div>
+
                     <button
                       type="button"
-                      className="button button-primary m-r-s"
-                      onClick={this.saveSponsor}>
-                      Save
-                    </button>
-                    <button
-                      type="button"
-                      className="button button-secondary"
+                      className="button button-secondary m-r-s"
                       id={"btnCancelEditSponsorModal" + this.props.editID}
                       data-dismiss="modal"
+                      onClick={()=>{this.setState({
+                        access_code: this.props.sponsorCode,
+                        invalid_access: false,
+                        company_name: this.props.sponsorName,
+                        missing_access: false,
+                        missing_company: false,
+                        showConfirmation: false
+                      });}}
                     >
                       Cancel
+                    </button>
+
+                    <button
+                      type="button"
+                      className="button button-primary"
+                      onClick={this.saveSponsor}>
+                      Save
                     </button>
                   </div>
                 </div>

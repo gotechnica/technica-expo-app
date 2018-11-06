@@ -42,7 +42,7 @@ class EditProjectModal extends Component {
       challengeStore.push(challenge);
     })
   }
-  
+
   toggleConfirmation() {
     this.setState({showConfirmation: !this.state.showConfirmation});
   }
@@ -53,6 +53,20 @@ class EditProjectModal extends Component {
       if(checkboxes[i].children[0].checked == true && checkboxes[i].children[0].disabled == false)
         checkboxes[i].children[0].checked = false;
     }
+
+    // Restore this.state
+    this.setState({
+      project_id : this.props.projectID,
+      project_name: this.props.project_name,
+      table_number: this.props.project_table,
+      project_url: this.props.url,
+      challenges: this.props.challenges,
+      allChallenges: this.props.allChallenges,
+      error: false,
+      company_map:this.props.company_map,
+      editable: true,
+      showConfirmation: false
+    });
 
   }
   saveProject(e) {
@@ -230,7 +244,7 @@ class EditProjectModal extends Component {
           </div>
           {this.state.showConfirmation ?
             <ConfirmationButton
-              elementToDelete={this.state.project_name} 
+              elementToDelete={this.state.project_name}
               deleteElement={this.deleteProject}
               toggleConfirmation={this.toggleConfirmation}
             />
@@ -246,22 +260,24 @@ class EditProjectModal extends Component {
                     </button>
                 </div>
                 <div>
+
                   <button type="button"
-                    className="button button-primary m-r-s"
+                    className="button button-secondary m-r-s"
+                    onClick = {(e) => {this.cancelProject(e)}}
+                    id={"btnCancelEditProjectModal" + this.props.editID}
+                    data-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+
+                  <button type="button"
+                    className="button button-primary"
                     onClick={
                       (event) => {
                         this.saveProject(event);
                       }
                     }>
                     Save
-                  </button>
-                  <button type="button"
-                    className="button button-secondary"
-                    onClick = {(e) => {this.cancelProject(e)}}
-                    id={"btnCancelEditProjectModal" + this.props.editID}
-                    data-dismiss="modal"
-                  >
-                    Cancel
                   </button>
                 </div>
               </div>

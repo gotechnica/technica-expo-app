@@ -168,21 +168,32 @@ class EditChallengeModal extends Component {
                       </button>
                   </div>
                   <div>
+
                     <button
                       type="button"
-                      className="button button-primary m-r-s"
+                      className="button button-secondary m-r-s"
+                      id={"btnHideCreateChallengeModal" + this.props.editID}
+                      data-dismiss="modal"
+                      onClick={()=>{
+                        this.setState({
+                          winner_error: false,
+                          missing_fields: false,
+                          challenge_title: this.props.challengeTitle,
+                          num_winners: this.props.numWinners,
+                          showConfirmation: false
+                        });
+                      }}
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      type="button"
+                      className="button button-primary"
                       onClick={(event) => {
                         this.saveChallenge(event);
                       }}>
                       Save
-                    </button>
-                    <button
-                      type="button"
-                      className="button button-secondary"
-                      id={"btnHideCreateChallengeModal" + this.props.editID}
-                      data-dismiss="modal"
-                    >
-                      Cancel
                     </button>
                   </div>
                 </div>

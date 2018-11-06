@@ -25,8 +25,8 @@ class WarningModal extends Component {
                             <p className = "modal_warning_text">Are you Sure you want to delete all projects?</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="button button-primary yes" onClick = {this.onChange}>Yes</button>
                             <button type="button" class="button button-secondary no" data-dismiss="modal">No</button>
+                            <button type="button" class="button button-primary yes" onClick = {this.onChange}>Yes</button>
                         </div>
                     </div>
                 </div>

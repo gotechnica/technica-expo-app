@@ -15,6 +15,7 @@ class SearchandFilter extends Component {
       super(props);
 
       this.state = {
+        isLoadingData: true,
         data: [],
         value: "",
         textSearch: "",
@@ -46,7 +47,8 @@ class SearchandFilter extends Component {
           this.setState({
             data: sortByTableNumber(project_data['projects'], !tableNumbersAreOnlyNumeric),
             challenges: challenge_data,
-            workingdata: this.setSponsorWorkingData(project_data['projects'],challenge_data)
+            workingdata: this.setSponsorWorkingData(project_data['projects'],challenge_data),
+            isLoadingData: false,
           });
         });
         this.setState({
@@ -216,6 +218,7 @@ class SearchandFilter extends Component {
         this.props.origin === "home" ?
           <div id="Home">
             <Table
+              isLoadingData={this.state.isLoadingData}
               projects={this.state.workingdata}
               value={this.state.value}
               show_attempted_challenges={this.state.toggle_off}
@@ -228,6 +231,7 @@ class SearchandFilter extends Component {
           <VotingTable
             company={this.props.loggedIn}
             company_id={this.props.company_id}
+            isLoadingData={this.state.isLoadingData}
             projects={this.state.workingdata}
             voting_data={voting_data}
             sponsor_data={this.props.sponsor_data}
