@@ -438,7 +438,8 @@ class SponsorModule extends Component {
     super(props);
     this.state = {
       textSearch:'',
-      sponsors:[]
+      sponsors:[],
+      viewable: true
     }
   }
 
@@ -449,6 +450,20 @@ class SponsorModule extends Component {
           sponsors: sponsors
         })
       });
+  }
+
+  toggleView() {
+    if(this.state.viewable) {
+      this.setState({
+        viewable:false
+      });
+      document.getElementById("sponsor-content").style.display="none";
+    } else {
+      this.setState({
+        viewable:true
+      });
+      document.getElementById("sponsor-content").style.display="block";
+    }
   }
 
   // Pull data for sponsor list
@@ -523,9 +538,18 @@ class SponsorModule extends Component {
       return (
         <div className="card">
           <div className="card-header">
-            <h4>Sponsors</h4>
+            <div className="d-flex">
+              <h4>Sponsors</h4>
+              <span className="ml-auto">
+                <button className="link-button"
+                  type="button"
+                  onClick={()=> {this.toggleView()}}>
+                  {!this.state.viewable ? "Show" : "Hide"}
+                </button>
+              </span>
+            </div>
           </div>
-          <div className="card-body">
+          <div className="card-body" id="sponsor-content">
             <CreateSponsorModal
               createID="modalCreateSponsor"
               onCreate={this.loadCompanies.bind(this)}
