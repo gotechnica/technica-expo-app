@@ -45,21 +45,37 @@ If you're working on improving the Flask app, please use PEP 8 Python style
 guide! You can find the linter for Atom
 [here](https://atom.io/packages/linter-python-pep8).
 
-## How to Use
+## Hackathon Organizer Playbook
 
-### Admin Instructions
+### Before the Hackathon
 
-1. Create your Devpost and add your sponsor's challenges (or your own!) - make
-   sure to follow the [Devpost Guidelines](#devpost-guidelines) outlined below!
-2. Log in as `admin` and add sponsors and assign unique access codes.
-3. Add the challenges to each sponsor (*important:* when naming the challenge,
-   make sure it is exactly the same string as you created in Devpost, but remove
-   the ` - company_name` portion (e.g. if you have a challenge in Devpost that
-   says `Best Hack to Transform Transportation - Lyft`, you should add a
-   challenge of the name `Best Hack to Transform Transportation` in the admin
-   console))
+- Deploy all of the services for this expo app.
+- Create your Devpost and add your sponsor's challenges (or your own!) - make
+  sure to follow the [Devpost Guidelines](#devpost-guidelines) outlined below!
+- Log in as `admin` and add sponsors and assign unique access codes (or leave
+  blank input boxes to auto-generate an unique 8-character access code).
+- Add the challenges to each sponsor (*important:* when naming the challenge,
+  make sure it is exactly the same string as you created in Devpost, but remove
+  the ` - company_name` portion (e.g. if you have a challenge in Devpost that
+  says `Best Hack to Transform Transportation - Lyft`, you should add a
+  challenge of the name `Best Hack to Transform Transportation` in the admin
+  console)).
+- Prepare some form of communication to give your sponsors their access codes
+  and login link.
 
-### Sponsor Instructions
+### Before The Expo
+- Hold sponsor briefing to give winner selection instructions and guidelines.
+
+### After Devpost submission deadline ends
+- Export projects from Devpost in CSV format
+- Seed projects into DB via admin dashboard
+- Assign table numbers via admin dashboard
+
+### Monitoring expo progress
+- Sponsors should be actively submitting in their winner selections as they
+  finish judging their challenges - this can be monitored via the admin dashboard
+
+## Sponsor Instructions
 
 TODO
 
@@ -81,6 +97,7 @@ following these requirements may lead to unexpected behavior in your deployment.
   `api/config.py` file. This string should be labeled exactly as you configured in
   Devpost (e.g. `Does your hack need to stay at your current table? (i.e. hardware,
   VR/AR hacks). If so, what table number are you at?`).
+
 
 ## Deployment
 
