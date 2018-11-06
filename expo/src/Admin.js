@@ -676,7 +676,8 @@ class SponsorModule extends Component {
       this.state = {
         showPreview: false,
         data: [],
-        winnersRevealed: false
+        winnersRevealed: false,
+        missingWinners: []
       }
     }
 
@@ -723,13 +724,29 @@ class SponsorModule extends Component {
             }
           });
 
+          // Build list of sponsor - challenges without winners
+          let missingWinners = sponsors.filter(elt => {
+            return elt.challenge_name != undefined
+              && elt.winners.length == 0;
+          }).map(elt => {
+            return {
+              sponsor: elt.company_name,
+              challenge: elt.challenge_name
+            }
+          });
+
           this.setState({
             data: data.sort((s1, s2) => {
-              if(s1.sponsor_name == undefined || s1.sponsor_name == undefined) {
+              if(s1.sponsor == undefined || s1.sponsor == undefined) {
                 return 0;
               }
-
-              return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
+              return (s1.sponsor).localeCompare(s2.sponsor); }),
+            missingWinnerData: missingWinners.sort((s1,s2)=>{
+              if(s1.sponsor == undefined || s1.sponsor == undefined) {
+                return 0;
+              }
+              return (s1.sponsor).localeCompare(s2.sponsor);
+            })
           });
         });
     }
@@ -795,30 +812,75 @@ class SponsorModule extends Component {
             </div>
           </div>
           <div className="card-body">
-            <div className="d-flex m-b-m">
-                <div>
-                  <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
-                    {!this.state.showPreview ?
-                      "Preview Winners "
-                      :
-                      "Hide Winners "}
-                    {caret}
-                  </button>
-                </div>
-                <div className="ml-auto">
-                  {this.state.winnersRevealed ?
-                    <button type="button" className="button button-secondary"
-                      onClick={()=>{this.hideWinners()}}>
-                      Hide Public Winners
-                    </button>
-                    :
-                    <button type="button" className="button button-primary"
-                      onClick={()=>{this.showWinners()}}>
-                      Reveal Public Winners
-                    </button>
-                  }
-                </div>
+
+            <div>
+             {this.state.winnersRevealed ?
+               <button type="button" className="button button-secondary"
+                 onClick={()=>{this.hideWinners()}}>
+                 Hide Public Winners
+               </button>
+               :
+               <button type="button" className="button button-primary"
+                 onClick={()=>{this.showWinners()}}>
+                 Reveal Public Winners
+               </button>
+             }
            </div>
+           <br/>
+           <div>
+             <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
+               {!this.state.showPreview ?
+                 "Preview Winners "
+                 :
+                 "Hide Winners "}
+               {caret}
+             </button>
+           </div>
+           <br/>
+
+           {
+             this.state.showPreview ?
+             <h5>
+               <img src="/static/media/technica_award_ribbon.c16e92fc.png"
+                 class="Ribbon" height="30px" width="30px"/>
+               NO WINNERS SUBMITTED
+               <img src="/static/media/technica_award_ribbon.c16e92fc.png"
+                 class="Ribbon" height="30px" width="30px"/>
+             </h5>
+             : ""
+           }
+
+             {
+               this.state.showPreview ?
+                 this.state.data.length == 0 ?
+                   "No winners have been selected"
+                   :
+                   this.state.missingWinnerData.map(elt=>{
+                     return (
+                       <div>
+                         {`[${elt.sponsor}] ${elt.challenge}`}
+                         <br/>
+                         <br/>
+                       </div>
+                     );
+                   })
+                 :
+                 ""
+             }
+
+             {
+               this.state.showPreview?
+               <h5>
+                 <img src="/static/media/technica_award_ribbon.c16e92fc.png"
+                   class="Ribbon" height="30px" width="30px"/>
+
+                 SUBMITTED WINNERS
+
+                 <img src="/static/media/technica_award_ribbon.c16e92fc.png"
+                   class="Ribbon" height="30px" width="30px"/>
+               </h5>
+               : ""
+             }
 
            {
              this.state.showPreview ?
