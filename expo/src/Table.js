@@ -352,7 +352,11 @@ export class Table extends Component {
       </Fragment>
       :
       <div className="card no-submissions">
-        <h2>No Submissions</h2>
+        {this.props.isLoadingData ? (
+          <h2>Loading projects...</h2>
+        ) : (
+          <h2>No Submissions</h2>
+        )}
       </div>
     );
   }

@@ -160,9 +160,11 @@ export class VotingTable extends Component {
     this.handleSubmitEvent = this.handleSubmitEvent.bind(this);
     this.handleClearEvent = this.handleClearEvent.bind(this);
     this.handleVoteEvent = this.handleVoteEvent.bind(this);
-    this.state = { checked: {},
-                   challenges: {},
-                   width:  window.innerWidth }
+    this.state = {
+      checked: {},
+      challenges: {},
+      width: window.innerWidth,
+    }
   }
 
   /* Force VotingTable component to re-render once GET requests were granted */
@@ -233,8 +235,10 @@ export class VotingTable extends Component {
   render() {
     return (
       <div style={{marginTop:"20px"}} id="Sponsor">
-        <Table headers={['Select','Table','Project']}
+        <Table
+          headers={['Select','Table','Project']}
           company_id={this.props.company_id}
+          isLoadingData={this.props.isLoadingData}
           projects={this.props.projects}
           value={this.props.value}
           checked={this.state.checked}
