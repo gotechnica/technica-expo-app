@@ -54,6 +54,20 @@ class EditProjectModal extends Component {
         checkboxes[i].children[0].checked = false;
     }
 
+    // Restore this.state
+    this.setState({
+      project_id : this.props.projectID,
+      project_name: this.props.project_name,
+      table_number: this.props.project_table,
+      project_url: this.props.url,
+      challenges: this.props.challenges,
+      allChallenges: this.props.allChallenges,
+      error: false,
+      company_map:this.props.company_map,
+      editable: true,
+      showConfirmation: false
+    });
+
   }
   saveProject(e) {
     //create challenges to POST
