@@ -174,6 +174,15 @@ class EditChallengeModal extends Component {
                       className="button button-secondary m-r-s"
                       id={"btnHideCreateChallengeModal" + this.props.editID}
                       data-dismiss="modal"
+                      onClick={()=>{
+                        this.setState({
+                          winner_error: false,
+                          missing_fields: false,
+                          challenge_title: this.props.challengeTitle,
+                          num_winners: this.props.numWinners,
+                          showConfirmation: false
+                        });
+                      }}
                     >
                       Cancel
                     </button>
