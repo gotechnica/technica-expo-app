@@ -45,11 +45,9 @@ class ProjectModule extends Component {
       tableEndLetter: '',
       tableEndNumber: 0,
       skipEveryOtherTable: true,
-      warning_modal:true,
       viewable:true,
     }
-    this.warning = this.warning.bind(this);
-    //this.deleteAllProjects = this.deleteAllProjects.bind(this);
+    this.deleteAllProjects = this.deleteAllProjects.bind(this);
   }
 
   createMap() {
@@ -202,11 +200,7 @@ class ProjectModule extends Component {
     }
   }
 
-  warning = () => {
-    this.setState({warning_modal:!this.state.warning_modal});
-    console.log(this.state.warning_modal)
-  }
-  deleteAllProjects = () => {
+  deleteAllProjects() {
     if (window.confirm('Are you sure you want to remove ALL projects from your database?'))
       if (window.confirm('This action is not reversable.'))
         axiosRequest.delete('api/projects/deleteAll')
@@ -385,13 +379,12 @@ class ProjectModule extends Component {
           <button
             className="button button-secondary m-b-m"
             type="button"
-            onClick={this.warning}
             data-toggle = "modal"
             data-target = "#modalWarning"
           >
             Delete ALL Projects
           </button>
-          {this.state.warning_modal ? <WarningModal deleteAllProjects = {this.deleteAllProjects}></WarningModal> : null}
+          <WarningModal deleteAllProjects={this.deleteAllProjects.bind(this)} />
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
