@@ -12,6 +12,16 @@
 #Sponsor .hoverable:hover {
   opacity: 1;
 }
+#Sponsor img.gradient-lightbulb {
+  height: 225px;
+  margin-top: -65px;
+  margin-right: -50px;
+}
+#Sponsor div.diversity-modal {
+  background-color: transparent;
+  color: white;
+  margin: 10px 10px 0px 10px;
+}
 /*=======================================*/
 #Sponsor table tr.voting-row td {
   padding: 5px 0px;

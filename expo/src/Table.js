@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
 import TechnicaRibbon from './imgs/technica_award_ribbon.png';
+import GradientLightbulb from './imgs/gradient-lightbulb.gif';
 import SmallerParentheses from './SmallerParentheses.js';
 import { SubmitModal } from './Sponsor.js';
 
@@ -19,20 +20,23 @@ class DiversifyWinnersModal extends Component {
 
   render() {
     return (
-      <div class="modal fade" id="diversifyWinnersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal fade bd-example-modal-sm" id="diversifyWinnersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Diversifying Winners</h5>
+            <div class="modal-header" style={{border: "0px solid"}}>
+
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-
+            <div class="modal-body diversity-modal">
+              <img src={GradientLightbulb} className="gradient-lightbulb" />
+              <div>
+              Our current numbers indicate that this project will win 2+ prizes this weekend. We recommend considering alternative projects to allow for more diversity in winners.
+              </div>
             </div>
-            <div class="modal-footer">
-              <button className="button button-primary" data-dismiss="modal">Ok</button>
+            <div class="modal-footer" style={{border: "0px solid", paddingTop:"0px"}}>
+              <button className="button button-primary" data-dismiss="modal">OK</button>
             </div>
           </div>
         </div>
@@ -94,10 +98,12 @@ export class CheckBoxColumn extends Component {
     );
     return (
       <td>
-        <label data-toggle="modal"
-        data-target="#diversifyWinnersModal">{CustomCheckbox}</label>
+
+        { this.props.num_challenges_won >= 2 ? <label data-toggle="modal" data-target="#diversifyWinnersModal">{CustomCheckbox}</label>
+        :
+        <label>{CustomCheckbox}</label> }
         {input}
-        <DiversifyWinnersModal />
+        { this.props.num_challenges_won >= 2 ? <DiversifyWinnersModal /> : <Fragment></Fragment> }
       </td>
     );
   }
@@ -110,27 +116,8 @@ class ProjectColumn extends Component {
   }
 
   render() {
-    let attempted_challenges = [];
-    let challenges_won = [];
-    if (this.props.challenges !== undefined) {
-      this.props.challenges.forEach((challenge) => {
-          let challenge_card =
-          <ChallengeCard
-            company={challenge.company}
-            challenge_name = {challenge.challenge_name}
-            won={challenge.won}
-            width={this.props.width}
-            winnersRevealed={this.props.winnersRevealed}
-          />;
-
-        if (challenge.won && this.props.winnersRevealed) {
-            challenges_won.push(challenge_card);
-          } else {
-            attempted_challenges.push(challenge_card);
-          }
-        }
-      );
-    }
+    let attempted_challenges = this.props.attempted_challenges;
+    let challenges_won = this.props.challenges_won;
     let colors = ["#FF7BAC","#B6A1C7","#17E3E3"];
     let index = this.props.counter % 3;
     return (
@@ -226,7 +213,32 @@ class ChallengeCard extends Component {
 }
 
 export class Row extends Component {
+
   render() {
+    let attempted_challenges = [];
+    let challenges_won = [];
+    let winner_count = 0;
+    if (this.props.challenges !== undefined) {
+      this.props.challenges.forEach((challenge) => {
+          let challenge_card =
+          <ChallengeCard
+            company={challenge.company}
+            challenge_name = {challenge.challenge_name}
+            won={challenge.won}
+            width={this.props.width}
+            winnersRevealed={this.props.winnersRevealed}
+          />;
+
+        if (challenge.won) {
+          if (this.props.winnersRevealed) {
+            challenges_won.push(challenge_card);
+          }
+          winner_count += 1;
+        } else {
+          attempted_challenges.push(challenge_card);
+        }
+      });
+    }
     let table = ( this.props.width >= 460 ?
       <td className="Table-Number">{this.props.table_number === "" ? '-' : this.props.table_number}</td>
       :
@@ -239,6 +251,7 @@ export class Row extends Component {
             project_id={this.props.project_id}
             checked={this.props.checked}
             disabled={this.props.disabled}
+            num_challenges_won={winner_count}
           />
           :
           <Fragment></Fragment>
@@ -253,7 +266,8 @@ export class Row extends Component {
           origin={this.props.origin}
           counter={this.props.counter}
           show_attempted_challenges={this.props.show_attempted_challenges}
-          winnersRevealed={this.props.winnersRevealed}
+          attempted_challenges={attempted_challenges}
+          challenges_won={challenges_won}
         />
       </tr>
     );
@@ -297,6 +311,7 @@ export class Table extends Component {
             disabled = {this.props.sponsor_data[this.props.value].votes_submitted}
             origin={this.props.origin}
             width={this.state.width}
+            challenges = {project.challenges}
             winnersRevealed={this.props.winnersRevealed}
           />
           :
