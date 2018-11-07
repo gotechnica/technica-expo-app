@@ -45,10 +45,9 @@ class ProjectModule extends Component {
       tableEndLetter: '',
       tableEndNumber: 0,
       skipEveryOtherTable: true,
-      warning_modal:true,
-      viewable:true
+      viewable:true,
     }
-    this.warning = this.warning.bind(this);
+    this.deleteAllProjects = this.deleteAllProjects.bind(this);
   }
 
   createMap() {
@@ -63,12 +62,20 @@ class ProjectModule extends Component {
   }
   createAllChallenges(obj){
     let allChallenges = [];
-    obj.map((item)=>{
-      item.challenges.map((challenge)=>{
-        if(allChallenges.indexOf(challenge)===-1)
-          allChallenges.push(challenge);
-      })
-    })
+    for(let key in obj){
+     obj[key].map((item) => {
+       if(allChallenges.indexOf(item) === -1){
+         allChallenges.push(item);
+       }
+     })
+    }
+    allChallenges.sort();
+    // obj.map((item)=>{
+    //   item.challenges.map((challenge)=>{
+    //     if(allChallenges.indexOf(challenge)===-1)
+    //       allChallenges.push(challenge);
+    //   })
+    // })
     return allChallenges;
   }
   sortData(){
@@ -90,27 +97,7 @@ class ProjectModule extends Component {
           company_challenge: obj.challenges
         }
       )
-    //   if(obj.table_number !== seen){
-    //     finalProjectsData.push(
-    //       {
-    //         project_name: obj.project_name,
-    //         table_number: obj.table_number,
-    //         url: obj.url,
-    //         challenges: [obj.challenge_name],
-    //         checkVal: true
-    //       }
-    //     )
-    //   }
-    //   else{
-    //     finalProjectsData.map((item)=>{
-    //       if(item.table_number === seen){
-    //         item.challenges.push(obj.challenge_name);
-    //       }
-    //     })
-    //   }
-    //  seen = obj.table_number;
     })
-    this.createAllChallenges(finalProjectsData);
     return finalProjectsData;
   }
   onUploadCSVSubmitForm(e) {
@@ -213,18 +200,13 @@ class ProjectModule extends Component {
     }
   }
 
-  warning = () => {
-    this.setState({warning_modal:!this.state.warning_modal});
-    console.log(this.state.warning_modal)
-  }
-  deleteAllProjects = () => {
-    // if (window.confirm('Are you sure you want to remove ALL projects from your database?'))
-    //   if (window.confirm('This action is not reversable.'))
+  deleteAllProjects() {
+    if (window.confirm('Are you sure you want to remove ALL projects from your database?'))
+      if (window.confirm('This action is not reversable.'))
         axiosRequest.delete('api/projects/deleteAll')
           .then(() => {
             this.props.loadProjects();
           });
-
   }
 
   renderEditProjectModal = (elt, index, allChallenges, map) => {
@@ -261,7 +243,7 @@ class ProjectModule extends Component {
 
   render() {
     let filteredProjects = this.sortData();
-    let allChallenges = this.createAllChallenges(filteredProjects);
+    let allChallenges = this.createAllChallenges(this.props.challenges);
     let map = this.createMap();
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredProjects = filteredProjects.filter(elt => {
@@ -397,13 +379,12 @@ class ProjectModule extends Component {
           <button
             className="button button-secondary m-b-m"
             type="button"
-            onClick={this.warning}
             data-toggle = "modal"
             data-target = "#modalWarning"
           >
             Delete ALL Projects
           </button>
-          {this.state.warning_modal ? <WarningModal deleteAllProjects = {this.deleteAllProjects}></WarningModal> : null}
+          <WarningModal deleteAllProjects={this.deleteAllProjects.bind(this)} />
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
@@ -676,8 +657,7 @@ class SponsorModule extends Component {
       this.state = {
         showPreview: false,
         data: [],
-        winnersRevealed: false,
-        missingWinners: []
+        winnersRevealed: false
       }
     }
 
@@ -724,29 +704,13 @@ class SponsorModule extends Component {
             }
           });
 
-          // Build list of sponsor - challenges without winners
-          let missingWinners = sponsors.filter(elt => {
-            return elt.challenge_name != undefined
-              && elt.winners.length == 0;
-          }).map(elt => {
-            return {
-              sponsor: elt.company_name,
-              challenge: elt.challenge_name
-            }
-          });
-
           this.setState({
             data: data.sort((s1, s2) => {
-              if(s1.sponsor == undefined || s1.sponsor == undefined) {
+              if(s1.sponsor_name == undefined || s1.sponsor_name == undefined) {
                 return 0;
               }
-              return (s1.sponsor).localeCompare(s2.sponsor); }),
-            missingWinnerData: missingWinners.sort((s1,s2)=>{
-              if(s1.sponsor == undefined || s1.sponsor == undefined) {
-                return 0;
-              }
-              return (s1.sponsor).localeCompare(s2.sponsor);
-            })
+
+              return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
           });
         });
     }
@@ -812,75 +776,30 @@ class SponsorModule extends Component {
             </div>
           </div>
           <div className="card-body">
-
-            <div>
-             {this.state.winnersRevealed ?
-               <button type="button" className="button button-secondary"
-                 onClick={()=>{this.hideWinners()}}>
-                 Hide Public Winners
-               </button>
-               :
-               <button type="button" className="button button-primary"
-                 onClick={()=>{this.showWinners()}}>
-                 Reveal Public Winners
-               </button>
-             }
+            <div className="d-flex m-b-m">
+                <div>
+                  <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
+                    {!this.state.showPreview ?
+                      "Preview Winners "
+                      :
+                      "Hide Winners "}
+                    {caret}
+                  </button>
+                </div>
+                <div className="ml-auto">
+                  {this.state.winnersRevealed ?
+                    <button type="button" className="button button-secondary"
+                      onClick={()=>{this.hideWinners()}}>
+                      Hide Public Winners
+                    </button>
+                    :
+                    <button type="button" className="button button-primary"
+                      onClick={()=>{this.showWinners()}}>
+                      Reveal Public Winners
+                    </button>
+                  }
+                </div>
            </div>
-           <br/>
-           <div>
-             <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
-               {!this.state.showPreview ?
-                 "Preview Winners "
-                 :
-                 "Hide Winners "}
-               {caret}
-             </button>
-           </div>
-           <br/>
-
-           {
-             this.state.showPreview ?
-             <h5>
-               <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                 class="Ribbon" height="30px" width="30px"/>
-               NO WINNERS SUBMITTED
-               <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                 class="Ribbon" height="30px" width="30px"/>
-             </h5>
-             : ""
-           }
-
-             {
-               this.state.showPreview ?
-                 this.state.data.length == 0 ?
-                   "No winners have been selected"
-                   :
-                   this.state.missingWinnerData.map(elt=>{
-                     return (
-                       <div>
-                         {`[${elt.sponsor}] ${elt.challenge}`}
-                         <br/>
-                         <br/>
-                       </div>
-                     );
-                   })
-                 :
-                 ""
-             }
-
-             {
-               this.state.showPreview?
-               <h5>
-                 <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                   class="Ribbon" height="30px" width="30px"/>
-
-                 SUBMITTED WINNERS
-
-                 <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                   class="Ribbon" height="30px" width="30px"/>
-               </h5>
-               : ""
-             }
 
            {
              this.state.showPreview ?
@@ -915,6 +834,7 @@ class SponsorModule extends Component {
         loggedIn: false,
         loggedInAs: '',
         projects: [],
+        challenges: ''
       };
       // LF6K3G6RR3Q4VX4S
       axiosRequest.get('api/whoami')
@@ -937,6 +857,7 @@ class SponsorModule extends Component {
 
     componentWillMount() {
       this.loadProjects();
+      this.loadChallenges();
     }
 
     loadProjects = () => {
@@ -949,6 +870,16 @@ class SponsorModule extends Component {
             projects: sortByTableNumber(projectData['projects'], !tableNumbersAreOnlyNumeric),
           });
         });
+    }
+
+    loadChallenges = () => {
+      axiosRequest.get('api/challenges')
+        .then((challengeData) => {
+          console.log(challengeData);
+          this.setState({
+            challenges: challengeData
+          })
+        })
     }
 
     logout() {
@@ -966,10 +897,10 @@ class SponsorModule extends Component {
             <div className="row">
               <div className="col">
                 <WinnerModule projects={this.state.projects} loadProjects={this.loadProjects} logout={this.logout.bind(this)}/>
-                <SponsorModule />
+                <SponsorModule/>
               </div>
               <div className="col">
-                <ProjectModule projects={this.state.projects} loadProjects={this.loadProjects} />
+                <ProjectModule projects={this.state.projects} loadProjects={this.loadProjects} loadChallenges ={this.loadChallenges} challenges={this.state.challenges}  />
               </div>
             </div>
           )

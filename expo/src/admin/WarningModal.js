@@ -6,10 +6,6 @@ class WarningModal extends Component {
     constructor(props) {
         super(props);
     }
-
-    onChange() {
-        this.props.deleteAllProjects();
-    }
     render() {
         return (
             <div class="modal fade" id = "modalWarning" role="dialog">
@@ -22,11 +18,11 @@ class WarningModal extends Component {
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p className = "modal_warning_text">Are you Sure you want to delete all projects?</p>
+                            <p className = "modal_warning_text">Are you sure you want to delete all projects?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="button button-secondary no" data-dismiss="modal">No</button>
-                            <button type="button" class="button button-primary yes" onClick = {this.onChange}>Yes</button>
+                            <button type="button" class="button button-primary yes" onClick={this.props.deleteAllProjects}>Yes</button>
                         </div>
                     </div>
                 </div>
