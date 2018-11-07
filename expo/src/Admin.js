@@ -46,11 +46,15 @@ class ProjectModule extends Component {
       tableEndNumber: 0,
       skipEveryOtherTable: true,
       warning_modal:true,
-      viewable:true
+      viewable:true,
     }
     this.warning = this.warning.bind(this);
+    this.deleteAllProjects = this.deleteAllProjects(this)
   }
 
+  sayHi() {
+    console.log("ji");
+  }
   createMap() {
     let companies = new Map();
     this.props.projects.map((obj)=>{
@@ -63,12 +67,20 @@ class ProjectModule extends Component {
   }
   createAllChallenges(obj){
     let allChallenges = [];
-    obj.map((item)=>{
-      item.challenges.map((challenge)=>{
-        if(allChallenges.indexOf(challenge)===-1)
-          allChallenges.push(challenge);
-      })
-    })
+    for(let key in obj){
+     obj[key].map((item) => {
+       if(allChallenges.indexOf(item) === -1){
+         allChallenges.push(item);
+       }
+     })
+    }
+    allChallenges.sort();
+    // obj.map((item)=>{
+    //   item.challenges.map((challenge)=>{
+    //     if(allChallenges.indexOf(challenge)===-1)
+    //       allChallenges.push(challenge);
+    //   })
+    // })
     return allChallenges;
   }
   sortData(){
@@ -90,27 +102,7 @@ class ProjectModule extends Component {
           company_challenge: obj.challenges
         }
       )
-    //   if(obj.table_number !== seen){
-    //     finalProjectsData.push(
-    //       {
-    //         project_name: obj.project_name,
-    //         table_number: obj.table_number,
-    //         url: obj.url,
-    //         challenges: [obj.challenge_name],
-    //         checkVal: true
-    //       }
-    //     )
-    //   }
-    //   else{
-    //     finalProjectsData.map((item)=>{
-    //       if(item.table_number === seen){
-    //         item.challenges.push(obj.challenge_name);
-    //       }
-    //     })
-    //   }
-    //  seen = obj.table_number;
     })
-    this.createAllChallenges(finalProjectsData);
     return finalProjectsData;
   }
   onUploadCSVSubmitForm(e) {
@@ -218,13 +210,12 @@ class ProjectModule extends Component {
     console.log(this.state.warning_modal)
   }
   deleteAllProjects = () => {
-    // if (window.confirm('Are you sure you want to remove ALL projects from your database?'))
-    //   if (window.confirm('This action is not reversable.'))
+    if (window.confirm('Are you sure you want to remove ALL projects from your database?'))
+      if (window.confirm('This action is not reversable.'))
         axiosRequest.delete('api/projects/deleteAll')
           .then(() => {
             this.props.loadProjects();
           });
-
   }
 
   renderEditProjectModal = (elt, index, allChallenges, map) => {
@@ -261,7 +252,7 @@ class ProjectModule extends Component {
 
   render() {
     let filteredProjects = this.sortData();
-    let allChallenges = this.createAllChallenges(filteredProjects);
+    let allChallenges = this.createAllChallenges(this.props.challenges);
     let map = this.createMap();
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredProjects = filteredProjects.filter(elt => {
@@ -853,6 +844,7 @@ class SponsorModule extends Component {
         loggedIn: false,
         loggedInAs: '',
         projects: [],
+        challenges: ''
       };
       // LF6K3G6RR3Q4VX4S
       axiosRequest.get('api/whoami')
@@ -875,6 +867,7 @@ class SponsorModule extends Component {
 
     componentWillMount() {
       this.loadProjects();
+      this.loadChallenges();
     }
 
     loadProjects = () => {
@@ -887,6 +880,16 @@ class SponsorModule extends Component {
             projects: sortByTableNumber(projectData['projects'], !tableNumbersAreOnlyNumeric),
           });
         });
+    }
+
+    loadChallenges = () => {
+      axiosRequest.get('api/challenges')
+        .then((challengeData) => {
+          console.log(challengeData);
+          this.setState({
+            challenges: challengeData
+          })
+        })
     }
 
     logout() {
@@ -904,10 +907,10 @@ class SponsorModule extends Component {
             <div className="row">
               <div className="col">
                 <WinnerModule projects={this.state.projects} loadProjects={this.loadProjects} logout={this.logout.bind(this)}/>
-                <SponsorModule />
+                <SponsorModule/>
               </div>
               <div className="col">
-                <ProjectModule projects={this.state.projects} loadProjects={this.loadProjects} />
+                <ProjectModule projects={this.state.projects} loadProjects={this.loadProjects} loadChallenges ={this.loadChallenges} challenges={this.state.challenges}  />
               </div>
             </div>
           )

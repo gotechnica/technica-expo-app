@@ -6,8 +6,7 @@ class WarningModal extends Component {
     constructor(props) {
         super(props);
     }
-
-    onChange() {
+    handleChange() {
         this.props.deleteAllProjects();
     }
     render() {
@@ -26,7 +25,7 @@ class WarningModal extends Component {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="button button-secondary no" data-dismiss="modal">No</button>
-                            <button type="button" class="button button-primary yes" onClick = {this.onChange}>Yes</button>
+                            <button type="button" class="button button-primary yes" onClick={this.handleChange}>Yes</button>
                         </div>
                     </div>
                 </div>
