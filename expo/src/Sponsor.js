@@ -12,15 +12,16 @@ import Table from './Table.js';
 import './App.css';
 import './Sponsor.css';
 
-import { faCircle, faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
-import { faCheckCircle, faCheckSquare, faExclamationTriangle, faTimesCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
+import { faCircle as faCircleSolid } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faCheckCircle, faCheck, faExclamationTriangle, faTimesCircle, faClipboardList } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
-library.add(faCheckSquare);
-library.add(faSquare);
 library.add(faTimesCircle);
 library.add(faCircle);
-library.add(faCheckCircle);
+library.add(faCheck);
 library.add(faExclamationTriangle);
+library.add(faClipboardList);
+library.add(faCircle, faCircleSolid);
 
 
 export class SubmitModal extends Component {
@@ -37,8 +38,7 @@ export class SubmitModal extends Component {
           iconstyle: "fa-times-circle",
           message:
             <Fragment>
-              Oops! Seems too many projects are currently selected, but only {vote_limit} project
-              {vote_limit > 1 ? 's' : ''} may win {this.props.value}.
+              Oops! We expected {vote_limit} winners for {this.props.value} but you've selected {votes.length}. If you want to select more than {vote_limit} winners, please see a Technica organizer!
             </Fragment>
         },
         warning:
@@ -46,12 +46,8 @@ export class SubmitModal extends Component {
             iconstyle: "fa-exclamation-triangle",
             message:
               <Fragment>
-                Warning: This challenge allows {vote_limit} winning project
-                {vote_limit > 1 ? 's' : ''}
-                , but
-                { votes.length === 0 ? ' none ' : (' only ' + votes.length) }
-                { votes.length === 1 ? ' was ' : ' were ' }
-                selected.
+                Just a heads up! {this.props.value} allows {vote_limit} winner{vote_limit > 1 ? 's' : ''}
+                , but { votes.length === 0 ? 'none are' : 'there ' + ( votes.length === 1 ? 'is' : 'are' ) + ' only ' + (votes.length)} currently selected.
               </Fragment>
           }
       };
@@ -80,9 +76,9 @@ export class SubmitModal extends Component {
                 <Fragment></Fragment>
               }
               <Error
-                technica_icon = {TechnicaIcon}
-                iconstyle = "technica-icon"
-                text="Attention: All submitted votes are final."
+                icon={modal.warning.icon}
+                iconstyle={modal.warning.iconstyle}
+                text="All submitted votes are final."
               />
               <h5 className="modal-challenge">
                 {this.props.value +  " Winner" + (votes.length > 1 ? "s" : "")}
@@ -119,9 +115,9 @@ class Task extends Component {
         winners.push(<li>{this.props.project_hash[project_id]}</li>);
       })
     }
-    let circle = this.props.submitted ? faCheckCircle : faCircle;
+    let circle = this.props.submitted ? faCheck : faClipboardList;
 
-    return(
+    return (
       <Fragment>
         <div className="btn-group task" role="group">
           <button className="task-icon">
