@@ -49,7 +49,7 @@ class ProjectModule extends Component {
       viewable:true,
     }
     this.warning = this.warning.bind(this);
-    this.deleteAllProjects = this.deleteAllProjects(this)
+    //this.deleteAllProjects = this.deleteAllProjects.bind(this);
   }
 
   createMap() {
