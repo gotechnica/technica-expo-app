@@ -13,18 +13,24 @@
   opacity: 1;
 }
 
-img.gradient-lightbulb {
+#diversifyWinnersModal img.gradient-lightbulb {
   height: 225px;
-  margin-top: -65px;
+  margin-top: -60px;
   margin-right: -50px;
+  margin-bottom: -20px;
 }
-div.diversity-modal {
+#diversifyWinnersModal div.diversity-modal {
   background-color: transparent;
   color: white;
   margin: 10px 10px 0px 10px;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
+  src: url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
 }
 /*=======================================*/
+#Sonsor table td.Trophy-Case {
+  font-size: 75px;
+}
 #Sponsor table tr.voting-row td {
   padding: 5px 0px;
 }
@@ -55,8 +61,6 @@ div.diversity-modal {
   border-left: 3px solid #B190CC;
   margin-left: 13px;
 }
-
-
 
 /* ======== [Override Technica Button Styles] ======= */
 #Sponsor button.button {

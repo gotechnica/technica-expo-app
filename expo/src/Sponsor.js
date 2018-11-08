@@ -232,7 +232,7 @@ export class VotingTable extends Component {
     return (
       <div style={{marginTop:"20px"}} id="Sponsor">
         <Table
-          headers={['Select','Table','Project']}
+          headers={['Select','Table','Challenges Won','Project']}
           company_id={this.props.company_id}
           isLoadingData={this.props.isLoadingData}
           projects={this.props.projects}

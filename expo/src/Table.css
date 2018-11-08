@@ -6,7 +6,7 @@
 }
 
 /* Technica Winning Ribbon */
-#Home img.Ribbon {
+#Home img.Ribbon, #Sponsor img.Ribbon {
   height: 30px;
   width: 30px;
   margin-right: 7px;

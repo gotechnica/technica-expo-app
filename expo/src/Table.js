@@ -20,18 +20,19 @@ class DiversifyWinnersModal extends Component {
 
   render() {
     return (
-      <div class="modal fade bd-example-modal-sm" id="diversifyWinnersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-          <div class="modal-content">
+      <div class="modal fade bd-example-modal-sm" id="diversifyWinnersModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+          <div class="modal-content" style={{border: "0px solid"}}>
             <div class="modal-header" style={{border: "0px solid"}}>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body diversity-modal">
+            <div class="modal-body" style={{color: "white", textAlign:"center"}}>
               <img src={GradientLightbulb} className="gradient-lightbulb" />
-              <div>
-              Our current numbers indicate that this project will win 2+ prizes this weekend. We recommend considering alternative projects to allow for more diversity in winners.
+              <div className="diversity-modal">
+                Our current numbers indicate that this project will win 2+ prizes this weekend.
+                We recommend considering alternative projects to allow for more diversity in winners.
               </div>
             </div>
             <div class="modal-footer" style={{border: "0px solid", paddingTop:"0px"}}>
@@ -139,6 +140,8 @@ class ProjectColumn extends Component {
             :
             <Fragment></Fragment>
           }
+          { /*this.props.num_challenges_won > 0 && this.props.origin === "sponsor" ?
+          <div className="Trophy-Case"><img src={TechnicaRibbon} className="Ribbon" style={{height:"20px",width:"20px"}}/>Challenges Won: {this.props.num_challenges_won}</div> : <Fragment></Fragment>*/}
         </div>
         { this.props.origin === "home" ?
           <Fragment>
@@ -264,6 +267,15 @@ export class Row extends Component {
           attempted_challenges={attempted_challenges}
           challenges_won={challenges_won}
         />
+        {this.props.origin === "sponsor" ?
+        <td className="Trophy-Case" style={{fontSize:"35px",fontWeight:"bold",textAlign:"center"}}>
+        {winner_count > 0 ?
+          <Fragment>
+            <img src={TechnicaRibbon} style={{height:"40px",marginRight:"10px"}}/>
+            {winner_count}
+          </Fragment>
+        :<Fragment></Fragment>}
+        </td> : <Fragment></Fragment>}
       </tr>
     );
   }
@@ -356,6 +368,7 @@ export class Table extends Component {
                   <th>Select</th>
                   {table}
                   <th>Project</th>
+                  <th>Challenges Won</th>
                 </tr>
               </thead>
               :
