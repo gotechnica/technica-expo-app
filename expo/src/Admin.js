@@ -846,7 +846,7 @@ class SponsorModule extends Component {
             });
           } else {
             this.props.history.push({
-              pathname: '/adminLogin'
+              pathname: '/adminlogin'
             });
           }
         })
@@ -886,7 +886,7 @@ class SponsorModule extends Component {
       // Redirect back to admin login page and end session
       axiosRequest.post('api/logout')
         .then(() => {
-          this.props.history.push('/adminLogin');
+          this.props.history.push('/adminlogin');
         });
     }
 

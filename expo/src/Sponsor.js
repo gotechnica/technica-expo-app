@@ -354,7 +354,7 @@ export default class Sponsor extends Component {
             });
         } else {
           this.props.history.push({
-            pathname: '/sponsorLogin'
+            pathname: '/sponsorlogin'
           });
         }
       })
@@ -378,7 +378,7 @@ export default class Sponsor extends Component {
     axiosRequest.post('api/logout')
       .then((data) => {
         this.props.history.push({
-          pathname: '/sponsorLogin'
+          pathname: '/sponsorlogin'
         });
       })
       .catch((error) => {
