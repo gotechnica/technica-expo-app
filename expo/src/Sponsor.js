@@ -125,9 +125,11 @@ class Task extends Component {
           <button className="task-icon">
             <FontAwesomeIcon icon={circle} className="fa-circle" />
           </button>
-          <button className="task-title">
-            Select your winner{this.props.winners > 1 ? "s" : ""} for {this.props.challenge}
-          </button>
+          {this.props.submitted ? (
+            <button className="task-title">{this.props.challenge}</button>
+          ) : (
+            <button className="task-title">Select your winner{this.props.winners > 1 ? "s" : ""} for {this.props.challenge}</button>
+          )}
         </div>
         { winners.length > 0 ?
         <ul className="selection-list" style={{marginLeft:"50px", marginBottom: "0px"}}>
