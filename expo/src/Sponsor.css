@@ -81,6 +81,13 @@ div.diversity-modal {
   }
 }
 
+div.bd-example-modal-sm button.button {
+  width: 100%;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 0px;
+}
+
 @media screen and (max-width: 475px) {
   #Sponsor table tbody tr.voting-row td:nth-of-type(1) {
     width: 55px;
