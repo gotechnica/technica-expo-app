@@ -75,10 +75,10 @@ class EditProjectModal extends Component {
     let challenges = [];
     this.state.challenges.map((item)=>{
       let object = {}
-      if(this.state.company_map.has(item))
+      if(this.state.company_map[item])
         object = {
           challenge_name: item,
-          company: this.state.company_map.get(item),
+          company: this.state.company_map[item],
           won: false
         }
       challenges.push(object);

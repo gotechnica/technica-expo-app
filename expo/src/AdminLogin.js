@@ -35,7 +35,7 @@ class AdminLogin extends Component {
       });
   }
 
-  onLogin(e, accessCode) {
+  onLogin(accessCode) {
     // TODO Validate login code in place
     let codeExists = accessCode != undefined && accessCode != '';
 

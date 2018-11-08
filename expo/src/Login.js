@@ -27,23 +27,28 @@ class Login extends Component {
               <h5>{this.props.title}</h5>
             </div>
             <div className="card-body">
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                this.props.onLogin(this.state.accessCode);
+              }}>
                 <div className="form-group">
                   <label htmlFor="txtAccessCode">Access Code</label>
                   <input type="text"
                     id="txtAccessCode"
                     className="form-control"
                     onChange = {(event) => this.setState({accessCode:event.target.value})}
-                    />
+                  />
                 </div>
-                <button  className="button button-primary"
-                  onClick={(event) => {
-                      this.props.onLogin(event, this.state.accessCode);
-                    }}>
+                <button
+                  className="button button-primary"
+                  type="submit"
+                >
                     Login
                 </button>
                 <br/>
                 <br/>
                 {this.props.error}
+              </form>
             </div>
           </div>
         </div>

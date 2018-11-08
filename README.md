@@ -20,9 +20,9 @@ Starting from localhost in a development environment, use the following links to
 access this application.
 
 - Home `/`
-- Sponsor Login `/sponsorLogin`
+- Sponsor Login `/sponsorlogin`
 - Sponsor Dashboard `/sponsor`
-- Admin Login `/adminLogin`
+- Admin Login `/adminlogin`
 - Admin Dashboard `/admin`
 
 ## Contribution Guidelines

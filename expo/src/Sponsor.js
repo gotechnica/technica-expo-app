@@ -6,7 +6,6 @@ import Error from './Error.js';
 import TechnicaIcon from './imgs/technica-circle-small.png';
 import SearchandFilter from './SearchandFilter.js';
 import SiteWrapper from './SiteWrapper.js';
-import SmallerParentheses from './SmallerParentheses.js';
 import Table from './Table.js';
 
 import './App.css';
@@ -38,7 +37,9 @@ export class SubmitModal extends Component {
           iconstyle: "fa-times-circle",
           message:
             <Fragment>
-              Oops! We expected {vote_limit} winners for {this.props.value} but you've selected {votes.length}. If you want to select more than {vote_limit} winners, please see a Technica organizer!
+              Oops! Too many projects are selected to win this challenge.&nbsp;
+              Our records show that you only intended to provide prizes for {vote_limit} project{vote_limit > 1 ? 's' : ''}.&nbsp;
+              Come chat with someone on the Technica team if you want to select more!
             </Fragment>
         },
         warning:
@@ -46,8 +47,9 @@ export class SubmitModal extends Component {
             iconstyle: "fa-exclamation-triangle",
             message:
               <Fragment>
-                Just a heads up! {this.props.value} allows {vote_limit} winner{vote_limit > 1 ? 's' : ''}
-                , but { votes.length === 0 ? 'none are' : 'there ' + ( votes.length === 1 ? 'is' : 'are' ) + ' only ' + (votes.length)} currently selected.
+                Just a heads up! Our records show that you originally intended to provide prizes to {vote_limit} project{vote_limit > 1 ? 's' : ''} for this challenge, but
+                { votes.length === 0 ? ' none ' : ` only ${votes.length} ` }
+                { votes.length === 1 ? ' was ' : ' were ' } selected.
               </Fragment>
           }
       };
@@ -56,7 +58,7 @@ export class SubmitModal extends Component {
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Votes</h5>
+              <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Winner Selection</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -78,7 +80,7 @@ export class SubmitModal extends Component {
               <Error
                 icon={modal.warning.icon}
                 iconstyle={modal.warning.iconstyle}
-                text="All submitted votes are final."
+                text="All submitted selections are final."
               />
               <h5 className="modal-challenge">
                 {this.props.value +  " Winner" + (votes.length > 1 ? "s" : "")}
@@ -123,9 +125,11 @@ class Task extends Component {
           <button className="task-icon">
             <FontAwesomeIcon icon={circle} className="fa-circle" />
           </button>
-          <button className="task-title">
-            Select winners for {this.props.challenge}
-          </button>
+          {this.props.submitted ? (
+            <button className="task-title">{this.props.challenge}</button>
+          ) : (
+            <button className="task-title">Select your winner{this.props.winners > 1 ? "s" : ""} for {this.props.challenge}</button>
+          )}
         </div>
         { winners.length > 0 ?
         <ul className="selection-list" style={{marginLeft:"50px", marginBottom: "0px"}}>
@@ -254,7 +258,9 @@ export class WelcomeHeader extends Component {
 
   render() {
     let tasks = [];
+    let openTasksStillWaiting = false;
     Object.keys(this.props.sponsor_data).forEach((challenge) => {
+      openTasksStillWaiting = openTasksStillWaiting || !this.props.sponsor_data[challenge].votes_submitted;
       tasks.push(
         <Task
           challenge={challenge}
@@ -286,7 +292,19 @@ export class WelcomeHeader extends Component {
         <div className="card-body">
           <Fragment>
             <div className="task-header">
-              <h5>Tasks</h5>
+              {openTasksStillWaiting ? (
+                <p>
+                  You still have {tasks.length == 1 ? 'a challenge to select your winner' : 'challenges to select winners'} for! 
+                  Use the challenge selection menu to filter by projects that submitted to your specific challenge.
+                  <br />
+                  If you want to select a project which did not submit to your specific challenge, 
+                  come chat with someone on the Technica team and we'll get that updated for you!
+                </p>
+              ) : (
+                <p>
+                  You've finalized the winners for your {tasks.length == 1 ? 'challenge' : 'challenges'}. Thanks!
+                </p>
+              )}
             </div>
             {tasks}
           </Fragment>
@@ -303,7 +321,9 @@ export default class Sponsor extends Component {
     this.handleAfterSubmission = this.handleAfterSubmission.bind(this);
     this.state = {
       loggedIn: false,
-      loggedInAs: ''
+      loggedInAs: null,
+      company_id: null,
+      sponsor_data: null,
     };
     axiosRequest.get('api/whoami')
       .then((credentials) => {
@@ -326,7 +346,7 @@ export default class Sponsor extends Component {
                     votes_submitted: (challenge_obj.winners.length > 0 ? true : false),
                     winners: challenge_obj.winners
                   }
-                })
+                });
                 this.setState({
                   sponsor_data: sponsor_challenges
                 });
@@ -334,7 +354,7 @@ export default class Sponsor extends Component {
             });
         } else {
           this.props.history.push({
-            pathname: '/sponsorLogin'
+            pathname: '/sponsorlogin'
           });
         }
       })
@@ -358,7 +378,7 @@ export default class Sponsor extends Component {
     axiosRequest.post('api/logout')
       .then((data) => {
         this.props.history.push({
-          pathname: '/sponsorLogin'
+          pathname: '/sponsorlogin'
         });
       })
       .catch((error) => {
@@ -376,12 +396,6 @@ export default class Sponsor extends Component {
                 origin="sponsor"
                 loggedIn={this.state.loggedInAs}
                 company_id={this.state.company_id}
-                title={
-                  <div>
-                    Vote For Your Challenge Winner
-                    <SmallerParentheses font_size="15px">s</SmallerParentheses>
-                  </div>
-                }
                 after_submission_handler = {this.handleAfterSubmission}
                 sponsor_data={this.state.sponsor_data}
                 logout={this.onLogout.bind(this)}
