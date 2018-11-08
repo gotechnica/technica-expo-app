@@ -25,7 +25,7 @@ class SponsorLogin extends Component {
     this.onLogin = this.onLogin.bind(this);
   }
 
-  onLogin(e, accessCode) {
+  onLogin(accessCode) {
     let codeExists = accessCode != undefined && accessCode != '';
 
     if(codeExists) {
