@@ -762,7 +762,7 @@ class SponsorModule extends Component {
           <div className="card-header">
             <div className="d-flex">
               <div>
-                <h5>Administration</h5>
+                <h4>Godmode</h4>
               </div>
               <div className="ml-auto">
                 <button
