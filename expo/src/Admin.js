@@ -50,15 +50,14 @@ class ProjectModule extends Component {
     this.deleteAllProjects = this.deleteAllProjects.bind(this);
   }
 
-  createMap() {
-    let companies = new Map();
-    this.props.projects.map((obj)=>{
-      obj.challenges.map((company)=>{
-        if(!companies.has(company.challenge_name))
-          companies.set(company.challenge_name,company.company);
-      })
-    })
-    return companies;
+  createChallengesToCompanyMap(challenges_obj) {
+    const allChallengesMapping = {};
+    for (let company in challenges_obj) {
+      challenges_obj[company].map((challenge) => {
+        allChallengesMapping[challenge] = company;
+      });
+    }
+    return allChallengesMapping;
   }
   createAllChallenges(obj){
     let allChallenges = [];
@@ -209,7 +208,7 @@ class ProjectModule extends Component {
           });
   }
 
-  renderEditProjectModal = (elt, index, allChallenges, map) => {
+  renderEditProjectModal = (elt, index, allChallenges, challengesToCompanyMap) => {
     return (
       <EditProjectModal
         index = {index}
@@ -221,7 +220,7 @@ class ProjectModule extends Component {
         challenges={elt.challenges}
         toggle={elt.checkVal}
         allChallenges={allChallenges}
-        company_map={map}
+        company_map={challengesToCompanyMap}
         onEdit={this.props.loadProjects}
       />
     );
@@ -244,7 +243,7 @@ class ProjectModule extends Component {
   render() {
     let filteredProjects = this.sortData();
     let allChallenges = this.createAllChallenges(this.props.challenges);
-    let map = this.createMap();
+    let challengesToCompanyMap = this.createChallengesToCompanyMap(this.props.challenges);
     if(this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredProjects = filteredProjects.filter(elt => {
         const upperCaseTextSearch = this.state.textSearch.toUpperCase();
@@ -367,7 +366,7 @@ class ProjectModule extends Component {
             createID="modalCreateProject"
             onCreate={this.props.loadProjects}
             allChallenges={allChallenges}
-            company_map={map}
+            company_map={challengesToCompanyMap}
           />
           <button className="button button-primary m-r-m m-b-m"
             type="button"
@@ -424,7 +423,7 @@ class ProjectModule extends Component {
                   </button>
                 </div>
                 {this.state.projectIndexToEdit === index ?
-                    this.renderEditProjectModal(elt, index, allChallenges, map) :
+                    this.renderEditProjectModal(elt, index, allChallenges, challengesToCompanyMap):
                     null
                 }
               </div>
