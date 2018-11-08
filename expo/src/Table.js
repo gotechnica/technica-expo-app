@@ -24,7 +24,6 @@ class DiversifyWinnersModal extends Component {
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-header" style={{border: "0px solid"}}>
-
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -99,21 +98,17 @@ export class CheckBoxColumn extends Component {
     return (
       <td>
 
-        { this.props.num_challenges_won >= 2 ? <label data-toggle="modal" data-target="#diversifyWinnersModal">{CustomCheckbox}</label>
+        { !this.props.checked && this.props.num_challenges_won >= 2 ? <label data-toggle="modal" data-target="#diversifyWinnersModal">{CustomCheckbox}</label>
         :
         <label>{CustomCheckbox}</label> }
         {input}
-        { this.props.num_challenges_won >= 2 ? <DiversifyWinnersModal /> : <Fragment></Fragment> }
+        { !this.props.checked && this.props.num_challenges_won >= 2 ? <DiversifyWinnersModal /> : <Fragment></Fragment> }
       </td>
     );
   }
 }
 
 class ProjectColumn extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     let attempted_challenges = this.props.attempted_challenges;
