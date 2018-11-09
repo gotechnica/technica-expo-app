@@ -31,6 +31,10 @@
 #Sonsor table td.Trophy-Case {
   font-size: 75px;
 }
+#Sponsor table thead th:nth-of-type(4) {
+  text-align: center;
+  width: 175px;
+}
 #Sponsor table tr.voting-row td {
   padding: 5px 0px;
 }

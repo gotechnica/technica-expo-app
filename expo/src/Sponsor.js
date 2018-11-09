@@ -10,6 +10,7 @@ import Table from './Table.js';
 
 import './App.css';
 import './Sponsor.css';
+import './CircleCheck.css';
 
 import { faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
 import { faCircle as faCircleSolid } from '../node_modules/@fortawesome/fontawesome-free-solid';
@@ -22,9 +23,50 @@ library.add(faExclamationTriangle);
 library.add(faClipboardList);
 library.add(faCircle, faCircleSolid);
 
+class WinnersSubmmitedModal extends Component {
+
+  render() {
+    return (
+      <div class="modal fade bd-example-modal-sm" id="winnersSubmmitedModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+          <div class="modal-content" style={{border: "0px solid"}}>
+            <div class="modal-header" style={{border: "0px solid"}}>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style={{color: "white", textAlign:"center", marginTop:"-40px"}}>
+              <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+              </svg>
+              <div style={{fontSize:"20px", padding: "0px 10px"}}>
+                Thanks for submitting your winners!
+              </div>
+            </div>
+            <div class="modal-footer" style={{border: "0px solid", paddingTop:"0px"}}>
+              <button className="button button-primary" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
 export class SubmitModal extends Component {
-
+  constructor(props) {
+    super(props);
+    this.handleModalEvent = this.handleModalEvent.bind(this);
+    this.state = {
+      toggle: false
+    }
+  }
+  handleModalEvent() {
+    if (!this.state.toggle) {
+      this.setState({ toggle: true });
+    }
+  }
   render() {
     let vote_limit = this.props.vote_limit;
     let votes = [];
@@ -54,6 +96,7 @@ export class SubmitModal extends Component {
           }
       };
     return (
+      <Fragment>
       <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -96,15 +139,24 @@ export class SubmitModal extends Component {
                 :
                 <button
                   className="button button-primary"
+                  data-toggle="modal"
+                  data-target="#winnersSubmmitedModal"
                   data-dismiss="modal"
-                  onClick={this.props.submit_handler.bind(this,this.props.company_id, this.props.challenge_id, this.props.value, this.props.after_submission_handler)}>
-                Submit
+                  onClick={ this.props.submit_handler.bind(
+                      this,this.props.company_id,
+                      this.props.challenge_id,
+                      this.props.value,
+                      this.props.after_submission_handler,
+                      this.state.handleModalEvent) }>
+                  Submit
                 </button>
               }
             </div>
           </div>
         </div>
       </div>
+      <WinnersSubmmitedModal event={this.state.toggle}/>
+      </Fragment>
     );
   }
 }
@@ -194,7 +246,7 @@ export class VotingTable extends Component {
     }
   }
 
-  handleSubmitEvent(company_id,challenge_id,challenge_name, update) {
+  handleSubmitEvent(company_id,challenge_id,challenge_name, update, modal) {
     const checkboxes = document.getElementsByClassName("voting-checkbox");
     let winners = [];
     for (let i = 0; i < checkboxes.length; i++) {
@@ -209,6 +261,7 @@ export class VotingTable extends Component {
         axiosRequest.post(route, params)
         .then((response) => {
           update(challenge_name, winners);
+          modal();
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -294,10 +347,10 @@ export class WelcomeHeader extends Component {
             <div className="task-header">
               {openTasksStillWaiting ? (
                 <p>
-                  You still have {tasks.length == 1 ? 'a challenge to select your winner' : 'challenges to select winners'} for! 
+                  You still have {tasks.length == 1 ? 'a challenge to select your winner' : 'challenges to select winners'} for!
                   Use the challenge selection menu to filter by projects that submitted to your specific challenge.
                   <br />
-                  If you want to select a project which did not submit to your specific challenge, 
+                  If you want to select a project which did not submit to your specific challenge,
                   come chat with someone on the Technica team and we'll get that updated for you!
                 </p>
               ) : (

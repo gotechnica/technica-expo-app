@@ -99,9 +99,10 @@ export class CheckBoxColumn extends Component {
     return (
       <td>
 
-        { !this.props.checked && this.props.num_challenges_won >= 2 ? <label data-toggle="modal" data-target="#diversifyWinnersModal">{CustomCheckbox}</label>
-        :
-        <label>{CustomCheckbox}</label> }
+        { !this.props.checked && this.props.num_challenges_won >= 2 ?
+          <label data-toggle="modal" data-target="#diversifyWinnersModal">{CustomCheckbox}</label>
+          :
+          <label>{CustomCheckbox}</label> }
         {input}
         { !this.props.checked && this.props.num_challenges_won >= 2 ? <DiversifyWinnersModal /> : <Fragment></Fragment> }
       </td>
@@ -140,8 +141,10 @@ class ProjectColumn extends Component {
             :
             <Fragment></Fragment>
           }
-          { /*this.props.num_challenges_won > 0 && this.props.origin === "sponsor" ?
-          <div className="Trophy-Case"><img src={TechnicaRibbon} className="Ribbon" style={{height:"20px",width:"20px"}}/>Challenges Won: {this.props.num_challenges_won}</div> : <Fragment></Fragment>*/}
+          { this.props.width < 460 && this.props.num_challenges_won > 0 ? <div className="Sponsor-Table">
+            <img src={TechnicaRibbon} style={{height:"20px",marginRight:"5px"}}/>
+            Challenges Won: {this.props.num_challenges_won}
+          </div> : <Fragment></Fragment>}
         </div>
         { this.props.origin === "home" ?
           <Fragment>
@@ -218,15 +221,14 @@ export class Row extends Component {
     let winner_count = 0;
     if (this.props.challenges !== undefined) {
       this.props.challenges.forEach((challenge) => {
-          let challenge_card =
-          <ChallengeCard
-            company={challenge.company}
-            challenge_name = {challenge.challenge_name}
-            won={challenge.won}
-            width={this.props.width}
-            winnersRevealed={this.props.winnersRevealed}
-          />;
-
+        let challenge_card =
+        <ChallengeCard
+          company={challenge.company}
+          challenge_name = {challenge.challenge_name}
+          won={challenge.won}
+          width={this.props.width}
+          winnersRevealed={this.props.winnersRevealed}
+        />;
         if (challenge.won) {
           if (this.props.winnersRevealed) {
             challenges_won.push(challenge_card);
@@ -266,16 +268,22 @@ export class Row extends Component {
           show_attempted_challenges={this.props.show_attempted_challenges}
           attempted_challenges={attempted_challenges}
           challenges_won={challenges_won}
+          num_challenges_won={winner_count}
         />
-        {this.props.origin === "sponsor" ?
-        <td className="Trophy-Case" style={{fontSize:"35px",fontWeight:"bold",textAlign:"center"}}>
-        {winner_count > 0 ?
-          <Fragment>
-            <img src={TechnicaRibbon} style={{height:"40px",marginRight:"10px"}}/>
-            {winner_count}
-          </Fragment>
-        :<Fragment></Fragment>}
-        </td> : <Fragment></Fragment>}
+        { this.props.origin === "sponsor" ?
+          ( this.props.width >= 460 ?
+            <td className="Trophy-Case" style={{fontSize:"35px",fontWeight:"bold",textAlign:"center"}}>
+              { winner_count > 0 ?
+                <Fragment>
+                  <img src={TechnicaRibbon} style={{height:"40px",marginRight:"10px"}}/>
+                  {winner_count}
+                </Fragment>
+                :
+                <Fragment></Fragment>}
+            </td>
+            :
+            <Fragment></Fragment> )
+        : <Fragment></Fragment> }
       </tr>
     );
   }
@@ -305,6 +313,7 @@ export class Table extends Component {
     let rows = [];
     let counter = 0;
     let table = ( this.state.width >= 460 ? <th>Table</th> : <Fragment></Fragment> );
+    let trophy_header = ( this.state.width >= 460 ? <th>Challenges Won</th> : <Fragment></Fragment> );
     this.props.projects.forEach((project) => {
       rows.push(
         ( this.props.origin === "sponsor" ?
@@ -368,7 +377,7 @@ export class Table extends Component {
                   <th>Select</th>
                   {table}
                   <th>Project</th>
-                  <th>Challenges Won</th>
+                  {trophy_header}
                 </tr>
               </thead>
               :
