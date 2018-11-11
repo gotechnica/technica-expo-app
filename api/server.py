@@ -200,7 +200,7 @@ def assign_remaining_table_numbers():
     db_update_operations = []
     for p in all_projects:
         # If table number hasn't been assigned yet, assign next available one
-        if p['table_number'] == '':
+        if p['table_number'] == '' and i < len(available_tables_list):
             db_update_operations.append(UpdateOne(
                 {'_id': ObjectId(p['_id'])},
                 {'$set': {'table_number': available_tables_list[i]}}
