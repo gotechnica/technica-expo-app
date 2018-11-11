@@ -141,7 +141,7 @@ class ProjectColumn extends Component {
             :
             <Fragment></Fragment>
           }
-          { this.props.width < 460 && this.props.num_challenges_won > 0 ? <div className="Sponsor-Table">
+          { this.props.width < 460 && this.props.num_challenges_won > 0 && this.props.origin === "sponsor" ? <div className="Sponsor-Table">
             <img src={TechnicaRibbon} style={{height:"20px",marginRight:"5px"}}/>
             Challenges Won: {this.props.num_challenges_won}
           </div> : <Fragment></Fragment>}
