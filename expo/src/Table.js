@@ -99,7 +99,7 @@ export class CheckBoxColumn extends Component {
     return (
       <td>
 
-        { !this.props.checked && this.props.num_challenges_won >= 2 ?
+        { !this.props.checked && this.props.num_challenges_won >= 2 && !this.props.disabled ?
           <label data-toggle="modal" data-target="#diversifyWinnersModal">{CustomCheckbox}</label>
           :
           <label>{CustomCheckbox}</label> }
@@ -232,6 +232,8 @@ export class Row extends Component {
         if (challenge.won) {
           if (this.props.winnersRevealed) {
             challenges_won.push(challenge_card);
+          } else {
+            attempted_challenges.push(challenge_card);
           }
           winner_count += 1;
         } else {

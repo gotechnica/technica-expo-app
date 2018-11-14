@@ -146,8 +146,7 @@ export class SubmitModal extends Component {
                       this,this.props.company_id,
                       this.props.challenge_id,
                       this.props.value,
-                      this.props.after_submission_handler,
-                      this.state.handleModalEvent) }>
+                      this.props.after_submission_handler) }>
                   Submit
                 </button>
               }
@@ -155,7 +154,7 @@ export class SubmitModal extends Component {
           </div>
         </div>
       </div>
-      <WinnersSubmmitedModal event={this.state.toggle}/>
+      <WinnersSubmmitedModal/>
       </Fragment>
     );
   }
@@ -246,7 +245,7 @@ export class VotingTable extends Component {
     }
   }
 
-  handleSubmitEvent(company_id,challenge_id,challenge_name, update, modal) {
+  handleSubmitEvent(company_id,challenge_id,challenge_name, update) {
     const checkboxes = document.getElementsByClassName("voting-checkbox");
     let winners = [];
     for (let i = 0; i < checkboxes.length; i++) {
@@ -261,7 +260,6 @@ export class VotingTable extends Component {
         axiosRequest.post(route, params)
         .then((response) => {
           update(challenge_name, winners);
-          modal();
         })
         .catch((error) => {
           console.error('Error:', error);
