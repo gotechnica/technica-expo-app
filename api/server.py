@@ -404,7 +404,7 @@ def add_company():
 
 def generate_random_access_code(length):
     # Only allow characters that are not ambiguous (I, L, O, 1, 0)
-    return ''.join(random.choice('ABCDEFGHJKMNPQRSTUVWXYZ23456789') for _ in range(length))
+    return ''.join(random.choice('ABCDEFGHJKMNPQRTUVWXYZ2346789') for _ in range(length))
 
 @app.route('/api/companies/id/<company_id>', methods=['POST'])
 @is_admin
