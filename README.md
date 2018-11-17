@@ -75,6 +75,10 @@ guide! You can find the linter for Atom
 - Sponsors should be actively submitting in their winner selections as they
   finish judging their challenges - this can be monitored via the admin dashboard
 
+### After the Hackathon
+- From the network tab, access your `/expo` page and copy/paste the `/projects` and `/challenges` responses into json files (stored in `expo/src/responseData` named `projects.json` and `challenges.json`).
+- In `Backend.js`, flip the `useCachedResponseData` flag to true. This will turn off all routes except for the homepage (`/expo`) and pull data from the cached json files. After re-deploying your React app, you can turn off your database and the flask server.
+
 ## Sponsor Instructions
 Log in with your access code at gotechnica.org/expo/sponsor
 
