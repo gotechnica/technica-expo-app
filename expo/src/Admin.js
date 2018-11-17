@@ -946,7 +946,6 @@ class SponsorModule extends Component {
     loadChallenges = () => {
       axiosRequest.get('api/challenges')
         .then((challengeData) => {
-          console.log(challengeData);
           this.setState({
             challenges: challengeData
           })

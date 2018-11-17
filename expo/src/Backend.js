@@ -40,7 +40,6 @@ const axiosRequest = useCachedResponseData ? {
     } else if (route === 'api/challenges') {
       data = challengeData;
     }
-    console.log(data);
     return new Promise((resolve, reject) => {
       if (data != null) {
         resolve(data);
