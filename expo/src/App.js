@@ -27,7 +27,6 @@ const Routing = () => (
         <Route path="/sponsor" component={Sponsor} />
         <Route path="/adminlogin" component={AdminLogin} />
         <Route path="/sponsorlogin" component={SponsorLogin} />
-        <Redirect to="/" />
       </div>
     )}
   </Router>
