@@ -1,0 +1,69 @@
+{
+    "AWS": [
+        "Best AWS Hack"
+    ],
+    "Altamira": [
+        "Best Computer Vision / AI System"
+    ],
+    "Booz Allen Hamilton": [
+        "Best use of Machine Learning"
+    ],
+    "Brightspot": [
+        "Best Accessibility Hack"
+    ],
+    "Capital One": [
+        "Best Financial Hack"
+    ],
+    "Ebay": [
+        "Best Use of a Data Set"
+    ],
+    "FINRA": [
+        "Best Money Management Hack"
+    ],
+    "Facebook": [
+        "Best Overall Hack"
+    ],
+    "Fannie Mae": [
+        "Solutions in the Palm of your Hand"
+    ],
+    "General Dynamics": [
+        "Microservices !Monolith"
+    ],
+    "JP Morgan Chase": [
+        "Best Hack for Social Good"
+    ],
+    "MLH": [
+        "Best Use of Authorize.net",
+        "Snap Kit Weekly Challenge",
+        "Best Chat Bot using Botkit & Cisco Webex Teams",
+        "Best use of Google Cloud Platform",
+        "Best use of Algolia API",
+        "Best Domain Registered with Domain.com",
+        "Best use of HERE.com",
+        "Best use of Clarifai's API",
+        "Best Social Good Hack"
+    ],
+    "MicroStrategy": [
+        "Best use of MicroStrategy",
+        "Secure your hack with Usher API"
+    ],
+    "Nextdoor": [
+        "Best Hack for Community Building"
+    ],
+    "Qualcomm": [
+        "Best use of DragonBoard 410c"
+    ],
+    "Qualtrics": [
+        "Best use of Data Visualization"
+    ],
+    "Technica": [
+        "Best First Time Hack",
+        "Best \"Light the Way\" Hack"
+    ],
+    "TripAdvisor": [
+        "Best Travel Hack"
+    ],
+    "Visionist": [
+        "Health Matters"
+    ]
+}

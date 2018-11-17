@@ -1,0 +1,3699 @@
+{
+    "projects": [
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f16e",
+            "project_name": "women emPOWERed",
+            "project_url": "https://technica2018.devpost.com/submissions/105731-women-empowered",
+            "table_number": "B4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Computer Vision / AI System",
+                    "company": "Altamira",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Machine Learning",
+                    "company": "Booz Allen Hamilton",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "BoozAllenHamilton_challenge20181111055811",
+                "MLH_challenge20181111060524"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f168",
+            "project_name": "Recyclicat",
+            "project_url": "https://technica2018.devpost.com/submissions/105953-recyclicat",
+            "table_number": "H1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f173",
+            "project_name": "'Crunch'ing the Numbers for College Fitness",
+            "project_url": "https://technica2018.devpost.com/submissions/105782-crunch-ing-the-numbers-for-college-fitness",
+            "table_number": "C1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Secure your hack with Usher API",
+                    "company": "MicroStrategy",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of MicroStrategy",
+                    "company": "MicroStrategy",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of HERE.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f170",
+            "project_name": "MentorMe",
+            "project_url": "https://technica2018.devpost.com/submissions/105771-mentorme",
+            "table_number": "A3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f174",
+            "project_name": "PosiTech",
+            "project_url": "https://technica2018.devpost.com/submissions/105790-positech",
+            "table_number": "C2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of MicroStrategy",
+                    "company": "MicroStrategy",
+                    "won": true
+                }
+            ],
+            "challenges_won": [
+                "MicroStrategy_challenge20181111060237"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f177",
+            "project_name": "CS-Info",
+            "project_url": "https://technica2018.devpost.com/submissions/105945-cs-info",
+            "table_number": "D1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best AWS Hack",
+                    "company": "AWS",
+                    "won": true
+                }
+            ],
+            "challenges_won": [
+                "AWS_challenge20181111060642"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f175",
+            "project_name": "I.P.A. Chart",
+            "project_url": "https://technica2018.devpost.com/submissions/105901-i-p-a-chart",
+            "table_number": "C4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Solutions in the Palm of your Hand",
+                    "company": "Fannie Mae",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f176",
+            "project_name": "GotBanks?",
+            "project_url": "https://technica2018.devpost.com/submissions/105943-gotbanks",
+            "table_number": "C5"
+        },
+        {
+            "challenges": [],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f183",
+            "project_name": "Domain Name",
+            "project_url": "https://technica2018.devpost.com/submissions/106035-domain-name",
+            "table_number": "A5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Solutions in the Palm of your Hand",
+                    "company": "Fannie Mae",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Computer Vision / AI System",
+                    "company": "Altamira",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f16b",
+            "project_name": "Two Cents",
+            "project_url": "https://technica2018.devpost.com/submissions/106076-two-cents",
+            "table_number": "B1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "Facebook_challenge20181111055826"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f179",
+            "project_name": "Pill Buddy",
+            "project_url": "https://technica2018.devpost.com/submissions/105976-pill-buddy",
+            "table_number": "D3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Secure your hack with Usher API",
+                    "company": "MicroStrategy",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of MicroStrategy",
+                    "company": "MicroStrategy",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "Visionist_challenge20181111055735",
+                "MicroStrategy_challenge20181111060237"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f178",
+            "project_name": "Nopioids",
+            "project_url": "https://technica2018.devpost.com/submissions/105960-nopioids",
+            "table_number": "D2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f16f",
+            "project_name": "Opioid Prescription Info-graphic",
+            "project_url": "https://technica2018.devpost.com/submissions/105762-opioid-prescription-info-graphic",
+            "table_number": "A2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f17a",
+            "project_name": "Tiny Hack",
+            "project_url": "https://technica2018.devpost.com/submissions/105981-tiny-hack",
+            "table_number": "D4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f17c",
+            "project_name": "SmartSurfing",
+            "project_url": "https://technica2018.devpost.com/submissions/106004-smartsurfing",
+            "table_number": "E1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "FINRA_challenge20181111060124",
+                "Brightspot_challenge20181111060402"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f17b",
+            "project_name": "Money Technica",
+            "project_url": "https://technica2018.devpost.com/submissions/105982-money-technica",
+            "table_number": "D5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Solutions in the Palm of your Hand",
+                    "company": "Fannie Mae",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f171",
+            "project_name": "Money Simply",
+            "project_url": "https://technica2018.devpost.com/submissions/105774-money-simply",
+            "table_number": "A4"
+        },
+        {
+            "challenges": [],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f182",
+            "project_name": "Causality Analytics for Smart Manufacturing",
+            "project_url": "https://technica2018.devpost.com/submissions/106028-causality-analytics-for-smart-manufacturing",
+            "table_number": "F2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f17d",
+            "project_name": "Dayment",
+            "project_url": "https://technica2018.devpost.com/submissions/106010-dayment",
+            "table_number": "E2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f172",
+            "project_name": "InstaCard",
+            "project_url": "https://technica2018.devpost.com/submissions/105777-instacard",
+            "table_number": "B5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best AWS Hack",
+                    "company": "AWS",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f17e",
+            "project_name": "nextDorm",
+            "project_url": "https://technica2018.devpost.com/submissions/106011-nextdorm",
+            "table_number": "E3"
+        },
+        {
+            "challenges": [],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f181",
+            "project_name": "Augmented Reality Tools to Learn a Foreign Language",
+            "project_url": "https://technica2018.devpost.com/submissions/106025-augmented-reality-tools-to-learn-a-foreign-language",
+            "table_number": "F1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f180",
+            "project_name": "Mad Libs Superhero story",
+            "project_url": "https://technica2018.devpost.com/submissions/106024-mad-libs-superhero-story",
+            "table_number": "E5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f16a",
+            "project_name": "Home Away from Home",
+            "project_url": "https://technica2018.devpost.com/submissions/106019-home-away-from-home",
+            "table_number": "C3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Microservices !Monolith",
+                    "company": "General Dynamics",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "GeneralDynamics_challenge20181111055938"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f167",
+            "project_name": "Awareable t-shirt: Women in STEM git coding",
+            "project_url": "https://technica2018.devpost.com/submissions/105815-awareable-t-shirt-women-in-stem-git-coding",
+            "table_number": "P1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Computer Vision / AI System",
+                    "company": "Altamira",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best use of Machine Learning",
+                    "company": "Booz Allen Hamilton",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best AWS Hack",
+                    "company": "AWS",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "BoozAllenHamilton_challenge20181111055811",
+                "Ebay_challenge20181111055659"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f16d",
+            "project_name": "WISearch",
+            "project_url": "https://technica2018.devpost.com/submissions/105730-wisearch",
+            "table_number": "A1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f17f",
+            "project_name": "Wanderlust-360",
+            "project_url": "https://technica2018.devpost.com/submissions/106020-wanderlust-360",
+            "table_number": "E4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f16c",
+            "project_name": "Destroying the Patriarchy!",
+            "project_url": "https://technica2018.devpost.com/submissions/106083-destroying-the-patriarchy",
+            "table_number": "V1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of MicroStrategy",
+                    "company": "MicroStrategy",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best use of Machine Learning",
+                    "company": "Booz Allen Hamilton",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "Qualtrics_challenge20181111055908"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f169",
+            "project_name": "The-Exploit-2",
+            "project_url": "https://technica2018.devpost.com/submissions/105963-the-exploit-2",
+            "table_number": "G3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f184",
+            "project_name": "You Can STEM",
+            "project_url": "https://technica2018.devpost.com/submissions/106038-you-can-stem",
+            "table_number": "F3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f186",
+            "project_name": "techtheway",
+            "project_url": "https://technica2018.devpost.com/submissions/106044-techtheway",
+            "table_number": "F5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f185",
+            "project_name": "GlobeLight",
+            "project_url": "https://technica2018.devpost.com/submissions/106039-globelight",
+            "table_number": "F4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f187",
+            "project_name": "Journey42",
+            "project_url": "https://technica2018.devpost.com/submissions/106045-journey42",
+            "table_number": "G1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Chat Bot using Botkit & Cisco Webex Teams",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f18a",
+            "project_name": "Technica2018",
+            "project_url": "https://technica2018.devpost.com/submissions/106088-technica2018",
+            "table_number": "G5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f188",
+            "project_name": "PreSafe",
+            "project_url": "https://technica2018.devpost.com/submissions/106046-presafe",
+            "table_number": "G2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f18b",
+            "project_name": "tech-way",
+            "project_url": "https://technica2018.devpost.com/submissions/106065-tech-way",
+            "table_number": "H2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f18c",
+            "project_name": "TrueColors",
+            "project_url": "https://technica2018.devpost.com/submissions/106066-truecolors",
+            "table_number": "H3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f18d",
+            "project_name": "Paint Your Dreams",
+            "project_url": "https://technica2018.devpost.com/submissions/106067-paint-your-dreams",
+            "table_number": "H4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Microservices !Monolith",
+                    "company": "General Dynamics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Secure your hack with Usher API",
+                    "company": "MicroStrategy",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Solutions in the Palm of your Hand",
+                    "company": "Fannie Mae",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of MicroStrategy",
+                    "company": "MicroStrategy",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f189",
+            "project_name": "FEMpower",
+            "project_url": "https://technica2018.devpost.com/submissions/106061-fempower",
+            "table_number": "O1"
+        },
+        {
+            "challenges": [],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f18f",
+            "project_name": "arthritis-chrome-ext",
+            "project_url": "https://technica2018.devpost.com/submissions/106070-arthritis-chrome-ext",
+            "table_number": "B2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Solutions in the Palm of your Hand",
+                    "company": "Fannie Mae",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f190",
+            "project_name": "Make Your Own Bingo",
+            "project_url": "https://technica2018.devpost.com/submissions/106078-make-your-own-bingo",
+            "table_number": "I1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Machine Learning",
+                    "company": "Booz Allen Hamilton",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f18e",
+            "project_name": "Health Matters",
+            "project_url": "https://technica2018.devpost.com/submissions/106068-health-matters",
+            "table_number": "H5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f191",
+            "project_name": "Employee Database",
+            "project_url": "https://technica2018.devpost.com/submissions/106084-employee-database",
+            "table_number": "I2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f193",
+            "project_name": "Find Restaurant",
+            "project_url": "https://technica2018.devpost.com/submissions/106086-find-restaurant",
+            "table_number": "I4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of HERE.com",
+                    "company": "MLH",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "MLH_challenge20181111060553"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f192",
+            "project_name": "Crime Cookie",
+            "project_url": "https://technica2018.devpost.com/submissions/106085-crime-cookie",
+            "table_number": "I3"
+        },
+        {
+            "challenges": [],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f197",
+            "project_name": "b\u0101n m\u01ce",
+            "project_url": "https://technica2018.devpost.com/submissions/106096-ban-m",
+            "table_number": "B3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Solutions in the Palm of your Hand",
+                    "company": "Fannie Mae",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f196",
+            "project_name": "Career Survey",
+            "project_url": "https://technica2018.devpost.com/submissions/106094-career-survey",
+            "table_number": "J2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": true
+                }
+            ],
+            "challenges_won": [
+                "Technica_challenge20181111060421"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f199",
+            "project_name": "Emma, the STEM SuperHerO",
+            "project_url": "https://technica2018.devpost.com/submissions/106101-emma-the-stem-superhero",
+            "table_number": "X3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f19c",
+            "project_name": "Kaffeine",
+            "project_url": "https://technica2018.devpost.com/submissions/106108-kaffeine",
+            "table_number": "K2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Machine Learning",
+                    "company": "Booz Allen Hamilton",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f198",
+            "project_name": "theSeatingChart",
+            "project_url": "https://technica2018.devpost.com/submissions/106098-theseatingchart",
+            "table_number": "J3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of DragonBoard 410c",
+                    "company": "Qualcomm",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "Qualcomm_challenge20181111060740"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f19d",
+            "project_name": "STEM Trivia",
+            "project_url": "https://technica2018.devpost.com/submissions/106114-stem-trivia",
+            "table_number": "K3"
+        },
+        {
+            "challenges": [],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f19b",
+            "project_name": "Technica",
+            "project_url": "https://technica2018.devpost.com/submissions/106107-technica",
+            "table_number": "K1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best AWS Hack",
+                    "company": "AWS",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "AWS_challenge20181111060642",
+                "CapitalOne_challenge20181111060111"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f194",
+            "project_name": "Fundz for Funz",
+            "project_url": "https://technica2018.devpost.com/submissions/106087-fundz-for-funz",
+            "table_number": "I5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best AWS Hack",
+                    "company": "AWS",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "AWS_challenge20181111060642"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1a1",
+            "project_name": "Period Tracker",
+            "project_url": "https://technica2018.devpost.com/submissions/106122-period-tracker",
+            "table_number": "O4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f195",
+            "project_name": "MoneySaver",
+            "project_url": "https://technica2018.devpost.com/submissions/106090-moneysaver",
+            "table_number": "J1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f19e",
+            "project_name": "Sleep Extension",
+            "project_url": "https://technica2018.devpost.com/submissions/106118-sleep-extension",
+            "table_number": "K4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1a0",
+            "project_name": "Odd Jobs",
+            "project_url": "https://technica2018.devpost.com/submissions/106121-odd-jobs",
+            "table_number": "O2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f19f",
+            "project_name": "I am Me Project",
+            "project_url": "https://technica2018.devpost.com/submissions/106119-i-am-me-project",
+            "table_number": "K5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of MicroStrategy",
+                    "company": "MicroStrategy",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1a5",
+            "project_name": "Common Cents",
+            "project_url": "https://technica2018.devpost.com/submissions/106129-common-cents",
+            "table_number": "P5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1a4",
+            "project_name": "Pat Your Pet",
+            "project_url": "https://technica2018.devpost.com/submissions/106127-pat-your-pet",
+            "table_number": "P4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Solutions in the Palm of your Hand",
+                    "company": "Fannie Mae",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f19a",
+            "project_name": "Wise Mind",
+            "project_url": "https://technica2018.devpost.com/submissions/106102-wise-mind",
+            "table_number": "J5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1a2",
+            "project_name": "STEMpower",
+            "project_url": "https://technica2018.devpost.com/submissions/106123-stempower",
+            "table_number": "P2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of DragonBoard 410c",
+                    "company": "Qualcomm",
+                    "won": true
+                }
+            ],
+            "challenges_won": [
+                "Qualcomm_challenge20181111060740"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1a9",
+            "project_name": "Dragonboard Media player",
+            "project_url": "https://technica2018.devpost.com/submissions/106139-dragonboard-media-player",
+            "table_number": "X3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1a7",
+            "project_name": "Womaze",
+            "project_url": "https://technica2018.devpost.com/submissions/106135-womaze",
+            "table_number": "Q2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1a3",
+            "project_name": "Light the way with STEM",
+            "project_url": "https://technica2018.devpost.com/submissions/106126-light-the-way-with-stem",
+            "table_number": "P3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of MicroStrategy",
+                    "company": "MicroStrategy",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "MicroStrategy_challenge20181111060237"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1a6",
+            "project_name": "Educating Women in STEM",
+            "project_url": "https://technica2018.devpost.com/submissions/106133-educating-women-in-stem",
+            "table_number": "Q1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1ae",
+            "project_name": "ELS",
+            "project_url": "https://technica2018.devpost.com/submissions/106148-els",
+            "table_number": "R3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1ab",
+            "project_name": "YourFinance\u2122",
+            "project_url": "https://technica2018.devpost.com/submissions/106142-yourfinance",
+            "table_number": "Q5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of MicroStrategy",
+                    "company": "MicroStrategy",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": true
+                }
+            ],
+            "challenges_won": [
+                "FINRA_challenge20181111060124",
+                "MLH_challenge20181111060547"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1a8",
+            "project_name": "Mythonancial",
+            "project_url": "https://technica2018.devpost.com/submissions/106138-mythonancial",
+            "table_number": "Q3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Chat Bot using Botkit & Cisco Webex Teams",
+                    "company": "MLH",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1ac",
+            "project_name": "i am me chat bot",
+            "project_url": "https://technica2018.devpost.com/submissions/106144-i-am-me-chat-bot",
+            "table_number": "R1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "TripAdvisor_challenge20181111055751"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1aa",
+            "project_name": "tour-ward",
+            "project_url": "https://technica2018.devpost.com/submissions/106141-tour-ward",
+            "table_number": "Q4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "JPMorganChase_challenge20181111060316"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1ad",
+            "project_name": "Candy Coded",
+            "project_url": "https://technica2018.devpost.com/submissions/106147-candy-coded",
+            "table_number": "R2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of MicroStrategy",
+                    "company": "MicroStrategy",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1b0",
+            "project_name": "Visualization for Impact",
+            "project_url": "https://technica2018.devpost.com/submissions/106150-visualization-for-impact",
+            "table_number": "R5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Use of Authorize.net",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1b2",
+            "project_name": "Finance Organizer",
+            "project_url": "https://technica2018.devpost.com/submissions/106154-finance-organizer",
+            "table_number": "S2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of HERE.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1af",
+            "project_name": "GoAid",
+            "project_url": "https://technica2018.devpost.com/submissions/106149-goaid",
+            "table_number": "R4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Machine Learning",
+                    "company": "Booz Allen Hamilton",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1b3",
+            "project_name": "Travel Quiz",
+            "project_url": "https://technica2018.devpost.com/submissions/106155-travel-quiz",
+            "table_number": "S3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best AWS Hack",
+                    "company": "AWS",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "AWS_challenge20181111060642"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1b1",
+            "project_name": "#talkpay",
+            "project_url": "https://technica2018.devpost.com/submissions/106151-talkpay",
+            "table_number": "S1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1b6",
+            "project_name": "Mental Health Website",
+            "project_url": "https://technica2018.devpost.com/submissions/106163-mental-health-website",
+            "table_number": "T1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1b4",
+            "project_name": "LightHER",
+            "project_url": "https://technica2018.devpost.com/submissions/106160-lighther",
+            "table_number": "S4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1b8",
+            "project_name": "Kidvest",
+            "project_url": "https://technica2018.devpost.com/submissions/106165-kidvest",
+            "table_number": "T3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1bb",
+            "project_name": "Paws and Found",
+            "project_url": "https://technica2018.devpost.com/submissions/106170-paws-and-found",
+            "table_number": "U1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1b7",
+            "project_name": "ClubHub",
+            "project_url": "https://technica2018.devpost.com/submissions/106164-clubhub",
+            "table_number": "T2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1ba",
+            "project_name": "PairShare",
+            "project_url": "https://technica2018.devpost.com/submissions/106168-pairshare",
+            "table_number": "T4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1bc",
+            "project_name": "CommunityCarpool",
+            "project_url": "https://technica2018.devpost.com/submissions/106171-communitycarpool",
+            "table_number": "U2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "Technica_challenge20181111060433"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1b9",
+            "project_name": "The Nifty Shoe",
+            "project_url": "https://technica2018.devpost.com/submissions/106167-the-nifty-shoe",
+            "table_number": "G4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1bf",
+            "project_name": "Financial Awareness",
+            "project_url": "https://technica2018.devpost.com/submissions/106175-financial-awareness",
+            "table_number": "U5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1c2",
+            "project_name": "Pack-It List",
+            "project_url": "https://technica2018.devpost.com/submissions/106178-pack-it-list",
+            "table_number": "V4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1be",
+            "project_name": "ECO_LIT",
+            "project_url": "https://technica2018.devpost.com/submissions/106174-eco_lit",
+            "table_number": "U4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1c0",
+            "project_name": "Women in STEM, Then and Now",
+            "project_url": "https://technica2018.devpost.com/submissions/106176-women-in-stem-then-and-now",
+            "table_number": "V2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1bd",
+            "project_name": "STEMinine",
+            "project_url": "https://technica2018.devpost.com/submissions/106172-steminine",
+            "table_number": "U3"
+        },
+        {
+            "challenges": [],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1c4",
+            "project_name": "Guess The Number!",
+            "project_url": "https://technica2018.devpost.com/submissions/106185-guess-the-number",
+            "table_number": "T5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1c1",
+            "project_name": "Nori",
+            "project_url": "https://technica2018.devpost.com/submissions/106177-nori",
+            "table_number": "V3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Clarifai's API",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Travel Hack",
+                    "company": "TripAdvisor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Computer Vision / AI System",
+                    "company": "Altamira",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Machine Learning",
+                    "company": "Booz Allen Hamilton",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "Altamira_challenge20181111055720"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1b5",
+            "project_name": "Chro\u00b7map\u00b7tic",
+            "project_url": "https://technica2018.devpost.com/submissions/106162-chro-map-tic",
+            "table_number": "S5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best AWS Hack",
+                    "company": "AWS",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1c7",
+            "project_name": "Remember",
+            "project_url": "https://technica2018.devpost.com/submissions/106195-remember",
+            "table_number": "W3"
+        },
+        {
+            "challenges": [],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1c8",
+            "project_name": "Girl Talk",
+            "project_url": "https://technica2018.devpost.com/submissions/106197-girl-talk",
+            "table_number": "W4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of HERE.com",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1c5",
+            "project_name": "toys for joy",
+            "project_url": "https://technica2018.devpost.com/submissions/106192-toys-for-joy",
+            "table_number": "W1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1ca",
+            "project_name": "A date With Lisa",
+            "project_url": "https://technica2018.devpost.com/submissions/106210-a-date-with-lisa",
+            "table_number": "X1"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Machine Learning",
+                    "company": "Booz Allen Hamilton",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Chat Bot using Botkit & Cisco Webex Teams",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Domain Registered with Domain.com",
+                    "company": "MLH",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "MLH_challenge20181111060547"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1c6",
+            "project_name": "Digital Therapist",
+            "project_url": "https://technica2018.devpost.com/submissions/106193-digital-therapist",
+            "table_number": "W2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1c9",
+            "project_name": "Are You Financially Responsible (Technica Project)",
+            "project_url": "https://technica2018.devpost.com/submissions/106199-are-you-financially-responsible-technica-project",
+            "table_number": "W5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1cb",
+            "project_name": "Hack Inclusive",
+            "project_url": "https://technica2018.devpost.com/submissions/106212-hack-inclusive",
+            "table_number": "X2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Computer Vision / AI System",
+                    "company": "Altamira",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Google Cloud Platform",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Machine Learning",
+                    "company": "Booz Allen Hamilton",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1c3",
+            "project_name": "TechnicaBently2018",
+            "project_url": "https://technica2018.devpost.com/submissions/106179-technicabently2018",
+            "table_number": "V5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1cf",
+            "project_name": "Alto - Bringing Communities Together",
+            "project_url": "https://technica2018.devpost.com/submissions/106220-alto-bringing-communities-together",
+            "table_number": "Y2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1cd",
+            "project_name": "Data set for ML of Opioid Data",
+            "project_url": "https://technica2018.devpost.com/submissions/106217-data-set-for-ml-of-opioid-data",
+            "table_number": "X5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Microservices !Monolith",
+                    "company": "General Dynamics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Solutions in the Palm of your Hand",
+                    "company": "Fannie Mae",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Accessibility Hack",
+                    "company": "Brightspot",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": true
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                }
+            ],
+            "challenges_won": [
+                "Nextdoor_challenge20181111055924"
+            ],
+            "project_id": "5be8531e5e0ea41038a4f1cc",
+            "project_name": "Neuron",
+            "project_url": "https://technica2018.devpost.com/submissions/106216-neuron",
+            "table_number": "X4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1ce",
+            "project_name": "Who Runs the World?",
+            "project_url": "https://technica2018.devpost.com/submissions/106219-who-runs-the-world",
+            "table_number": "Y1"
+        },
+        {
+            "challenges": [],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1d1",
+            "project_name": "Dark Roads (Light The Way Edition)",
+            "project_url": "https://technica2018.devpost.com/submissions/106240-dark-roads-light-the-way-edition",
+            "table_number": "Y4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be85d9a5e0ea41038a4f1d3",
+            "project_name": "Hour of Code Game by The STEM Impressionists (SIP)",
+            "project_url": "https://technica2018.devpost.com/submissions/106259-hour-of-code-game-by-the-stem-impressionists-sip",
+            "table_number": "J4"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best use of Data Visualization",
+                    "company": "Qualtrics",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Community Building",
+                    "company": "Nextdoor",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be8531e5e0ea41038a4f1d0",
+            "project_name": "Why She Codes",
+            "project_url": "https://technica2018.devpost.com/submissions/106237-why-she-codes",
+            "table_number": "Y3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be85f9a5e0ea41038a4f1d6",
+            "project_name": "Trivia by Priya and Divya",
+            "project_url": "https://technica2018.devpost.com/submissions/106260-trivia-by-priya-and-divya",
+            "table_number": "L2"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best use of DragonBoard 410c",
+                    "company": "Qualcomm",
+                    "won": true
+                }
+            ],
+            "challenges_won": [
+                "Qualcomm_challenge20181111060740"
+            ],
+            "project_id": "5be8709e5e0ea41038a4f1d8",
+            "project_name": "SnakeGame",
+            "project_url": "--",
+            "table_number": "Y5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Financial Hack",
+                    "company": "Capital One",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be85fb15e0ea41038a4f1d7",
+            "project_name": "Finra",
+            "project_url": "https://devpost.com/software/technica-ismon0",
+            "table_number": "L3"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Hack for Social Good",
+                    "company": "JP Morgan Chase",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Money Management Hack",
+                    "company": "FINRA",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be85e895e0ea41038a4f1d4",
+            "project_name": "Technica2018",
+            "project_url": "https://technica2018.devpost.com/submissions/106062-technica2018",
+            "table_number": "L5"
+        },
+        {
+            "challenges": [
+                {
+                    "challenge_name": "Best \"Light the Way\" Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best First Time Hack",
+                    "company": "Technica",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Social Good Hack",
+                    "company": "MLH",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Overall Hack",
+                    "company": "Facebook",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Best Use of a Data Set",
+                    "company": "Ebay",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Health Matters",
+                    "company": "Visionist",
+                    "won": false
+                },
+                {
+                    "challenge_name": "Solutions in the Palm of your Hand",
+                    "company": "Fannie Mae",
+                    "won": false
+                }
+            ],
+            "challenges_won": [],
+            "project_id": "5be85ef25e0ea41038a4f1d5",
+            "project_name": "Wakey Wakey",
+            "project_url": "https://devpost.com/software/wakey-wakey-asdrix",
+            "table_number": "L4"
+        }
+    ],
+    "publish_winners": true
+}

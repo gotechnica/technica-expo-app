@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { useCachedResponseData } from './Backend.js';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -14,14 +15,22 @@ import SponsorLogin from './SponsorLogin.js';
 /* Routing control for app overall */
 const Routing = () => (
   <Router basename="/expo">
-    <div>
-      <Route exact path="/" component={Home}/>
-      <Route path="/admin" component={Admin}/>
-      <Route path="/sponsor" component={Sponsor}/>
-      <Route path="/adminlogin" component={AdminLogin}/>
-      <Route path="/sponsorlogin" component={SponsorLogin}/>
-    </div>
+    {useCachedResponseData ? (
+      <div>
+        <Route exact path="/" component={Home} />
+        <Redirect to="/" />
+      </div>
+    ) : (
+      <div>
+        <Route exact path="/" component={Home} />
+        <Route path="/admin" component={Admin} />
+        <Route path="/sponsor" component={Sponsor} />
+        <Route path="/adminlogin" component={AdminLogin} />
+        <Route path="/sponsorlogin" component={SponsorLogin} />
+        <Redirect to="/" />
+      </div>
+    )}
   </Router>
-)
+);
 
 export default Routing
