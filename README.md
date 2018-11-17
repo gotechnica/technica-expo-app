@@ -76,8 +76,36 @@ guide! You can find the linter for Atom
   finish judging their challenges - this can be monitored via the admin dashboard
 
 ## Sponsor Instructions
+Log in with your access code at gotechnica.org/expo/sponsor
 
-TODO
+![Sponsor Login Page](img/SponsorLogin.png)
+
+Welcome to your sponsor dashboard! This is where you’ll select the winner(s) of your challenge. For those of you who have multiple challenges, you’ll be selecting the winner or winners for each of your challenges, one at a time. Please use the “Filter by challenge” dropdown box to select which challenge you’re currently selecting the winner for. If you only have one challenge you’re judging today, don’t worry about the filter dropdown!
+If you come across a team who you’d like to award your prize to, but they didn’t specifically submit to your challenge, don’t worry! Just come to talk to one of us and we can get that updated for you :)
+
+![Sponsor Dashboard](img/SponsorDashboard.png)
+
+When you’re ready to select your winner (or multiple winners), click the checkbox (or checkboxes) next to the project and then scroll all the way down and click Submit.
+
+![Submit winners](img/SponsorSubmitWinner.png)
+
+Please make sure you’ve selected the correct team before you submit your final decisions!
+
+![Pre-submission confirmation modal](img/SponsorConfirmSubmit.png)
+
+Once you’re finished, you’ll be able to see the checkmark (or checkmarks) next to each of your challenges.
+
+![Submitted text](img/SponsorSubmitted.png)
+
+A few other things that we’ve built into our system to hopefully make your lives easier:
+
+1. We’ve gone into our database and recorded how many prizes you’re planning on giving based on the pre-event info you sent us. You can select less teams than you originally wanted to give out prizes for, but if you want to select more than you originally told us (for most of you, this limit is 1 team), just come speak with one of us! The reason we implemented this upper cap is to make sure you have enough prizes for the teams you’ve selected, and it wasn’t just an accidental submission. Better safe than sorry!
+2. We really want to encourage as many individuals as possible, and one of the ways is making sure we have a good variety of winners and not just one team taking home all the gold. If a team has already won two prizes (based on what other sponsors have submitted in our system), then we’ll pop up a reminder so that you know that this project has already been picked. If that shows up, we’d encourage you to select another project as your challenge winner!
+
+![Validations and Modals](img/SponsorMoreModals.png)
+
+Happy judging!
+
 
 ## Devpost Guidelines
 
