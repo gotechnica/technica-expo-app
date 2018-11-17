@@ -26,8 +26,8 @@ class AdminLogin extends Component {
     // If already logged in, move directly to admin page
     axiosRequest.get('api/whoami')
       .then((credentials) => {
-        if(credentials != undefined && credentials.user_type == 'admin') {
-          this.setState({loggedIn:true, error:""});
+        if (credentials != undefined && credentials.user_type == 'admin') {
+          this.setState({ loggedIn: true, error: "" });
           this.props.history.push({
             pathname: '/admin'
           });
@@ -40,18 +40,18 @@ class AdminLogin extends Component {
     let codeExists = accessCode != undefined && accessCode != '';
 
     if (codeExists) {
-      this.setState({logggedIn:true, error:""});
+      this.setState({ logggedIn: true, error: "" });
 
       // Try to set logged in state for admin
       axiosRequest.post(
-        'api/login/admin', 
+        'api/login/admin',
         { access_code: accessCode }
       )
-        .then((status)=> {
-          if(status == "Logged in as admin") {
+        .then((status) => {
+          if (status == "Logged in as admin") {
             // Log in was successful
             // Clear errors on component
-            this.setState({loggedIn:true, error:""});
+            this.setState({ loggedIn: true, error: "" });
 
             // Move to admin page
             this.props.history.push({
@@ -59,11 +59,11 @@ class AdminLogin extends Component {
             });
           } else {
             // Log in failed, show error
-            this.setState({loggedIn:false, error:InvalidErr});
+            this.setState({ loggedIn: false, error: InvalidErr });
           }
         });
     } else {
-      this.setState({loggedIn:false, error:InvalidErr});
+      this.setState({ loggedIn: false, error: InvalidErr });
     }
   }
 
@@ -73,7 +73,7 @@ class AdminLogin extends Component {
         <div className="AdminLogin">
           <Login title="Admin Login"
             onLogin={this.onLogin}
-            error={this.state.error}/>
+            error={this.state.error} />
         </div>
       )
     );

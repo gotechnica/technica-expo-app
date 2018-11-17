@@ -15,9 +15,9 @@ class Error extends Component {
     let className = this.props.iconstyle === undefined ?
       "fa-exclamation-triangle" : this.props.iconstyle;
     let icon = this.props.technica_icon === undefined ?
-        <FontAwesomeIcon icon={font_awesome_icon} className={className}/>
-        :
-        <img src={this.props.technica_icon} className={className}/>;
+      <FontAwesomeIcon icon={font_awesome_icon} className={className} />
+      :
+      <img src={this.props.technica_icon} className={className} />;
     return (
       <div className="btn-group error-group" role="group">
         <span className="error-icon">

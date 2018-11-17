@@ -29,22 +29,22 @@ class WinnersSubmmitedModal extends Component {
     return (
       <div class="modal fade bd-example-modal-sm" id="winnersSubmmitedModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered">
-          <div class="modal-content" style={{border: "0px solid"}}>
-            <div class="modal-header" style={{border: "0px solid"}}>
+          <div class="modal-content" style={{ border: "0px solid" }}>
+            <div class="modal-header" style={{ border: "0px solid" }}>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body" style={{color: "white", textAlign:"center", marginTop:"-40px"}}>
+            <div class="modal-body" style={{ color: "white", textAlign: "center", marginTop: "-40px" }}>
               <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
               </svg>
-              <div style={{fontSize:"20px", padding: "0px 10px"}}>
+              <div style={{ fontSize: "20px", padding: "0px 10px" }}>
                 Thanks for submitting your winners!
               </div>
             </div>
-            <div class="modal-footer" style={{border: "0px solid", paddingTop:"0px"}}>
+            <div class="modal-footer" style={{ border: "0px solid", paddingTop: "0px" }}>
               <button className="button button-primary" data-dismiss="modal">OK</button>
             </div>
           </div>
@@ -70,91 +70,92 @@ export class SubmitModal extends Component {
   render() {
     let vote_limit = this.props.vote_limit;
     let votes = [];
-    this.props.votes.forEach((project) =>{
+    this.props.votes.forEach((project) => {
       votes.push(<li>{project}</li>);
     });
-    let modal =
-      { error:
-        { icon: faTimesCircle,
-          iconstyle: "fa-times-circle",
-          message:
-            <Fragment>
-              Oops! Too many projects are selected to win this challenge.&nbsp;
-              Our records show that you only intended to provide prizes for {vote_limit} project{vote_limit > 1 ? 's' : ''}.&nbsp;
-              Come chat with someone on the Technica team if you want to select more!
-            </Fragment>
-        },
-        warning:
-          { icon: faExclamationTriangle,
-            iconstyle: "fa-exclamation-triangle",
-            message:
-              <Fragment>
-                Just a heads up! Our records show that you originally intended to provide prizes to {vote_limit} project{vote_limit > 1 ? 's' : ''} for this challenge, but
-                { votes.length === 0 ? ' none ' : ` only ${votes.length} ` }
-                { votes.length === 1 ? ' was ' : ' were ' } selected.
-              </Fragment>
-          }
-      };
+    let modal = {
+      error: {
+        icon: faTimesCircle,
+        iconstyle: "fa-times-circle",
+        message:
+          <Fragment>
+            Oops! Too many projects are selected to win this challenge.&nbsp;
+            Our records show that you only intended to provide prizes for {vote_limit} project{vote_limit > 1 ? 's' : ''}.&nbsp;
+            Come chat with someone on the Technica team if you want to select more!
+          </Fragment>
+      },
+      warning: {
+        icon: faExclamationTriangle,
+        iconstyle: "fa-exclamation-triangle",
+        message:
+          <Fragment>
+            Just a heads up! Our records show that you originally intended to provide prizes to {vote_limit} project{vote_limit > 1 ? 's' : ''} for this challenge, but
+            {votes.length === 0 ? ' none ' : ` only ${votes.length} `}
+            {votes.length === 1 ? ' was ' : ' were '} selected.
+          </Fragment>
+      }
+    };
+
     return (
       <Fragment>
-      <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Winner Selection</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              { votes.length != vote_limit ?
-                (votes.length > vote_limit ?
-                <Error icon={modal.error.icon} iconstyle={modal.error.iconstyle}>
-                  {modal.error.message}
-                </Error>
-                :
-                <Error icon={modal.warning.icon} iconstyle={modal.warning.iconstyle}>
-                  {modal.warning.message}
-                </Error>
-                )
-                :
-                <Fragment></Fragment>
-              }
-              <Error
-                icon={modal.warning.icon}
-                iconstyle={modal.warning.iconstyle}
-                text="All submitted selections are final."
-              />
-              <h5 className="modal-challenge">
-                {this.props.value +  " Winner" + (votes.length > 1 ? "s" : "")}
-              </h5>
-              <ul className="selection-list">
-                { votes.length > 0 ? votes : <li>No Projects Selected</li>}
-              </ul>
-            </div>
-            <div class="modal-footer">
-              <button className="button button-secondary" data-dismiss="modal">Cancel</button>
-              { votes.length > vote_limit ?
-                <button className="button button-primary" disabled>Submit</button>
-                :
-                <button
-                  className="button button-primary"
-                  data-toggle="modal"
-                  data-target="#winnersSubmmitedModal"
-                  data-dismiss="modal"
-                  onClick={ this.props.submit_handler.bind(
-                      this,this.props.company_id,
+        <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Winner Selection</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                {votes.length != vote_limit ?
+                  (votes.length > vote_limit ?
+                    <Error icon={modal.error.icon} iconstyle={modal.error.iconstyle}>
+                      {modal.error.message}
+                    </Error>
+                    :
+                    <Error icon={modal.warning.icon} iconstyle={modal.warning.iconstyle}>
+                      {modal.warning.message}
+                    </Error>
+                  )
+                  :
+                  <Fragment></Fragment>
+                }
+                <Error
+                  icon={modal.warning.icon}
+                  iconstyle={modal.warning.iconstyle}
+                  text="All submitted selections are final."
+                />
+                <h5 className="modal-challenge">
+                  {this.props.value + " Winner" + (votes.length > 1 ? "s" : "")}
+                </h5>
+                <ul className="selection-list">
+                  {votes.length > 0 ? votes : <li>No Projects Selected</li>}
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button className="button button-secondary" data-dismiss="modal">Cancel</button>
+                {votes.length > vote_limit ?
+                  <button className="button button-primary" disabled>Submit</button>
+                  :
+                  <button
+                    className="button button-primary"
+                    data-toggle="modal"
+                    data-target="#winnersSubmmitedModal"
+                    data-dismiss="modal"
+                    onClick={this.props.submit_handler.bind(
+                      this, this.props.company_id,
                       this.props.challenge_id,
                       this.props.value,
-                      this.props.after_submission_handler) }>
-                  Submit
+                      this.props.after_submission_handler)}>
+                    Submit
                 </button>
-              }
+                }
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <WinnersSubmmitedModal/>
+        <WinnersSubmmitedModal />
       </Fragment>
     );
   }
@@ -179,15 +180,15 @@ class Task extends Component {
           {this.props.submitted ? (
             <button className="task-title">{this.props.challenge}</button>
           ) : (
-            <button className="task-title">Select your winner{this.props.winners > 1 ? "s" : ""} for {this.props.challenge}</button>
-          )}
+              <button className="task-title">Select your winner{this.props.winners > 1 ? "s" : ""} for {this.props.challenge}</button>
+            )}
         </div>
-        { winners.length > 0 ?
-        <ul className="selection-list" style={{marginLeft:"50px", marginBottom: "0px"}}>
-          {winners}
-        </ul>
-        :
-        <Fragment></Fragment> }
+        {winners.length > 0 ?
+          <ul className="selection-list" style={{ marginLeft: "50px", marginBottom: "0px" }}>
+            {winners}
+          </ul>
+          :
+          <Fragment></Fragment>}
       </Fragment>
     )
   }
@@ -238,14 +239,15 @@ export class VotingTable extends Component {
         /* Force state to update once GET calls and login goes through */
         this.setState({
           checked: updated_voting_data,
-          challenges: this.props.sponsor_data },
-          function(){}.bind(this)
+          challenges: this.props.sponsor_data
+        },
+          function () { }.bind(this)
         );
       }
     }
   }
 
-  handleSubmitEvent(company_id,challenge_id,challenge_name, update) {
+  handleSubmitEvent(company_id, challenge_id, challenge_name, update) {
     const checkboxes = document.getElementsByClassName("voting-checkbox");
     let winners = [];
     for (let i = 0; i < checkboxes.length; i++) {
@@ -254,16 +256,16 @@ export class VotingTable extends Component {
         winners.push(ckbx.value);
         let params = {
           company_id: company_id,
-	        challenge_id: challenge_id
+          challenge_id: challenge_id
         };
         let route = 'api/projects/id/' + ckbx.value + '/makeWinner';
         axiosRequest.post(route, params)
-        .then((response) => {
-          update(challenge_name, winners);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+          .then((response) => {
+            update(challenge_name, winners);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
       }
     }
   }
@@ -282,12 +284,11 @@ export class VotingTable extends Component {
     this.setState({ checked: new_checked });
   }
 
-
   render() {
     return (
-      <div style={{marginTop:"20px"}} id="Sponsor">
+      <div style={{ marginTop: "20px" }} id="Sponsor">
         <Table
-          headers={['Select','Table','Challenges Won','Project']}
+          headers={['Select', 'Table', 'Challenges Won', 'Project']}
           company_id={this.props.company_id}
           isLoadingData={this.props.isLoadingData}
           projects={this.props.projects}
@@ -306,7 +307,6 @@ export class VotingTable extends Component {
 }
 
 export class WelcomeHeader extends Component {
-
   render() {
     let tasks = [];
     let openTasksStillWaiting = false;
@@ -352,10 +352,10 @@ export class WelcomeHeader extends Component {
                   come chat with someone on the Technica team and we'll get that updated for you!
                 </p>
               ) : (
-                <p>
-                  You've finalized the winners for your {tasks.length == 1 ? 'challenge' : 'challenges'}. Thanks!
+                  <p>
+                    You've finalized the winners for your {tasks.length == 1 ? 'challenge' : 'challenges'}. Thanks!
                 </p>
-              )}
+                )}
             </div>
             {tasks}
           </Fragment>
@@ -378,7 +378,7 @@ export default class Sponsor extends Component {
     };
     axiosRequest.get('api/whoami')
       .then((credentials) => {
-        if(credentials !== undefined && credentials.user_type === 'sponsor') {
+        if (credentials !== undefined && credentials.user_type === 'sponsor') {
           this.setState({
             loggedIn: true,
             loggedInAs: credentials.name,
@@ -447,7 +447,7 @@ export default class Sponsor extends Component {
                 origin="sponsor"
                 loggedIn={this.state.loggedInAs}
                 company_id={this.state.company_id}
-                after_submission_handler = {this.handleAfterSubmission}
+                after_submission_handler={this.handleAfterSubmission}
                 sponsor_data={this.state.sponsor_data}
                 logout={this.onLogout.bind(this)}
               />

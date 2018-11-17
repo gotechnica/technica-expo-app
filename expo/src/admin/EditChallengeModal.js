@@ -41,7 +41,6 @@ class EditChallengeModal extends Component {
   }
 
   saveChallenge(e) {
-
     axiosRequest.get(`api/companies/id/${this.props.sponsorID}`)
       .then((challenges) => {
         let winners = [];
@@ -100,9 +99,7 @@ class EditChallengeModal extends Component {
         } else {
           this.setState({winner_error: false});
         }
-
       });
-
   }
 
   deleteChallenge = () => {

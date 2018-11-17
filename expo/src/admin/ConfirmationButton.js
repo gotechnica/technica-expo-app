@@ -7,7 +7,7 @@ class ConfirmationButton extends Component {
     super(props);
   }
   render() {
-    return(
+    return (
       <div className="p-a-m">
         <p className="warning-text">Are you sure you want to delete {this.props.elementToDelete}?</p>
         <div className="float-right">

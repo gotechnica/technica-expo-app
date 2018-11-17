@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import '../App.css';
 
@@ -8,17 +8,17 @@ class WarningModal extends Component {
     }
     render() {
         return (
-            <div class="modal fade" id = "modalWarning" role="dialog">
+            <div class="modal fade" id="modalWarning" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Delete All Projects?</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p className = "modal_warning_text">Are you sure you want to delete all projects?</p>
+                            <p className="modal_warning_text">Are you sure you want to delete all projects?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="button button-secondary no" data-dismiss="modal">No</button>

@@ -34,10 +34,10 @@ class ProjectModule extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      textSearch:'',
-      projectIndexToEdit:-1,
-      uploadStatus:'',
-      projectsCSV:'',
+      textSearch: '',
+      projectIndexToEdit: -1,
+      uploadStatus: '',
+      projectsCSV: '',
       tableAssignmentStatus: '',
       tableAssignmentSchema: '',
       tableStartLetter: '',
@@ -45,7 +45,7 @@ class ProjectModule extends Component {
       tableEndLetter: '',
       tableEndNumber: 0,
       skipEveryOtherTable: true,
-      viewable:true,
+      viewable: true,
     }
     this.deleteAllProjects = this.deleteAllProjects.bind(this);
   }
@@ -59,14 +59,15 @@ class ProjectModule extends Component {
     }
     return allChallengesMapping;
   }
-  createAllChallenges(obj){
+  
+  createAllChallenges(obj) {
     let allChallenges = [];
-    for(let key in obj){
-     obj[key].map((item) => {
-       if(allChallenges.indexOf(item) === -1){
-         allChallenges.push(item);
-       }
-     })
+    for (let key in obj) {
+      obj[key].map((item) => {
+        if (allChallenges.indexOf(item) === -1) {
+          allChallenges.push(item);
+        }
+      })
     }
     allChallenges.sort();
     // obj.map((item)=>{
@@ -77,18 +78,19 @@ class ProjectModule extends Component {
     // })
     return allChallenges;
   }
-  sortData(){
+
+  sortData() {
     let data = this.props.projects;
     let finalProjectsData = [];
     let seen = undefined;
-    data.map((obj)=>{
+    data.map((obj) => {
       let challenge = [];
-      obj.challenges.map((item)=>{
+      obj.challenges.map((item) => {
         challenge.push(item.challenge_name);
       })
       finalProjectsData.push(
         {
-          project_id : obj.project_id,
+          project_id: obj.project_id,
           project_name: obj.project_name,
           table_number: obj.table_number,
           url: obj.project_url,
@@ -99,8 +101,9 @@ class ProjectModule extends Component {
     })
     return finalProjectsData;
   }
+
   onUploadCSVSubmitForm(e) {
-		e.preventDefault();
+    e.preventDefault();
 
     const data = new FormData();
     data.append('projects_csv', this.projects_csv.files[0]);
@@ -125,7 +128,7 @@ class ProjectModule extends Component {
           });
         });
     }
-	}
+  }
 
   handleInputChange(event) {
     const target = event.target;
@@ -211,7 +214,7 @@ class ProjectModule extends Component {
   renderEditProjectModal = (elt, index, allChallenges, challengesToCompanyMap) => {
     return (
       <EditProjectModal
-        index = {index}
+        index={index}
         editID={"modalEditProject" + index.toString()}
         projectID={elt.project_id}
         project_name={elt.project_name}
@@ -227,16 +230,16 @@ class ProjectModule extends Component {
   }
 
   toggleView() {
-    if(this.state.viewable) {
+    if (this.state.viewable) {
       this.setState({
-        viewable:false
+        viewable: false
       });
-      document.getElementById("project-content").style.display="none";
+      document.getElementById("project-content").style.display = "none";
     } else {
       this.setState({
-        viewable:true
+        viewable: true
       });
-      document.getElementById("project-content").style.display="block";
+      document.getElementById("project-content").style.display = "block";
     }
   }
 
@@ -244,11 +247,11 @@ class ProjectModule extends Component {
     let filteredProjects = this.sortData();
     let allChallenges = this.createAllChallenges(this.props.challenges);
     let challengesToCompanyMap = this.createChallengesToCompanyMap(this.props.challenges);
-    if(this.state.textSearch != '' && this.state.textSearch != undefined) {
+    if (this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredProjects = filteredProjects.filter(elt => {
         const upperCaseTextSearch = this.state.textSearch.toUpperCase();
         return elt.project_name.toUpperCase().includes(upperCaseTextSearch) ||
-               elt.table_number.toUpperCase().includes(upperCaseTextSearch);
+          elt.table_number.toUpperCase().includes(upperCaseTextSearch);
       });
     }
 
@@ -256,11 +259,11 @@ class ProjectModule extends Component {
       <div className="card">
         <div className="card-header">
           <div className="d-flex">
-          <h4>Projects</h4>
+            <h4>Projects</h4>
             <span className="ml-auto">
               <button className="link-button"
                 type="button"
-                onClick={()=> {this.toggleView()}}>
+                onClick={() => { this.toggleView() }}>
                 {!this.state.viewable ? "Show" : "Hide"}
               </button>
             </span>
@@ -275,7 +278,7 @@ class ProjectModule extends Component {
             onSubmit={this.onUploadCSVSubmitForm.bind(this)}
           >
             <div className="form-group">
-              <label>Upload Devpost CSV for parsing</label><br/>
+              <label>Upload Devpost CSV for parsing</label><br />
               <div className="upload-btn-wrapper">
                 <button className="button button-primary font-weight-normal m-r-m"><FontAwesomeIcon icon="upload" className="upload_icon"></FontAwesomeIcon>Choose a file</button>
                 <input type="file" id="file" name="projectsCSV" onChange={this.handleInputChange.bind(this)} ref={(ref) => { this.projects_csv = ref; }} />
@@ -284,14 +287,14 @@ class ProjectModule extends Component {
             </div>
             <button className="button button-primary" type="submit">Upload</button>
             {this.state.uploadStatus != '' &&
-              <div className="row col" style={{'padding-top': '1rem'}}>
+              <div className="row col" style={{ 'padding-top': '1rem' }}>
                 <i>{this.state.uploadStatus}</i>
               </div>
             }
           </form>
 
-          <br/>
-          <br/>
+          <br />
+          <br />
 
           <h5>Auto Assign Table Numbers</h5>
           <form
@@ -299,51 +302,51 @@ class ProjectModule extends Component {
             onSubmit={this.onAutoAssignTableNumbers.bind(this)}
           >
             <div onChange={this.handleInputChange.bind(this)} className="m-b-m">
-              <div><input type="radio" name="tableAssignmentSchema" value="numeric" checked={this.state.tableAssignmentSchema=="numeric"} /> Numeric (1, 2, 3...)</div>
-              <div><input type="radio" name="tableAssignmentSchema" value="odds" checked={this.state.tableAssignmentSchema=="odds"} /> Odds (1, 3, 5...)</div>
-              <div><input type="radio" name="tableAssignmentSchema" value="evens" checked={this.state.tableAssignmentSchema=="evens"} /> Evens (2, 4, 6...)</div>
-              <div><input type="radio" name="tableAssignmentSchema" value="custom" checked={this.state.tableAssignmentSchema=="custom"} /> Custom</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="numeric" checked={this.state.tableAssignmentSchema == "numeric"} /> Numeric (1, 2, 3...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="odds" checked={this.state.tableAssignmentSchema == "odds"} /> Odds (1, 3, 5...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="evens" checked={this.state.tableAssignmentSchema == "evens"} /> Evens (2, 4, 6...)</div>
+              <div><input type="radio" name="tableAssignmentSchema" value="custom" checked={this.state.tableAssignmentSchema == "custom"} /> Custom</div>
             </div>
             {this.state.tableAssignmentSchema === "custom" &&
-            <div className="m-b-m">
-              <p>Enter the starting and ending/maximum alphanumeric combinations (e.g. A1 to Z15).</p>
-              <div className="form-group custom-table-assignment-container">
+              <div className="m-b-m">
+                <p>Enter the starting and ending/maximum alphanumeric combinations (e.g. A1 to Z15).</p>
+                <div className="form-group custom-table-assignment-container">
+                  <input
+                    type="text"
+                    name="tableStartLetter"
+                    className="form-control custom-table-assignment-child"
+                    placeholder="ex: A"
+                    onChange={this.handleInputChange.bind(this)}
+                  />
+                  <input
+                    type="number"
+                    name="tableStartNumber"
+                    className="form-control custom-table-assignment-child"
+                    placeholder="ex: 1"
+                    onChange={this.handleInputChange.bind(this)}
+                  />
+                  to
                 <input
-                  type="text"
-                  name="tableStartLetter"
-                  className="form-control custom-table-assignment-child"
-                  placeholder="ex: A"
-                  onChange={this.handleInputChange.bind(this)}
-                />
+                    type="text"
+                    name="tableEndLetter"
+                    className="form-control custom-table-assignment-child"
+                    placeholder="ex: Z"
+                    onChange={this.handleInputChange.bind(this)}
+                  />
+                  <input
+                    type="number"
+                    name="tableEndNumber"
+                    className="form-control custom-table-assignment-child"
+                    placeholder="ex: 15"
+                    onChange={this.handleInputChange.bind(this)}
+                  />
+                </div>
                 <input
-                  type="number"
-                  name="tableStartNumber"
-                  className="form-control custom-table-assignment-child"
-                  placeholder="ex: 1"
+                  name="skipEveryOtherTable"
+                  type="checkbox"
+                  checked={this.state.skipEveryOtherTable}
                   onChange={this.handleInputChange.bind(this)}
-                />
-                to
-                <input
-                  type="text"
-                  name="tableEndLetter"
-                  className="form-control custom-table-assignment-child"
-                  placeholder="ex: Z"
-                  onChange={this.handleInputChange.bind(this)}
-                />
-                <input
-                  type="number"
-                  name="tableEndNumber"
-                  className="form-control custom-table-assignment-child"
-                  placeholder="ex: 15"
-                  onChange={this.handleInputChange.bind(this)}
-                />
-              </div>
-              <input
-                name="skipEveryOtherTable"
-                type="checkbox"
-                checked={this.state.skipEveryOtherTable}
-                onChange={this.handleInputChange.bind(this)}
-              /> Skip every other table? (Provides more spacious expo)
+                /> Skip every other table? (Provides more spacious expo)
             </div>}
             <button type="submit" className="button button-primary m-r-m assign_button1">
               Assign Tables
@@ -352,14 +355,14 @@ class ProjectModule extends Component {
               Remove All Table Assignments
             </button>
             {this.state.tableAssignmentStatus != '' &&
-              <div className="row col" style={{'padding-top': '1rem'}}>
+              <div className="row col" style={{ 'padding-top': '1rem' }}>
                 <i>{this.state.tableAssignmentStatus}</i>
               </div>
             }
           </form>
 
-          <br/>
-          <br/>
+          <br />
+          <br />
 
           <h5>Projects <SmallerParentheses font_size="15px">{filteredProjects.length}</SmallerParentheses></h5>
           <CreateProjectModal
@@ -378,8 +381,8 @@ class ProjectModule extends Component {
           <button
             className="button button-secondary m-b-m"
             type="button"
-            data-toggle = "modal"
-            data-target = "#modalWarning"
+            data-toggle="modal"
+            data-target="#modalWarning"
           >
             Delete ALL Projects
           </button>
@@ -389,15 +392,15 @@ class ProjectModule extends Component {
               id="txtProjectSearch"
               className="form-control"
               placeholder="Search for a project name..."
-              onChange = {(event) => this.setState({textSearch:event.target.value})}
-              />
+              onChange={(event) => this.setState({ textSearch: event.target.value })}
+            />
           </div>
           <div className="row m-b-m">
             <div className="col grow-5">Project</div>
             <div className="col">Table</div>
             <div className="col" />
           </div>
-          {filteredProjects.map((elt,index) => {
+          {filteredProjects.map((elt, index) => {
             return (
               <div className="row m-b-m" key={index} id={`project-${elt.project_id}`}>
                 <div className="col grow-5 break-word">
@@ -409,10 +412,10 @@ class ProjectModule extends Component {
                 <div className="col">
                   <button
                     className="link-button"
-                    id = {`editProject${index.toString()}Btn`}
+                    id={`editProject${index.toString()}Btn`}
                     type="button"
                     data-toggle="modal"
-                    data-target={"#modalEditProject"+index.toString()}
+                    data-target={"#modalEditProject" + index.toString()}
                     // Hacky solution to only mount the modal when necessary
                     // (helps if huge amount of projects in DB)
                     onMouseOver={() => {
@@ -423,8 +426,8 @@ class ProjectModule extends Component {
                   </button>
                 </div>
                 {this.state.projectIndexToEdit === index ?
-                    this.renderEditProjectModal(elt, index, allChallenges, challengesToCompanyMap):
-                    null
+                  this.renderEditProjectModal(elt, index, allChallenges, challengesToCompanyMap) :
+                  null
                 }
               </div>
             )
@@ -437,12 +440,11 @@ class ProjectModule extends Component {
 
 /* Sponsor side of admin page */
 class SponsorModule extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      textSearch:'',
-      sponsors:[],
+      textSearch: '',
+      sponsors: [],
       viewable: true
     }
   }
@@ -457,16 +459,16 @@ class SponsorModule extends Component {
   }
 
   toggleView() {
-    if(this.state.viewable) {
+    if (this.state.viewable) {
       this.setState({
-        viewable:false
+        viewable: false
       });
-      document.getElementById("sponsor-content").style.display="none";
+      document.getElementById("sponsor-content").style.display = "none";
     } else {
       this.setState({
-        viewable:true
+        viewable: true
       });
-      document.getElementById("sponsor-content").style.display="block";
+      document.getElementById("sponsor-content").style.display = "block";
     }
   }
 
@@ -476,13 +478,12 @@ class SponsorModule extends Component {
   }
 
   render() {
-
     // Compress list by access_code to suit view
     let compressedSponsors = [];
     this.state.sponsors.forEach(elt => {
       // Check whether code is unique
       let codeSeen = false;
-      compressedSponsors.forEach((sponsor)=> {
+      compressedSponsors.forEach((sponsor) => {
         if (sponsor.access_code == elt.access_code) {
           codeSeen = true;
         }
@@ -503,11 +504,11 @@ class SponsorModule extends Component {
       // Add challenge to corresponding sponsor
       let current_sponsor = null;
       compressedSponsors.forEach((sponsor) => {
-        if(sponsor.access_code == elt.access_code) {
+        if (sponsor.access_code == elt.access_code) {
           current_sponsor = sponsor;
         }
       });
-      if(elt.challenge_name != undefined) {
+      if (elt.challenge_name != undefined) {
         current_sponsor.challenges.push({
           challenge: elt.challenge_name,
           id: elt.challenge_id,
@@ -519,7 +520,7 @@ class SponsorModule extends Component {
 
     // Prepare sponsor list against filter (including sponsor name and challenges)
     let filteredSponsors = compressedSponsors;
-    if(this.state.textSearch != '' && this.state.textSearch != undefined) {
+    if (this.state.textSearch != '' && this.state.textSearch != undefined) {
       filteredSponsors = filteredSponsors.filter(elt => {
 
         let casedTextSearch = this.state.textSearch.toUpperCase()
@@ -537,448 +538,450 @@ class SponsorModule extends Component {
 
     // Sort Sponsors
     filteredSponsors.sort((s1, s2) => {
-      return (s1.company_name).localeCompare(s2.company_name); });
+      return (s1.company_name).localeCompare(s2.company_name);
+    });
 
-      return (
-        <div className="card">
-          <div className="card-header">
-            <div className="d-flex">
-              <h4>Sponsors</h4>
-              <span className="ml-auto">
-                <button className="link-button"
-                  type="button"
-                  onClick={()=> {this.toggleView()}}>
-                  {!this.state.viewable ? "Show" : "Hide"}
-                </button>
-              </span>
-            </div>
+    return (
+      <div className="card">
+        <div className="card-header">
+          <div className="d-flex">
+            <h4>Sponsors</h4>
+            <span className="ml-auto">
+              <button className="link-button"
+                type="button"
+                onClick={() => { this.toggleView() }}>
+                {!this.state.viewable ? "Show" : "Hide"}
+              </button>
+            </span>
           </div>
-          <div className="card-body" id="sponsor-content">
-            <CreateSponsorModal
-              createID="modalCreateSponsor"
-              onCreate={this.loadCompanies.bind(this)}
-              />
-            <button className="button button-primary m-b-m"
-              type="button"
-              data-toggle="modal"
-              data-target="#modalCreateSponsor"
-              >
-              Create New Sponsor
+        </div>
+        <div className="card-body" id="sponsor-content">
+          <CreateSponsorModal
+            createID="modalCreateSponsor"
+            onCreate={this.loadCompanies.bind(this)}
+          />
+          <button className="button button-primary m-b-m"
+            type="button"
+            data-toggle="modal"
+            data-target="#modalCreateSponsor"
+          >
+            Create New Sponsor
             </button>
-            <div className="form-group">
-              <input type="text"
-                id="txtSponsorSearch"
-                className="form-control"
-                placeholder="Search for a sponsor or challenge name..."
-                onChange = {(event) => this.setState({textSearch:event.target.value})}
-                />
-            </div>
-            {filteredSponsors.map((elt,key) => {
-              return (
-                <div className="sponsor-card" key={key}>
+          <div className="form-group">
+            <input type="text"
+              id="txtSponsorSearch"
+              className="form-control"
+              placeholder="Search for a sponsor or challenge name..."
+              onChange={(event) => this.setState({ textSearch: event.target.value })}
+            />
+          </div>
+          {filteredSponsors.map((elt, key) => {
+            return (
+              <div className="sponsor-card" key={key}>
+                <div>
+                  <div className="d-flex">
+                    <h5>
+                      {elt.company_name}
+                    </h5>
+                    <span className="ml-auto">
+                      <EditSponsorModal
+                        editID={"modalEditSponsor" + key.toString()}
+                        sponsorCode={elt.access_code}
+                        sponsorName={elt.company_name}
+                        sponsorID={elt.id}
+                        onEdit={this.loadCompanies.bind(this)}
+                      />
+                      <button className="link-button"
+                        type="button"
+                        data-toggle="modal"
+                        data-target={"#modalEditSponsor" + key.toString()}
+                      >
+                        Edit Details
+                        </button>
+                    </span>
+                  </div>
+
                   <div>
-                    <div className="d-flex">
-                      <h5>
-                        {elt.company_name}
-                      </h5>
-                      <span className="ml-auto">
-                        <EditSponsorModal
-                          editID={"modalEditSponsor"+key.toString()}
-                          sponsorCode={elt.access_code}
-                          sponsorName={elt.company_name}
+                    <CreateChallengeModal
+                      createID={"modalCreateChallenge" + key.toString()}
+                      company={elt.company_name}
+                      sponsorID={elt.id}
+                      onCreate={this.loadCompanies.bind(this)}
+                    />
+                    <button
+                      className="link-button shrink-0"
+                      type="button"
+                      data-toggle="modal"
+                      data-target={"#modalCreateChallenge" + key.toString()}
+                    >
+                      Create Challenge
+                          </button>
+                  </div>
+
+                  {elt.challenges.map((challenge, i) => {
+                    return (
+                      <div>
+                        {(i + 1).toString() + ") " + challenge.challenge + " "}
+                        <EditChallengeModal
+                          editID={"modalEditChallenge" + elt.access_code.toString() + i.toString()}
+                          challengeTitle={challenge.challenge}
+                          numWinners={challenge.num_winners}
+                          challengeID={challenge.id}
                           sponsorID={elt.id}
                           onEdit={this.loadCompanies.bind(this)}
-                          />
+                        />
                         <button className="link-button"
                           type="button"
                           data-toggle="modal"
-                          data-target={"#modalEditSponsor"+key.toString()}
-                          >
-                          Edit Details
-                        </button>
-                      </span>
-                    </div>
-
-                      <div>
-                          <CreateChallengeModal
-                            createID={"modalCreateChallenge"+key.toString()}
-                            company={elt.company_name}
-                            sponsorID={elt.id}
-                            onCreate={this.loadCompanies.bind(this)}
-                            />
-                          <button
-                            className="link-button shrink-0"
-                            type="button"
-                            data-toggle="modal"
-                            data-target={"#modalCreateChallenge"+key.toString()}
-                          >
-                            Create Challenge
+                          data-target={"#modalEditChallenge" + elt.access_code.toString() + i.toString()}
+                        >
+                          Edit
                           </button>
                       </div>
-
-                    {elt.challenges.map((challenge,i) => {
-                      return (
-                        <div>
-                          {(i+1).toString() + ") " + challenge.challenge + " "}
-                          <EditChallengeModal
-                            editID={"modalEditChallenge"+elt.access_code.toString()+i.toString()}
-                            challengeTitle={challenge.challenge}
-                            numWinners={challenge.num_winners}
-                            challengeID={challenge.id}
-                            sponsorID={elt.id}
-                            onEdit={this.loadCompanies.bind(this)}
-                            />
-                          <button className="link-button"
-                            type="button"
-                            data-toggle="modal"
-                            data-target={"#modalEditChallenge"+elt.access_code.toString()+i.toString()}
-                            >
-                            Edit
-                          </button>
-                        </div>
-                      )
-                    })}
-                  </div>
-                  <hr/>
+                    )
+                  })}
                 </div>
-              )
-            })}
-          </div>
+                <hr />
+              </div>
+            )
+          })}
         </div>
-      );
+      </div>
+    );
+  }
+}
+
+class WinnerModule extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showPreview: false,
+      data: [],
+      winnersRevealed: false,
+      missingWinners: []
     }
   }
 
-  class WinnerModule extends Component {
+  componentWillMount() {
+    axiosRequest.get('api/projects/publish_winners_status')
+      .then((status) => {
+        this.setState({
+          winnersRevealed: status == "True"
+        })
+      });
+  }
 
-    constructor(props) {
-      super(props);
-      this.state = {
-        showPreview: false,
-        data: [],
-        winnersRevealed: false,
-        missingWinners: []
-      }
-    }
+  loadWinners() {
+    // toggle based on state
 
-    componentWillMount() {
-      axiosRequest.get('api/projects/publish_winners_status')
-        .then((status) => {
-          this.setState({
-            winnersRevealed: status == "True"
+    // Pull data, add to state, and show
+    axiosRequest.get('api/companies')
+      .then((sponsors) => {
+        let projects = this.props.projects.filter(elt => {
+          return elt.challenges_won != undefined
+            && elt.challenges_won.length > 0;
+        });
+
+        //Build sponsor - challenge - winners struct
+        let data = sponsors.filter(elt => {
+          return elt.challenge_name != undefined
+            && elt.winners != undefined && elt.winners.length > 0;
+        }).map(elt => {
+
+          // elt.winners => winner IDs
+          // for each project, if proj.challenges_won contains elt.challenge_id
+          // add proj.project_name to winners
+          let winners = [];
+          for (let i = 0; i < projects.length; i++) {
+            if (projects[i].challenges_won.includes(elt.challenge_id)) {
+              winners.push(projects[i].project_name);
+            }
+          }
+
+          return {
+            sponsor: elt.company_name,
+            challenge: elt.challenge_name,
+            winners: winners
+          }
+        });
+
+        // Build list of sponsor - challenges without winners
+        let missingWinners = sponsors.filter(elt => {
+          return elt.challenge_name != undefined
+            && elt.winners.length == 0;
+        }).map(elt => {
+          return {
+            sponsor: elt.company_name,
+            challenge: elt.challenge_name
+          }
+        });
+
+        /*this.setState({
+          data: data.sort((s1, s2) => {
+            if(s1.sponsor_name == undefined || s1.sponsor_name == undefined) {
+              return 0;
+            }
+
+            return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
+        });*/
+
+        this.setState({
+          data: data.sort((s1, s2) => {
+            if (s1.sponsor == undefined || s1.sponsor == undefined) {
+              return 0;
+            }
+            return (s1.sponsor).localeCompare(s2.sponsor);
+          }),
+          missingWinnerData: missingWinners.sort((s1, s2) => {
+            if (s1.sponsor == undefined || s1.sponsor == undefined) {
+              return 0;
+            }
+            return (s1.sponsor).localeCompare(s2.sponsor);
           })
         });
-    }
-
-    loadWinners() {
-      // toggle based on state
-
-      // Pull data, add to state, and show
-      axiosRequest.get('api/companies')
-        .then((sponsors) => {
-          let projects = this.props.projects.filter(elt => {
-            return elt.challenges_won != undefined
-              && elt.challenges_won.length > 0;
-          });
-
-          //Build sponsor - challenge - winners struct
-          let data = sponsors.filter(elt => {
-            return elt.challenge_name != undefined
-              && elt.winners != undefined && elt.winners.length > 0;
-          }).map(elt => {
-
-            // elt.winners => winner IDs
-            // for each project, if proj.challenges_won contains elt.challenge_id
-            // add proj.project_name to winners
-            let winners = [];
-            for(let i = 0; i < projects.length; i++) {
-              if(projects[i].challenges_won.includes(elt.challenge_id)) {
-                winners.push(projects[i].project_name);
-              }
-            }
-
-            return {
-              sponsor: elt.company_name,
-              challenge: elt.challenge_name,
-              winners: winners
-            }
-          });
-
-          // Build list of sponsor - challenges without winners
-          let missingWinners = sponsors.filter(elt => {
-            return elt.challenge_name != undefined
-              && elt.winners.length == 0;
-          }).map(elt => {
-            return {
-              sponsor: elt.company_name,
-              challenge: elt.challenge_name
-            }
-          });
-
-          /*this.setState({
-            data: data.sort((s1, s2) => {
-              if(s1.sponsor_name == undefined || s1.sponsor_name == undefined) {
-                return 0;
-              }
-
-              return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
-          });*/
-
-          this.setState({
-            data: data.sort((s1, s2) => {
-              if(s1.sponsor == undefined || s1.sponsor == undefined) {
-                return 0;
-              }
-              return (s1.sponsor).localeCompare(s2.sponsor); }),
-            missingWinnerData: missingWinners.sort((s1,s2)=>{
-              if(s1.sponsor == undefined || s1.sponsor == undefined) {
-                return 0;
-              }
-              return (s1.sponsor).localeCompare(s2.sponsor);
-            })
-          });
 
 
-        });
-    }
+      });
+  }
 
-    toggleWinnerPreview() {
-      if(this.state.showPreview) {
-        this.setState({
-          showPreview: false
-        });
-      } else {
-        // Get a data dump
-        // sponsor - challenge - winner project names
-        this.loadWinners();
-        this.setState({
-          showPreview: true
-        });
-      }
-    }
-
-    showWinners() {
-      axiosRequest.post('api/projects/publish_winners_status', {
-        "publish_winners": true
-      }).then((data) => {
-        this.setState({
-          winnersRevealed: true
-        });
+  toggleWinnerPreview() {
+    if (this.state.showPreview) {
+      this.setState({
+        showPreview: false
+      });
+    } else {
+      // Get a data dump
+      // sponsor - challenge - winner project names
+      this.loadWinners();
+      this.setState({
+        showPreview: true
       });
     }
+  }
 
-    hideWinners() {
-      axiosRequest.post('api/projects/publish_winners_status', {
-        "publish_winners": false
-      }).then((data) => {
-        this.setState({
-          winnersRevealed: false
-        });
+  showWinners() {
+    axiosRequest.post('api/projects/publish_winners_status', {
+      "publish_winners": true
+    }).then((data) => {
+      this.setState({
+        winnersRevealed: true
       });
-    }
+    });
+  }
 
-    render() {
+  hideWinners() {
+    axiosRequest.post('api/projects/publish_winners_status', {
+      "publish_winners": false
+    }).then((data) => {
+      this.setState({
+        winnersRevealed: false
+      });
+    });
+  }
 
-      let caret = this.state.showPreview ?
-        <FontAwesomeIcon icon={faCaretUp} className="fa-caret-up"></FontAwesomeIcon>
-        :
-        <FontAwesomeIcon icon={faCaretDown} className="fa-caret-down"></FontAwesomeIcon>;
+  render() {
 
-      return (
-        <div className="card">
-          <div className="card-header">
-            <div className="d-flex">
-              <div>
-                <h4>Admnistration</h4>
-              </div>
-              <div className="ml-auto">
-                <button
-                  type="button"
-                  className="link-button"
-                  onClick={this.props.logout}
-                >
-                  Logout
+    let caret = this.state.showPreview ?
+      <FontAwesomeIcon icon={faCaretUp} className="fa-caret-up"></FontAwesomeIcon>
+      :
+      <FontAwesomeIcon icon={faCaretDown} className="fa-caret-down"></FontAwesomeIcon>;
+
+    return (
+      <div className="card">
+        <div className="card-header">
+          <div className="d-flex">
+            <div>
+              <h4>Admnistration</h4>
+            </div>
+            <div className="ml-auto">
+              <button
+                type="button"
+                className="link-button"
+                onClick={this.props.logout}
+              >
+                Logout
                 </button>
-              </div>
             </div>
           </div>
-          <div className="card-body">
+        </div>
+        <div className="card-body">
 
-           <div>
-             {this.state.winnersRevealed ?
-               <button type="button" className="button button-secondary"
-                 onClick={()=>{this.hideWinners()}}>
-                 Hide Public Winners
+          <div>
+            {this.state.winnersRevealed ?
+              <button type="button" className="button button-secondary"
+                onClick={() => { this.hideWinners() }}>
+                Hide Public Winners
                </button>
-               :
-               <button type="button" className="button button-primary"
-                 onClick={()=>{this.showWinners()}}>
-                 Reveal Public Winners
+              :
+              <button type="button" className="button button-primary"
+                onClick={() => { this.showWinners() }}>
+                Reveal Public Winners
                </button>
-             }
-           </div>
-           <br/>
-           <div>
-             <button type="button" className="link-button" onClick={()=>{this.toggleWinnerPreview()}}>
-               {!this.state.showPreview ?
-                 "Preview Winners "
-                 :
-                 "Hide Winners "}
-               {caret}
-             </button>
-           </div>
-           <br/>
+            }
+          </div>
+          <br />
+          <div>
+            <button type="button" className="link-button" onClick={() => { this.toggleWinnerPreview() }}>
+              {!this.state.showPreview ?
+                "Preview Winners "
+                :
+                "Hide Winners "}
+              {caret}
+            </button>
+          </div>
+          <br />
 
-             {
-                 this.state.showPreview ?
-                 <h5>
+          {
+            this.state.showPreview ?
+              <h5>
+                <img src="/static/media/technica_award_ribbon.c16e92fc.png"
+                  class="Ribbon" height="30px" width="30px" />
+                NO WINNERS SUBMITTED
                    <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                     class="Ribbon" height="30px" width="30px"/>
-                   NO WINNERS SUBMITTED
-                   <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                     class="Ribbon" height="30px" width="30px"/>
-                 </h5>
-                 : ""
-               }
+                  class="Ribbon" height="30px" width="30px" />
+              </h5>
+              : ""
+          }
 
-               {
-               this.state.showPreview ?
-                 this.state.data.length == 0 ?
-                   "No winners have been selected"
-                   :
-                   this.state.missingWinnerData.map(elt=>{
-                     return (
-                       <div>
-                         {`[${elt.sponsor}] ${elt.challenge}`}
-                         <br/>
-                         <br/>
-                       </div>
-                     );
-                   })
-                 :
-                 ""
-             }
+          {
+            this.state.showPreview ?
+              this.state.data.length == 0 ?
+                "No winners have been selected"
+                :
+                this.state.missingWinnerData.map(elt => {
+                  return (
+                    <div>
+                      {`[${elt.sponsor}] ${elt.challenge}`}
+                      <br />
+                      <br />
+                    </div>
+                  );
+                })
+              :
+              ""
+          }
 
-             {
-               this.state.showPreview?
-               <h5>
-                 <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                   class="Ribbon" height="30px" width="30px"/>
-                  SUBMITTED WINNERS
+          {
+            this.state.showPreview ?
+              <h5>
+                <img src="/static/media/technica_award_ribbon.c16e92fc.png"
+                  class="Ribbon" height="30px" width="30px" />
+                SUBMITTED WINNERS
                   <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                   class="Ribbon" height="30px" width="30px"/>
-               </h5>
-               : ""
-             }
+                  class="Ribbon" height="30px" width="30px" />
+              </h5>
+              : ""
+          }
 
 
-           {
-             this.state.showPreview ?
-               this.state.data.length == 0 ?
-                 "No winners have been selected"
-                 :
-                 this.state.data.map(elt => {
-                   return (
+          {
+            this.state.showPreview ?
+              this.state.data.length == 0 ?
+                "No winners have been selected"
+                :
+                this.state.data.map(elt => {
+                  return (
                     <div>
                       {`[${elt.sponsor}] ${elt.challenge} - ${elt.winners.join(", ")}`}
-                      <br/>
-                      <br/>
+                      <br />
+                      <br />
                     </div>
-                   );
-                 })
-               :
-               ""
-           }
-
-          </div>
-        </div>
-      );
-    }
-
-  }
-
-  /* Final class containing admin page */
-  class Admin extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        loggedIn: false,
-        loggedInAs: '',
-        projects: [],
-        challenges: ''
-      };
-      // LF6K3G6RR3Q4VX4S
-      axiosRequest.get('api/whoami')
-        .then((credentials) => {
-          if(credentials != undefined && credentials.user_type == 'admin') {
-            this.setState({
-              loggedIn: true,
-              loggedInAs: 'admin'
-            });
-          } else {
-            this.props.history.push({
-              pathname: '/adminlogin'
-            });
+                  );
+                })
+              :
+              ""
           }
-        })
-        .catch((error) => {
 
-        });
-    }
-
-    componentWillMount() {
-      this.loadProjects();
-      this.loadChallenges();
-    }
-
-    loadProjects = () => {
-      axiosRequest.get('api/projects')
-        .then((projectData) => {
-          // Check first project element and see if table numbers consist of both alpha and numeric portions
-          const tableNumbersAreOnlyNumeric = projectData['projects'].length > 0 &&
-            /^[0-9]+$/.test(projectData['projects'][0]['table_number']);
-          this.setState({
-            projects: sortByTableNumber(projectData['projects'], !tableNumbersAreOnlyNumeric),
-          });
-        });
-    }
-
-    loadChallenges = () => {
-      axiosRequest.get('api/challenges')
-        .then((challengeData) => {
-          this.setState({
-            challenges: challengeData
-          })
-        })
-    }
-
-    logout() {
-      // Redirect back to admin login page and end session
-      axiosRequest.post('api/logout')
-        .then(() => {
-          this.props.history.push('/adminlogin');
-        });
-    }
-
-    render() {
-      if (this.state.loggedIn) {
-        return (
-          SiteWrapper(
-            <div className="row">
-              <div className="col">
-                <WinnerModule projects={this.state.projects} loadProjects={this.loadProjects} logout={this.logout.bind(this)}/>
-                <SponsorModule/>
-              </div>
-              <div className="col">
-                <ProjectModule projects={this.state.projects} loadProjects={this.loadProjects} loadChallenges ={this.loadChallenges} challenges={this.state.challenges}  />
-              </div>
-            </div>
-          )
-        );
-      } else {
-        return SiteWrapper();
-      }
-    }
+        </div>
+      </div>
+    );
   }
 
-  export default Admin;
+}
+
+/* Final class containing admin page */
+class Admin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loggedIn: false,
+      loggedInAs: '',
+      projects: [],
+      challenges: ''
+    };
+    // LF6K3G6RR3Q4VX4S
+    axiosRequest.get('api/whoami')
+      .then((credentials) => {
+        if (credentials != undefined && credentials.user_type == 'admin') {
+          this.setState({
+            loggedIn: true,
+            loggedInAs: 'admin'
+          });
+        } else {
+          this.props.history.push({
+            pathname: '/adminlogin'
+          });
+        }
+      })
+      .catch((error) => {
+
+      });
+  }
+
+  componentWillMount() {
+    this.loadProjects();
+    this.loadChallenges();
+  }
+
+  loadProjects = () => {
+    axiosRequest.get('api/projects')
+      .then((projectData) => {
+        // Check first project element and see if table numbers consist of both alpha and numeric portions
+        const tableNumbersAreOnlyNumeric = projectData['projects'].length > 0 &&
+          /^[0-9]+$/.test(projectData['projects'][0]['table_number']);
+        this.setState({
+          projects: sortByTableNumber(projectData['projects'], !tableNumbersAreOnlyNumeric),
+        });
+      });
+  }
+
+  loadChallenges = () => {
+    axiosRequest.get('api/challenges')
+      .then((challengeData) => {
+        this.setState({
+          challenges: challengeData
+        })
+      })
+  }
+
+  logout() {
+    // Redirect back to admin login page and end session
+    axiosRequest.post('api/logout')
+      .then(() => {
+        this.props.history.push('/adminlogin');
+      });
+  }
+
+  render() {
+    if (this.state.loggedIn) {
+      return (
+        SiteWrapper(
+          <div className="row">
+            <div className="col">
+              <WinnerModule projects={this.state.projects} loadProjects={this.loadProjects} logout={this.logout.bind(this)} />
+              <SponsorModule />
+            </div>
+            <div className="col">
+              <ProjectModule projects={this.state.projects} loadProjects={this.loadProjects} loadChallenges={this.loadChallenges} challenges={this.state.challenges} />
+            </div>
+          </div>
+        )
+      );
+    } else {
+      return SiteWrapper();
+    }
+  }
+}
+
+export default Admin;

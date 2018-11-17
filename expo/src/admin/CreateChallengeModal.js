@@ -11,7 +11,6 @@ const MissingFieldsErr = <Error text="Invalid form!
   Please fill out all form fields."/>;
 
 class CreateChallengeModal extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +31,6 @@ class CreateChallengeModal extends Component {
   }
 
   saveChallenge(e) {
-
     let winnerLessZero = Number(this.state.num_winners) <= 0;
     let missingFields = this.state.challenge_title === ''
       || this.state.challenge_title === undefined
@@ -130,7 +128,6 @@ class CreateChallengeModal extends Component {
       </div>
     );
   }
-
 }
 
 export default CreateChallengeModal;

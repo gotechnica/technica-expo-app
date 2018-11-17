@@ -57,15 +57,15 @@ const axiosRequest = useCachedResponseData ? {
 };
 
 const makeAxiosRequest = (method, route, params) => {
-    return axios({
-      method: method,
-      url: `${URL}${route}`,
-      data: params,
-      withCredentials: true,
-    })
-      .then((response) => {
-        return response.data
-      })
+  return axios({
+    method: method,
+    url: `${URL}${route}`,
+    data: params,
+    withCredentials: true,
+  })
+    .then((response) => {
+      return response.data
+    });
 }
 
 export default axiosRequest;

@@ -11,10 +11,10 @@ Required this.props
 
 class Login extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      accessCode:''
+    this.state = {
+      accessCode: ''
     }
   }
 
@@ -36,17 +36,17 @@ class Login extends Component {
                   <input type="text"
                     id="txtAccessCode"
                     className="form-control"
-                    onChange = {(event) => this.setState({accessCode:event.target.value})}
+                    onChange={(event) => this.setState({ accessCode: event.target.value })}
                   />
                 </div>
                 <button
                   className="button button-primary"
                   type="submit"
                 >
-                    Login
+                  Login
                 </button>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 {this.props.error}
               </form>
             </div>

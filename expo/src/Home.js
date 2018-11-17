@@ -8,7 +8,7 @@ import './App.css';
 
 export default class Home extends React.Component {
   render() {
-    return(
+    return (
       SiteWrapper(
         <div class="Home">
           <div class="row">
