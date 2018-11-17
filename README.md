@@ -1,5 +1,7 @@
 # Technica Hackathon Expo App
 
+![Technica Expo Site](img/MainExpoPage.png)
+
 A beautiful and intuitive web app to display hackathon projects for expo
 attendees, hackers, and sponsors to locate or learn more info about a hack.
 This web app also provides powerful admin and sponsor features beyond a basic
