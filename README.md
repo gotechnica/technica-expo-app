@@ -1,4 +1,4 @@
-# Technica Hackathon Expo App
+# Hackathon Expo App
 
 ![Technica Expo Site](img/MainExpoPage.png)
 
