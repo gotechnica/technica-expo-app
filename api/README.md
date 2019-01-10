@@ -13,7 +13,7 @@ We use Flask as an API for the expo app. It mainly interfaces with the database,
 
 # Setup
 ## Virtualenv
-We use virtualenv. To install on Linux/MacOS, make sure you have `python3`, `python3-pip`, and `python3-venv` are installed. Run `python3 -m venv venv` to create a virtual environment called `venv` in this directory. To use it, cd into this directory and run `source venv/bin/activate` on Linux/MacOS or `.\venv\Scripts\activate` on Windows.
+We use virtualenv. To install on Linux/MacOS, make sure you have `python3` installed (using homebrew, `brew install python3`). Run `python3 -m venv venv` to create a virtual environment called `venv` in this directory. To use it, cd into this directory and run `source venv/bin/activate` on Linux/MacOS or `.\venv\Scripts\activate` on Windows.
 
 Run `deactivate` to exit the virtual environment.
 
