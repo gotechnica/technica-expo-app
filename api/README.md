@@ -20,6 +20,9 @@ Run `deactivate` to exit the virtual environment.
 ## Installation
 Once in the virtualenv, run `pip3 install -r requirements.txt`. This installs the required packages.
 
+## `config.py`
+Rename config.ex.py (or make a duplicate if you want to refer back to the example file) as `config.py`. This file is used to customize various parts of your application, such as MongoDB connections, admin access codes, etc...
+
 # Running
 To run the server, just run `python3 server.py`. The Flask server is then accessible from http://127.0.0.1:5000/.
 
