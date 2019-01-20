@@ -735,7 +735,7 @@ def sponsor_login():
 @app.route('/api/login/admin', methods=['POST'])
 def admin_login():
     attempted_access_code = request.json['access_code'].upper()
-    if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE']:
+    if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE'].upper():
         return "Access denied."
     else:
         session['user_type'] = 'admin'
