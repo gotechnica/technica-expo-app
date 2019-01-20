@@ -5,8 +5,8 @@ import challengeData from './responseData/challenges.json';
 const backendDevURL = 'http://localhost:5000/';
 const prodURL = 'https://expo-api.gotechnica.org/';
 
-const URL = prodURL;
-export const useCachedResponseData = true;
+const URL = backendDevURL;
+export const useCachedResponseData = false;
 
 // axiosRequest usage examples:
 /*
