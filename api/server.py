@@ -14,6 +14,8 @@ import io
 import datetime
 import os
 from seed_db import *
+import config
+from devpost_scraper import *
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -372,6 +374,49 @@ def delete_all_projects():
     # Number of prizes they can choose per challenge
     # ProjectID that won the challenge
 
+@app.route('/api/import-challenges')
+def import_challenges():
+    devpost_url = "https://bitcamp2018.devpost.com/submissions"
+    companies = mongo.db.companies
+
+    prize_list = get_challenges(devpost_url)
+    company_list = []
+    company_names = list(set([prize[1] for prize in prize_list]))
+    
+    for company_name in company_names:
+        challenge_info = [[prize[0],prize[2]] for prize in prize_list
+                         if prize[1] == company_name]
+
+
+        #Autogenerate access_code
+        access_code = generate_random_access_code(8)
+        company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
+        # Keep generating codes until unique
+        while company_obj != None:
+            access_code = generate_random_access_code(8)
+            company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
+
+        company_name_no_spaces = "".join(company_name.split())
+        challenges_obj = {}
+
+        # Go through all challenges
+        for challenge_name, num_winners in challenge_info:
+            challenge_id = company_name_no_spaces + '_challenge' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+
+            challenges_obj[challenge_id] = {
+                'challenge_name': challenge_name,
+                'num_winners': num_winners,
+                'winners': []
+            }
+
+        
+        company_list.append({'company_name':company_name,
+                             'access_code':access_code.upper(),
+                             'challenges':challenges_obj})
+        companies.insert(company_list[-1])
+
+    return str(prize_list)
+
 @app.route('/api/companies/add', methods=['POST'])
 @is_admin
 def add_company():
@@ -379,7 +424,7 @@ def add_company():
 
     company_name = request.json['company_name']
     access_code = request.json['access_code'].upper()
-    
+
     # Autogenerate 8-character access code if blank one was sent
     if access_code == '':
         access_code = generate_random_access_code(8)
@@ -735,7 +780,7 @@ def sponsor_login():
 @app.route('/api/login/admin', methods=['POST'])
 def admin_login():
     attempted_access_code = request.json['access_code'].upper()
-    if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE'].upper():
+    if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE']:
         return "Access denied."
     else:
         session['user_type'] = 'admin'
