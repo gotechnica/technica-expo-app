@@ -424,7 +424,7 @@ def add_company():
 
     company_name = request.json['company_name']
     access_code = request.json['access_code'].upper()
-
+    
     # Autogenerate 8-character access code if blank one was sent
     if access_code == '':
         access_code = generate_random_access_code(8)
@@ -780,7 +780,7 @@ def sponsor_login():
 @app.route('/api/login/admin', methods=['POST'])
 def admin_login():
     attempted_access_code = request.json['access_code'].upper()
-    if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE']:
+    if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE'].upper():
         return "Access denied."
     else:
         session['user_type'] = 'admin'
