@@ -1,0 +1,2 @@
+2019-02-16 23:11:13,541 - analytics_logger - INFO - endpoint = /api/projects, method = GET, params = NONE, type = public
+2019-02-16 23:11:17,118 - analytics_logger - INFO - endpoint = /api/projects/id/5c37b0ce643a57370f676998, method = GET, params = 5c37b0ce643a57370f676998, type = public
