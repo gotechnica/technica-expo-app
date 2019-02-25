@@ -703,6 +703,41 @@ def make_non_winner(project_id):
 
     return "Updated project " + project_id
 
+@app.route('/api/companies/id/<company_id>/challenges/<challenge_id>/resetWinners', methods=['PUT'])
+def resetChallenges(company_id, challenge_id):
+    projects = mongo.db.projects
+    companies = mongo.db.companies
+    company_obj = companies.find_one({'_id': ObjectId(company_id)})
+    challenge_obj = company_obj['challenges'][challenge_id]
+    print(challenge_obj)
+    challenge_name = challenge_obj['challenge_name']
+
+    for project_id in company_obj['challenges'][challenge_id]['winners']:
+            project_obj = projects.find_one({'_id': ObjectId(project_id)})
+            if project_obj is None:
+                continue
+            company_name = company_obj['company_name']
+            updated_challenges_list = list(map(lambda challenge_obj: update_win_status(challenge_obj, company_name, challenge_name, False), project_obj['challenges']))
+            project_obj['challenges'] = updated_challenges_list
+            old_challenges_won_list = project_obj['challenges_won']
+            project_obj['challenges_won'] = list(filter(lambda c_id: c_id != challenge_id, old_challenges_won_list))
+            projects.find_one_and_update(
+                {'_id': ObjectId(project_id)},
+                {'$set': project_obj}
+            )
+            print(project_obj)
+
+    # Modify company object
+    old_winners_list = challenge_obj['winners']
+    company_obj['challenges'][challenge_id]['winners'] = []
+    company_obj['challenges'][challenge_id]['num_winners'] = 0
+    companies.find_one_and_update(
+        {'_id': ObjectId(company_id)},
+        {'$set': company_obj}
+    )
+    return "Reset Challenge winners " + str(company_obj)
+
+
 
 # Auth routes ##################################################################
 # Modifies the user's session
