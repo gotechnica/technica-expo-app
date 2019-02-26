@@ -378,8 +378,6 @@ def import_challenges():
     devpost_url = current_app.config['DEVPOST_ROOT_URL']
     companies = mongo.db.companies
 
-    print(type(companies))
-
     prize_list = get_challenges(devpost_url)
     company_list = []
     company_names = list(set([prize[1] for prize in prize_list]))
