@@ -730,7 +730,6 @@ def resetChallenges(company_id, challenge_id):
     # Modify company object
     old_winners_list = challenge_obj['winners']
     company_obj['challenges'][challenge_id]['winners'] = []
-    company_obj['challenges'][challenge_id]['num_winners'] = 0
     companies.find_one_and_update(
         {'_id': ObjectId(company_id)},
         {'$set': company_obj}
