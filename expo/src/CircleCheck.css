@@ -1,9 +1,11 @@
+@import url('./customize/customize.css');
+
 .checkmark__circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
   stroke-width: 2;
   stroke-miterlimit: 10;
-  stroke: #b6a1c4;
+  stroke: var(--check_circle_stroke);
   fill: none;
   animation: stroke .6s cubic-bezier(0.650, 0.000, 0.450, 1.000) forwards;
 }
@@ -11,14 +13,14 @@
 .checkmark {
   width: 150px;
   height: 150px;
-  background-color: #b6a1c4;
+  background-color: var(--check_mark_background);
   border-radius: 50%;
   display: block;
   stroke-width: 3.5px;
-  stroke: #2f2f2f;
+  stroke: var(--check_mark_stroke);
   stroke-miterlimit: 10;
   margin: 10% auto;
-  box-shadow: inset 0px 0px 0px #b6a1c4;
+  box-shadow: inset 0px 0px 0px var(--check_mark_box_shadow);
   animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
 }
 
