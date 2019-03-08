@@ -13,6 +13,7 @@ import hashlib
 import io
 import datetime
 import os
+from loggingAnalytics import *
 from seed_db import *
 
 app = Flask(__name__)
@@ -60,7 +61,7 @@ def hello():
 @app.route('/api/projects', methods=['GET'])
 def get_all_projects():
     projects = mongo.db.projects
-
+    logged_message("endpoint = /api/projects, method = GET, params = NONE, type = public")
     projects_list = []
     for p in projects.find():
         temp_project = {
@@ -82,7 +83,7 @@ def get_all_projects():
 @app.route('/api/projects/id/<project_id>', methods=['GET'])
 def get_project(project_id):
     projects = mongo.db.projects
-
+    logged_message(f'endpoint = /api/projects/id/{project_id}, method = GET, params = {project_id}, type = public')
     project_obj = projects.find_one({'_id': ObjectId(project_id)})
     temp_project = {
         'project_id': str(project_obj['_id']),
@@ -98,6 +99,7 @@ def get_project(project_id):
 @app.route('/api/challenges', methods=['GET'])
 def get_all_challenges():
     companies = mongo.db.companies
+    logged_message(f'endpoint = /api/challenges, method = GET, params = NONE, type = public')
     output = {}
     for curr_company in companies.find():
         if not curr_company['challenges']:
@@ -112,6 +114,7 @@ def get_all_challenges():
 @app.route('/api/projects/publish_winners_status', methods=['GET'])
 def get_publish_winners_flag():
     global publish_winners  # Use the var defined at top of file
+    logged_message(f'endpoint = /api/projects/publish_winners_status, method = GET, params = NONE, type = public')
     return str(publish_winners)
 
 
@@ -129,6 +132,7 @@ def get_publish_winners_flag():
 @app.route('/test/seed_db', methods=['GET'])
 @is_admin
 def csv_tester():
+    logged_message(f'endpoint = /test/seed_db, method = GET, params = NONE, type = admin')
     return """
         <html>
             <body>
@@ -147,6 +151,7 @@ def csv_tester():
 @is_admin
 def parse_csv():
     file = request.files['projects_csv']
+    logged_message(f'endpoint = /parse_csv, method = POST, params = NONE, type = admin')
     if not file:
         return "No file"
     with file.stream as temp_file:
@@ -160,6 +165,7 @@ def parse_csv():
 
 def get_project_list(projects_obj):
     project_data = []
+    logged_message(f'endpoint = /parse_csv, method = POST, params = NONE, type = admin')
     for project_name in projects_obj:
         info = {
             'table_number': projects_obj[project_name].table_number,
@@ -182,7 +188,7 @@ def bulk_add_projects_internal(packet):
 def assign_remaining_table_numbers():
     projects = mongo.db.projects
     all_projects = projects.find()
-
+    logged_message(f'endpoint = /api/projects/assign_tables, method = POST, params = NONE, type = admin')
     # Get all used table assignments
     used_tables_array = []
     for p in all_projects.clone():
@@ -216,6 +222,7 @@ def assign_remaining_table_numbers():
 
 # Valid schemas: 'numeric', 'evens', 'odds', 'custom'
 def get_available_table_numbers(request_params, used_tables_set, num_projects):
+    logged_message(f'endpoint = /api/projects/assign_tables, method = POST, params = {request_params},{used_tables_set},{num_projects}, type = admin')
     table_assignment_schema = request_params['table_assignment_schema']
     max_table_numbers_list = []
     num_tables_needed = num_projects + len(used_tables_set)
@@ -248,7 +255,7 @@ def char_range(c1, c2):
 def remove_all_table_numbers():
     projects = mongo.db.projects
     all_projects = projects.find()
-
+    logged_message(f'endpoint = /api/projects/clear_table_assignments, method = POST, params = NONE, type = admin')
     db_update_operations = []
     for p in all_projects:
         db_update_operations.append(UpdateOne(
@@ -268,6 +275,7 @@ def remove_all_table_numbers():
 @app.route('/api/projects/publish_winners_status', methods=['POST'])
 @is_admin
 def update_publish_winners_flag():
+    logged_message(f'endpoint = /api/projects/publish_winners_status, method = POST, params = NONE, type = admin')
     global publish_winners  # Use the var defined at top of file
     publish_winners = request.json['publish_winners']
     return str(publish_winners)
@@ -276,7 +284,7 @@ def update_publish_winners_flag():
 @is_admin
 def add_project():
     projects = mongo.db.projects
-
+    logged_message(f'endpoint = /api/projects/add, method = POST, params = NONE, type = admin')
     table_number = request.json['table_number']
     project_name = request.json['project_name']
     project_url = request.json['project_url']
@@ -299,6 +307,7 @@ def add_project():
 @app.route('/api/projects/bulk_add', methods=['POST'])
 @is_admin
 def bulk_add_project():
+    logged_message(f'endpoint = /api/projects/bulk_add, method = POST, params = NONE, type = admin')
     packet = request.json['projects']
     return bulk_add_projects_internal(packet)
 
@@ -306,7 +315,7 @@ def bulk_add_project():
 @is_admin
 def update_project(project_id):
     projects = mongo.db.projects
-
+    logged_message(f'endpoint = /api/projects/id/{project_id}, method = POST, params = {project_id}, type = admin')
     updated_project_obj = {
         'table_number': request.json['table_number'],
         'project_name': request.json['project_name'],
@@ -348,6 +357,8 @@ def get_all_possible_challenges():
 @app.route('/api/projects/id/<project_id>', methods=['DELETE'])
 @is_admin
 def delete_project(project_id):
+    logged_message(f'endpoint = /api/projects/id/{project_id}, method = DELETE, params = {project_id}, type = admin')
+
     projects = mongo.db.projects
     result = projects.delete_one({'_id': ObjectId(project_id)})
     if result.deleted_count == 1:
@@ -360,6 +371,7 @@ def delete_project(project_id):
 @is_admin
 def delete_all_projects():
     projects = mongo.db.projects
+    logged_message(f'endpoint = /api/projects/deleteAll, method = DELETE, params = NONE, type = admin')
 
     projects.delete_many({})
     return jsonify({'Delete': 'all'})
@@ -376,6 +388,7 @@ def delete_all_projects():
 @is_admin
 def add_company():
     companies = mongo.db.companies
+    logged_message(f'endpoint = /api/companies/add, method = POST, params = NONE, type = admin')
 
     company_name = request.json['company_name']
     access_code = request.json['access_code'].upper()
@@ -410,6 +423,7 @@ def generate_random_access_code(length):
 @is_admin
 def update_company_name_or_code(company_id):
     companies = mongo.db.companies
+    logged_message(f'endpoint = /api/companies/id/{company_id}, method = POST, params = {company_id}, type = admin')
 
     # winners_arr = []
     # if request.json.get('winners') != None:
@@ -431,6 +445,8 @@ def update_company_name_or_code(company_id):
 @is_admin
 def delete_company(company_id):
     companies = mongo.db.companies
+    logged_message(f'endpoint = /api/companies/id/{company_id}, method = DELETE, params = {company_id}, type = admin')
+    
     result = companies.delete_one({'_id': ObjectId(company_id)})
     # TODO(timothychen01): Explore adding additional side effect for challenges
     if result.deleted_count == 1:
@@ -440,8 +456,10 @@ def delete_company(company_id):
 
 @app.route('/api/companies/id/<company_id>/challenges/add', methods=['POST'])
 @is_admin
-def add_challenge_to_company(company_id):
+def add_challenge_to_company(company_id):   
     companies = mongo.db.companies
+    logged_message(f'endpoint = api/companies/id/<company_id>/challenges/add, method = POST, params = NONE, type = admin')
+
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     challenges_obj = company_obj['challenges']
 
@@ -468,6 +486,8 @@ def add_challenge_to_company(company_id):
 @is_admin
 def update_company_challenge(company_id, challenge_id):
     companies = mongo.db.companies
+    logged_message(f'endpoint = /api/companies/id/{company_id}/challenges/{challenge_id}, method = POST, DELETE, params = NONE, type = admin')
+
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     challenges_obj = company_obj['challenges']
 
@@ -500,6 +520,8 @@ def update_company_challenge(company_id, challenge_id):
 @is_admin
 def get_company(company_id):
     companies = mongo.db.companies
+    logged_message(f'endpoint = /api/companies/id/{company_id}, method = GET, params = NONE, type = admin')
+
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     return jsonify(format_company_obj_to_old_schema(company_obj))
 
@@ -507,6 +529,7 @@ def get_company(company_id):
 @is_admin
 def get_all_companies():
     companies = mongo.db.companies
+    logged_message(f'endpoint =/api/companies, method = GET, params = NONE, type = admin')
     output = []
     for curr_company in companies.find():
         output.append(format_company_obj_to_old_schema(curr_company))
@@ -541,7 +564,7 @@ def format_company_obj_to_old_schema(company_obj):
 @is_admin
 def get_company_cleaner_schema(company_id):
     companies = mongo.db.companies
-
+    logged_message(f'endpoint =/api/v2/companies/id/{company_id}, method = GET, params = NONE, type = admin')
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     output = {
         'company_id': str(company_obj['_id']),
@@ -555,7 +578,7 @@ def get_company_cleaner_schema(company_id):
 @is_admin
 def get_all_companies_cleaner_schema():
     companies = mongo.db.companies
-
+    logged_message(f'endpoint =/api/v2/companies/id/{company_id}, method = GET, params = NONE, type = admin')
     output = []
     for c in companies.find():
         temp_company = {
@@ -578,7 +601,7 @@ def get_all_companies_cleaner_schema():
 def get_logged_in_company_cleaner_schema():
     if 'user_type' in session and session['user_type'] == 'sponsor':
         companies = mongo.db.companies
-
+        logged_message(f'endpoint =/api/v2/companies/current_sponsor, method = GET, params = NONE, type = sponsor')
         company_obj = companies.find_one({'company_name': {'$eq': session['name']}})
         output = {
             'company_id': str(company_obj['_id']),
@@ -594,6 +617,7 @@ def get_logged_in_company_cleaner_schema():
 @is_sponsor_or_admin
 def update_project_challenge_status(project_id):
     projects = mongo.db.projects
+    logged_message(f'endpoint =/api/projects/id/{project_id}/challenge_status, method = POST, params = {project_id}, type = sponsor')
 
     company_name = request.json['company_name']
     challenge_name = request.json['challenge_name']
@@ -629,6 +653,7 @@ def update_win_status(project_challenge_obj, company_name, challenge_name, didWi
 @is_sponsor_or_admin
 def make_winner(project_id):
     projects = mongo.db.projects
+    logged_message(f'endpoint =/api/projects/id/{project_id}/makeWinner, method = POST, params = {project_id}, type = sponsor')    
     companies = mongo.db.companies
     company_id = request.json['company_id']
     challenge_id = request.json['challenge_id']
@@ -671,6 +696,7 @@ def make_winner(project_id):
 @is_sponsor_or_admin
 def make_non_winner(project_id):
     projects = mongo.db.projects
+    logged_message(f'endpoint =/api/projects/id/{project_id}/makeNonWinner, method = POST, params = {project_id}, type = sponsor')    
     companies = mongo.db.companies
     company_id = request.json['company_id']
     challenge_id = request.json['challenge_id']
@@ -743,6 +769,7 @@ def resetChallenges(company_id, challenge_id):
 
 @app.route('/api/whoami', methods=['GET'])
 def return_session_info():
+    logged_message(f'endpoint =/api/whoami, method = GET, params = NONE, type = auth')        
     if 'user_type' in session:
         return json.dumps({
             'user_type': session['user_type'],  # sponsor or admin
@@ -754,6 +781,7 @@ def return_session_info():
 @app.route('/api/login/sponsor', methods=['POST'])
 def sponsor_login():
     companies = mongo.db.companies
+    logged_message(f'endpoint =/api/login/sponsor, method = POST, params = NONE, type = auth')            
     attempted_access_code = request.json['access_code'].upper()
     if attempted_access_code == '':
         return "Access denied."
@@ -769,6 +797,7 @@ def sponsor_login():
 @app.route('/api/login/admin', methods=['POST'])
 def admin_login():
     attempted_access_code = request.json['access_code'].upper()
+    logged_message(f'endpoint =/api/login/admin, method = POST, params = NONE, type = auth')                
     if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE'].upper():
         return "Access denied."
     else:
@@ -779,6 +808,7 @@ def admin_login():
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
+    logged_message(f'endpoint =/api/logout, method = POST, params = NONE, type = auth')                    
     session.pop('user_type', None)
     session.pop('name', None)
     session.pop('id', None)
