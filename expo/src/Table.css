@@ -98,7 +98,7 @@
 }
 
 #Home div.attempted-challenges button {
-  color: #999999;
+  color: var(--table_att_challenges);
   font-size: 17px;
   padding: 0px;
 }
@@ -183,4 +183,3 @@
     word-break: break-word;
   }
 }
-

@@ -15,7 +15,7 @@
 }
 
 html {
-  background-color: #222;
+  background-color: var(--app_background_color);
 }
 
 .App {
@@ -74,8 +74,8 @@ html {
 
 /* Primary button styles */
 .button-primary:not([disabled]):hover {
-  background-color: #00FFFF;
-  border: 3px solid #00FFFF;
+  background-color: var(--primary_blue);
+  border: 3px solid var(--primary_blue);
 }
 .button-primary {
   background-color: var(--app_prim_button_color);
@@ -84,8 +84,8 @@ html {
 
 /* Secondary button styles */
 .button-secondary:not([disabled]):hover {
-  background-color: #FF96BD;
-  border: 3px solid #FF96BD;
+  background-color: var(--primary_pink);
+  border: 3px solid var(--primary_pink);
 }
 .button-secondary {
   background-color: var(--app_sec_button_color);
@@ -94,8 +94,8 @@ html {
 
 /* Warning button styles */
 .button-warning:not([disabled]):hover {
-  background-color: #DF3B57;
-  border: 3px solid #DF3B57;
+  background-color: var(--primary_red);
+  border: 3px solid var(--primary_red);
 }
 .button-warning {
   background-color: var(--app_warn_button_color);
@@ -114,8 +114,8 @@ html {
   border:none;
 }
 .link-button:hover {
-  color: #00FFFF;
-  border-color: #00FFFF;
+  color: var(--primary_blue);
+  border-color: var(--primary_blue);
 }
 
 /* Error styles */
@@ -144,7 +144,7 @@ html {
   border-right: 2px solid var(--app_error_icon_border);
 }
 .fa-exclamation-triangle {
-  color: #00ffff;
+  color: var(--primary_blue);
 }
 
 /* Layout */
@@ -193,5 +193,3 @@ html {
     float: none !important;
   }
 }
-
-

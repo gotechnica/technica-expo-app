@@ -5,6 +5,11 @@
 
 :root {
     
+    /* primary color scheme */
+    --primary_blue: #00ffff;
+    --primary_pink: #FF96BD;
+    --primary_red: #DF3B57;
+
     /* App.css styles */
     --app_background_banner: url('../imgs/banner.jpg');
     --app_background_color: #222;
@@ -36,8 +41,10 @@
     /* SliderOption.css */
     --slider_checked: #FF7BAC;
     --slider_unchecked: #888;
-    --slider-after: #2D2D2D;
-
+    --slider_after: #2D2D2D;
+    --slider_checked_hover: #FF9CC0;
+    --slider_unchecked_hover: #999;
+    
     /* Sponsor.css */
     --sponsor_fa_square: #FF7BAC;
     --sponsor_project_table: #999;
@@ -55,9 +62,3 @@
     --table_att_challenges: #999999;
     --table_no_submissions: #1c1c1c;
 }
-
-
-
-
-
-

@@ -71,7 +71,7 @@ input:checked + .slider {
 }
 
 input:checked + .slider:hover {
-  background-color: #FF9CC0;
+  background-color: var(--slider_hover);
 }
 
 input:not(:checked) + .slider {
@@ -79,7 +79,7 @@ input:not(:checked) + .slider {
 }
 
 input:not(:checked) + .slider:hover {
-  background-color: #999;
+  background-color: var(--slider_unchecked_hover);
 }
 
 input:checked + .slider:before {
@@ -126,7 +126,7 @@ input:checked + .slider:before {
 .slider:after
 {
  content:'OFF';
- color: #2D2D2D;
+ color: var(--slider_after);
  display: block;
  position: absolute;
  white-space: nowrap;

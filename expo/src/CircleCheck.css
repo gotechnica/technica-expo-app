@@ -48,6 +48,6 @@
 
 @keyframes fill {
   100% {
-    box-shadow: inset 0px 0px 0px 30px #b6a1c4;
+    box-shadow: inset 0px 0px 0px 30px var(--check_circle_stroke);
   }
 }
