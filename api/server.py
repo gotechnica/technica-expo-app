@@ -373,6 +373,8 @@ def delete_all_projects():
     # Number of prizes they can choose per challenge
     # ProjectID that won the challenge
 
+
+@is_admin
 @app.route('/api/seed-challenges-from-devpost')
 def import_challenges():
     devpost_url = current_app.config['DEVPOST_ROOT_URL']
