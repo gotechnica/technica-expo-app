@@ -13,6 +13,7 @@ import hashlib
 import io
 import datetime
 import os
+import re
 from seed_db import *
 from devpost_scraper import *
 
@@ -373,9 +374,8 @@ def delete_all_projects():
     # Number of prizes they can choose per challenge
     # ProjectID that won the challenge
 
-
+@app.route('/api/seed-challenges-from-devpost', methods=['POST'])
 @is_admin
-@app.route('/api/seed-challenges-from-devpost')
 def import_challenges():
     devpost_url = current_app.config['DEVPOST_ROOT_URL']
     companies = mongo.db.companies
@@ -396,19 +396,21 @@ def import_challenges():
             access_code = generate_random_access_code(8)
             company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
 
-        company_name_no_spaces = "".join(company_name.split())
+        alphanumeric_company_name_no_spaces = re.sub(r'\W+', '', company_name)
         challenges_obj = {}
 
         # Go through all challenges
         for challenge_name, num_winners in challenge_info:
-            challenge_id = company_name_no_spaces + '_challenge' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+            alphanumeric_challenge_name_no_spaces = re.sub(r'\W+', '', challenge_name)
+            challenge_id = alphanumeric_company_name_no_spaces + '_challenge' + \
+                datetime.datetime.now().strftime('%Y%m%d%H%M%S') + \
+                '_' + alphanumeric_challenge_name_no_spaces
 
             challenges_obj[challenge_id] = {
                 'challenge_name': challenge_name,
                 'num_winners': num_winners,
                 'winners': []
             }
-
         
         company_list.append({
             'company_name':company_name,
