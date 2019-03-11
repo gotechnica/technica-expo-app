@@ -13,8 +13,10 @@ import hashlib
 import io
 import datetime
 import os
+import re
 from loggingAnalytics import *
 from seed_db import *
+from devpost_scraper import *
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -383,6 +385,53 @@ def delete_all_projects():
     # Challenge Name
     # Number of prizes they can choose per challenge
     # ProjectID that won the challenge
+
+@app.route('/api/seed-challenges-from-devpost', methods=['POST'])
+@is_admin
+def import_challenges():
+    devpost_url = current_app.config['DEVPOST_ROOT_URL']
+    companies = mongo.db.companies
+
+    prize_list = get_challenges(devpost_url)
+    company_list = []
+    company_names = list(set([prize[1] for prize in prize_list]))
+    
+    for company_name in company_names:
+        challenge_info = [[prize[0],prize[2]] for prize in prize_list
+                         if prize[1] == company_name]
+
+        #Autogenerate access_code
+        access_code = generate_random_access_code(8)
+        company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
+        # Keep generating codes until unique
+        while company_obj != None:
+            access_code = generate_random_access_code(8)
+            company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
+
+        alphanumeric_company_name_no_spaces = re.sub(r'\W+', '', company_name)
+        challenges_obj = {}
+
+        # Go through all challenges
+        for challenge_name, num_winners in challenge_info:
+            alphanumeric_challenge_name_no_spaces = re.sub(r'\W+', '', challenge_name)
+            challenge_id = alphanumeric_company_name_no_spaces + '_challenge' + \
+                datetime.datetime.now().strftime('%Y%m%d%H%M%S') + \
+                '_' + alphanumeric_challenge_name_no_spaces
+
+            challenges_obj[challenge_id] = {
+                'challenge_name': challenge_name,
+                'num_winners': num_winners,
+                'winners': []
+            }
+        
+        company_list.append({
+            'company_name':company_name,
+            'access_code':access_code.upper(),
+            'challenges':challenges_obj
+        })
+        companies.insert(company_list[-1])
+
+    return str(prize_list)
 
 @app.route('/api/companies/add', methods=['POST'])
 @is_admin
