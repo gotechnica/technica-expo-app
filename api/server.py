@@ -62,15 +62,20 @@ def hello():
 def get_all_projects():
     projects = mongo.db.projects
 
+
     projects_list = []
     for p in projects.find():
+        challenges_won = p['challenges_won']
+        if(not publish_winners):
+            challenges_won = []
+
         temp_project = {
             'project_id': str(p['_id']),
             'table_number': p['table_number'],
             'project_name': p['project_name'],
             'project_url': p['project_url'],
             'challenges': p['challenges'],
-            'challenges_won': p['challenges_won']
+            'challenges_won': challenges_won
         }
         projects_list.append(temp_project)
 
