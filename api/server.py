@@ -503,6 +503,14 @@ def delete_company(company_id):
     else:
         return "Did not find company " + company_id
 
+@app.route('/api/companies/deleteAll', methods=['DELETE'])
+@is_admin
+def delete_all_companies():
+    logged_message(f'endpoint = /api/companies/deleteAll, method = DELETE, params = NONE, type = admin')
+    companies = mongo.db.companies
+    companies.delete_many({})
+    return jsonify({'Delete': 'all companies'})
+
 @app.route('/api/companies/id/<company_id>/challenges/add', methods=['POST'])
 @is_admin
 def add_challenge_to_company(company_id):   

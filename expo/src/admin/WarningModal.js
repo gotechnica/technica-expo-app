@@ -8,21 +8,21 @@ class WarningModal extends Component {
     }
     render() {
         return (
-            <div class="modal fade" id="modalWarning" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Delete All Projects?</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div className="modal fade" id={this.props.modalId} role="dialog">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Delete All {this.props.whatToDelete}?</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <p className="modal_warning_text">Are you sure you want to delete all projects?</p>
+                        <div className="modal-body">
+                            <p className="modal_warning_text">Are you sure you want to delete all {this.props.whatToDelete.toLowerCase()}?</p>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="button button-secondary no" data-dismiss="modal">No</button>
-                            <button type="button" class="button button-primary yes" onClick={this.props.deleteAllProjects}>Yes</button>
+                        <div className="modal-footer">
+                            <button type="button" className="button button-secondary no" data-dismiss="modal">No</button>
+                            <button type="button" className="button button-primary yes" data-dismiss="modal" onClick={this.props.deleteAll}>Yes</button>
                         </div>
                     </div>
                 </div>

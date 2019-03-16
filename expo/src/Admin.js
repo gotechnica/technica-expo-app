@@ -46,8 +46,7 @@ class ProjectModule extends Component {
       tableEndNumber: 0,
       skipEveryOtherTable: true,
       viewable: true,
-    }
-    this.deleteAllProjects = this.deleteAllProjects.bind(this);
+    };
   }
 
   createChallengesToCompanyMap(challenges_obj) {
@@ -382,11 +381,11 @@ class ProjectModule extends Component {
             className="button button-secondary m-b-m"
             type="button"
             data-toggle="modal"
-            data-target="#modalWarning"
+            data-target="#projectWipeWarningModal"
           >
             Delete ALL Projects
           </button>
-          <WarningModal deleteAllProjects={this.deleteAllProjects.bind(this)} />
+          <WarningModal modalId="projectWipeWarningModal" whatToDelete="Projects" deleteAll={this.deleteAllProjects.bind(this)} />
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
@@ -446,7 +445,7 @@ class SponsorModule extends Component {
       textSearch: '',
       sponsors: [],
       viewable: true
-    }
+    };
   }
 
   loadCompanies() {
@@ -470,6 +469,15 @@ class SponsorModule extends Component {
       });
       document.getElementById("sponsor-content").style.display = "block";
     }
+  }
+
+  deleteAllSponsors() {
+    if (window.confirm('Are you sure you want to remove ALL sponsors from your database?'))
+      if (window.confirm('This action is not reversable.'))
+        axiosRequest.delete('api/companies/deleteAll')
+          .then(() => {
+            this.loadCompanies();
+          });
   }
 
   // Pull data for sponsor list
@@ -560,13 +568,21 @@ class SponsorModule extends Component {
             createID="modalCreateSponsor"
             onCreate={this.loadCompanies.bind(this)}
           />
-          <button className="button button-primary m-b-m"
+          <button className="button button-primary m-b-m m-r-m"
             type="button"
             data-toggle="modal"
             data-target="#modalCreateSponsor"
           >
             Create New Sponsor
-            </button>
+          </button>
+          <button className="button button-secondary m-b-m"
+            type="button"
+            data-toggle="modal"
+            data-target="#companyWipeWarningModal"
+          >
+            Delete ALL Sponsors
+          </button>
+          <WarningModal modalId="companyWipeWarningModal" whatToDelete="Sponsors" deleteAll={this.deleteAllSponsors.bind(this)} />
           <div className="form-group">
             <input type="text"
               id="txtSponsorSearch"
