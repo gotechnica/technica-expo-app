@@ -852,10 +852,10 @@ class WinnerModule extends Component {
             this.state.showPreview ?
               <h5>
                 <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  class="Ribbon" height="30px" width="30px" />
+                  className="Ribbon" height="30px" width="30px" />
                 NO WINNERS SUBMITTED
                    <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  class="Ribbon" height="30px" width="30px" />
+                  className="Ribbon" height="30px" width="30px" />
               </h5>
               : ""
           }
@@ -882,10 +882,10 @@ class WinnerModule extends Component {
             this.state.showPreview ?
               <h5>
                 <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  class="Ribbon" height="30px" width="30px" />
+                  className="Ribbon" height="30px" width="30px" />
                 SUBMITTED WINNERS
                   <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  class="Ribbon" height="30px" width="30px" />
+                  className="Ribbon" height="30px" width="30px" />
               </h5>
               : ""
           }
