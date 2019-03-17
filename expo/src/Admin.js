@@ -8,6 +8,7 @@ import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 import EditSponsorModal from './admin/EditSponsorModal';
 import WarningModal from './admin/WarningModal';
+import SubmitInputModal from './components/SubmitInputModal';
 
 import './Admin.css';
 import './App.css';
@@ -480,6 +481,15 @@ class SponsorModule extends Component {
           });
   }
 
+  seedChallengesFromDevpost(devpostUrl) {
+    // Determine inputted URL or default server Devpost URL
+    const params = devpostUrl == '' ? {} : { 'devpostUrl': devpostUrl };
+    axiosRequest.post('api/seed-challenges-from-devpost', params)
+      .then(() => {
+        this.loadCompanies();
+      });
+  }
+
   // Pull data for sponsor list
   componentWillMount() {
     this.loadCompanies();
@@ -583,6 +593,25 @@ class SponsorModule extends Component {
             Delete ALL Sponsors
           </button>
           <WarningModal modalId="companyWipeWarningModal" whatToDelete="Sponsors" deleteAll={this.deleteAllSponsors.bind(this)} />
+          <button className="button button-primary m-b-m"
+            type="button"
+            data-toggle="modal"
+            data-target="#seed-devpost-challenges"
+          >
+            Seed Sponsors/Challenges from Devpost
+          </button>
+          <SubmitInputModal
+            modalId="seed-devpost-challenges"
+            modalTitle="Seed Sponsors and Challenges from Devpost"
+            bodyText="Give us your hackathon's Devpost link (with the https) and we'll seed your Expo App
+              with all of your sponsors and challenges! Make sure you're following our Devpost naming guidelines 
+              (Ex: challenge_name - company_name)."
+            inputLabel="Devpost Link"
+            inputPlaceholder="https://bitcamp2019.devpost.com"
+            isInputRequired={true}
+            completeAction={(devpostUrl) => this.seedChallengesFromDevpost(devpostUrl)}
+            submitText="Seed from Devpost"
+          />
           <div className="form-group">
             <input type="text"
               id="txtSponsorSearch"

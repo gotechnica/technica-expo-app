@@ -389,9 +389,12 @@ def delete_all_projects():
 @app.route('/api/seed-challenges-from-devpost', methods=['POST'])
 @is_admin
 def import_challenges():
-    devpost_url = current_app.config['DEVPOST_ROOT_URL']
     companies = mongo.db.companies
 
+    devpost_url = request.json['devpostUrl']
+    if "http" not in devpost_url:
+        devpost_url = "https://" + devpost_url
+    
     prize_list = get_challenges(devpost_url)
     company_list = []
     company_names = list(set([prize[1] for prize in prize_list]))
@@ -429,8 +432,8 @@ def import_challenges():
             'access_code':access_code.upper(),
             'challenges':challenges_obj
         })
-        companies.insert(company_list[-1])
-
+    
+    companies.insert_many(company_list)
     return str(prize_list)
 
 @app.route('/api/companies/add', methods=['POST'])

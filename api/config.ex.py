@@ -6,4 +6,3 @@ SECRET_KEY = 'some-super-secret-string-used-for-flask-sessions'           # A lo
 
 # If you aren't allowing this option for hackers, replace the string with the python None variable
 CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION = 'Exact string of the question configured in Devpost for checking which table a hack is currently at (if it must stay at that current table for expo).'
-DEVPOST_ROOT_URL = 'https://technica2018.devpost.com/'
