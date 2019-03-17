@@ -13,6 +13,7 @@ import SubmitInputModal from './components/SubmitInputModal';
 import './Admin.css';
 import './App.css';
 import { sortByTableNumber } from './helpers.js';
+import WinnerBadge from './imgs/technica_award_ribbon.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SiteWrapper from './SiteWrapper.js';
@@ -880,11 +881,9 @@ class WinnerModule extends Component {
           {
             this.state.showPreview ?
               <h5>
-                <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  className="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
                 NO WINNERS SUBMITTED
-                   <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  className="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
               </h5>
               : ""
           }
@@ -910,11 +909,9 @@ class WinnerModule extends Component {
           {
             this.state.showPreview ?
               <h5>
-                <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  className="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
                 SUBMITTED WINNERS
-                  <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  className="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
               </h5>
               : ""
           }

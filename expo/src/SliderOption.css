@@ -1,3 +1,6 @@
+
+@import url('./customize/customize.css');
+
 .toggle {
   margin-top: 20px;
   display: inline-block;
@@ -63,20 +66,20 @@
 }*/
 
 input:checked + .slider {
-  background-color: #FF7BAC;
+  background-color: var(--slider_checked);
   border-width: 0px;
 }
 
 input:checked + .slider:hover {
-  background-color: #FF9CC0;
+  background-color: var(--slider_hover);
 }
 
 input:not(:checked) + .slider {
-  background-color: #888;
+  background-color: var(--slider_unchecked);
 }
 
 input:not(:checked) + .slider:hover {
-  background-color: #999;
+  background-color: var(--slider_unchecked_hover);
 }
 
 input:checked + .slider:before {
@@ -123,7 +126,7 @@ input:checked + .slider:before {
 .slider:after
 {
  content:'OFF';
- color: #2D2D2D;
+ color: var(--slider_after);
  display: block;
  position: absolute;
  white-space: nowrap;
@@ -144,3 +147,4 @@ input:checked + .slider:after
 }
 
 /*--------- END --------*/
+

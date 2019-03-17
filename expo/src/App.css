@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
+@import url('./customize/customize.css');
 
 /* Overarching font, app coloration */
 @font-face {
@@ -13,7 +14,7 @@
 }
 
 html {
-  background-color: #222;
+  background-color: var(--app_background_color);
 }
 
 .App {
@@ -22,9 +23,9 @@ html {
   overflow-x: hidden;
 }
 .App::before {
-  background-image: url('./imgs/banner.jpg');
+  background-image: var(--app_background_banner);
   background-repeat: no-repeat;
-  background-color: #222;
+  background-color: var(--app_background_color);
   background-size: cover;
   content: '';
   height: 100%;
@@ -37,7 +38,7 @@ html {
 
 /* App wide modal styles */
 .modal-content {
-  background-color: #222;
+  background-color: var(--app_modal_color);
 }
 .modal-header {
   border-bottom: 1px solid rgba(0,0,0,.125);
@@ -72,48 +73,48 @@ html {
 
 /* Primary button styles */
 .button-primary:not([disabled]):hover {
-  background-color: #00FFFF;
-  border: 3px solid #00FFFF;
+  background-color: var(--primary);
+  border: 3px solid var(--primary);
 }
 .button-primary {
-  background-color: #00C7C7;
-  border: 3px solid #00C7C7;
+  background-color: var(--app_prim_button_color);
+  border: 3px solid var(--app_prim_button_border);
 }
 
 /* Secondary button styles */
 .button-secondary:not([disabled]):hover {
-  background-color: #FF96BD;
-  border: 3px solid #FF96BD;
+  background-color: var(--secondary);
+  border: 3px solid var(--secondary);
 }
 .button-secondary {
-  background-color: #FF7BAC;
-  border: 3px solid #FF7BAC;
+  background-color: var(--app_sec_button_color);
+  border: 3px solid var(--app_sec_button_border);
 }
 
 /* Warning button styles */
 .button-warning:not([disabled]):hover {
-  background-color: #DF3B57;
-  border: 3px solid #DF3B57;
+  background-color: var(--tertiary);
+  border: 3px solid var(--tertiary);
 }
 .button-warning {
-  background-color: #FC4363;
-  border: 3px solid #FC4363;
+  background-color: var(--app_warn_button_color);
+  border: 3px solid var(--app_warn_button_border);
 }
 
 /* Link style button */
 .link-button {
   border-style: 1px solid;
   border-radius: 5px;
-  border-color: #00C7C7;
+  border-color: var(--app_link_button_border);
   padding: 0px;
   background: none;
-  color: #00C7C7;
+  color: var(--app_link_button_color);
   font-size: 1rem;
   border:none;
 }
 .link-button:hover {
-  color: #00FFFF;
-  border-color: #00FFFF;
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 /* Error styles */
@@ -122,7 +123,7 @@ html {
   margin-bottom: 7px;
 }
 .error-text {
-  background-color: #2f2f2f;
+  background-color: var(--app_error_text);
   border: 0px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -133,16 +134,16 @@ html {
 }
 .error-icon {
   padding: 10px;
-  background-color: #2f2f2f;
+  background-color: var(--app_error_text);
   border: 0px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   color: white;
   outline: none;
-  border-right: 2px solid rgb(255,255,255,0.125);
+  border-right: 2px solid var(--app_error_icon_border);
 }
 .fa-exclamation-triangle {
-  color: #00ffff;
+  color: var(--primary);
 }
 
 /* Layout */

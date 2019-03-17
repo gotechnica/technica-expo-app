@@ -1,10 +1,12 @@
+
+@import url('./customize/customize.css');
 /* Hide default checkbox */
 #Sponsor input[type=checkbox] {
   display: none;
 }
 #Sponsor .fa-square, #Sponsor .fa-check-square {
   font-size: 50px;
-  color: #FF7BAC;
+  color: var(--sponsor_fa_square);
 }
  #Sponsor .fa-square, #Sponsor .disabled {
   opacity: 0.5;
@@ -51,7 +53,7 @@
 #Sponsor div.Project div.Sponsor-Table {
   text-align: left;
   font-size: 16px;
-  color: #999;
+  color: var(--sponsor_project_table);
 }
 /*========================================*/
 #Sponsor h5.modal-challenge {
@@ -62,7 +64,7 @@
 }
 #Sponsor ul.selection-list {
   padding-left: 10px;
-  border-left: 3px solid #B190CC;
+  border-left: 3px solid var(--sponsor_ul_selector);
   margin-left: 13px;
 }
 
@@ -71,9 +73,9 @@
   font-size: 20px;
   margin-top: 10px;
   padding: 5px 15px;
-  -webkit-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
-  box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 2px 8px 0px var(--sponsor_button);
+  -moz-box-shadow: 0px 2px 8px 0px var(--sponsor_button);
+  box-shadow: 0px 2px 8px 0px var(--sponsor_button);
 }
 #Sponsor button.submit {
   width: 200px;
@@ -124,11 +126,11 @@ div.bd-example-modal-sm button.button {
 }
 
 .fa-user-check, .fa-check-circle {
-  color: #ba92db;
+  color: var(--sponsor_fa_user_circle);
 }
 
 #Sponsor div.task-header {
-  border-bottom: 3px solid #1c1c1c;
+  border-bottom: 3px solid var(--sponsor_task_header);
   margin-top: -1px;
   box-shadow: none;
   margin-left: 7px;
@@ -161,7 +163,7 @@ div.bd-example-modal-sm button.button {
 #Sponsor button.task-icon {
   background-color: transparent;
   border: 0px solid;
-  color: #2f2f2f;
+  color: var(--sponsor_button_task_icon);
   width: 35px;
   font-size: 15px;
   color: white;
@@ -170,11 +172,11 @@ div.bd-example-modal-sm button.button {
 }
 
 #Sponsor .fa-circle {
-  color: #b190cc;
+  color: var(--sponsor_fa_circle);
   font-size: 25px;
 }
 
 #Sponsor .fa-times-circle {
-  color: #ff7bac;
+  color: var(--sponsor_fa_times_circle);
   font-size: 18px;
 }
