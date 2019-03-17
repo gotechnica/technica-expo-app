@@ -8,6 +8,7 @@ import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 import EditSponsorModal from './admin/EditSponsorModal';
 import WarningModal from './admin/WarningModal';
+import SubmitInputModal from './components/SubmitInputModal';
 
 import './Admin.css';
 import './App.css';
@@ -47,8 +48,7 @@ class ProjectModule extends Component {
       tableEndNumber: 0,
       skipEveryOtherTable: true,
       viewable: true,
-    }
-    this.deleteAllProjects = this.deleteAllProjects.bind(this);
+    };
   }
 
   createChallengesToCompanyMap(challenges_obj) {
@@ -383,11 +383,11 @@ class ProjectModule extends Component {
             className="button button-secondary m-b-m"
             type="button"
             data-toggle="modal"
-            data-target="#modalWarning"
+            data-target="#projectWipeWarningModal"
           >
             Delete ALL Projects
           </button>
-          <WarningModal deleteAllProjects={this.deleteAllProjects.bind(this)} />
+          <WarningModal modalId="projectWipeWarningModal" whatToDelete="Projects" deleteAll={this.deleteAllProjects.bind(this)} />
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
@@ -447,7 +447,7 @@ class SponsorModule extends Component {
       textSearch: '',
       sponsors: [],
       viewable: true
-    }
+    };
   }
 
   loadCompanies() {
@@ -471,6 +471,24 @@ class SponsorModule extends Component {
       });
       document.getElementById("sponsor-content").style.display = "block";
     }
+  }
+
+  deleteAllSponsors() {
+    if (window.confirm('Are you sure you want to remove ALL sponsors from your database?'))
+      if (window.confirm('This action is not reversable.'))
+        axiosRequest.delete('api/companies/deleteAll')
+          .then(() => {
+            this.loadCompanies();
+          });
+  }
+
+  seedChallengesFromDevpost(devpostUrl) {
+    // Determine inputted URL or default server Devpost URL
+    const params = devpostUrl == '' ? {} : { 'devpostUrl': devpostUrl };
+    axiosRequest.post('api/seed-challenges-from-devpost', params)
+      .then(() => {
+        this.loadCompanies();
+      });
   }
 
   // Pull data for sponsor list
@@ -546,7 +564,7 @@ class SponsorModule extends Component {
       <div className="card">
         <div className="card-header">
           <div className="d-flex">
-            <h4>Sponsors</h4>
+            <h4>Sponsors ({this.state.sponsors.length})</h4>
             <span className="ml-auto">
               <button className="link-button"
                 type="button"
@@ -561,13 +579,40 @@ class SponsorModule extends Component {
             createID="modalCreateSponsor"
             onCreate={this.loadCompanies.bind(this)}
           />
-          <button className="button button-primary m-b-m"
+          <button className="button button-primary m-b-m m-r-m"
             type="button"
             data-toggle="modal"
             data-target="#modalCreateSponsor"
           >
             Create New Sponsor
-            </button>
+          </button>
+          <button className="button button-secondary m-b-m"
+            type="button"
+            data-toggle="modal"
+            data-target="#companyWipeWarningModal"
+          >
+            Delete ALL Sponsors
+          </button>
+          <WarningModal modalId="companyWipeWarningModal" whatToDelete="Sponsors" deleteAll={this.deleteAllSponsors.bind(this)} />
+          <button className="button button-primary m-b-m"
+            type="button"
+            data-toggle="modal"
+            data-target="#seed-devpost-challenges"
+          >
+            Seed Sponsors/Challenges from Devpost
+          </button>
+          <SubmitInputModal
+            modalId="seed-devpost-challenges"
+            modalTitle="Seed Sponsors and Challenges from Devpost"
+            bodyText="Give us your hackathon's Devpost link (with the https) and we'll seed your Expo App
+              with all of your sponsors and challenges! Make sure you're following our Devpost naming guidelines 
+              (Ex: challenge_name - company_name)."
+            inputLabel="Devpost Link"
+            inputPlaceholder="https://bitcamp2019.devpost.com"
+            isInputRequired={true}
+            completeAction={(devpostUrl) => this.seedChallengesFromDevpost(devpostUrl)}
+            submitText="Seed from Devpost"
+          />
           <div className="form-group">
             <input type="text"
               id="txtSponsorSearch"
@@ -836,11 +881,9 @@ class WinnerModule extends Component {
           {
             this.state.showPreview ?
               <h5>
-                <img src= {WinnerBadge}
-                  class="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
                 NO WINNERS SUBMITTED
-                   <img src= {WinnerBadge}
-                  class="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
               </h5>
               : ""
           }
@@ -866,11 +909,9 @@ class WinnerModule extends Component {
           {
             this.state.showPreview ?
               <h5>
-                <img src= {WinnerBadge}
-                  class="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
                 SUBMITTED WINNERS
-                  <img src= {WinnerBadge}
-                  class="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
               </h5>
               : ""
           }
