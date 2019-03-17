@@ -7,8 +7,12 @@
     
     /* primary color scheme */
     --primary: #00ffff;
+    --primary-darker: #00C7C7;
     --secondary: #FF96BD;
+    --secondary-darker: #FF7BAC;
     --tertiary: #DF3B57;
+    --tertiary-darker: #FC4363;
+    --quaternary: #BA92DB;
 
     /* App.css styles */
     --app_background_banner: url('../imgs/background.png');
@@ -16,14 +20,14 @@
     --app_modal_color: #222;
     --app_modal_border: rgba(0,0,0,.125);
     --app_button_color: white;
-    --app_prim_button_color: #00C7C7;
-    --app_prim_button_border: #00C7C7;
-    --app_sec_button_color: #FF7BAC;
-    --app_sec_button_border: #FF7BAC;
-    --app_warn_button_color: #FC4363;
-    --app_warn_button_border: #FC4363;
-    --app_link_button_color: #00C7C7;
-    --app_link_button_border: #00C7C7;
+    --app_prim_button_color: var(--primary-darker);
+    --app_prim_button_border: var(--primary-darker);
+    --app_sec_button_color: var(--secondary-darker);
+    --app_sec_button_border: var(--secondary-darker);
+    --app_warn_button_color: var(--tertiary-darker);
+    --app_warn_button_border: var(--tertiary-darker);
+    --app_link_button_color: var(--primary-darker);
+    --app_link_button_border: var(--primary-darker);
     --app_error_text: #2f2f2f;
     --app_error_icon_border: rgb(255,255,255,0.125);
 
@@ -33,28 +37,28 @@
     --card_header_background: #2f2f2f;
 
     /* CircleCheck.css styles */
-    --check_circle_stroke: #b6a1c4;
-    --check_mark_background: #b6a1c4;
+    --check_circle_stroke: var(--quaternary);
+    --check_mark_background: var(--quaternary);
     --check_mark_stroke: #2f2f2f;
-    --check_mark_box_shadow: #b6a1c4;
+    --check_mark_box_shadow: var(--quaternary);
 
     /* SliderOption.css */
-    --slider_checked: #FF7BAC;
+    --slider_checked: var(--secondary-darker);
     --slider_unchecked: #888;
     --slider_after: #2D2D2D;
-    --slider_checked_hover: #FF9CC0;
+    --slider_checked_hover: var(--secondary);
     --slider_unchecked_hover: #999;
     
     /* Sponsor.css */
-    --sponsor_fa_square: #FF7BAC;
+    --sponsor_fa_square: var(--secondary-darker);
     --sponsor_project_table: #999;
-    --sponsor_ul_selector: #B190CC;
+    --sponsor_ul_selector: var(--quaternary);
     --sponsor_button: rgba(0,0,0,0.2);
-    --sponsor_fa_user_circle: #ba92db;
+    --sponsor_fa_user_circle: var(--quaternary);
     --sponsor_task_header: #1c1c1c;
     --sponsor_button_task_icon: #2f2f2f;
-    --sponsor_fa_circle: #b190cc;
-    --sponsor_fa_times_circle: #ff7bac;
+    --sponsor_fa_circle: var(--quaternary);
+    --sponsor_fa_times_circle: var(--secondary-darker);
 
     /* Table.css */
     --table_home_btn: #2F2F2F;
@@ -63,10 +67,10 @@
     --table_no_submissions: #1c1c1c;
 
     /* Admin.css */
-    --admin_sponsor_name: #FF7BAC;
+    --admin_sponsor_name: var(--secondary-darker);
     --admin_subhead: #999999;
-    --admin_challenge_pink: #b6a1c4; 
+    --admin_challenge_pink: var(--quaternary);
     --admin_challenge_black: #000000;
-    --admin_all_bgcolor: #00C7C7;
-    --admin_input_label: #00C7C7;
+    --admin_all_bgcolor: var(--primary-darker);
+    --admin_input_label: var(--primary-darker);
 }
