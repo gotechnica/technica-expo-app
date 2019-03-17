@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import hackathon_logo from './imgs/technica-logo.svg'
 import './SiteWrapper.css';
-
-
+import customize from './customize/customize'
 /* Header / constant app features */
 
 let SiteWrapper = (content) => (
   <div className="App">
     <nav className="navbar navbar-expand-md">
       <Link to="/">
-        <img className="logo" src={require('./imgs/technica-logo.svg')}
+        <img className="logo" src= {hackathon_logo}
           alt="Technica Logo" />
       </Link>
       {/* 

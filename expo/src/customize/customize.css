@@ -6,9 +6,9 @@
 :root {
     
     /* primary color scheme */
-    --primary_blue: #00ffff;
-    --primary_pink: #FF96BD;
-    --primary_red: #DF3B57;
+    --primary: #00ffff;
+    --secondary: #FF96BD;
+    --tertiary: #DF3B57;
 
     /* App.css styles */
     --app_background_banner: url('../imgs/banner.jpg');
@@ -61,4 +61,12 @@
     --table_home_tr_td: #222222;
     --table_att_challenges: #999999;
     --table_no_submissions: #1c1c1c;
+
+    /* Admin.css */
+    --admin_sponsor_name: #FF7BAC;
+    --admin_subhead: #999999;
+    --admin_challenge_pink: #b6a1c4; 
+    --admin_challenge_black: #000000;
+    --admin_all_bgcolor: #00C7C7;
+    --admin_input_label: #00C7C7;
 }
