@@ -563,7 +563,7 @@ class SponsorModule extends Component {
       <div className="card">
         <div className="card-header">
           <div className="d-flex">
-            <h4>Sponsors</h4>
+            <h4>Sponsors ({this.state.sponsors.length})</h4>
             <span className="ml-auto">
               <button className="link-button"
                 type="button"
