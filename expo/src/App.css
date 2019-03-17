@@ -88,7 +88,7 @@ html {
 }
 .button-secondary {
   background-color: var(--app_sec_button_color);
-  border: 3px solid var(--app_prim_button_border);
+  border: 3px solid var(--app_sec_button_border);
 }
 
 /* Warning button styles */
