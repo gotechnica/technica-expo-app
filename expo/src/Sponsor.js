@@ -40,9 +40,9 @@ class WinnersSubmmitedModal extends Component {
                 <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
               </svg>
-              <div style={{ fontSize: "20px", padding: "0px 10px" }}>
+              <h3 style={{ padding: "0px 10px" }}>
                 Thanks for submitting your winners!
-              </div>
+              </h3>
             </div>
             <div class="modal-footer" style={{ border: "0px solid", paddingTop: "0px" }}>
               <button className="button button-primary" data-dismiss="modal">OK</button>

@@ -119,7 +119,7 @@ class ProjectColumn extends Component {
     let index = this.props.counter % 3;
     return (
       <td>
-        <div className="Project">
+        <div className="Project header-font">
           <a href={this.props.project_url} target="_tab" className="link">
             {this.props.project_name}
           </a>
@@ -128,8 +128,8 @@ class ProjectColumn extends Component {
               (this.props.origin === "home" ?
                 <div>
                   <button className="Table" style={{ backgroundColor: colors[index] }}>
-                    <div className="Table">Table</div>
-                    <div className="Table-Number">
+                    <div className="Table header-font">Table</div>
+                    <div className="Table-Number header-font">
                       {this.props.table_number}
                     </div>
                   </button>
@@ -248,7 +248,7 @@ export class Row extends Component {
       });
     }
     let table = (this.props.width >= 460 ?
-      <td className="Table-Number">{this.props.table_number === "" ? '-' : this.props.table_number}</td>
+      <td className="Table-Number header-font">{this.props.table_number === "" ? '-' : this.props.table_number}</td>
       :
       <Fragment></Fragment>);
     return (
@@ -320,7 +320,7 @@ export class Table extends Component {
   render() {
     let rows = [];
     let counter = 0;
-    let table = (this.state.width >= 460 ? <th>Table</th> : <Fragment></Fragment>);
+    let table = (this.state.width >= 460 ? <th className="header-font">Table</th> : <Fragment></Fragment>);
     let trophy_header = (this.state.width >= 460 ? <th>Challenges Won</th> : <Fragment></Fragment>);
     this.props.projects.forEach((project) => {
       rows.push(
@@ -375,7 +375,7 @@ export class Table extends Component {
               <thead>
                 <tr>
                   {table}
-                  <th>Project Information</th>
+                  <th className="header-font">Project Information</th>
                 </tr>
               </thead>
               :

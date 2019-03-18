@@ -1,24 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
 @import url('./customize/customize.css');
-
-/* Overarching font, app coloration */
-@font-face {
-  font-family: 'DINPro';
-  src: url('./fonts/DINPro-Regular.otf');
-}
-
-@font-face {
-  font-family: 'DINPro';
-  font-weight: 600;
-  src: url('./fonts/DINPro-Bold.otf');
-}
 
 html {
   background-color: var(--app_background_color);
 }
 
 .App {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--body-font);
   position: relative;
   overflow-x: hidden;
 }
@@ -35,6 +22,10 @@ html {
   top: 0;
   width: 100%;
   z-index: 0;
+}
+
+h1, h2, h3, h4, h5, h6, .header-font {
+  font-family: var(--header-font);
 }
 
 /* App wide modal styles */

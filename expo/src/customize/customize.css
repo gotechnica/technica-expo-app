@@ -1,10 +1,31 @@
-/*
-    variable naming scheme :
-    --filename_element_attribute
-*/
+/* Fonts */
+@font-face {
+    font-family: AvenirBold;
+    src: url("../fonts/Avenir/AvenirLTStd-Heavy.otf") format("opentype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Avenir;
+    src: url("../fonts/Avenir/AvenirLTStd-Book.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Aleo;
+    src: url("../fonts/Aleo/Aleo-Bold.otf") format("opentype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Aleo, ;
+    src: url("../fonts/Aleo/Aleo-Regular.otf") format("opentype");
+}
 
 :root {
-    
+    /* font families */
+    --header-font: "Aleo", sans-serif;
+    --body-font: "Avenir", sans-serif;
+
     /* primary color scheme */
     --primary: #FF8860;
     --primary-darker: #FF6F3F;
@@ -13,6 +34,9 @@
     --tertiary: #FF5B60;
     --tertiary-darker: #FF3F46;
     --quaternary: #528CA5;
+
+    /* variable naming scheme:
+     * --filename_element_attribute */
 
     /* supporting color scheme */
     /* Technica: 2f2f2f, Bitcamp Midnight Blue: 1A2E33 */

@@ -397,8 +397,8 @@ class ProjectModule extends Component {
             />
           </div>
           <div className="row m-b-m">
-            <div className="col grow-5">Project</div>
-            <div className="col">Table</div>
+            <h6 className="col grow-5">Project</h6>
+            <h6 className="col">Table</h6>
             <div className="col" />
           </div>
           {filteredProjects.map((elt, index) => {
