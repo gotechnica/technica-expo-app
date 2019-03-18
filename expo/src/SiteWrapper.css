@@ -1,8 +1,10 @@
 .logo {
-  height: 60px;
+  height: 150px;
   margin-top: 80px;
   text-align: center;
   margin-bottom: 40px;
+  -webkit-filter: drop-shadow(3px 3px 10px rgba(255, 255, 255, 1));
+  filter: drop-shadow(3px 3px 10px rgba(255, 255, 255, 1));
 }
 
 .navbar {
