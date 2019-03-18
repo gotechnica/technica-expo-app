@@ -49,10 +49,12 @@ const axiosRequest = useCachedResponseData ? {
     }); 
   },
   post: rejectAll,
+  put: rejectAll,
   delete: rejectAll,
 } : {
   get: (route, params) => makeAxiosRequest('get', route, params),
   post: (route, params) => makeAxiosRequest('post', route, params),
+  put: (route, params) => makeAxiosRequest('put', route, params),
   delete: (route, params) => makeAxiosRequest('delete', route, params),
 };
 

@@ -40,6 +40,16 @@ class EditChallengeModal extends Component {
     this.setState({showConfirmation: !this.state.showConfirmation});
   }
 
+  resetWinners = () => {
+    if (window.confirm(`Are you sure you want to reset the winners for ${this.state.challenge_title}?`)) {
+      axiosRequest.put(`api/companies/id/${this.props.sponsorID}/challenges/${this.props.challengeID}/resetWinners`)
+        .then((data) => {
+          this.props.onEdit();
+          document.getElementById(`btnCloseEditChallengeModal${this.props.challengeID}`).click();
+        });
+    }
+  }
+
   saveChallenge(e) {
     axiosRequest.get(`api/companies/id/${this.props.sponsorID}`)
       .then((challenges) => {
@@ -158,11 +168,18 @@ class EditChallengeModal extends Component {
                   <div>
                     <button
                       type="button"
-                      className="button button-warning float-left"
+                      className="button button-warning float-left m-r-s"
                       onClick={this.toggleConfirmation}
                     >
                       Delete
-                      </button>
+                    </button>
+                    <button
+                      type="button"
+                      className="button button-warning float-left"
+                      onClick={this.resetWinners}
+                    >
+                      Reset Winners
+                    </button>
                   </div>
                   <div>
 
