@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import hackathon_logo from './imgs/technica-logo.svg'
+import hackathon_logo from './imgs/hackathon-logo.svg'
 import './SiteWrapper.css';
 import customize from './customize/customize'
 /* Header / constant app features */
@@ -10,7 +10,7 @@ let SiteWrapper = (content) => (
     <nav className="navbar navbar-expand-md">
       <Link to="/">
         <img className="logo" src= {hackathon_logo}
-          alt="Technica Logo" />
+          alt="Logo" />
       </Link>
       {/* 
       <div className="collapse navbar-collapse">

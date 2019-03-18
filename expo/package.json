@@ -2,7 +2,7 @@
   "name": "expo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gotechnica.github.io/expo",
+  "homepage": "https://bitcamp.github.io/expo",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-regular": "^5.0.13",

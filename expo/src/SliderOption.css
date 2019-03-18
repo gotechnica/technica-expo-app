@@ -71,7 +71,7 @@ input:checked + .slider {
 }
 
 input:checked + .slider:hover {
-  background-color: var(--slider_hover);
+  background-color: var(--slider_checked_hover);
 }
 
 input:not(:checked) + .slider {

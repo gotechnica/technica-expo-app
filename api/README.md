@@ -1,4 +1,4 @@
-# Technica Expo App API
+# Hackathon Expo App API
 
 We use Flask as an API for the expo app. It mainly interfaces with the database, and gives CRUD endpoints that the React app calls from.
 

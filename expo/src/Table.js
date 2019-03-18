@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import TechnicaRibbon from './imgs/technica_award_ribbon.png';
+import WinnerBadge from './imgs/winner_ribbon.png';
 import GradientLightbulb from './imgs/gradient-lightbulb.gif';
 import SmallerParentheses from './SmallerParentheses.js';
 import { SubmitModal } from './Sponsor.js';
@@ -143,7 +143,7 @@ class ProjectColumn extends Component {
           }
           {this.props.width < 460 && this.props.num_challenges_won > 0 && this.props.origin === "sponsor" ? (
             <div className="Sponsor-Table">
-              <img src={TechnicaRibbon} style={{ height: "20px", marginRight: "5px" }} />
+              <img src={WinnerBadge} style={{ height: "20px", marginRight: "5px" }} />
               Challenges Won: {this.props.num_challenges_won}
             </div>
           ) : (
@@ -195,7 +195,7 @@ class ChallengeCard extends Component {
         this.props.width >= 460 ?
           <div className="btn-group">
             <button className="btn" disabled>
-              <img src={TechnicaRibbon} className="Ribbon" />
+              <img src={WinnerBadge} className="Ribbon" />
             </button>
             <button className="btn btn-block" disabled>
               <b>{this.props.challenge_name}</b>
@@ -205,7 +205,7 @@ class ChallengeCard extends Component {
           :
           <div>
             <b>{this.props.challenge_name}</b>
-            {text} <img src={TechnicaRibbon} className="Ribbon" />
+            {text} <img src={WinnerBadge} className="Ribbon" />
           </div>
       ) : (
           <div>
@@ -283,7 +283,7 @@ export class Row extends Component {
             <td className="Trophy-Case" style={{ fontSize: "35px", fontWeight: "bold", textAlign: "center" }}>
               {winner_count > 0 ?
                 <Fragment>
-                  <img src={TechnicaRibbon} style={{ height: "40px", marginRight: "10px" }} />
+                  <img src={WinnerBadge} style={{ height: "40px", marginRight: "10px" }} />
                   {winner_count}
                 </Fragment>
                 :

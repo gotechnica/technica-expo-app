@@ -11,8 +11,8 @@
     --tertiary: #DF3B57;
 
     /* App.css styles */
-    --app_background_banner: url('../imgs/banner.jpg');
-    --app_background_color: #222;
+    --app_background_banner: url('../imgs/background.png');
+    --app_background_color: white;
     --app_modal_color: #222;
     --app_modal_border: rgba(0,0,0,.125);
     --app_button_color: white;
