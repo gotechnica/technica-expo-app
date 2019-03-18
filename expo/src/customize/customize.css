@@ -6,13 +6,18 @@
 :root {
     
     /* primary color scheme */
-    --primary: #00ffff;
-    --primary-darker: #00C7C7;
-    --secondary: #FF96BD;
-    --secondary-darker: #FF7BAC;
-    --tertiary: #DF3B57;
-    --tertiary-darker: #FC4363;
-    --quaternary: #BA92DB;
+    --primary: #FF8860;
+    --primary-darker: #FF6F3F;
+    --secondary: #A58D7C;
+    --secondary-darker: #7F6C5F;
+    --tertiary: #FF5B60;
+    --tertiary-darker: #FF3F46;
+    --quaternary: #528CA5;
+
+    /* supporting color scheme */
+    /* Technica: 2f2f2f, Bitcamp Midnight Blue: 1A2E33 */
+    --supporting-primary: #1A2E33;
+    --supporting-primary-darker: rgb(52, 65, 68);
 
     /* App.css styles */
     --app_background_banner: url('../imgs/background.png');
@@ -28,25 +33,25 @@
     --app_warn_button_border: var(--tertiary-darker);
     --app_link_button_color: var(--primary-darker);
     --app_link_button_border: var(--primary-darker);
-    --app_error_text: #2f2f2f;
+    --app_error_text: var(--supporting-primary);
     --app_error_icon_border: rgb(255,255,255,0.125);
 
     /* Card.css styles */
-    --card_background_color: #2F2F2F;
+    --card_background_color: var(--supporting-primary);
     --card_box_shadow: rgba(0,0,0,0.2);
-    --card_header_background: #2f2f2f;
+    --card_header_background: var(--supporting-primary);
 
     /* CircleCheck.css styles */
     --check_circle_stroke: var(--quaternary);
     --check_mark_background: var(--quaternary);
-    --check_mark_stroke: #2f2f2f;
+    --check_mark_stroke: var(--supporting-primary);
     --check_mark_box_shadow: var(--quaternary);
 
     /* SliderOption.css */
-    --slider_checked: var(--secondary-darker);
+    --slider_checked: var(--primary-darker);
     --slider_unchecked: #888;
     --slider_after: #2D2D2D;
-    --slider_checked_hover: var(--secondary);
+    --slider_checked_hover: var(--primary);
     --slider_unchecked_hover: #999;
     
     /* Sponsor.css */
@@ -55,16 +60,16 @@
     --sponsor_ul_selector: var(--quaternary);
     --sponsor_button: rgba(0,0,0,0.2);
     --sponsor_fa_user_circle: var(--quaternary);
-    --sponsor_task_header: #1c1c1c;
-    --sponsor_button_task_icon: #2f2f2f;
+    --sponsor_task_header: var(--supporting-primary-darker);
+    --sponsor_button_task_icon: var(--supporting-primary);
     --sponsor_fa_circle: var(--quaternary);
     --sponsor_fa_times_circle: var(--secondary-darker);
 
     /* Table.css */
-    --table_home_btn: #2F2F2F;
+    --table_home_btn: var(--supporting-primary);
     --table_home_tr_td: #222222;
     --table_att_challenges: #999999;
-    --table_no_submissions: #1c1c1c;
+    --table_no_submissions: var(--supporting-primary-darker);
 
     /* Admin.css */
     --admin_sponsor_name: var(--secondary-darker);

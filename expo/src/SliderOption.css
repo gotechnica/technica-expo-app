@@ -6,11 +6,16 @@
   display: inline-block;
 }
 
+.toggle-btn {
+  background: var(--supporting-primary);
+}
+
 .toggle-label {
   /*display: inline-block;
   margin-left: 10px;
   position: absolute;
   bottom: 47px;*/
+  background: var(--supporting-primary);
 }
 
 .switch {
