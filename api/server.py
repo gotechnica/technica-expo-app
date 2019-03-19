@@ -444,7 +444,7 @@ def add_company():
 
     company_name = request.json['company_name']
     access_code = request.json['access_code'].upper()
-    
+
     # Autogenerate 8-character access code if blank one was sent
     if access_code == '':
         access_code = generate_random_access_code(8)
@@ -875,7 +875,7 @@ def logout():
     return "Logged out"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.debug')
