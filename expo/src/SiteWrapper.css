@@ -1,10 +1,18 @@
 .logo {
-  height: 150px;
-  margin-top: 30px;
+  /* CUSTOMIZABLE PARAMS */
+  height: 6rem;
+  margin-top: 50px;
+  margin-bottom: 25px;
+  /* END CUSTOMIZABLE PARAMS */
   text-align: center;
-  margin-bottom: 10px;
   -webkit-filter: drop-shadow(3px 3px 10px rgba(255, 255, 255, 1));
   filter: drop-shadow(3px 3px 10px rgba(255, 255, 255, 1));
+}
+
+@media (max-width:768px) {
+  .logo {
+    height: 4rem;
+  }
 }
 
 .navbar {

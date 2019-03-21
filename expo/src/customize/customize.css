@@ -1,3 +1,4 @@
+/* CUSTOMIZABLE PARAMS */
 /* Fonts */
 @font-face {
     font-family: AvenirBold;
@@ -103,3 +104,4 @@
     --admin_all_bgcolor: var(--primary-darker);
     --admin_input_label: var(--primary-darker);
 }
+/* END CUSTOMIZABLE PARAMS */
