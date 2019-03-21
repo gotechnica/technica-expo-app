@@ -4,6 +4,10 @@ html {
   background-color: var(--app_background_color);
 }
 
+body {
+  font-family: var(--body-font);
+}
+
 .App {
   font-family: var(--body-font);
   position: relative;
