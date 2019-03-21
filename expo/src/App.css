@@ -14,8 +14,7 @@ body {
   overflow-x: hidden;
 }
 .App::before {
-  background-image: linear-gradient(rgb(255, 255, 255, .9), transparent),
-  var(--app_background_banner);
+  background-image: var(--app_background_banner);
   background-repeat: no-repeat;
   background-color: var(--app_background_color);
   background-size: cover;

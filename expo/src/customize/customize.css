@@ -45,8 +45,8 @@
     --supporting-primary-darker: rgb(52, 65, 68);
 
     /* App.css styles */
-    --app_background_banner: url('../imgs/background.png');
-    --app_background_color: white;
+    --app_background_banner: url('../imgs/large-bg.svg');
+    --app_background_color: #CBF2FF;
     --app_modal_color: #222;
     --app_modal_border: rgba(0,0,0,.125);
     --app_button_color: white;
@@ -104,4 +104,11 @@
     --admin_all_bgcolor: var(--primary-darker);
     --admin_input_label: var(--primary-darker);
 }
+
+@media (max-width: 768px) {
+    :root {
+        --app_background_banner: url('../imgs/small-bg.svg');
+    }
+}
+
 /* END CUSTOMIZABLE PARAMS */
