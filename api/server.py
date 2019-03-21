@@ -5,6 +5,7 @@ from pymongo import MongoClient, UpdateOne
 from flask_cors import CORS
 from bson.objectid import ObjectId
 from bson import json_util
+from bs4 import BeautifulSoup
 import logging
 import random
 import string
@@ -93,7 +94,8 @@ def get_project(project_id):
         'project_name': project_obj['project_name'],
         'project_url': project_obj['project_url'],
         'challenges': project_obj['challenges'],
-        'challenges_won': project_obj['challenges_won']
+        'challenges_won': project_obj['challenges_won'],
+        'plain_description': project_obj.get('plain_description',"No description available")
     }
 
     return jsonify(temp_project)
@@ -174,7 +176,8 @@ def get_project_list(projects_obj):
             'project_name': project_name,
             'project_url': projects_obj[project_name].project_url,
             'challenges': projects_obj[project_name].challenges,
-            'challenges_won': []
+            'challenges_won': [],
+            'plain_description': projects_obj[project_name].plain_description
         }
         project_data.append(info)
     return project_data
@@ -313,6 +316,30 @@ def bulk_add_project():
     packet = request.json['projects']
     return bulk_add_projects_internal(packet)
 
+## scrape description for one project
+@app.route('/api/projects/scrape-project-descriptions-from-devpost', methods=['POST'])
+@is_admin
+def get_project_descrp():
+    projects = mongo.db.projects
+
+    project_id = request.json['project_id']
+    project_obj = projects.find_one({'_id': ObjectId(project_id)})
+    project_url = str(project_obj['project_url'])
+
+    ## check valid url
+    regex = re.compile(
+        r'^(?:http|ftp)s?://' # http:// or https://
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?))' # domain...
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+
+    if re.match(regex, project_url):
+        r = requests.get(project_url)
+        soup = BeautifulSoup(r.text)
+        description = soup.find(id="app-details-left")
+    else:
+        description = "No description available -- invalid URL"
+    return str(description)
+
 @app.route('/api/projects/id/<project_id>', methods =['POST'])
 @is_admin
 def update_project(project_id):
@@ -394,11 +421,11 @@ def import_challenges():
     devpost_url = request.json['devpostUrl']
     if "http" not in devpost_url:
         devpost_url = "https://" + devpost_url
-    
+
     prize_list = get_challenges(devpost_url)
     company_list = []
     company_names = list(set([prize[1] for prize in prize_list]))
-    
+
     for company_name in company_names:
         challenge_info = [[prize[0],prize[2]] for prize in prize_list
                          if prize[1] == company_name]
@@ -426,13 +453,13 @@ def import_challenges():
                 'num_winners': num_winners,
                 'winners': []
             }
-        
+
         company_list.append({
             'company_name':company_name,
             'access_code':access_code.upper(),
             'challenges':challenges_obj
         })
-    
+
     companies.insert_many(company_list)
     return str(prize_list)
 
@@ -498,7 +525,7 @@ def update_company_name_or_code(company_id):
 def delete_company(company_id):
     companies = mongo.db.companies
     logged_message(f'endpoint = /api/companies/id/{company_id}, method = DELETE, params = {company_id}, type = admin')
-    
+
     result = companies.delete_one({'_id': ObjectId(company_id)})
     # TODO(timothychen01): Explore adding additional side effect for challenges
     if result.deleted_count == 1:
@@ -516,7 +543,7 @@ def delete_all_companies():
 
 @app.route('/api/companies/id/<company_id>/challenges/add', methods=['POST'])
 @is_admin
-def add_challenge_to_company(company_id):   
+def add_challenge_to_company(company_id):
     companies = mongo.db.companies
     logged_message(f'endpoint = api/companies/id/<company_id>/challenges/add, method = POST, params = NONE, type = admin')
 
@@ -713,7 +740,7 @@ def update_win_status(project_challenge_obj, company_name, challenge_name, didWi
 @is_sponsor_or_admin
 def make_winner(project_id):
     projects = mongo.db.projects
-    logged_message(f'endpoint =/api/projects/id/{project_id}/makeWinner, method = POST, params = {project_id}, type = sponsor')    
+    logged_message(f'endpoint =/api/projects/id/{project_id}/makeWinner, method = POST, params = {project_id}, type = sponsor')
     companies = mongo.db.companies
     company_id = request.json['company_id']
     challenge_id = request.json['challenge_id']
@@ -756,7 +783,7 @@ def make_winner(project_id):
 @is_sponsor_or_admin
 def make_non_winner(project_id):
     projects = mongo.db.projects
-    logged_message(f'endpoint =/api/projects/id/{project_id}/makeNonWinner, method = POST, params = {project_id}, type = sponsor')    
+    logged_message(f'endpoint =/api/projects/id/{project_id}/makeNonWinner, method = POST, params = {project_id}, type = sponsor')
     companies = mongo.db.companies
     company_id = request.json['company_id']
     challenge_id = request.json['challenge_id']
@@ -829,7 +856,7 @@ def resetChallenges(company_id, challenge_id):
 
 @app.route('/api/whoami', methods=['GET'])
 def return_session_info():
-    logged_message(f'endpoint =/api/whoami, method = GET, params = NONE, type = auth')        
+    logged_message(f'endpoint =/api/whoami, method = GET, params = NONE, type = auth')
     if 'user_type' in session:
         return json.dumps({
             'user_type': session['user_type'],  # sponsor or admin
@@ -841,7 +868,7 @@ def return_session_info():
 @app.route('/api/login/sponsor', methods=['POST'])
 def sponsor_login():
     companies = mongo.db.companies
-    logged_message(f'endpoint =/api/login/sponsor, method = POST, params = NONE, type = auth')            
+    logged_message(f'endpoint =/api/login/sponsor, method = POST, params = NONE, type = auth')
     attempted_access_code = request.json['access_code'].upper()
     if attempted_access_code == '':
         return "Access denied."
@@ -857,7 +884,7 @@ def sponsor_login():
 @app.route('/api/login/admin', methods=['POST'])
 def admin_login():
     attempted_access_code = request.json['access_code'].upper()
-    logged_message(f'endpoint =/api/login/admin, method = POST, params = NONE, type = auth')                
+    logged_message(f'endpoint =/api/login/admin, method = POST, params = NONE, type = auth')
     if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE'].upper():
         return "Access denied."
     else:
@@ -868,7 +895,7 @@ def admin_login():
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
-    logged_message(f'endpoint =/api/logout, method = POST, params = NONE, type = auth')                    
+    logged_message(f'endpoint =/api/logout, method = POST, params = NONE, type = auth')
     session.pop('user_type', None)
     session.pop('name', None)
     session.pop('id', None)

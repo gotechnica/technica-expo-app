@@ -3,6 +3,7 @@ import re
 import requests
 import json
 import time
+from bs4 import BeautifulSoup
 
 """
 Assumption: Given A1 -> N15
@@ -45,6 +46,22 @@ class Project:
         self.project_url = project_url
         self.challenges = challenges
         self.table_number = ""
+
+        # description scraping
+        ## check valid url
+        regex = re.compile(
+            r'^(?:http|ftp)s?://' # http:// or https://
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?))' # domain...
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+
+        if re.match(regex, project_url):
+            r = requests.get(project_url)
+            soup = BeautifulSoup(r.text)
+            description = soup.find(id="app-details-left")
+        else:
+            description = "No description available -- invalid URL"
+
+        self.plain_description = str(description)
 
     def __str__(self):
         return str(self.table_number) + " " + str(self.project_url)
