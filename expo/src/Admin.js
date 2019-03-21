@@ -352,7 +352,7 @@ class ProjectModule extends Component {
             <button type="submit" className="button button-primary m-r-m assign_button1">
               Assign Tables
             </button>
-            <button className="button button-secondary assign_button2" onClick={this.onRemoveAllTableAssignments.bind(this)}>
+            <button className="button button-warning assign_button2" onClick={this.onRemoveAllTableAssignments.bind(this)}>
               Remove All Table Assignments
             </button>
             {this.state.tableAssignmentStatus != '' &&
@@ -380,7 +380,7 @@ class ProjectModule extends Component {
             Create New Project
           </button>
           <button
-            className="button button-secondary m-b-m"
+            className="button button-warning m-b-m"
             type="button"
             data-toggle="modal"
             data-target="#projectWipeWarningModal"
@@ -586,7 +586,7 @@ class SponsorModule extends Component {
           >
             Create New Sponsor
           </button>
-          <button className="button button-secondary m-b-m"
+          <button className="button button-warning m-b-m"
             type="button"
             data-toggle="modal"
             data-target="#companyWipeWarningModal"

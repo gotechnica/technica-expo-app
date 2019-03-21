@@ -68,8 +68,8 @@ h1, h2, h3, h4, h5, h6, .header-font {
 
 /* Primary button styles */
 .button-primary:not([disabled]):hover {
-  background-color: var(--primary);
-  border: 3px solid var(--primary);
+  background-color: var(--primary-action);
+  border: 3px solid var(--primary-action);
 }
 .button-primary {
   background-color: var(--app_prim_button_color);
@@ -78,8 +78,8 @@ h1, h2, h3, h4, h5, h6, .header-font {
 
 /* Secondary button styles */
 .button-secondary:not([disabled]):hover {
-  background-color: var(--secondary);
-  border: 3px solid var(--secondary);
+  background-color: var(--cancel-action);
+  border: 3px solid var(--cancel-action);
 }
 .button-secondary {
   background-color: var(--app_sec_button_color);
@@ -88,8 +88,8 @@ h1, h2, h3, h4, h5, h6, .header-font {
 
 /* Warning button styles */
 .button-warning:not([disabled]):hover {
-  background-color: var(--tertiary);
-  border: 3px solid var(--tertiary);
+  background-color: var(--warning);
+  border: 3px solid var(--warning);
 }
 .button-warning {
   background-color: var(--app_warn_button_color);
@@ -108,8 +108,8 @@ h1, h2, h3, h4, h5, h6, .header-font {
   border:none;
 }
 .link-button:hover {
-  color: var(--primary);
-  border-color: var(--primary);
+  color: var(--primary-action);
+  border-color: var(--primary-action);
 }
 
 /* Error styles */
@@ -118,11 +118,11 @@ h1, h2, h3, h4, h5, h6, .header-font {
   margin-bottom: 7px;
 }
 .error-text {
-  background-color: var(--app_error_text);
+  color: var(--app_error_text);
+  background-color: var(--app_error_text_background);
   border: 0px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  color: white;
   outline: none;
   width:100%;
   padding: 10px;
@@ -138,7 +138,7 @@ h1, h2, h3, h4, h5, h6, .header-font {
   border-right: 2px solid var(--app_error_icon_border);
 }
 .fa-exclamation-triangle {
-  color: var(--primary);
+  color: var(--warning);
 }
 
 /* Layout */

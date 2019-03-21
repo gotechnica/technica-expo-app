@@ -16,7 +16,7 @@
 }
 
 #diversifyWinnersModal .warning {
-  color: var(--tertiary)
+  color: var(--warning)
 }
 #diversifyWinnersModal div.diversity-modal {
   background-color: transparent;
