@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
 import WinnerBadge from './imgs/winner_ribbon.svg';
-import GradientLightbulb from './imgs/gradient-lightbulb.gif';
 import SmallerParentheses from './SmallerParentheses.js';
 import { SubmitModal } from './Sponsor.js';
 
@@ -14,6 +13,7 @@ import './customize/customize';
 import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
 import { faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
+import { faExclamationCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import customize from './customize/customize';
 library.add(faCheckSquare);
 library.add(faSquare);
@@ -30,9 +30,9 @@ class DiversifyWinnersModal extends Component {
               </button>
             </div>
             <div class="modal-body" style={{ color: "white", textAlign: "center" }}>
-              <img src={GradientLightbulb} className="gradient-lightbulb" />
+              <FontAwesomeIcon icon={faExclamationCircle} size="5x" className="warning" />
               <div className="diversity-modal">
-                Our current numbers indicate that this project will win 2+ prizes this weekend.
+                Our current numbers indicate that this project will win 2 + prizes this weekend.
                 We recommend considering alternative projects to allow for more diversity in winners.
               </div>
             </div>

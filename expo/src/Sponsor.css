@@ -15,19 +15,14 @@
   opacity: 1;
 }
 
-#diversifyWinnersModal img.gradient-lightbulb {
-  height: 225px;
-  margin-top: -60px;
-  margin-right: -50px;
-  margin-bottom: -20px;
+#diversifyWinnersModal .warning {
+  color: var(--tertiary)
 }
 #diversifyWinnersModal div.diversity-modal {
   background-color: transparent;
   color: white;
   margin: 10px 10px 0px 10px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
-  src: url('https://fonts.googleapis.com/css?family=Poppins:400,700,900');
 }
 /*=======================================*/
 #Sonsor table td.Trophy-Case {
