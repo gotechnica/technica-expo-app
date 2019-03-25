@@ -85,6 +85,31 @@ def get_all_projects():
     }
     return jsonify(output)
 
+@app.route('/api/projects', methods=['GET'])
+@is_admin
+def get_all_projects_with_winners():
+    projects = mongo.db.projects
+
+
+    projects_list = []
+    for p in projects.find():
+        temp_project = {
+            'project_id': str(p['_id']),
+            'table_number': p['table_number'],
+            'project_name': p['project_name'],
+            'project_url': p['project_url'],
+            'challenges': p['challenges'],
+            'challenges_won': p['challenges_won']
+        }
+        projects_list.append(temp_project)
+
+    output = {
+        'publish_winners': publish_winners,
+        'projects': projects_list
+    }
+    return jsonify(output)
+
+
 @app.route('/api/projects/id/<project_id>', methods=['GET'])
 def get_project(project_id):
     projects = mongo.db.projects
