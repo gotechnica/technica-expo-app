@@ -1,3 +1,5 @@
+@import url('./customize/customize.css');
+
 /* Remove Default Link Style */
 #Home .link, #Sponsor .link,
 #Home .link:hover, #Sponsor .link:hover {
@@ -5,7 +7,7 @@
   text-decoration: none;
 }
 
-/* Technica Winning Ribbon */
+/* Winning Project Ribbon */
 #Home img.Ribbon, #Sponsor img.Ribbon {
   height: 30px;
   width: 30px;
@@ -29,7 +31,7 @@
   text-align: left;
   white-space: normal;
 
-  background-color: #2F2F2F;
+  background-color: var(--table_home_btn);
   outline: none;
 }
 
@@ -47,7 +49,7 @@
 
 #Sponsor tr td, #Home tr td {
   padding: 15px 0px;
-  border-top: 2px solid #222222;
+  border-top: 2px solid var(--table_home_tr_td);
 }
 
 #Home table thead th:nth-of-type(2) {
@@ -94,7 +96,7 @@
 }
 
 #Home div.attempted-challenges button {
-  color: #999999;
+  color: var(--table_att_challenges);
   font-size: 17px;
   padding: 0px;
 }
@@ -110,7 +112,7 @@
   padding-left: 20px;
 }
 #Home div.attempted-challenges {
-  color: #999;
+  color: var(--table_att_challenges);
 }
 
 #Home hr.attempted-challenges {
@@ -154,7 +156,7 @@
   margin: 10px 0px;
   height: 200px;
 
-  background-color: #1c1c1c;
+  background-color: var(--table_no_submissions);
 
   opacity: 0.75;
 

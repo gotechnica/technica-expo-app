@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+    db:
+        image: mongo
+        command: [--auth]
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: password
+            MONGO_INITDB_DATABASE: expo-testing
+        ports:
+            - "27017:27017"
+    web:
+        build:
+            context: ./api
+        volumes:
+            - .:/var/www/webapps/hackathon-expo-app/api
+        depends_on:
+            - db
+        ports:
+            - "8000:8000"
+        links:
+            - db:db

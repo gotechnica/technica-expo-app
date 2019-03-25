@@ -76,13 +76,14 @@ class EditProjectModal extends Component {
     let challenges = [];
     this.state.challenges.map((item) => {
       let object = {}
-      if (this.state.company_map[item])
+      if (this.state.company_map[item]) {
         object = {
           challenge_name: item,
           company: this.state.company_map[item],
           won: false
         }
-      challenges.push(object);
+        challenges.push(object);
+      }
     })
     let valid = true;
     let checks = document.querySelector('.black');
@@ -136,14 +137,14 @@ class EditProjectModal extends Component {
     company = this.state.company_challenge;
     if (color) {
       let label = (document.getElementById(`${lol}label`))
-      let word = label.innerHTML;
+      let word = label.textContent;
       word = word.trim();
       let ind = this.state.challenges.indexOf(word)
       let index_all = this.state.allChallenges.indexOf(word);
       challengeStore.splice(ind, 1);
     } else if (!color) {
       let label = (document.getElementById(`${lol}label`))
-      let word = label.innerHTML
+      let word = label.textContent;
       word = word.trim();
       if (!challengeStore.includes(word) && word.length > 0)
         challengeStore.push(word);
