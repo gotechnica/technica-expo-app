@@ -1,3 +1,5 @@
+@import url('./customize/customize.css');
+
 h4 {
   font-weight: bold;
 }
@@ -7,12 +9,12 @@ h5 {
 }
 
 .sponsor-name {
-  color: #FF7BAC;
+  color: var(--admin_sponsor_name);
   font-weight: bold;
 }
 
 .sponsor-subhead {
-  color: #999999;
+  color: var(--admin_subhead);
 }
 
 .sponsor-card {
@@ -21,7 +23,7 @@ h5 {
 }
 
 .sponsor-challenge {
-  background-color: #b6a1c4;
+  background-color: var(--admin_challenge_pink);
   padding: 2px 6px 2px 8px;
   color: white;
   border-radius: 5px;
@@ -30,7 +32,7 @@ h5 {
 }
 
 .pink {
-  background-color: #b6a1c4;
+  background-color: var(--admin_challenge_pink);
   padding: 2px 6px 2px 8px;
   color: white;
   border-radius: 5px;
@@ -40,7 +42,7 @@ h5 {
 }
 
 .black {
-  background-color: black;
+  background-color: var(--admin_challenge_black);
   padding: 2px 6px 2px 8px;
   color: white;
   border-radius: 5px;
@@ -50,7 +52,7 @@ h5 {
 }
 
 .all {
-  background-color: #00C7C7;
+  background-color: var(--admin_all_bgcolor);
   padding: 2px 6px 2px 8px;
   color: white;
   border-radius: 5px;
@@ -78,7 +80,7 @@ h5 {
   font-size: 0.95rem;
   font-weight: 400;
   color: white;
-  background-color: #00C7C7;
+  background-color: var(--admin_all_bgcolor);
   display: inline-block;
   cursor: pointer;
   border-radius: 4px;

@@ -4,14 +4,14 @@ import axiosRequest from './Backend.js';
 import Error from './Error.js';
 import Login from './Login.js';
 import SiteWrapper from './SiteWrapper.js';
+import customize from './customize/customize';
 
 import './App.css';
 
-
-const InvalidErr = <Error text="Invalid login code!
-  Please see a member of the Technica staff if
-  you don't know your access code or are having
-  trouble logging in." />;
+const errorText = "Invalid login code! Please see a member of the "
+  + customize.hackathon_name + " staff if you don't know your access "
+  + "code or are having trouble logging in.";
+const InvalidErr = <Error text={errorText} />;
 
 /* Sponsor login page content (see PRD) */
 class SponsorLogin extends Component {

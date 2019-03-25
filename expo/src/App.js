@@ -14,7 +14,7 @@ import SponsorLogin from './SponsorLogin.js';
 
 /* Routing control for app overall */
 const Routing = () => (
-  <Router basename="/expo">
+  <Router basename="/">
     {useCachedResponseData ? (
       <div>
         <Route exact path="/" component={Home} />
