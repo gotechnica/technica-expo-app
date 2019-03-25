@@ -3,9 +3,9 @@ import projectData from './responseData/projects.json';
 import challengeData from './responseData/challenges.json';
 
 const backendDevURL = 'http://localhost:5000/';
-const prodURL = 'https://expo-api.gotechnica.org/';
+const prodURL = 'https://expo-api.bit.camp/';
 
-const URL = backendDevURL;
+const URL = prodURL;
 export const useCachedResponseData = false;
 
 // axiosRequest usage examples:
