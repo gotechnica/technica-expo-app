@@ -37,7 +37,12 @@ class SearchandFilter extends Component {
   }
 
   componentDidMount() {
-    axiosRequest.get('api/projects')
+    let getAllProjectsUrl = 'api/projects';
+    if (this.props.origin != 'home') { // If not on public page
+      getAllProjectsUrl = 'api/projects_and_winners';
+    }
+
+    axiosRequest.get(getAllProjectsUrl)
       .then((project_data) => {
         axiosRequest.get('api/challenges')
           .then((challenge_data) => {

@@ -35,7 +35,7 @@ const rejectAll = () => {
 const axiosRequest = useCachedResponseData ? {
   get: (route, params) => {
     let data = null;
-    if (route === 'api/projects') {
+    if (route === 'api/projects' || route === 'api/projects_and_winners') {
       data = projectData;
     } else if (route === 'api/challenges') {
       data = challengeData;

@@ -64,6 +64,35 @@ def hello():
 def get_all_projects():
     projects = mongo.db.projects
     logged_message("endpoint = /api/projects, method = GET, params = NONE, type = public")
+
+    projects_list = []
+    for p in projects.find():
+        challenges_won = p['challenges_won']
+        if not publish_winners: # Hide winners from public endpoint before winners are published
+            challenges_won = []
+
+        temp_project = {
+            'project_id': str(p['_id']),
+            'table_number': p['table_number'],
+            'project_name': p['project_name'],
+            'project_url': p['project_url'],
+            'challenges': p['challenges'],
+            'challenges_won': challenges_won
+        }
+        projects_list.append(temp_project)
+
+    output = {
+        'publish_winners': publish_winners,
+        'projects': projects_list
+    }
+    return jsonify(output)
+
+@app.route('/api/projects_and_winners', methods=['GET'])
+@is_sponsor_or_admin
+def get_all_projects_with_winners():
+    projects = mongo.db.projects
+    logged_message("endpoint = /api/projects_and_winners, method = GET, params = NONE, type = sponsor or admin")
+
     projects_list = []
     for p in projects.find():
         temp_project = {
