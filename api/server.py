@@ -91,7 +91,6 @@ def get_all_projects():
 def get_all_projects_with_winners():
     projects = mongo.db.projects
 
-
     projects_list = []
     for p in projects.find():
         temp_project = {
@@ -109,7 +108,6 @@ def get_all_projects_with_winners():
         'projects': projects_list
     }
     return jsonify(output)
-
 
 @app.route('/api/projects/id/<project_id>', methods=['GET'])
 def get_project(project_id):
