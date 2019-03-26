@@ -68,7 +68,7 @@ def get_all_projects():
     projects_list = []
     for p in projects.find():
         challenges_won = p['challenges_won']
-        if not publish_winners:
+        if not publish_winners: # Hide winners from public endpoint before winners are published
             challenges_won = []
 
         temp_project = {
