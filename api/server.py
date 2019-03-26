@@ -86,8 +86,8 @@ def get_all_projects():
     }
     return jsonify(output)
 
-@app.route('/api/projects', methods=['GET'])
-@is_admin
+@app.route('/api/projects_and_winners', methods=['GET'])
+@is_sponsor_or_admin
 def get_all_projects_with_winners():
     projects = mongo.db.projects
 
