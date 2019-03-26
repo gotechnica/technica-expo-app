@@ -977,7 +977,7 @@ class Admin extends Component {
   }
 
   loadProjects = () => {
-    axiosRequest.get('api/projects')
+    axiosRequest.get('api/projects_and_winners')
       .then((projectData) => {
         // Check first project element and see if table numbers consist of both alpha and numeric portions
         const tableNumbersAreOnlyNumeric = projectData['projects'].length > 0 &&
