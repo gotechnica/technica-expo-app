@@ -64,10 +64,11 @@ def hello():
 def get_all_projects():
     projects = mongo.db.projects
     logged_message("endpoint = /api/projects, method = GET, params = NONE, type = public")
+
     projects_list = []
     for p in projects.find():
         challenges_won = p['challenges_won']
-        if(not publish_winners):
+        if not publish_winners:
             challenges_won = []
 
         temp_project = {
@@ -90,6 +91,7 @@ def get_all_projects():
 @is_sponsor_or_admin
 def get_all_projects_with_winners():
     projects = mongo.db.projects
+    logged_message("endpoint = /api/projects_and_winners, method = GET, params = NONE, type = sponsor or admin")
 
     projects_list = []
     for p in projects.find():
