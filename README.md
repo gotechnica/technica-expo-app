@@ -134,29 +134,4 @@ following these requirements may lead to unexpected behavior in your deployment.
 
 
 ## Deployment
-
-### Create your settings file
-Make sure to copy the settings file and fill it out with your own database infomation and secret key.
-
-### Docker Compose
-The easiest way to deploy this application is to run it using docker containers. The containers will deal with serving the app through Gunicorn and proxying using Nginx.
-To start you want to install docker and docker-compose. Documentation can be found [here](https://www.docker.com/).
-
-### Certificates
-
-To get your ssl cert and secure your application you can run the certbot script at `nginx/init-letsencrypt.sh`. Make sure to update the script with your domain name before running it. (Requires Docker)
-
-### Setting up Nginx
-
-All you need to do once generating your certs is to edit `nginx/nginx.conf` with your own url where you see `api.example.com`.
-
-### Running the App
-To run the app use the command `docker-compose up -d`.
-
-## Development
-You can run the app locally with docker/docker-compose using the command `docker-compose -f docker-compose-dev.yml`. To use the local database provided edit your `api/config.py` to contain the following values:
-```
-MONGO_DBNAME = 'expo-testing'
-MONGO_HOST = 'mongodb://admin:password@db:27017/'
-ADMIN_ACCESS_CODE = 'admin'
-```
+[![Launch Stack](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=expo-backend&templateURL=https://s3.amazonaws.com/bitcamp-templates/expo-deployment.template)
