@@ -8,6 +8,9 @@
   stroke: var(--check_circle_stroke);
   fill: none;
   animation: stroke .6s cubic-bezier(0.650, 0.000, 0.450, 1.000) forwards;
+  -webkit-animation: stroke .6s cubic-bezier(0.650, 0.000, 0.450, 1.000) forwards;
+  -moz-animation: stroke .6s cubic-bezier(0.650, 0.000, 0.450, 1.000) forwards;
+  -o-animation: stroke .6s cubic-bezier(0.650, 0.000, 0.450, 1.000) forwards;
 }
 
 .checkmark {
@@ -22,6 +25,9 @@
   margin: 10% auto;
   box-shadow: inset 0px 0px 0px var(--check_mark_box_shadow);
   animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  -webkit-animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  -moz-animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  -o-animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
 }
 
 .checkmark__check {
@@ -29,6 +35,9 @@
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
   animation: stroke .3s cubic-bezier(0.650, 0.000, 0.450, 1.000) .8s forwards;
+  -webkit-animation: stroke .3s cubic-bezier(0.650, 0.000, 0.450, 1.000) .8s forwards;
+  -moz-animation: stroke .3s cubic-bezier(0.650, 0.000, 0.450, 1.000) .8s forwards;
+  -o-animation: stroke .3s cubic-bezier(0.650, 0.000, 0.450, 1.000) .8s forwards;
 }
 
 @keyframes stroke {
