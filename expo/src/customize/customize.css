@@ -107,7 +107,7 @@
     --admin_input_label: var(--primary-action-darker);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 500px) {
     :root {
         --app_background_banner: url('../imgs/small-bg.svg');
     }
