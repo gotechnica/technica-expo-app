@@ -108,8 +108,12 @@
 }
 
 @media (max-width: 500px) {
-    :root {
+    /* :root {
         --app_background_banner: url('../imgs/small-bg.svg');
+    } */
+    .App::before {
+        background-size: 100% 100% !important;
+        background-position-y: 33vh;
     }
 }
 
