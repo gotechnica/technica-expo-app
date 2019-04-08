@@ -25,7 +25,7 @@ mongo = PyMongo(app)
 
 # Global variables
 publish_winners = False # Flag that admin can flip to show winner status in '/'
-
+is_published = False 
 
 # Auth Decorators
 def is_sponsor_or_admin(func):
@@ -68,21 +68,25 @@ def get_all_projects():
     projects_list = []
     for p in projects.find():
         challenges_won = p['challenges_won']
+        challenges = p['challenges']
         if not publish_winners: # Hide winners from public endpoint before winners are published
             challenges_won = []
+            for i in range(len(challenges)):
+                challenges[i]['won'] = False 
 
         temp_project = {
             'project_id': str(p['_id']),
             'table_number': p['table_number'],
             'project_name': p['project_name'],
             'project_url': p['project_url'],
-            'challenges': p['challenges'],
+            'challenges': challenges,
             'challenges_won': challenges_won
         }
         projects_list.append(temp_project)
 
     output = {
         'publish_winners': publish_winners,
+        'is_published':is_published,
         'projects': projects_list
     }
     return jsonify(output)
@@ -107,6 +111,7 @@ def get_all_projects_with_winners():
 
     output = {
         'publish_winners': publish_winners,
+        'is_published': is_published,
         'projects': projects_list
     }
     return jsonify(output)
