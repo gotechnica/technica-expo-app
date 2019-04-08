@@ -113,7 +113,7 @@
     } */
     .App::before {
         background-size: 100% 100% !important;
-        background-position-y: 33vh;
+        background-position-y: 28vh;
     }
 }
 
