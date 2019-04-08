@@ -710,7 +710,7 @@ class WinnerModule extends Component {
   }
 
   componentWillMount() {
-    axiosRequest.get('api/projects/publish_winners_status')
+    axiosRequest.get('api/publish_winners_status')
       .then((status) => {
         this.setState({
           winnersRevealed: status == "True"
@@ -807,7 +807,7 @@ class WinnerModule extends Component {
   }
 
   showWinners() {
-    axiosRequest.post('api/projects/publish_winners_status', {
+    axiosRequest.post('api/publish_winners_status', {
       "publish_winners": true
     }).then((data) => {
       this.setState({
@@ -817,7 +817,7 @@ class WinnerModule extends Component {
   }
 
   hideWinners() {
-    axiosRequest.post('api/projects/publish_winners_status', {
+    axiosRequest.post('api/publish_winners_status', {
       "publish_winners": false
     }).then((data) => {
       this.setState({

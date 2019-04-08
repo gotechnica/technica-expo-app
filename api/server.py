@@ -147,11 +147,17 @@ def get_all_challenges():
             output[curr_company['company_name']] = curr_challenges_list
     return jsonify(output)
 
-@app.route('/api/projects/publish_winners_status', methods=['GET'])
+@app.route('/api/publish_winners_status', methods=['GET'])
 def get_publish_winners_flag():
     global publish_winners  # Use the var defined at top of file
-    logged_message(f'endpoint = /api/projects/publish_winners_status, method = GET, params = NONE, type = public')
+    logged_message(f'endpoint = /api/publish_winners_status, method = GET, params = NONE, type = public')
     return str(publish_winners)
+
+@app.route('/api/is_published_status', methods=['GET'])
+def get_is_published_flag():
+    global is_published  # Use the var defined at top of file
+    logged_message(f'endpoint = /api/is_published_status, method = GET, params = NONE, type = public')
+    return str(is_published)
 
 
 # Admin routes #################################################################
@@ -308,13 +314,21 @@ def remove_all_table_numbers():
     else:
         return 'No table assignments were cleared.'
 
-@app.route('/api/projects/publish_winners_status', methods=['POST'])
+@app.route('/api/publish_winners_status', methods=['POST'])
 @is_admin
 def update_publish_winners_flag():
-    logged_message(f'endpoint = /api/projects/publish_winners_status, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/publish_winners_status, method = POST, params = NONE, type = admin')
     global publish_winners  # Use the var defined at top of file
     publish_winners = request.json['publish_winners']
     return str(publish_winners)
+
+@app.route('/api/is_published_status', methods=['POST'])
+@is_admin
+def update_is_published_flag():
+    logged_message(f'endpoint = /api/is_published_status, method = POST, params = NONE, type = admin')
+    global is_published  # Use the var defined at top of file
+    is_published = request.json['is_published']
+    return str(is_published)
 
 @app.route('/api/projects/add', methods=['POST'])
 @is_admin
