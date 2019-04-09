@@ -418,10 +418,12 @@ export class Table extends Component {
         </Fragment>
         :
         <div className="card no-submissions">
-          {this.props.isLoadingData ?
-            <h2>Loading projects...</h2>
-            :
-            <h2>No Submissions</h2>}
+          {this.props.isLoadingData
+            ? <h2>Loading projects...</h2>
+            : (this.props.expoIsPublished
+              ? <h2>No Submissions</h2>
+              : <div><h3>We're currently working on loading in the projects.</h3><h3>Expo will begin shortly!</h3></div>
+          )}
         </div>
     );
   }

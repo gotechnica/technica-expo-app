@@ -23,7 +23,8 @@ class SearchandFilter extends Component {
       challenges: {},
       workingdata: [],
       width: window.innerWidth,
-      winnersRevealed: false
+      winnersRevealed: false,
+      expoIsPublished: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -57,7 +58,8 @@ class SearchandFilter extends Component {
             });
           });
         this.setState({
-          winnersRevealed: project_data['publish_winners']
+          winnersRevealed: project_data['publish_winners'],
+          expoIsPublished: project_data['is_published']
         });
       });
 
@@ -230,6 +232,7 @@ class SearchandFilter extends Component {
             headers={['Project Information']}
             origin={this.props.origin}
             winnersRevealed={this.state.winnersRevealed}
+            expoIsPublished={this.state.expoIsPublished}
           />
         </div>
         :

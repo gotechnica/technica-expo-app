@@ -704,12 +704,19 @@ class WinnerModule extends Component {
     this.state = {
       showPreview: false,
       data: [],
+      expoIsPublished: false,
       winnersRevealed: false,
       missingWinners: []
     }
   }
 
   componentWillMount() {
+    axiosRequest.get('api/is_published_status')
+      .then((status) => {
+        this.setState({
+          expoIsPublished: status == "True"
+        })
+      });
     axiosRequest.get('api/publish_winners_status')
       .then((status) => {
         this.setState({
@@ -806,6 +813,26 @@ class WinnerModule extends Component {
     }
   }
 
+  publishExpo() {
+    axiosRequest.post('api/is_published_status', {
+      "is_published": true
+    }).then((data) => {
+      this.setState({
+        expoIsPublished: true
+      });
+    });
+  }
+
+  unpublishExpo() {
+    axiosRequest.post('api/is_published_status', {
+      "is_published": false
+    }).then((data) => {
+      this.setState({
+        expoIsPublished: false
+      });
+    });
+  }
+
   showWinners() {
     axiosRequest.post('api/publish_winners_status', {
       "publish_winners": true
@@ -852,8 +879,18 @@ class WinnerModule extends Component {
           </div>
         </div>
         <div className="card-body">
-
           <div>
+            {this.state.expoIsPublished ?
+              <button type="button" className="button button-secondary m-r-m m-b-m"
+                onClick={() => { this.unpublishExpo() }}>
+                Unpublish Expo
+              </button>
+              :
+              <button type="button" className="button button-primary m-r-m m-b-m"
+                onClick={() => { this.publishExpo() }}>
+                Go Live!
+              </button>
+            }
             {this.state.winnersRevealed ?
               <button type="button" className="button button-secondary"
                 onClick={() => { this.hideWinners() }}>
