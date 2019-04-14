@@ -300,6 +300,7 @@ export class VotingTable extends Component {
           clear={this.handleClearEvent}
           submit={this.handleSubmitEvent}
           after_submission_handler={this.props.after_submission_handler}
+          expoIsPublished={this.props.expoIsPublished}
         />
       </div>
     );

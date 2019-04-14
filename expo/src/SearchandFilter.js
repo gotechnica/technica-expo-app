@@ -246,6 +246,7 @@ class SearchandFilter extends Component {
           value={this.state.value}
           origin={this.props.origin}
           after_submission_handler={this.props.after_submission_handler}
+          expoIsPublished={this.state.expoIsPublished}
         />
     );
     let welcome_header = (this.props.origin === "sponsor" ?
