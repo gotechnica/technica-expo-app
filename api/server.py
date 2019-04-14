@@ -132,6 +132,38 @@ def get_project(project_id):
 
     return jsonify(temp_project)
 
+@app.route('/api/projects/generate_projects_list_csv', methods=['GET'])
+def generate_projects_list_csv():
+    projects = mongo.db.projects
+    companies = mongo.db.companies
+    logged_message(f'endpoint = /api/projects/generate_projects_list_csv, method = GET, type = public')
+
+    challenges_list = []
+    for curr_company in companies.find():
+        if curr_company['challenges']:
+            for curr_challenge_id, curr_challenge in curr_company['challenges'].items():
+                challenges_list.append((curr_challenge_id, curr_company['company_name'], curr_challenge['challenge_name']))
+    
+    projects_str = '<table>'
+    projects_str += '<tr><th>Challenge Name</th><th>Company Name</th><th>Table Number</th><th>Project Name</th><th>Project URL</th></tr>'
+    all_projects = list(projects.find())
+    for (_, company_name, challenge_name) in challenges_list:
+        for p in all_projects:
+            for attempted_challenges in p['challenges']:
+                # print(attempted_challenges['challenge_name'] + '==' + challenge_name  + ' and ' +  attempted_challenges['company'] + '==' + company_name)
+                if attempted_challenges['challenge_name'] == challenge_name and attempted_challenges['company'] == company_name:
+                    # This current project is competing in this current challenge
+                    projects_str += '<tr>'
+                    projects_str += ('<td>' + challenge_name + '</td>')
+                    projects_str += ('<td>' + company_name + '</td>')
+                    projects_str += ('<td>' + str(p['table_number']) + '</td>')
+                    projects_str += ('<td>' + p['project_name'] + '</td>')
+                    projects_str += ('<td>' + p['project_url'] + '</td>')
+                    projects_str += '</tr>'
+
+    projects_str += '</table>'
+    return projects_str
+
 @app.route('/api/challenges', methods=['GET'])
 def get_all_challenges():
     companies = mongo.db.companies
