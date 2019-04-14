@@ -865,7 +865,7 @@ class WinnerModule extends Component {
         <div className="card-header">
           <div className="d-flex">
             <div>
-              <h4>Admnistration</h4>
+              <h4>Administration</h4>
             </div>
             <div className="ml-auto">
               <button
