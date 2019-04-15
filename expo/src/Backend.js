@@ -6,7 +6,7 @@ const backendDevURL = 'http://localhost:5000/';
 const prodURL = 'https://expo-api.bit.camp/';
 
 const URL = prodURL;
-export const useCachedResponseData = false;
+export const useCachedResponseData = true;
 
 // axiosRequest usage examples:
 /*
