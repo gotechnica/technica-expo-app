@@ -3052,9 +3052,9 @@
         }, {
             "challenge_name": "Best Use of Machine Learning",
             "company": "Metron",
-            "won": false
+            "won": true
         }],
-        "challenges_won": ["RiskSpan_challenge20190414065459_BestHacktoVisualizeMortgageLoanPerformance"],
+        "challenges_won": ["RiskSpan_challenge20190414065459_BestHacktoVisualizeMortgageLoanPerformance", "Metron_challenge20190414065459_BestUseofMachineLearning"],
         "project_id": "5cb33a4f26fded00089f1d79",
         "project_name": "The Iron Bank of Bravos",
         "project_url": "https://bitcamp2019.devpost.com/submissions/118928-the-iron-bank-of-bravos",
