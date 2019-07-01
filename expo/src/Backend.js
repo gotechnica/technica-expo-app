@@ -3,7 +3,7 @@ import projectData from './responseData/projects.json';
 import challengeData from './responseData/challenges.json';
 
 const backendDevURL = 'http://localhost:5000/';
-const prodURL = 'https://expo-api.gotechnica.org/';
+const prodURL = 'https://expo-api.bit.camp/';
 
 const URL = prodURL;
 export const useCachedResponseData = true;
@@ -35,7 +35,7 @@ const rejectAll = () => {
 const axiosRequest = useCachedResponseData ? {
   get: (route, params) => {
     let data = null;
-    if (route === 'api/projects') {
+    if (route === 'api/projects' || route === 'api/projects_and_winners') {
       data = projectData;
     } else if (route === 'api/challenges') {
       data = challengeData;
@@ -49,10 +49,12 @@ const axiosRequest = useCachedResponseData ? {
     }); 
   },
   post: rejectAll,
+  put: rejectAll,
   delete: rejectAll,
 } : {
   get: (route, params) => makeAxiosRequest('get', route, params),
   post: (route, params) => makeAxiosRequest('post', route, params),
+  put: (route, params) => makeAxiosRequest('put', route, params),
   delete: (route, params) => makeAxiosRequest('delete', route, params),
 };
 

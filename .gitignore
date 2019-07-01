@@ -7,3 +7,7 @@ config.cfg
 *.pem
 node_modules/
 .vscode/
+api/env/
+api/analytics.log
+nginx/certbot/
+!nginx/certbot/.gitkeep

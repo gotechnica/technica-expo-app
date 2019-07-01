@@ -1,0 +1,107 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "Create an Amazon EC2 instance running the Ubuntu AMI. The AMI is chosen based on the region in which the stack is run. This creates an EC2 security group for the instance to give you SSH access and port 80 and 443 access. **WARNING** This template creates an Amazon EC2 instance. You will be billed for the AWS resources used if you create a stack from this template.",
+
+  "Parameters" : {
+    "KeyName": {
+      "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription" : "must be the name of an existing EC2 KeyPair."
+    },
+
+    "InstanceType" : {
+      "Description" : "WebServer EC2 instance type",
+      "Type" : "String",
+      "Default" : "t2.small",
+      "AllowedValues" : [ "t1.micro", "t2.nano", "t2.micro", "t2.small", "t2.medium", "t2.large", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "m4.large", "m4.xlarge", "m4.2xlarge", "m4.4xlarge", "m4.10xlarge", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "g2.2xlarge", "g2.8xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "d2.xlarge", "d2.2xlarge", "d2.4xlarge", "d2.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "cr1.8xlarge", "cc2.8xlarge", "cg1.4xlarge"]
+,
+      "ConstraintDescription" : "must be a valid EC2 instance type."
+    }
+  },
+
+  "Mappings" : {
+	"AWSRegionAMIEC2" : {
+      "us-east-1"        : {"Ubuntu16" : "ami-d15a75c7"},
+      "us-west-2"        : {"Ubuntu16" : "ami-746aba14"},
+      "us-west-1"        : {"Ubuntu16" : "ami-a9a8e4c9"},
+      "eu-west-1"        : {"Ubuntu16" : "ami-844e0bf7"},
+      "eu-central-1"     : {"Ubuntu16" : "ami-a9a557c6"},
+      "ap-northeast-1"   : {"Ubuntu16" : "ami-d82efcb9"},
+      "ap-southeast-1"   : {"Ubuntu16" : "ami-d554f1b6"},
+      "ap-southeast-2"   : {"Ubuntu16" : "ami-0bc1f168"}
+         }
+  },
+
+  "Resources" : {
+    "EC2Instance" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "InstanceType" : { "Ref" : "InstanceType" },
+        "SecurityGroups" : [ { "Ref" : "InstanceSecurityGroup" } ],
+        "KeyName" : { "Ref" : "KeyName" },
+        "ImageId" : {"Fn::FindInMap": [ "AWSRegionAMIEC2", { "Ref": "AWS::Region" },"Ubuntu16"]},
+        "UserData": { "Fn::Base64" : { "Fn::Join" : ["", [
+             "#!/bin/bash -xe\n",
+			 "echo 'Hello World.  The time is now $(date -R)!'\n",
+			 "# Install docker/docker-compose\n",
+             "sudo apt-get update\n",
+			 "sudo apt-get -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common\n",
+			 "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -\n",
+			 "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"\n",
+			 "sudo apt-get update\n",
+			 "sudo apt-get -y install docker-ce docker-ce-cli containerd.io\n",
+			 "sudo systemctl enable docker\n",
+			 "sudo curl -L \"https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose\n",
+			 "sudo chmod +x /usr/local/bin/docker-compose\n",
+			 
+			 "# Copy the repo\n",
+             "cd /home/ubuntu \n",
+			 "git clone https://github.com/bitcamp/hackathon-expo-app.git"
+		]]}} 
+      }
+    },
+
+    "InstanceSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Enable SSH access via port 22, open port 80, open port 443",
+        "SecurityGroupIngress" : [ {
+          "IpProtocol" : "tcp",
+          "FromPort" : "22",
+          "ToPort" : "22",
+          "CidrIp" : "0.0.0.0/0"
+        }, {
+		  "IpProtocol" : "tcp",
+          "FromPort" : "80",
+          "ToPort" : "80",
+          "CidrIp" : "0.0.0.0/0"
+	    }, {
+	      "IpProtocol" : "tcp",
+          "FromPort" : "443",
+          "ToPort" : "443",
+          "CidrIp" : "0.0.0.0/0"
+	   } ]
+      }
+    }
+  },
+
+  "Outputs" : {
+    "InstanceId" : {
+      "Description" : "InstanceId of the newly created EC2 instance",
+      "Value" : { "Ref" : "EC2Instance" }
+    },
+    "AZ" : {
+      "Description" : "Availability Zone of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "EC2Instance", "AvailabilityZone" ] }
+    },
+    "PublicDNS" : {
+      "Description" : "Public DNSName of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "EC2Instance", "PublicDnsName" ] }
+    },
+    "PublicIP" : {
+      "Description" : "Public IP address of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "EC2Instance", "PublicIp" ] }
+    }
+  }
+}

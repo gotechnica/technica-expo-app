@@ -23,7 +23,8 @@ class SearchandFilter extends Component {
       challenges: {},
       workingdata: [],
       width: window.innerWidth,
-      winnersRevealed: false
+      winnersRevealed: false,
+      expoIsPublished: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -37,7 +38,12 @@ class SearchandFilter extends Component {
   }
 
   componentDidMount() {
-    axiosRequest.get('api/projects')
+    let getAllProjectsUrl = 'api/projects';
+    if (this.props.origin != 'home') { // If not on public page
+      getAllProjectsUrl = 'api/projects_and_winners';
+    }
+
+    axiosRequest.get(getAllProjectsUrl)
       .then((project_data) => {
         axiosRequest.get('api/challenges')
           .then((challenge_data) => {
@@ -52,7 +58,8 @@ class SearchandFilter extends Component {
             });
           });
         this.setState({
-          winnersRevealed: project_data['publish_winners']
+          winnersRevealed: project_data['publish_winners'],
+          expoIsPublished: project_data['is_published']
         });
       });
 
@@ -225,6 +232,7 @@ class SearchandFilter extends Component {
             headers={['Project Information']}
             origin={this.props.origin}
             winnersRevealed={this.state.winnersRevealed}
+            expoIsPublished={this.state.expoIsPublished}
           />
         </div>
         :
@@ -238,6 +246,7 @@ class SearchandFilter extends Component {
           value={this.state.value}
           origin={this.props.origin}
           after_submission_handler={this.props.after_submission_handler}
+          expoIsPublished={this.state.expoIsPublished}
         />
     );
     let welcome_header = (this.props.origin === "sponsor" ?
@@ -254,14 +263,13 @@ class SearchandFilter extends Component {
     let toggle_style = (this.props.origin === "home" ? {
       display: "inline-block",
       textAlign: "left",
-      backgroundColor: "#2f2f2f",
       marginTop: "10px",
       border: "0px solid",
       height: "30px",
       outline: "none"
     } : {
-        display: "none"
-      });
+      display: "none"
+    });
     let style = (this.state.width < 460 ? "center" : "left");
 
     return (
@@ -300,7 +308,7 @@ class SearchandFilter extends Component {
                 :
                 <Fragment>
                   <div style={{ textAlign: style }}><div class="btn-group">
-                    <button style={toggle_style} disabled>
+                    <button className="toggle-btn" style={toggle_style} disabled>
                       <div className="toggle" onChange={this.handleToggle}>
                         <label className="switch">
                           {this.state.toggle_off ? <input type="checkbox" /> : <input type="checkbox" checked />}
@@ -309,10 +317,9 @@ class SearchandFilter extends Component {
                       </div>
                     </button>
                     {this.state.width >= 427 ?
-                      <button disabled class="toggle-label"
+                      <button disabled className="toggle-label"
                         style={{
                           textAlign: "left",
-                          backgroundColor: "#2f2f2f",
                           border: "0px solid", outline: "none",
                           color: "white",
                           marginTop: "10px", marginLeft: "-7px"
@@ -327,10 +334,9 @@ class SearchandFilter extends Component {
                   {this.state.width < 427 ?
                     <div style={{ textAlign: "center" }}>
                       <button
-                        class="toggle-label"
+                        className="toggle-label"
                         style={{
                           textAlign: "center",
-                          backgroundColor: "#2f2f2f",
                           border: "0px solid",
                           outline: "none",
                           color: "white",

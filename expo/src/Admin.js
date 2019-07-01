@@ -8,10 +8,12 @@ import EditChallengeModal from './admin/EditChallengeModal';
 import EditProjectModal from './admin/EditProjectModal';
 import EditSponsorModal from './admin/EditSponsorModal';
 import WarningModal from './admin/WarningModal';
+import SubmitInputModal from './components/SubmitInputModal';
 
 import './Admin.css';
 import './App.css';
 import { sortByTableNumber } from './helpers.js';
+import WinnerBadge from './imgs/winner_ribbon.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SiteWrapper from './SiteWrapper.js';
@@ -46,8 +48,7 @@ class ProjectModule extends Component {
       tableEndNumber: 0,
       skipEveryOtherTable: true,
       viewable: true,
-    }
-    this.deleteAllProjects = this.deleteAllProjects.bind(this);
+    };
   }
 
   createChallengesToCompanyMap(challenges_obj) {
@@ -351,7 +352,7 @@ class ProjectModule extends Component {
             <button type="submit" className="button button-primary m-r-m assign_button1">
               Assign Tables
             </button>
-            <button className="button button-secondary assign_button2" onClick={this.onRemoveAllTableAssignments.bind(this)}>
+            <button className="button button-warning assign_button2" onClick={this.onRemoveAllTableAssignments.bind(this)}>
               Remove All Table Assignments
             </button>
             {this.state.tableAssignmentStatus != '' &&
@@ -379,14 +380,14 @@ class ProjectModule extends Component {
             Create New Project
           </button>
           <button
-            className="button button-secondary m-b-m"
+            className="button button-warning m-b-m"
             type="button"
             data-toggle="modal"
-            data-target="#modalWarning"
+            data-target="#projectWipeWarningModal"
           >
             Delete ALL Projects
           </button>
-          <WarningModal deleteAllProjects={this.deleteAllProjects.bind(this)} />
+          <WarningModal modalId="projectWipeWarningModal" whatToDelete="Projects" deleteAll={this.deleteAllProjects.bind(this)} />
           <div className="form-group">
             <input type="text"
               id="txtProjectSearch"
@@ -396,8 +397,8 @@ class ProjectModule extends Component {
             />
           </div>
           <div className="row m-b-m">
-            <div className="col grow-5">Project</div>
-            <div className="col">Table</div>
+            <h6 className="col grow-5">Project</h6>
+            <h6 className="col">Table</h6>
             <div className="col" />
           </div>
           {filteredProjects.map((elt, index) => {
@@ -446,7 +447,7 @@ class SponsorModule extends Component {
       textSearch: '',
       sponsors: [],
       viewable: true
-    }
+    };
   }
 
   loadCompanies() {
@@ -470,6 +471,24 @@ class SponsorModule extends Component {
       });
       document.getElementById("sponsor-content").style.display = "block";
     }
+  }
+
+  deleteAllSponsors() {
+    if (window.confirm('Are you sure you want to remove ALL sponsors from your database?'))
+      if (window.confirm('This action is not reversable.'))
+        axiosRequest.delete('api/companies/deleteAll')
+          .then(() => {
+            this.loadCompanies();
+          });
+  }
+
+  seedChallengesFromDevpost(devpostUrl) {
+    // Determine inputted URL or default server Devpost URL
+    const params = devpostUrl == '' ? {} : { 'devpostUrl': devpostUrl };
+    axiosRequest.post('api/seed-challenges-from-devpost', params)
+      .then(() => {
+        this.loadCompanies();
+      });
   }
 
   // Pull data for sponsor list
@@ -545,7 +564,7 @@ class SponsorModule extends Component {
       <div className="card">
         <div className="card-header">
           <div className="d-flex">
-            <h4>Sponsors</h4>
+            <h4>Sponsors ({this.state.sponsors.length})</h4>
             <span className="ml-auto">
               <button className="link-button"
                 type="button"
@@ -560,13 +579,40 @@ class SponsorModule extends Component {
             createID="modalCreateSponsor"
             onCreate={this.loadCompanies.bind(this)}
           />
-          <button className="button button-primary m-b-m"
+          <button className="button button-primary m-b-m m-r-m"
             type="button"
             data-toggle="modal"
             data-target="#modalCreateSponsor"
           >
             Create New Sponsor
-            </button>
+          </button>
+          <button className="button button-warning m-b-m"
+            type="button"
+            data-toggle="modal"
+            data-target="#companyWipeWarningModal"
+          >
+            Delete ALL Sponsors
+          </button>
+          <WarningModal modalId="companyWipeWarningModal" whatToDelete="Sponsors" deleteAll={this.deleteAllSponsors.bind(this)} />
+          <button className="button button-primary m-b-m"
+            type="button"
+            data-toggle="modal"
+            data-target="#seed-devpost-challenges"
+          >
+            Seed Sponsors/Challenges from Devpost
+          </button>
+          <SubmitInputModal
+            modalId="seed-devpost-challenges"
+            modalTitle="Seed Sponsors and Challenges from Devpost"
+            bodyText="Give us your hackathon's Devpost link (with the https) and we'll seed your Expo App
+              with all of your sponsors and challenges! Make sure you're following our Devpost naming guidelines 
+              (Ex: challenge_name - company_name)."
+            inputLabel="Devpost Link"
+            inputPlaceholder="https://bitcamp2019.devpost.com"
+            isInputRequired={true}
+            completeAction={(devpostUrl) => this.seedChallengesFromDevpost(devpostUrl)}
+            submitText="Seed from Devpost"
+          />
           <div className="form-group">
             <input type="text"
               id="txtSponsorSearch"
@@ -658,13 +704,20 @@ class WinnerModule extends Component {
     this.state = {
       showPreview: false,
       data: [],
+      expoIsPublished: false,
       winnersRevealed: false,
       missingWinners: []
     }
   }
 
   componentWillMount() {
-    axiosRequest.get('api/projects/publish_winners_status')
+    axiosRequest.get('api/is_published_status')
+      .then((status) => {
+        this.setState({
+          expoIsPublished: status == "True"
+        })
+      });
+    axiosRequest.get('api/publish_winners_status')
       .then((status) => {
         this.setState({
           winnersRevealed: status == "True"
@@ -760,8 +813,28 @@ class WinnerModule extends Component {
     }
   }
 
+  publishExpo() {
+    axiosRequest.post('api/is_published_status', {
+      "is_published": true
+    }).then((data) => {
+      this.setState({
+        expoIsPublished: true
+      });
+    });
+  }
+
+  unpublishExpo() {
+    axiosRequest.post('api/is_published_status', {
+      "is_published": false
+    }).then((data) => {
+      this.setState({
+        expoIsPublished: false
+      });
+    });
+  }
+
   showWinners() {
-    axiosRequest.post('api/projects/publish_winners_status', {
+    axiosRequest.post('api/publish_winners_status', {
       "publish_winners": true
     }).then((data) => {
       this.setState({
@@ -771,7 +844,7 @@ class WinnerModule extends Component {
   }
 
   hideWinners() {
-    axiosRequest.post('api/projects/publish_winners_status', {
+    axiosRequest.post('api/publish_winners_status', {
       "publish_winners": false
     }).then((data) => {
       this.setState({
@@ -792,7 +865,7 @@ class WinnerModule extends Component {
         <div className="card-header">
           <div className="d-flex">
             <div>
-              <h4>Admnistration</h4>
+              <h4>Administration</h4>
             </div>
             <div className="ml-auto">
               <button
@@ -806,8 +879,18 @@ class WinnerModule extends Component {
           </div>
         </div>
         <div className="card-body">
-
           <div>
+            {this.state.expoIsPublished ?
+              <button type="button" className="button button-secondary m-r-m m-b-m"
+                onClick={() => { this.unpublishExpo() }}>
+                Unpublish Expo
+              </button>
+              :
+              <button type="button" className="button button-primary m-r-m m-b-m"
+                onClick={() => { this.publishExpo() }}>
+                Go Live!
+              </button>
+            }
             {this.state.winnersRevealed ?
               <button type="button" className="button button-secondary"
                 onClick={() => { this.hideWinners() }}>
@@ -835,11 +918,9 @@ class WinnerModule extends Component {
           {
             this.state.showPreview ?
               <h5>
-                <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  class="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
                 NO WINNERS SUBMITTED
-                   <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  class="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
               </h5>
               : ""
           }
@@ -865,11 +946,9 @@ class WinnerModule extends Component {
           {
             this.state.showPreview ?
               <h5>
-                <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  class="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
                 SUBMITTED WINNERS
-                  <img src="/static/media/technica_award_ribbon.c16e92fc.png"
-                  class="Ribbon" height="30px" width="30px" />
+                <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
               </h5>
               : ""
           }
@@ -935,7 +1014,7 @@ class Admin extends Component {
   }
 
   loadProjects = () => {
-    axiosRequest.get('api/projects')
+    axiosRequest.get('api/projects_and_winners')
       .then((projectData) => {
         // Check first project element and see if table numbers consist of both alpha and numeric portions
         const tableNumbersAreOnlyNumeric = projectData['projects'].length > 0 &&

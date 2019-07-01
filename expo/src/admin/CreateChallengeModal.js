@@ -111,7 +111,7 @@ class CreateChallengeModal extends Component {
             <div className="modal-footer">
 
               <button type="button" className="button button-secondary"
-                ID={"btnHideCreateChallengeModal" + this.props.createID}
+                id={"btnHideCreateChallengeModal" + this.props.createID}
                 data-dismiss="modal">
                 Cancel
               </button>

@@ -3,10 +3,10 @@ import axiosRequest from './Backend.js';
 
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
 import Error from './Error.js';
-import TechnicaIcon from './imgs/technica-circle-small.png';
 import SearchandFilter from './SearchandFilter.js';
 import SiteWrapper from './SiteWrapper.js';
 import Table from './Table.js';
+import customize from './customize/customize';
 
 import './App.css';
 import './Sponsor.css';
@@ -40,9 +40,9 @@ class WinnersSubmmitedModal extends Component {
                 <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
               </svg>
-              <div style={{ fontSize: "20px", padding: "0px 10px" }}>
+              <h3 style={{ padding: "0px 10px" }}>
                 Thanks for submitting your winners!
-              </div>
+              </h3>
             </div>
             <div class="modal-footer" style={{ border: "0px solid", paddingTop: "0px" }}>
               <button className="button button-primary" data-dismiss="modal">OK</button>
@@ -81,7 +81,7 @@ export class SubmitModal extends Component {
           <Fragment>
             Oops! Too many projects are selected to win this challenge.&nbsp;
             Our records show that you only intended to provide prizes for {vote_limit} project{vote_limit > 1 ? 's' : ''}.&nbsp;
-            Come chat with someone on the Technica team if you want to select more!
+            Come chat with someone on the {customize.hackathon_name} team if you want to select more!
           </Fragment>
       },
       warning: {
@@ -300,6 +300,7 @@ export class VotingTable extends Component {
           clear={this.handleClearEvent}
           submit={this.handleSubmitEvent}
           after_submission_handler={this.props.after_submission_handler}
+          expoIsPublished={this.props.expoIsPublished}
         />
       </div>
     );
@@ -349,7 +350,7 @@ export class WelcomeHeader extends Component {
                   Use the challenge selection menu to filter by projects that submitted to your specific challenge.
                   <br />
                   If you want to select a project which did not submit to your specific challenge,
-                  come chat with someone on the Technica team and we'll get that updated for you!
+                  come chat with someone on the {customize.hackathon_name} team and we'll get that updated for you!
                 </p>
               ) : (
                   <p>

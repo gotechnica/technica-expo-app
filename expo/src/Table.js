@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import TechnicaRibbon from './imgs/technica_award_ribbon.png';
-import GradientLightbulb from './imgs/gradient-lightbulb.gif';
+import WinnerBadge from './imgs/winner_ribbon.svg';
 import SmallerParentheses from './SmallerParentheses.js';
 import { SubmitModal } from './Sponsor.js';
 
@@ -10,9 +9,12 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import './Table.css';
 
+import './customize/customize';
 import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
 import { faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
+import { faExclamationCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import customize from './customize/customize';
 library.add(faCheckSquare);
 library.add(faSquare);
 
@@ -28,9 +30,9 @@ class DiversifyWinnersModal extends Component {
               </button>
             </div>
             <div class="modal-body" style={{ color: "white", textAlign: "center" }}>
-              <img src={GradientLightbulb} className="gradient-lightbulb" />
+              <FontAwesomeIcon icon={faExclamationCircle} size="5x" className="warning" />
               <div className="diversity-modal">
-                Our current numbers indicate that this project will win 2+ prizes this weekend.
+                Our current numbers indicate that this project will win 2 + prizes this weekend.
                 We recommend considering alternative projects to allow for more diversity in winners.
               </div>
             </div>
@@ -113,11 +115,11 @@ class ProjectColumn extends Component {
   render() {
     let attempted_challenges = this.props.attempted_challenges;
     let challenges_won = this.props.challenges_won;
-    let colors = ["#FF7BAC", "#B6A1C7", "#17E3E3"];
+    let colors = customize.table_color;
     let index = this.props.counter % 3;
     return (
       <td>
-        <div className="Project">
+        <div className="Project header-font">
           <a href={this.props.project_url} target="_tab" className="link">
             {this.props.project_name}
           </a>
@@ -126,8 +128,8 @@ class ProjectColumn extends Component {
               (this.props.origin === "home" ?
                 <div>
                   <button className="Table" style={{ backgroundColor: colors[index] }}>
-                    <div className="Table">Table</div>
-                    <div className="Table-Number">
+                    <div className="Table header-font">Table</div>
+                    <div className="Table-Number header-font">
                       {this.props.table_number}
                     </div>
                   </button>
@@ -141,7 +143,7 @@ class ProjectColumn extends Component {
           }
           {this.props.width < 460 && this.props.num_challenges_won > 0 && this.props.origin === "sponsor" ? (
             <div className="Sponsor-Table">
-              <img src={TechnicaRibbon} style={{ height: "20px", marginRight: "5px" }} />
+              <img src={WinnerBadge} style={{ height: "20px", marginRight: "5px" }} />
               Challenges Won: {this.props.num_challenges_won}
             </div>
           ) : (
@@ -193,7 +195,7 @@ class ChallengeCard extends Component {
         this.props.width >= 460 ?
           <div className="btn-group">
             <button className="btn" disabled>
-              <img src={TechnicaRibbon} className="Ribbon" />
+              <img src={WinnerBadge} className="Ribbon" />
             </button>
             <button className="btn btn-block" disabled>
               <b>{this.props.challenge_name}</b>
@@ -203,7 +205,7 @@ class ChallengeCard extends Component {
           :
           <div>
             <b>{this.props.challenge_name}</b>
-            {text} <img src={TechnicaRibbon} className="Ribbon" />
+            {text} <img src={WinnerBadge} className="Ribbon" />
           </div>
       ) : (
           <div>
@@ -246,7 +248,7 @@ export class Row extends Component {
       });
     }
     let table = (this.props.width >= 460 ?
-      <td className="Table-Number">{this.props.table_number === "" ? '-' : this.props.table_number}</td>
+      <td className="Table-Number header-font">{this.props.table_number === "" ? '-' : this.props.table_number}</td>
       :
       <Fragment></Fragment>);
     return (
@@ -281,7 +283,7 @@ export class Row extends Component {
             <td className="Trophy-Case" style={{ fontSize: "35px", fontWeight: "bold", textAlign: "center" }}>
               {winner_count > 0 ?
                 <Fragment>
-                  <img src={TechnicaRibbon} style={{ height: "40px", marginRight: "10px" }} />
+                  <img src={WinnerBadge} style={{ height: "40px", marginRight: "10px" }} />
                   {winner_count}
                 </Fragment>
                 :
@@ -318,7 +320,7 @@ export class Table extends Component {
   render() {
     let rows = [];
     let counter = 0;
-    let table = (this.state.width >= 460 ? <th>Table</th> : <Fragment></Fragment>);
+    let table = (this.state.width >= 460 ? <th className="header-font">Table</th> : <Fragment></Fragment>);
     let trophy_header = (this.state.width >= 460 ? <th>Challenges Won</th> : <Fragment></Fragment>);
     this.props.projects.forEach((project) => {
       rows.push(
@@ -365,6 +367,15 @@ export class Table extends Component {
       });
     }
 
+    if (!this.props.expoIsPublished) {
+      return (
+        <div className="card no-submissions">
+          <h3>We're currently working on loading in the projects.</h3>
+          <h3>Expo will begin shortly!</h3>
+        </div>
+      );
+    }
+
     return (
       rows.length > 0 ?
         <Fragment>
@@ -373,7 +384,7 @@ export class Table extends Component {
               <thead>
                 <tr>
                   {table}
-                  <th>Project Information</th>
+                  <th className="header-font">Project Information</th>
                 </tr>
               </thead>
               :
@@ -416,10 +427,10 @@ export class Table extends Component {
         </Fragment>
         :
         <div className="card no-submissions">
-          {this.props.isLoadingData ?
-            <h2>Loading projects...</h2>
-            :
-            <h2>No Submissions</h2>}
+          {this.props.isLoadingData
+            ? <h2>Loading projects...</h2>
+            : <h2>No Submissions</h2>
+          }
         </div>
     );
   }
