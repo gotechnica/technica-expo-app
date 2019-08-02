@@ -2,11 +2,11 @@ import axios from 'axios';
 import projectData from './responseData/projects.json';
 import challengeData from './responseData/challenges.json';
 
-const backendDevURL = 'http://localhost:5000/';
+const backendDevURL = 'http://localhost:8000/';
 const prodURL = 'https://expo-api.bit.camp/';
 
-const URL = prodURL;
-export const useCachedResponseData = true;
+const URL = backendDevURL;
+export const useCachedResponseData = false;
 
 // axiosRequest usage examples:
 /*
@@ -46,7 +46,7 @@ const axiosRequest = useCachedResponseData ? {
       } else {
         reject('Error: request not allowed.');
       }
-    }); 
+    });
   },
   post: rejectAll,
   put: rejectAll,

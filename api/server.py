@@ -25,7 +25,7 @@ mongo = PyMongo(app)
 
 # Global variables
 publish_winners = False # Flag that admin can flip to show winner status in '/'
-is_published = False 
+is_published = False
 
 # Auth Decorators
 def is_sponsor_or_admin(func):
@@ -72,7 +72,7 @@ def get_all_projects():
         if not publish_winners: # Hide winners from public endpoint before winners are published
             challenges_won = []
             for i in range(len(challenges)):
-                challenges[i]['won'] = False 
+                challenges[i]['won'] = False
 
         temp_project = {
             'project_id': str(p['_id']),
@@ -143,7 +143,7 @@ def generate_projects_list_csv():
         if curr_company['challenges']:
             for curr_challenge_id, curr_challenge in curr_company['challenges'].items():
                 challenges_list.append((curr_challenge_id, curr_company['company_name'], curr_challenge['challenge_name']))
-    
+
     projects_str = '<table>'
     projects_str += '<tr><th>Challenge Name</th><th>Company Name</th><th>Table Number</th><th>Project Name</th><th>Project URL</th></tr>'
     all_projects = list(projects.find())
@@ -474,11 +474,11 @@ def import_challenges():
     devpost_url = request.json['devpostUrl']
     if "http" not in devpost_url:
         devpost_url = "https://" + devpost_url
-    
+
     prize_list = get_challenges(devpost_url)
     company_list = []
     company_names = list(set([prize[1] for prize in prize_list]))
-    
+
     for company_name in company_names:
         challenge_info = [[prize[0],prize[2]] for prize in prize_list
                          if prize[1] == company_name]
@@ -506,13 +506,13 @@ def import_challenges():
                 'num_winners': num_winners,
                 'winners': []
             }
-        
+
         company_list.append({
             'company_name':company_name,
             'access_code':access_code.upper(),
             'challenges':challenges_obj
         })
-    
+
     companies.insert_many(company_list)
     return str(prize_list)
 
@@ -578,7 +578,7 @@ def update_company_name_or_code(company_id):
 def delete_company(company_id):
     companies = mongo.db.companies
     logged_message(f'endpoint = /api/companies/id/{company_id}, method = DELETE, params = {company_id}, type = admin')
-    
+
     result = companies.delete_one({'_id': ObjectId(company_id)})
     # TODO(timothychen01): Explore adding additional side effect for challenges
     if result.deleted_count == 1:
@@ -596,7 +596,7 @@ def delete_all_companies():
 
 @app.route('/api/companies/id/<company_id>/challenges/add', methods=['POST'])
 @is_admin
-def add_challenge_to_company(company_id):   
+def add_challenge_to_company(company_id):
     companies = mongo.db.companies
     logged_message(f'endpoint = api/companies/id/<company_id>/challenges/add, method = POST, params = NONE, type = admin')
 
@@ -793,7 +793,7 @@ def update_win_status(project_challenge_obj, company_name, challenge_name, didWi
 @is_sponsor_or_admin
 def make_winner(project_id):
     projects = mongo.db.projects
-    logged_message(f'endpoint =/api/projects/id/{project_id}/makeWinner, method = POST, params = {project_id}, type = sponsor')    
+    logged_message(f'endpoint =/api/projects/id/{project_id}/makeWinner, method = POST, params = {project_id}, type = sponsor')
     companies = mongo.db.companies
     company_id = request.json['company_id']
     challenge_id = request.json['challenge_id']
@@ -836,7 +836,7 @@ def make_winner(project_id):
 @is_sponsor_or_admin
 def make_non_winner(project_id):
     projects = mongo.db.projects
-    logged_message(f'endpoint =/api/projects/id/{project_id}/makeNonWinner, method = POST, params = {project_id}, type = sponsor')    
+    logged_message(f'endpoint =/api/projects/id/{project_id}/makeNonWinner, method = POST, params = {project_id}, type = sponsor')
     companies = mongo.db.companies
     company_id = request.json['company_id']
     challenge_id = request.json['challenge_id']
@@ -909,7 +909,7 @@ def resetChallenges(company_id, challenge_id):
 
 @app.route('/api/whoami', methods=['GET'])
 def return_session_info():
-    logged_message(f'endpoint =/api/whoami, method = GET, params = NONE, type = auth')        
+    logged_message(f'endpoint =/api/whoami, method = GET, params = NONE, type = auth')
     if 'user_type' in session:
         return json.dumps({
             'user_type': session['user_type'],  # sponsor or admin
@@ -921,7 +921,7 @@ def return_session_info():
 @app.route('/api/login/sponsor', methods=['POST'])
 def sponsor_login():
     companies = mongo.db.companies
-    logged_message(f'endpoint =/api/login/sponsor, method = POST, params = NONE, type = auth')            
+    logged_message(f'endpoint =/api/login/sponsor, method = POST, params = NONE, type = auth')
     attempted_access_code = request.json['access_code'].upper()
     if attempted_access_code == '':
         return "Access denied."
@@ -937,7 +937,7 @@ def sponsor_login():
 @app.route('/api/login/admin', methods=['POST'])
 def admin_login():
     attempted_access_code = request.json['access_code'].upper()
-    logged_message(f'endpoint =/api/login/admin, method = POST, params = NONE, type = auth')                
+    logged_message(f'endpoint =/api/login/admin, method = POST, params = NONE, type = auth')
     if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE'].upper():
         return "Access denied."
     else:
@@ -948,7 +948,7 @@ def admin_login():
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
-    logged_message(f'endpoint =/api/logout, method = POST, params = NONE, type = auth')                    
+    logged_message(f'endpoint =/api/logout, method = POST, params = NONE, type = auth')
     session.pop('user_type', None)
     session.pop('name', None)
     session.pop('id', None)
