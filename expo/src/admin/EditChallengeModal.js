@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import axiosRequest from '../Backend.js';
+import React, { Component } from "react";
+import axiosRequest from "../Backend.js";
 
-import Error from '../Error.js';
-import ConfirmationButton from './ConfirmationButton';
+import Error from "../Error.js";
+import ConfirmationButton from "./ConfirmationButton";
 
-import '../App.css';
-
+import "../App.css";
 
 let InvalidWinnerErr = <Error text="Invalid number of winners!
   This challenge must have one or more winner(s)." />;
@@ -54,8 +53,8 @@ class EditChallengeModal extends Component {
     axiosRequest.get(`api/companies/id/${this.props.sponsorID}`)
       .then((challenges) => {
         let winners = [];
-        for(let i = 0; i < challenges.length; i++) {
-          if(challenges[i].challenge_id == this.props.challengeID) {
+        for (let i = 0; i < challenges.length; i++) {
+          if (challenges[i].challenge_id == this.props.challengeID) {
             winners = challenges[i].winners;
           }
         }
@@ -64,22 +63,22 @@ class EditChallengeModal extends Component {
         // Block set fewer winners if winners have been selected
         let winnerLessZero = Number(this.state.num_winners) < minWinners;
 
-        let missingFields = this.state.challenge_title === ''
+        let missingFields = this.state.challenge_title === ""
           || this.state.challenge_title === undefined
-          || this.state.num_winners === ''
+          || this.state.num_winners === ""
           || this.state.num_winners === undefined;
 
         let valid = !winnerLessZero && !missingFields;
 
-        if(valid) {
+        if (valid) {
           // Send challenge name and num challenges to db if validates
           // Update state against db change
           axiosRequest.post(
             `api/companies/id/${this.props.sponsorID}/challenges/${this.props.challengeID}`,
             {
               "challenge_name": this.state.challenge_title,
-      	      "num_winners": this.state.num_winners
-            }
+      	      "num_winners": this.state.num_winners,
+            },
           )
             .then(this.props.onEdit);
 
@@ -88,22 +87,22 @@ class EditChallengeModal extends Component {
             challenge_title: this.props.challengeTitle,
             num_winners: this.props.numWinners,
             winner_error: false,
-            missing_fields: false
+            missing_fields: false,
           });
 
           document.getElementById("btnHideCreateChallengeModal" + this.props.editID).click();
         }
 
         // Show errors
-        if(missingFields) {
+        if (missingFields) {
           this.setState({missing_fields: true});
         } else {
           this.setState({missing_fields: false});
         }
 
-        if(winnerLessZero) {
+        if (winnerLessZero) {
           let invalidText = "Invalid number of winners!" +
-            " This challenge must have " + minWinners + " or more winner(s)."
+            " This challenge must have " + minWinners + " or more winner(s).";
           InvalidWinnerErr = <Error text={invalidText} />;
           this.setState({winner_error: true});
         } else {
@@ -142,14 +141,14 @@ class EditChallengeModal extends Component {
                   <label>Challenge Title</label>
                   <input type="text" className="form-control"
                     value={this.state.challenge_title}
-                    onChange = {(event) => this.setState({challenge_title:event.target.value})}/>
+                    onChange = {(event) => this.setState({challenge_title: event.target.value})}/>
                 </div>
                 <div className="form-group">
                   <label>Number of Winners</label>
                   <input type="number" className="form-control"
                     value={this.state.num_winners}
                     min="1"
-                    onChange = {(event) => this.setState({num_winners:event.target.value})}/>
+                    onChange = {(event) => this.setState({num_winners: event.target.value})}/>
                   <br/>
                   {this.state.winner_error ? InvalidWinnerErr : ""}
                   {this.state.missing_fields ? MissingFieldsErr : ""}
@@ -188,13 +187,13 @@ class EditChallengeModal extends Component {
                       className="button button-secondary m-r-s"
                       id={"btnHideCreateChallengeModal" + this.props.editID}
                       data-dismiss="modal"
-                      onClick={()=>{
+                      onClick={() => {
                         this.setState({
                           winner_error: false,
                           missing_fields: false,
                           challenge_title: this.props.challengeTitle,
                           num_winners: this.props.numWinners,
-                          showConfirmation: false
+                          showConfirmation: false,
                         });
                       }}
                     >

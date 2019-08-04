@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import axiosRequest from '../Backend.js';
+import React, { Component } from "react";
+import axiosRequest from "../Backend.js";
 
-import Error from '../Error.js';
-import ConfirmationButton from './ConfirmationButton';
+import Error from "../Error.js";
+import ConfirmationButton from "./ConfirmationButton";
 
-import '../App.css';
-
+import "../App.css";
 
 const InvalidAccessErr = <Error text="Invalid access code!
   This access code is already in use. Please enter a different code."/>;
@@ -46,36 +45,36 @@ class EditSponsorModal extends Component {
   }
 
   saveSponsor = () => {
-    axiosRequest.get('api/companies')
+    axiosRequest.get("api/companies")
       .then((sponsors) => {
         let validAccess = true;
-        for(let i = 0; i < sponsors.length; i++) {
+        for (let i = 0; i < sponsors.length; i++) {
           // Validate that code does not exist
           // With the exception of the original code saved to self being overriden
           // If existing code matches state code and exsiting code is not the code given as a prop
-          if(sponsors[i].access_code == this.state.access_code
+          if (sponsors[i].access_code == this.state.access_code
             && sponsors[i].access_code != this.props.sponsorCode) {
             validAccess = false;
           }
         }
 
-        let missingAccess = this.state.access_code == ''
+        let missingAccess = this.state.access_code == ""
           || this.state.access_code == undefined;
 
-        let missingCompany = this.state.company_name == ''
+        let missingCompany = this.state.company_name == ""
           || this.state.company_name == undefined;
 
         let valid = validAccess && !missingAccess && !missingCompany;
 
         let sponsor_id = this.props.sponsorID;
 
-        if(valid) {
+        if (valid) {
           axiosRequest.post(
             `api/companies/id/${sponsor_id}`,
             {
               "company_name": this.state.company_name,
-              "access_code": this.state.access_code
-            }
+              "access_code": this.state.access_code,
+            },
           )
             .then(this.props.onEdit);
 
@@ -83,7 +82,7 @@ class EditSponsorModal extends Component {
           this.setState({
             missing_company: false,
             invalid_access: false,
-            missing_access: false
+            missing_access: false,
           });
           document.getElementById("btnCancelEditSponsorModal" + this.props.editID).click();
         } else {
@@ -118,7 +117,7 @@ class EditSponsorModal extends Component {
         this.setState({
           missing_company: false,
           invalid_access: false,
-          missing_access: false
+          missing_access: false,
         });
         document.getElementById("btnCloseEditSponsorModal" + this.props.editID).click();
       });
@@ -148,7 +147,7 @@ class EditSponsorModal extends Component {
                 <input type="text" className="form-control"
                   id="lblAccessCode"
                   value={this.state.access_code.toString()}
-                  onChange = {(event) => this.setState({access_code:event.target.value})}/>
+                  onChange = {(event) => this.setState({access_code: event.target.value})}/>
                 {this.state.invalid_access ? InvalidAccessErr : ""}
                 {this.state.missing_access ? MissingFieldErr : ""}
               </div>
@@ -157,7 +156,7 @@ class EditSponsorModal extends Component {
                 <input type="text" className="form-control"
                   id="lblSponsorName"
                   value={this.state.company_name.toString()}
-                  onChange = {(event) => this.setState({company_name:event.target.value})}/>
+                  onChange = {(event) => this.setState({company_name: event.target.value})}/>
                 {this.state.missing_company ? MissingFieldErr : ""}
               </div>
             </div>
@@ -187,14 +186,14 @@ class EditSponsorModal extends Component {
                       className="button button-secondary m-r-s"
                       id={"btnCancelEditSponsorModal" + this.props.editID}
                       data-dismiss="modal"
-                      onClick={()=>{this.setState({
+                      onClick={() => {this.setState({
                         access_code: this.props.sponsorCode,
                         invalid_access: false,
                         company_name: this.props.sponsorName,
                         missing_access: false,
                         missing_company: false,
-                        showConfirmation: false
-                      });}}
+                        showConfirmation: false,
+                      }); }}
                     >
                       Cancel
                     </button>

@@ -1,20 +1,20 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from "react";
 
-import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import WinnerBadge from './imgs/winner_ribbon.svg';
-import SmallerParentheses from './SmallerParentheses.js';
-import { SubmitModal } from './Sponsor.js';
+import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome";
+import WinnerBadge from "./imgs/winner_ribbon.svg";
+import SmallerParentheses from "./SmallerParentheses.js";
+import { SubmitModal } from "./Sponsor.js";
 
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import './Table.css';
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import "./Table.css";
 
-import './customize/customize';
-import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
-import { faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
-import { faExclamationCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import customize from './customize/customize';
+import "./customize/customize";
+import { faSquare } from "../node_modules/@fortawesome/fontawesome-free-regular";
+import { faCheckSquare } from "../node_modules/@fortawesome/fontawesome-free-solid";
+import { library } from "../node_modules/@fortawesome/fontawesome-svg-core";
+import { faExclamationCircle } from "../node_modules/@fortawesome/fontawesome-free-solid";
+import customize from "./customize/customize";
 library.add(faCheckSquare);
 library.add(faSquare);
 
@@ -186,7 +186,7 @@ class ProjectColumn extends Component {
 class ChallengeCard extends Component {
   render() {
     let text = (this.props.width >= 460 ? (
-      ' | ' + this.props.company
+      " | " + this.props.company
     ) : (
         <Fragment><br />{this.props.company}</Fragment>
       ));
@@ -248,7 +248,7 @@ export class Row extends Component {
       });
     }
     let table = (this.props.width >= 460 ?
-      <td className="Table-Number header-font">{this.props.table_number === "" ? '-' : this.props.table_number}</td>
+      <td className="Table-Number header-font">{this.props.table_number === "" ? "-" : this.props.table_number}</td>
       :
       <Fragment></Fragment>);
     return (
@@ -301,7 +301,7 @@ export class Table extends Component {
   constructor(props) {
     super(props);
     this.updateDimensions = this.updateDimensions.bind(this);
-    this.state = { width: window.innerWidth }
+    this.state = { width: window.innerWidth };
   }
 
   componentDidMount() {
@@ -351,7 +351,7 @@ export class Table extends Component {
             show_attempted_challenges={this.props.show_attempted_challenges}
             winnersRevealed={this.props.winnersRevealed}
           />
-        )
+        ),
       );
       counter += 1;
     });

@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome";
 
-import { faExclamationTriangle } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
+import { faExclamationTriangle } from "../node_modules/@fortawesome/fontawesome-free-solid";
+import { library } from "../node_modules/@fortawesome/fontawesome-svg-core";
 library.add(faExclamationTriangle);
-
 
 class Error extends Component {
   render() {

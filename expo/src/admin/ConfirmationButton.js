@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import '../App.css';
+import "../App.css";
 
 class ConfirmationButton extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class ConfirmationButton extends Component {
           <button className="button button-primary" onClick={this.props.deleteElement}>Yes</button>
         </div>
       </div>
-    )
+    );
   }
 }
 

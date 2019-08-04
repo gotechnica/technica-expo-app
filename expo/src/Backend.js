@@ -1,9 +1,9 @@
-import axios from 'axios';
-import projectData from './responseData/projects.json';
-import challengeData from './responseData/challenges.json';
+import axios from "axios";
+import projectData from "./responseData/projects.json";
+import challengeData from "./responseData/challenges.json";
 
-const backendDevURL = 'http://localhost:8000/';
-const prodURL = 'https://expo-api.bit.camp/';
+const backendDevURL = "http://192.168.99.100:8000/";
+const prodURL = "https://expo-api.bit.camp/";
 
 const URL = backendDevURL;
 export const useCachedResponseData = false;
@@ -25,7 +25,7 @@ axiosRequest.get('fake/route')
 // Used for when useCachedResponseData is true
 const rejectAll = () => {
   new Promise((reject) => {
-    reject('Error: request not allowed.');
+    reject("Error: request not allowed.");
   });
 };
 
@@ -35,16 +35,16 @@ const rejectAll = () => {
 const axiosRequest = useCachedResponseData ? {
   get: (route, params) => {
     let data = null;
-    if (route === 'api/projects' || route === 'api/projects_and_winners') {
+    if (route === "api/projects" || route === "api/projects_and_winners") {
       data = projectData;
-    } else if (route === 'api/challenges') {
+    } else if (route === "api/challenges") {
       data = challengeData;
     }
     return new Promise((resolve, reject) => {
       if (data != null) {
         resolve(data);
       } else {
-        reject('Error: request not allowed.');
+        reject("Error: request not allowed.");
       }
     });
   },
@@ -52,10 +52,10 @@ const axiosRequest = useCachedResponseData ? {
   put: rejectAll,
   delete: rejectAll,
 } : {
-  get: (route, params) => makeAxiosRequest('get', route, params),
-  post: (route, params) => makeAxiosRequest('post', route, params),
-  put: (route, params) => makeAxiosRequest('put', route, params),
-  delete: (route, params) => makeAxiosRequest('delete', route, params),
+  get: (route, params) => makeAxiosRequest("get", route, params),
+  post: (route, params) => makeAxiosRequest("post", route, params),
+  put: (route, params) => makeAxiosRequest("put", route, params),
+  delete: (route, params) => makeAxiosRequest("delete", route, params),
 };
 
 const makeAxiosRequest = (method, route, params) => {
@@ -66,8 +66,8 @@ const makeAxiosRequest = (method, route, params) => {
     withCredentials: true,
   })
     .then((response) => {
-      return response.data
+      return response.data;
     });
-}
+};
 
 export default axiosRequest;

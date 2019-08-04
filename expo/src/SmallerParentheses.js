@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-
+import React, { Component, Fragment } from "react";
 
 export class SmallerParentheses extends Component {
   render() {

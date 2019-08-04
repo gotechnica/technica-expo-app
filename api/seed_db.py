@@ -130,7 +130,7 @@ def format_challenges(challenges):
 
 # not used but just still here
 def already_in_db():
-    r = requests.get("http://127.0.0.1:5000/api/projects")
+    r = requests.get("http://192.168.99.100:8000/api/projects")
     data = re.findall('\"project_name\": \"(.+)\"', r.text)
     projects = list(map(lambda x: x.strip(), data))
     return projects
@@ -204,7 +204,7 @@ def seed_hackers():
 
 
 # def add_project(projects):
-#     url = "http://127.0.0.1:5000/api/projects/add"
+#     url = "http://192.168.99.100:8000/api/projects/add"
 
 #     for project_name in projects:
 #         info = {
@@ -220,7 +220,7 @@ def seed_hackers():
 def bulk_add_projects_local(projects):
     """Adds multiple projects from a dict of project names mapped to Project
     objects."""
-    url = 'http://127.0.0.1:5000/api/projects/bulk_add'
+    url = 'http://192.168.99.100:8000/api/projects/bulk_add'
     project_data = []
     for project_name in projects:
         info = {

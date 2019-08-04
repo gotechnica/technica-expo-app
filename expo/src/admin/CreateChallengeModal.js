@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import axiosRequest from '../Backend.js';
+import React, { Component } from "react";
+import axiosRequest from "../Backend.js";
 
-import Error from '../Error.js';
-
+import Error from "../Error.js";
 
 const InvalidWinnerErr = <Error text="Invalid number of winners!
   A challenge must have one or more winner(s)."/>;
@@ -16,7 +15,7 @@ class CreateChallengeModal extends Component {
     this.state = {
       winner_error: false,
       missing_fields: false,
-      challenge_title: '',
+      challenge_title: "",
       num_winners: 1,
     };
   }
@@ -25,38 +24,38 @@ class CreateChallengeModal extends Component {
     this.setState({
       winner_error: false,
       missing_fields: false,
-      challenge_title: '',
+      challenge_title: "",
       num_winners: 1,
     });
   }
 
   saveChallenge(e) {
     let winnerLessZero = Number(this.state.num_winners) <= 0;
-    let missingFields = this.state.challenge_title === ''
+    let missingFields = this.state.challenge_title === ""
       || this.state.challenge_title === undefined
-      || this.state.num_winners === ''
+      || this.state.num_winners === ""
       || this.state.num_winners === undefined;
 
     let valid = !winnerLessZero && !missingFields;
 
-    if(valid) {
+    if (valid) {
       // Send challenge name and num challenges to db if validates
       // Update state against db change
       axiosRequest.post(
         `api/companies/id/${this.props.sponsorID}/challenges/add`,
         {
           "challenge_name": this.state.challenge_title,
-  	      "num_winners": this.state.num_winners
-        }
+  	      "num_winners": this.state.num_winners,
+        },
       )
         .then(this.props.onCreate);
 
       // Reset state and close modal
       this.setState({
-        challenge_title: '',
+        challenge_title: "",
         num_winners: 1,
         winner_error: false,
-        missing_fields: false
+        missing_fields: false,
       });
 
       document.getElementById("btnHideCreateChallengeModal" + this.props.createID).click();
@@ -64,13 +63,13 @@ class CreateChallengeModal extends Component {
     }
 
     // Show errors
-    if(missingFields) {
+    if (missingFields) {
       this.setState({missing_fields: true});
     } else {
       this.setState({missing_fields: false});
     }
 
-    if(winnerLessZero) {
+    if (winnerLessZero) {
       this.setState({winner_error: true});
     } else {
       this.setState({winner_error: false});
@@ -94,14 +93,14 @@ class CreateChallengeModal extends Component {
                   <label>Challenge Title</label>
                   <input type="text" className="form-control"
                     placeholder="Enter a challenge title"
-                    onChange = {(event) => this.setState({challenge_title:event.target.value})}/>
+                    onChange = {(event) => this.setState({challenge_title: event.target.value})}/>
                 </div>
                 <div className="form-group">
                   <label>Number of Winners</label>
                   <input type="number" className="form-control"
                     placeholder="Enter a number of winners"
                     min="1"
-                    onChange = {(event) => this.setState({num_winners:event.target.value})}/>
+                    onChange = {(event) => this.setState({num_winners: event.target.value})}/>
                   <br/>
                   {this.state.winner_error ? InvalidWinnerErr : ""}
                   {this.state.missing_fields ? MissingFieldsErr : ""}

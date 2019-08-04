@@ -7,7 +7,7 @@ export function sortByTableNumber(array, sortWithAlphaNumeric) {
     const key = "table_number";
     if (sortWithAlphaNumeric) {
         // Sort based on alpha portion first, and then numeric as tie-breaker
-        return array.sort(function (a, b) {
+        return array.sort(function(a, b) {
             const x = a[key].toLowerCase().split(/([0-9]+)/);
             const y = b[key].toLowerCase().split(/([0-9]+)/);
             const xLetter = x[0];
@@ -25,7 +25,7 @@ export function sortByTableNumber(array, sortWithAlphaNumeric) {
         });
     } else {
         // Normal numeric-only straightforward sorting
-        return array.sort(function (a, b) {
+        return array.sort(function(a, b) {
             let x = a[key];
             let y = b[key];
 

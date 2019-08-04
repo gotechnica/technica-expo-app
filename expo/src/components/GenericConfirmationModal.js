@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import '../App.css';
+import "../App.css";
 
 /**
  * @props
@@ -34,6 +34,6 @@ export default class GenericConfirmationModal extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }

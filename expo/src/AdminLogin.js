@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import axiosRequest from './Backend.js';
+import React, { Component } from "react";
+import axiosRequest from "./Backend.js";
 
-import Error from './Error.js';
-import Login from './Login.js';
-import SiteWrapper from './SiteWrapper.js';
+import Error from "./Error.js";
+import Login from "./Login.js";
+import SiteWrapper from "./SiteWrapper.js";
 
-import './App.css';
-
+import "./App.css";
 
 const InvalidErr = <Error text="Invalid login code!" />;
 
@@ -17,19 +16,19 @@ class AdminLogin extends Component {
     super();
     this.state = {
       loggedIn: false,
-      error: ""
+      error: "",
     };
     this.onLogin = this.onLogin.bind(this);
   }
 
   componentWillMount() {
     // If already logged in, move directly to admin page
-    axiosRequest.get('api/whoami')
+    axiosRequest.get("api/whoami")
       .then((credentials) => {
-        if (credentials != undefined && credentials.user_type == 'admin') {
+        if (credentials != undefined && credentials.user_type == "admin") {
           this.setState({ loggedIn: true, error: "" });
           this.props.history.push({
-            pathname: '/admin'
+            pathname: "/admin",
           });
         }
       });
@@ -37,15 +36,15 @@ class AdminLogin extends Component {
 
   onLogin(accessCode) {
     // TODO Validate login code in place
-    let codeExists = accessCode != undefined && accessCode != '';
+    let codeExists = accessCode != undefined && accessCode != "";
 
     if (codeExists) {
       this.setState({ logggedIn: true, error: "" });
 
       // Try to set logged in state for admin
       axiosRequest.post(
-        'api/login/admin',
-        { access_code: accessCode }
+        "api/login/admin",
+        { access_code: accessCode },
       )
         .then((status) => {
           if (status == "Logged in as admin") {
@@ -55,7 +54,7 @@ class AdminLogin extends Component {
 
             // Move to admin page
             this.props.history.push({
-              pathname: '/admin'
+              pathname: "/admin",
             });
           } else {
             // Log in failed, show error
@@ -74,7 +73,7 @@ class AdminLogin extends Component {
           <Login title="Admin Login"
             onLogin={this.onLogin}
             error={this.state.error} />
-        </div>
+        </div>,
       )
     );
   }

@@ -1,17 +1,16 @@
-import React, { Component, Fragment } from 'react';
-import axiosRequest from '../Backend.js';
+import React, { Component, Fragment } from "react";
+import axiosRequest from "../Backend.js";
 
-import Error from '../Error';
-import Checkbox from './Checkbox';
-import ConfirmationButton from './ConfirmationButton';
+import Error from "../Error";
+import Checkbox from "./Checkbox";
+import ConfirmationButton from "./ConfirmationButton";
 
-import '../App.css';
+import "../App.css";
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCheck, faTimes } from '../../node_modules/@fortawesome/fontawesome-free-solid';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCheck, faTimes } from "../../node_modules/@fortawesome/fontawesome-free-solid";
 library.add(faTimes);
 library.add(faCheck);
-
 
 let challengeStore = [];
 let company = [];
@@ -30,17 +29,18 @@ class EditProjectModal extends Component {
       error: false,
       company_map: this.props.company_map,
       editable: true,
-      showConfirmation: false
-    }
-    this.handleChange = this.handleChange.bind(this)
+      showConfirmation: false,
+    };
+    this.handleChange = this.handleChange.bind(this);
     this.toggleConfirmation = this.toggleConfirmation.bind(this);
   }
 
   componentWillMount() {
     this.state.challenges.map((challenge) => {
-      if (challengeStore.indexOf(challenge) === -1)
+      if (challengeStore.indexOf(challenge) === -1) {
         challengeStore.push(challenge);
-    })
+      }
+    });
   }
 
   toggleConfirmation() {
@@ -51,8 +51,9 @@ class EditProjectModal extends Component {
     let checkboxes = document.getElementById(this.state.project_id).children;
     let count = document.getElementById(this.state.project_id).childElementCount;
     for (let i = 2; i < count; i++) {
-      if (checkboxes[i].children[0].checked == true && checkboxes[i].children[0].disabled == false)
+      if (checkboxes[i].children[0].checked == true && checkboxes[i].children[0].disabled == false) {
         checkboxes[i].children[0].checked = false;
+      }
     }
 
     // Restore this.state
@@ -66,7 +67,7 @@ class EditProjectModal extends Component {
       error: false,
       company_map: this.props.company_map,
       editable: true,
-      showConfirmation: false
+      showConfirmation: false,
     });
   }
 
@@ -75,22 +76,22 @@ class EditProjectModal extends Component {
 
     let challenges = [];
     this.state.challenges.map((item) => {
-      let object = {}
+      let object = {};
       if (this.state.company_map[item]) {
         object = {
           challenge_name: item,
           company: this.state.company_map[item],
-          won: false
-        }
+          won: false,
+        };
         challenges.push(object);
       }
-    })
+    });
     let valid = true;
-    let checks = document.querySelector('.black');
-    let input = document.querySelector('.input');
-    let missing = this.state.project_name === '' ||
-      this.state.table_number === '' ||
-      this.state.project_url === ''
+    let checks = document.querySelector(".black");
+    let input = document.querySelector(".input");
+    let missing = this.state.project_name === "" ||
+      this.state.table_number === "" ||
+      this.state.project_url === "";
     let check = 0;
     // Note: removed requirement to have at least one checked challenge
     // for (let i = 0; i < this.state.challenges.length; i++) {
@@ -99,7 +100,7 @@ class EditProjectModal extends Component {
     // }
     // let challenge = check > 0 ? false : true;
     this.setState({
-      error: missing
+      error: missing,
     });
     if (!missing) {
       // TODO: Send access code and company name to db if valid access code
@@ -108,8 +109,9 @@ class EditProjectModal extends Component {
       let checkboxes = document.getElementById(this.state.project_id).children;
       let count = document.getElementById(this.state.project_id).childElementCount;
       for (let i = 2; i < count; i++) {
-        if (checkboxes[i].children[0].checked)
+        if (checkboxes[i].children[0].checked) {
           checkboxes[i].children[0].disabled = true;
+        }
       }
       axiosRequest.post(
         `api/projects/id/${this.state.project_id}`,
@@ -117,14 +119,14 @@ class EditProjectModal extends Component {
           "project_name": this.state.project_name,
           "project_url": this.state.project_url,
           "table_number": this.state.table_number,
-          "challenges": challenges
-        }
+          "challenges": challenges,
+        },
       )
         .then(this.props.onEdit);
       if (checks) {
         this.setState({
-          challenges: challengeStore
-        })
+          challenges: challengeStore,
+        });
       }
       document.getElementById("btnCancelEditProjectModal" + this.props.editID).click();
     }
@@ -136,18 +138,19 @@ class EditProjectModal extends Component {
     challengeStore = this.state.challenges;
     company = this.state.company_challenge;
     if (color) {
-      let label = (document.getElementById(`${lol}label`))
+      let label = (document.getElementById(`${lol}label`));
       let word = label.textContent;
       word = word.trim();
-      let ind = this.state.challenges.indexOf(word)
+      let ind = this.state.challenges.indexOf(word);
       let index_all = this.state.allChallenges.indexOf(word);
       challengeStore.splice(ind, 1);
     } else if (!color) {
-      let label = (document.getElementById(`${lol}label`))
+      let label = (document.getElementById(`${lol}label`));
       let word = label.textContent;
       word = word.trim();
-      if (!challengeStore.includes(word) && word.length > 0)
+      if (!challengeStore.includes(word) && word.length > 0) {
         challengeStore.push(word);
+      }
     }
     return challengeStore;
   }
@@ -189,7 +192,7 @@ class EditProjectModal extends Component {
                     }
                     onChange={
                       (event) => this.setState({
-                        project_name: event.target.value
+                        project_name: event.target.value,
                       })
                     }
                   />
@@ -203,7 +206,7 @@ class EditProjectModal extends Component {
                     }
                     onChange={
                       (event) => this.setState({
-                        table_number: event.target.value
+                        table_number: event.target.value,
                       })
                     }
                   />
@@ -217,7 +220,7 @@ class EditProjectModal extends Component {
                     }
                     onChange={
                       (event) => this.setState({
-                        project_url: event.target.value
+                        project_url: event.target.value,
                       })
                     }
                   />
@@ -231,7 +234,7 @@ class EditProjectModal extends Component {
                       return (
                         <Checkbox handleChange={this.handleChange}
                           value={challenge}
-                          ref={instance => { this.Checkbox = instance }}
+                          ref={instance => { this.Checkbox = instance; }}
                           check={this.state.challenges.indexOf(challenge) >= 0}
                           id={index}
                           project_id={this.state.project_id}
@@ -265,7 +268,7 @@ class EditProjectModal extends Component {
 
                     <button type="button"
                       className="button button-secondary m-r-s"
-                      onClick={(e) => { this.cancelProject(e) }}
+                      onClick={(e) => { this.cancelProject(e); }}
                       id={"btnCancelEditProjectModal" + this.props.editID}
                       data-dismiss="modal"
                     >

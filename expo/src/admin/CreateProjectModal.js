@@ -1,30 +1,29 @@
-import React, { Component } from 'react';
-import axiosRequest from '../Backend.js';
+import React, { Component } from "react";
+import axiosRequest from "../Backend.js";
 
-import Error from '../Error';
+import Error from "../Error";
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCheck, faTimes } from '../../node_modules/@fortawesome/fontawesome-free-solid';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCheck, faTimes } from "../../node_modules/@fortawesome/fontawesome-free-solid";
 library.add(faTimes);
 library.add(faCheck);
-
 
 class CreateProjectModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       error: false,
-      project_name: '',
-      project_url: '',
-      table_number: '',
+      project_name: "",
+      project_url: "",
+      table_number: "",
     };
   }
 
   createProject = () => {
-    axiosRequest.post('api/projects/add', {
+    axiosRequest.post("api/projects/add", {
       "project_name": this.state.project_name,
       "project_url": this.state.project_url,
-      "table_number": this.state.table_number
+      "table_number": this.state.table_number,
     })
       .then((data) => {
         this.props.onCreate();
@@ -81,7 +80,7 @@ class CreateProjectModal extends Component {
                 />
               </div>
 
-              {this.state.error ? <Error text="One or more fields are empty!"></Error> : ''}
+              {this.state.error ? <Error text="One or more fields are empty!"></Error> : ""}
             </form>
           </div>
 
@@ -108,7 +107,7 @@ class CreateProjectModal extends Component {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default CreateProjectModal;

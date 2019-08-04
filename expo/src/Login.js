@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
 
 /*
 Generic login component for Admins and Sponsors
@@ -14,8 +13,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accessCode: ''
-    }
+      accessCode: "",
+    };
   }
 
   render() {

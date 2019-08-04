@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import axiosRequest from '../Backend.js';
+import React, { Component } from "react";
+import axiosRequest from "../Backend.js";
 
-import Error from '../Error.js';
-import SmallerParentheses from '../SmallerParentheses.js';
-
+import Error from "../Error.js";
+import SmallerParentheses from "../SmallerParentheses.js";
 
 const InvalidAccessErr = <Error text="Invalid access code!
   This access code is already in use. Please enter a different code."/>;
@@ -15,47 +14,47 @@ class CreateSponsorModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      access_code: '',
+      access_code: "",
       invalid_access: false,
-      company_name: '',
+      company_name: "",
       missing_company: false,
-      challenge_name: '',
+      challenge_name: "",
       missing_challenge: false,
       num_winners: 1,
-      missing_num_winners: false
+      missing_num_winners: false,
     };
   }
 
   saveSponsor(e) {
-    axiosRequest.get('api/companies')
+    axiosRequest.get("api/companies")
       .then(sponsors => {
         let validAccess = true;
-        for(let i = 0; i < sponsors.length; i++) {
-          if(sponsors[i].access_code == this.state.access_code) {
+        for (let i = 0; i < sponsors.length; i++) {
+          if (sponsors[i].access_code == this.state.access_code) {
             validAccess = false;
           }
         }
 
-        let missingCompany = this.state.company_name == ''
+        let missingCompany = this.state.company_name == ""
           || this.state.company_name == undefined;
 
         let valid = validAccess && !missingCompany;
 
-        if(valid) {
+        if (valid) {
           axiosRequest.post(
-            'api/companies/add',
+            "api/companies/add",
             {
               "company_name": this.state.company_name,
-              "access_code": this.state.access_code
-            }
+              "access_code": this.state.access_code,
+            },
           )
             .then(this.props.onCreate);
 
           // Reset state and close modal
           this.setState({
-            access_code: '',
+            access_code: "",
             invalid_access: false,
-            company_name: '',
+            company_name: "",
           });
           document.getElementById("btnHideCreateSponsorModal" + this.props.createID).click();
         } else {
@@ -94,7 +93,7 @@ class CreateSponsorModal extends Component {
                   <input type="text" className="form-control"
                     id="lblSponsorName"
                     placeholder="Enter the sponsor or company name"
-                    onChange = {(event) => this.setState({company_name:event.target.value})}/>
+                    onChange = {(event) => this.setState({company_name: event.target.value})}/>
                   {this.state.missing_company ? MissingFieldErr : ""}
                 </div>
                 <div className="form-group">
@@ -102,7 +101,7 @@ class CreateSponsorModal extends Component {
                   <input type="text" className="form-control"
                     id="lblAccessCode"
                     placeholder="Enter an access code"
-                    onChange = {(event) => this.setState({access_code:event.target.value})}/>
+                    onChange = {(event) => this.setState({access_code: event.target.value})}/>
                   {this.state.invalid_access ? InvalidAccessErr : ""}
                 </div>
 

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import '../App.css';
+import "../App.css";
 
 class WarningModal extends Component {
     constructor(props) {
@@ -27,8 +27,8 @@ class WarningModal extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default WarningModal
+export default WarningModal;

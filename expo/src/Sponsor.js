@@ -1,21 +1,21 @@
-import React, { Component, Fragment } from 'react';
-import axiosRequest from './Backend.js';
+import React, { Component, Fragment } from "react";
+import axiosRequest from "./Backend.js";
 
-import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import Error from './Error.js';
-import SearchandFilter from './SearchandFilter.js';
-import SiteWrapper from './SiteWrapper.js';
-import Table from './Table.js';
-import customize from './customize/customize';
+import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome";
+import Error from "./Error.js";
+import SearchandFilter from "./SearchandFilter.js";
+import SiteWrapper from "./SiteWrapper.js";
+import Table from "./Table.js";
+import customize from "./customize/customize";
 
-import './App.css';
-import './Sponsor.css';
-import './CircleCheck.css';
+import "./App.css";
+import "./Sponsor.css";
+import "./CircleCheck.css";
 
-import { faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
-import { faCircle as faCircleSolid } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { faCheckCircle, faCheck, faExclamationTriangle, faTimesCircle, faClipboardList } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
+import { faCircle } from "../node_modules/@fortawesome/fontawesome-free-regular";
+import { faCircle as faCircleSolid } from "../node_modules/@fortawesome/fontawesome-free-solid";
+import { faCheckCircle, faCheck, faExclamationTriangle, faTimesCircle, faClipboardList } from "../node_modules/@fortawesome/fontawesome-free-solid";
+import { library } from "../node_modules/@fortawesome/fontawesome-svg-core";
 library.add(faTimesCircle);
 library.add(faCircle);
 library.add(faCheck);
@@ -59,8 +59,8 @@ export class SubmitModal extends Component {
     super(props);
     this.handleModalEvent = this.handleModalEvent.bind(this);
     this.state = {
-      toggle: false
-    }
+      toggle: false,
+    };
   }
   handleModalEvent() {
     if (!this.state.toggle) {
@@ -80,20 +80,20 @@ export class SubmitModal extends Component {
         message:
           <Fragment>
             Oops! Too many projects are selected to win this challenge.&nbsp;
-            Our records show that you only intended to provide prizes for {vote_limit} project{vote_limit > 1 ? 's' : ''}.&nbsp;
+            Our records show that you only intended to provide prizes for {vote_limit} project{vote_limit > 1 ? "s" : ""}.&nbsp;
             Come chat with someone on the {customize.hackathon_name} team if you want to select more!
-          </Fragment>
+          </Fragment>,
       },
       warning: {
         icon: faExclamationTriangle,
         iconstyle: "fa-exclamation-triangle",
         message:
           <Fragment>
-            Just a heads up! Our records show that you originally intended to provide prizes to {vote_limit} project{vote_limit > 1 ? 's' : ''} for this challenge, but
-            {votes.length === 0 ? ' none ' : ` only ${votes.length} `}
-            {votes.length === 1 ? ' was ' : ' were '} selected.
-          </Fragment>
-      }
+            Just a heads up! Our records show that you originally intended to provide prizes to {vote_limit} project{vote_limit > 1 ? "s" : ""} for this challenge, but
+            {votes.length === 0 ? " none " : ` only ${votes.length} `}
+            {votes.length === 1 ? " was " : " were "} selected.
+          </Fragment>,
+      },
     };
 
     return (
@@ -163,11 +163,11 @@ export class SubmitModal extends Component {
 
 class Task extends Component {
   render() {
-    let winners = []
+    let winners = [];
     if (this.props.winners.length > 0) {
       this.props.winners.forEach((project_id) => {
         winners.push(<li>{this.props.project_hash[project_id]}</li>);
-      })
+      });
     }
     let circle = this.props.submitted ? faCheck : faClipboardList;
 
@@ -190,7 +190,7 @@ class Task extends Component {
           :
           <Fragment></Fragment>}
       </Fragment>
-    )
+    );
   }
 }
 
@@ -216,7 +216,7 @@ export class VotingTable extends Component {
       checked: {},
       challenges: {},
       width: window.innerWidth,
-    }
+    };
   }
 
   /* Force VotingTable component to re-render once GET requests were granted */
@@ -239,9 +239,9 @@ export class VotingTable extends Component {
         /* Force state to update once GET calls and login goes through */
         this.setState({
           checked: updated_voting_data,
-          challenges: this.props.sponsor_data
+          challenges: this.props.sponsor_data,
         },
-          function () { }.bind(this)
+          function() { }.bind(this),
         );
       }
     }
@@ -256,15 +256,15 @@ export class VotingTable extends Component {
         winners.push(ckbx.value);
         let params = {
           company_id: company_id,
-          challenge_id: challenge_id
+          challenge_id: challenge_id,
         };
-        let route = 'api/projects/id/' + ckbx.value + '/makeWinner';
+        let route = "api/projects/id/" + ckbx.value + "/makeWinner";
         axiosRequest.post(route, params)
           .then((response) => {
             update(challenge_name, winners);
           })
           .catch((error) => {
-            console.error('Error:', error);
+            console.error("Error:", error);
           });
       }
     }
@@ -288,7 +288,7 @@ export class VotingTable extends Component {
     return (
       <div style={{ marginTop: "20px" }} id="Sponsor">
         <Table
-          headers={['Select', 'Table', 'Challenges Won', 'Project']}
+          headers={["Select", "Table", "Challenges Won", "Project"]}
           company_id={this.props.company_id}
           isLoadingData={this.props.isLoadingData}
           projects={this.props.projects}
@@ -319,7 +319,7 @@ export class WelcomeHeader extends Component {
           submitted={this.props.sponsor_data[challenge].votes_submitted}
           winners={this.props.sponsor_data[challenge].winners}
           project_hash={this.props.project_hash}
-        />
+        />,
       );
     });
 
@@ -346,7 +346,7 @@ export class WelcomeHeader extends Component {
             <div className="task-header">
               {openTasksStillWaiting ? (
                 <p>
-                  You still have {tasks.length == 1 ? 'a challenge to select your winner' : 'challenges to select winners'} for!
+                  You still have {tasks.length == 1 ? "a challenge to select your winner" : "challenges to select winners"} for!
                   Use the challenge selection menu to filter by projects that submitted to your specific challenge.
                   <br />
                   If you want to select a project which did not submit to your specific challenge,
@@ -354,7 +354,7 @@ export class WelcomeHeader extends Component {
                 </p>
               ) : (
                   <p>
-                    You've finalized the winners for your {tasks.length == 1 ? 'challenge' : 'challenges'}. Thanks!
+                    You've finalized the winners for your {tasks.length == 1 ? "challenge" : "challenges"}. Thanks!
                 </p>
                 )}
             </div>
@@ -366,7 +366,6 @@ export class WelcomeHeader extends Component {
   }
 }
 
-
 export default class Sponsor extends Component {
   constructor(props) {
     super(props);
@@ -377,16 +376,16 @@ export default class Sponsor extends Component {
       company_id: null,
       sponsor_data: null,
     };
-    axiosRequest.get('api/whoami')
+    axiosRequest.get("api/whoami")
       .then((credentials) => {
-        if (credentials !== undefined && credentials.user_type === 'sponsor') {
+        if (credentials !== undefined && credentials.user_type === "sponsor") {
           this.setState({
             loggedIn: true,
             loggedInAs: credentials.name,
             company_id: credentials.id,
             sponsor_data: {},
           });
-          axiosRequest.get('api/v2/companies/current_sponsor')
+          axiosRequest.get("api/v2/companies/current_sponsor")
             .then((company) => {
               let sponsor_challenges = {};
               if (company.company_name === this.state.loggedInAs) {
@@ -396,17 +395,17 @@ export default class Sponsor extends Component {
                     challenge_id: challenge,
                     vote_limit: challenge_obj.num_winners,
                     votes_submitted: (challenge_obj.winners.length > 0 ? true : false),
-                    winners: challenge_obj.winners
-                  }
+                    winners: challenge_obj.winners,
+                  };
                 });
                 this.setState({
-                  sponsor_data: sponsor_challenges
+                  sponsor_data: sponsor_challenges,
                 });
               }
             });
         } else {
           this.props.history.push({
-            pathname: '/sponsorlogin'
+            pathname: "/sponsorlogin",
           });
         }
       })
@@ -421,16 +420,16 @@ export default class Sponsor extends Component {
       updated_sponsor_data[challenge].votes_submitted = true;
       updated_sponsor_data[challenge].winners = winners;
       this.setState({
-        sponsor_data: updated_sponsor_data
+        sponsor_data: updated_sponsor_data,
       });
     }
   }
 
   onLogout() {
-    axiosRequest.post('api/logout')
+    axiosRequest.post("api/logout")
       .then((data) => {
         this.props.history.push({
-          pathname: '/sponsorlogin'
+          pathname: "/sponsorlogin",
         });
       })
       .catch((error) => {
@@ -454,10 +453,10 @@ export default class Sponsor extends Component {
               />
             </div>
           </div>
-        </div>
-      )
+        </div>,
+      );
     } else {
-      return SiteWrapper()
+      return SiteWrapper();
     }
   }
 }

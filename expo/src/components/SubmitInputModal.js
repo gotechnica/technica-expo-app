@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import '../App.css';
+import "../App.css";
 
 /**
  * @props
@@ -17,7 +17,7 @@ import '../App.css';
 export default class SubmitInputModal extends Component {
     constructor(props) {
         super(props);
-        this.state = { inputValue: '' };
+        this.state = { inputValue: "" };
     }
     render() {
         return (
@@ -36,7 +36,7 @@ export default class SubmitInputModal extends Component {
                                 : null
                             }
                             <div className="form-group">
-                                <label>{this.props.inputLabel}{this.props.isInputRequired ? '*' : null}</label>
+                                <label>{this.props.inputLabel}{this.props.isInputRequired ? "*" : null}</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -58,7 +58,7 @@ export default class SubmitInputModal extends Component {
                                 className="button button-primary"
                                 data-dismiss="modal"
                                 onClick={() => this.props.completeAction(this.state.inputValue)}
-                                disabled={this.props.isInputRequired && this.state.inputValue == ''}
+                                disabled={this.props.isInputRequired && this.state.inputValue == ""}
                             >
                                 {this.props.submitText}
                             </button>
