@@ -2,7 +2,7 @@ import axios from 'axios';
 import projectData from './responseData/projects.json';
 import challengeData from './responseData/challenges.json';
 
-const backendDevURL = 'http://localhost:8000/';
+const backendDevURL = 'http://192.168.99.100:8000/';
 const prodURL = 'https://expo-api.bit.camp/';
 
 const URL = backendDevURL;
