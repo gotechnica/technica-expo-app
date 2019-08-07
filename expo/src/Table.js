@@ -143,7 +143,7 @@ class ProjectColumn extends Component {
           }
           {this.props.width < 460 && this.props.num_challenges_won > 0 && this.props.origin === "sponsor" ? (
             <div className="Sponsor-Table">
-              <img src={WinnerBadge} style={{ height: "20px", marginRight: "5px" }} />
+              <img src={WinnerBadge} alt="Winner Badge" style={{ height: "20px", marginRight: "5px" }} />
               Challenges Won: {this.props.num_challenges_won}
             </div>
           ) : (
@@ -195,7 +195,7 @@ class ChallengeCard extends Component {
         this.props.width >= 460 ?
           <div className="btn-group">
             <button className="btn" disabled>
-              <img src={WinnerBadge} className="Ribbon" />
+              <img src={WinnerBadge} alt="Winner Badge" className="Ribbon" />
             </button>
             <button className="btn btn-block" disabled>
               <b>{this.props.challenge_name}</b>
@@ -205,7 +205,7 @@ class ChallengeCard extends Component {
           :
           <div>
             <b>{this.props.challenge_name}</b>
-            {text} <img src={WinnerBadge} className="Ribbon" />
+            {text} <img src={WinnerBadge} alt="Winner Badge" className="Ribbon" />
           </div>
       ) : (
           <div>
@@ -283,7 +283,7 @@ export class Row extends Component {
             <td className="Trophy-Case" style={{ fontSize: "35px", fontWeight: "bold", textAlign: "center" }}>
               {winner_count > 0 ?
                 <Fragment>
-                  <img src={WinnerBadge} style={{ height: "40px", marginRight: "10px" }} />
+                  <img src={WinnerBadge} alt="Winner Badge" style={{ height: "40px", marginRight: "10px" }} />
                   {winner_count}
                 </Fragment>
                 :

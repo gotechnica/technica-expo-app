@@ -26,7 +26,7 @@ class SponsorLogin extends Component {
   }
 
   onLogin(accessCode) {
-    let codeExists = accessCode != undefined && accessCode != '';
+    let codeExists = accessCode !== undefined && accessCode !== '';
 
     if(codeExists) {
       axiosRequest.post('api/login/sponsor', {access_code: accessCode})

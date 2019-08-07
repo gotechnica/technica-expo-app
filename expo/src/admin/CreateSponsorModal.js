@@ -31,13 +31,13 @@ class CreateSponsorModal extends Component {
       .then(sponsors => {
         let validAccess = true;
         for(let i = 0; i < sponsors.length; i++) {
-          if(sponsors[i].access_code == this.state.access_code) {
+          if(sponsors[i].access_code === this.state.access_code) {
             validAccess = false;
           }
         }
 
-        let missingCompany = this.state.company_name == ''
-          || this.state.company_name == undefined;
+        let missingCompany = this.state.company_name === ''
+          || this.state.company_name === undefined;
 
         let valid = validAccess && !missingCompany;
 

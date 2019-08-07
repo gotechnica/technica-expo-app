@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import axiosRequest from '../Backend.js';
 
 import Error from '../Error';
@@ -14,6 +14,7 @@ library.add(faCheck);
 
 
 let challengeStore = [];
+// eslint-disable-next-line
 let company = [];
 
 class EditProjectModal extends Component {
@@ -36,11 +37,13 @@ class EditProjectModal extends Component {
     this.toggleConfirmation = this.toggleConfirmation.bind(this);
   }
 
+  
   componentWillMount() {
+    // eslint-disable-next-line
     this.state.challenges.map((challenge) => {
       if (challengeStore.indexOf(challenge) === -1)
         challengeStore.push(challenge);
-    })
+      })
   }
 
   toggleConfirmation() {
@@ -51,7 +54,7 @@ class EditProjectModal extends Component {
     let checkboxes = document.getElementById(this.state.project_id).children;
     let count = document.getElementById(this.state.project_id).childElementCount;
     for (let i = 2; i < count; i++) {
-      if (checkboxes[i].children[0].checked == true && checkboxes[i].children[0].disabled == false)
+      if (checkboxes[i].children[0].checked === true && checkboxes[i].children[0].disabled === false)
         checkboxes[i].children[0].checked = false;
     }
 
@@ -72,8 +75,8 @@ class EditProjectModal extends Component {
 
   saveProject(e) {
     //create challenges to POST
-
     let challenges = [];
+    // eslint-disable-next-line
     this.state.challenges.map((item) => {
       let object = {}
       if (this.state.company_map[item]) {
@@ -85,13 +88,13 @@ class EditProjectModal extends Component {
         challenges.push(object);
       }
     })
-    let valid = true;
+    //let valid = true;
     let checks = document.querySelector('.black');
-    let input = document.querySelector('.input');
+    //let input = document.querySelector('.input');
     let missing = this.state.project_name === '' ||
       this.state.table_number === '' ||
       this.state.project_url === ''
-    let check = 0;
+    //let check = 0;
     // Note: removed requirement to have at least one checked challenge
     // for (let i = 0; i < this.state.challenges.length; i++) {
     //   if (this.state.challenges[i])
@@ -132,7 +135,7 @@ class EditProjectModal extends Component {
 
   handleChange(color, index, e) {
     let lol = index;
-    let allChallenges = this.state.allChallenges;
+    //let allChallenges = this.state.allChallenges;
     challengeStore = this.state.challenges;
     company = this.state.company_challenge;
     if (color) {
@@ -140,7 +143,7 @@ class EditProjectModal extends Component {
       let word = label.textContent;
       word = word.trim();
       let ind = this.state.challenges.indexOf(word)
-      let index_all = this.state.allChallenges.indexOf(word);
+      //let index_all = this.state.allChallenges.indexOf(word);
       challengeStore.splice(ind, 1);
     } else if (!color) {
       let label = (document.getElementById(`${lol}label`))
@@ -226,7 +229,10 @@ class EditProjectModal extends Component {
                 <div className="form-group" id={this.state.project_id}>
                   <label> Attempted Challenges </label>
                   <br />
-                  {this.state.allChallenges.map((challenge, index) => {
+                   
+                  { // eslint-disable-next-line
+                    this.state.allChallenges.map((challenge, index) => {
+                    
                     if (challenge !== undefined) {
                       return (
                         <Checkbox handleChange={this.handleChange}
@@ -239,6 +245,7 @@ class EditProjectModal extends Component {
                         />
                       );
                     }
+
                   })}
                 </div>
                 <br />

@@ -53,18 +53,18 @@ class EditSponsorModal extends Component {
           // Validate that code does not exist
           // With the exception of the original code saved to self being overriden
           // If existing code matches state code and exsiting code is not the code given as a prop
-          if(sponsors[i].access_code == this.state.access_code
-            && sponsors[i].access_code != this.props.sponsorCode) {
+          if(sponsors[i].access_code === this.state.access_code
+            && sponsors[i].access_code !== this.props.sponsorCode) {
             validAccess = false;
           }
         }
 
-        let missingAccess = this.state.access_code == ''
-          || this.state.access_code == undefined;
+        let missingAccess = this.state.access_code === ''
+          || this.state.access_code === undefined;
 
-        let missingCompany = this.state.company_name == ''
-          || this.state.company_name == undefined;
-
+        let missingCompany = this.state.company_name === ''
+          || this.state.company_name === undefined;
+ 
         let valid = validAccess && !missingAccess && !missingCompany;
 
         let sponsor_id = this.props.sponsorID;

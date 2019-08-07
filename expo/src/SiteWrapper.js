@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import hackathon_logo from './imgs/hackathon-logo.svg'
 import './SiteWrapper.css';
-import customize from './customize/customize'
+
 /* Header / constant app features */
 
 let SiteWrapper = (content) => (

@@ -3,7 +3,7 @@ import projectData from './responseData/projects.json';
 import challengeData from './responseData/challenges.json';
 
 const backendDevURL = 'http://localhost:8000/';
-const prodURL = 'https://expo-api.bit.camp/';
+//const prodURL = 'https://expo-api.bit.camp/';
 
 const URL = backendDevURL;
 export const useCachedResponseData = false;

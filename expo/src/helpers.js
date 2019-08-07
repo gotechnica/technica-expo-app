@@ -13,13 +13,13 @@ export function sortByTableNumber(array, sortWithAlphaNumeric) {
             const xLetter = x[0];
             const yLetter = y[0];
 
-            if (xLetter < yLetter || yLetter == "") {
+            if (xLetter < yLetter || yLetter === "") {
                 return -1;
-            } else if (xLetter > yLetter || xLetter == "") {
+            } else if (xLetter > yLetter || xLetter === "") {
                 return 1;
             } else {    // break tie using numeric portion
-                const xNum = parseInt(x[1]);
-                const yNum = parseInt(y[1]);
+                const xNum = parseInt(x[1],10);
+                const yNum = parseInt(y[1],10);
                 return ((xNum < yNum) ? -1 : ((xNum > yNum) ? 1 : 0));
             }
         });
@@ -30,14 +30,14 @@ export function sortByTableNumber(array, sortWithAlphaNumeric) {
             let y = b[key];
 
             // Can't assume table_number is string
-            if (typeof x == "string") {
+            if (typeof x === "string") {
                 x = ("" + x).toLowerCase();
             }
-            if (typeof y == "string") {
+            if (typeof y === "string") {
                 y = ("" + y).toLowerCase();
             }
 
-            return ((x < y || y == "") ? -1 : ((x > y || x == "") ? 1 : 0));
+            return ((x < y || y === "") ? -1 : ((x > y || x === "") ? 1 : 0));
         });
     }
 }

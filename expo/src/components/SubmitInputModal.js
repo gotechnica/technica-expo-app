@@ -58,7 +58,7 @@ export default class SubmitInputModal extends Component {
                                 className="button button-primary"
                                 data-dismiss="modal"
                                 onClick={() => this.props.completeAction(this.state.inputValue)}
-                                disabled={this.props.isInputRequired && this.state.inputValue == ''}
+                                disabled={this.props.isInputRequired && this.state.inputValue === ''}
                             >
                                 {this.props.submitText}
                             </button>
