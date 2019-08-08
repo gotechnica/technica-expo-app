@@ -5,7 +5,7 @@ import { VotingTable, WelcomeHeader } from './Sponsor.js';
 import Table from './Table.js';
 import SmallerParentheses from './SmallerParentheses.js';
 
-import './Card.css';
+import './components/Card.css';
 import './SliderOption.css';
 import { sortByTableNumber } from './helpers.js';
 

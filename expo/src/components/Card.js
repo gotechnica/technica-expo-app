@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Card.css';
 
-
+/**
+ * @props
+ * title - Title that goes in card header
+ */
 class Card extends Component {
   render() {
     return (
@@ -12,7 +15,7 @@ class Card extends Component {
           <h5>{this.props.title}</h5>
         </div>
         <div class="card-body">
-          <p class="card-text">{this.props.content}</p>
+          {this.props.children}
         </div>
       </div>
     );
