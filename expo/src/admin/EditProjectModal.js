@@ -14,8 +14,7 @@ library.add(faCheck);
 
 
 let challengeStore = [];
-// eslint-disable-next-line
-let company = [];
+
 
 class EditProjectModal extends Component {
   // Expect the project ID from this.props as projectID
@@ -38,9 +37,8 @@ class EditProjectModal extends Component {
   }
 
   
-  componentWillMount() {
-    // eslint-disable-next-line
-    this.state.challenges.map((challenge) => {
+  componentWillMount() { 
+    this.state.challenges.forEach(function(challenge){
       if (challengeStore.indexOf(challenge) === -1)
         challengeStore.push(challenge);
       })
@@ -76,8 +74,7 @@ class EditProjectModal extends Component {
   saveProject(e) {
     //create challenges to POST
     let challenges = [];
-    // eslint-disable-next-line
-    this.state.challenges.map((item) => {
+    this.state.challenges.forEach(function(item){
       let object = {}
       if (this.state.company_map[item]) {
         object = {
@@ -88,19 +85,17 @@ class EditProjectModal extends Component {
         challenges.push(object);
       }
     })
-    //let valid = true;
+    
     let checks = document.querySelector('.black');
-    //let input = document.querySelector('.input');
     let missing = this.state.project_name === '' ||
       this.state.table_number === '' ||
       this.state.project_url === ''
-    //let check = 0;
     // Note: removed requirement to have at least one checked challenge
     // for (let i = 0; i < this.state.challenges.length; i++) {
     //   if (this.state.challenges[i])
     //     check++;
     // }
-    // let challenge = check > 0 ? false : true;
+    
     this.setState({
       error: missing
     });
@@ -135,15 +130,13 @@ class EditProjectModal extends Component {
 
   handleChange(color, index, e) {
     let lol = index;
-    //let allChallenges = this.state.allChallenges;
     challengeStore = this.state.challenges;
-    company = this.state.company_challenge;
+    
     if (color) {
       let label = (document.getElementById(`${lol}label`))
       let word = label.textContent;
       word = word.trim();
       let ind = this.state.challenges.indexOf(word)
-      //let index_all = this.state.allChallenges.indexOf(word);
       challengeStore.splice(ind, 1);
     } else if (!color) {
       let label = (document.getElementById(`${lol}label`))
@@ -165,7 +158,6 @@ class EditProjectModal extends Component {
   }
 
   render() {
-    //let toggle = true;
     return (
       <div className="modal fade" id={this.props.editID}>
         <div className="modal-dialog" role="document">
@@ -230,8 +222,8 @@ class EditProjectModal extends Component {
                   <label> Attempted Challenges </label>
                   <br />
                    
-                  { // eslint-disable-next-line
-                    this.state.allChallenges.map((challenge, index) => {
+                  { 
+                    this.state.allChallenges.forEach(function(challenge, index){
                     
                     if (challenge !== undefined) {
                       return (

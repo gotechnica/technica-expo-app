@@ -148,10 +148,9 @@ class SearchandFilter extends Component {
     if (this.props.origin === "sponsor") {
       let firstChallenge = this.createChallengeSponsorArray(challenges)[0];
       let initialData = [];
-      // eslint-disable-next-line
-      projects.map((obj) => {
-        // eslint-disable-next-line
-        obj.challenges.map((item) => {
+
+      projects.forEach(function(obj){
+        obj.challenges.forEach(function(item){
           if (item.company === this.props.loggedIn && item.challenge_name === firstChallenge) {
             initialData.push(obj);
           }
@@ -168,11 +167,9 @@ class SearchandFilter extends Component {
 
     if (this.props.origin === "sponsor") {
       let voting_data = {};
-      // eslint-disable-next-line
-      this.state.data.map((obj) => {
+      this.state.data.forEach(function(obj){
         let temp = {}
-        // eslint-disable-next-line
-        obj.challenges.map((item) => {
+        obj.challenges.forEach(function(item){
           if (item.company === this.props.loggedIn) {
             if (challenges.indexOf(item.challenge_name) !== -1) {
               temp[item.challenge_name] = false;

@@ -55,10 +55,10 @@ class ProjectModule extends Component {
   createChallengesToCompanyMap(challenges_obj) {
     const allChallengesMapping = {};
     for (let company in challenges_obj) {
-      // eslint-disable-next-line
-      challenges_obj[company].map((challenge) => {
-        allChallengesMapping[challenge] = company;
-      });
+      challenges_obj[company].forEach(function(challenge){
+        allChallengesMapping[challenge] = company; 
+      })
+      
     }
     return allChallengesMapping;
   }
@@ -66,12 +66,10 @@ class ProjectModule extends Component {
   createAllChallenges(obj) {
     let allChallenges = [];
     for (let key in obj) {
-      // eslint-disable-next-line
-      obj[key].map((item) => {
+      obj[key].forEach(function(item){
         if (allChallenges.indexOf(item) === -1) {
           allChallenges.push(item);
         }
-        
       })
     }
     allChallenges.sort();
@@ -87,14 +85,11 @@ class ProjectModule extends Component {
   sortData() {
     let data = this.props.projects;
     let finalProjectsData = [];
-    //let seen = undefined;
-    // eslint-disable-next-line
-    data.map((obj) => {
+    
+    data.forEach(function(obj){
       let challenge = [];
-      // eslint-disable-next-line
-      obj.challenges.map((item) => {
+      obj.challenges.forEach(function(item){
         challenge.push(item.challenge_name);
-        
       })
       finalProjectsData.push(
         {
