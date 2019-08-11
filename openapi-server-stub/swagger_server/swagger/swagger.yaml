@@ -1,0 +1,235 @@
+openapi: 3.0.1
+info:
+  title: Technica Expo App
+  description: API documentation for the Technica Expo backend.
+  version: "0.1"
+servers:
+- url: http://127.0.0.1:8000
+paths:
+  /api/is_published_status:
+    get:
+      description: Get whether the app is published.
+      operationId: api_is_published_status_get
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                x-content-type: text/html; charset=utf-8
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /api/publish_winners_status:
+    get:
+      description: Get whether the expo winners are published.
+      operationId: api_publish_winners_status_get
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                x-content-type: text/html; charset=utf-8
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /api/projects_and_winners:
+    get:
+      description: Get an object containing list of available projects.
+      operationId: api_projects_and_winners_get
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /api/challenges:
+    get:
+      description: Get a challenge_list object.
+      operationId: api_challenges_get
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  example:
+                  - Best Use of React JS
+                  items:
+                    type: string
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /api/projects/generate_projects_list_csv:
+    get:
+      description: Get an HTML table of challenges, companies and projects.
+      operationId: api_projects_generate_projects_list_csv_get
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+                x-content-type: text/html; charset=utf-8
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /api/projects:
+    get:
+      description: Get an object containing list of available projects.
+      operationId: api_projects_get
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /api/projects/id/{project_id}:
+    get:
+      description: Get details about a project.
+      operationId: api_projects_id_project_id_get
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: 5d499f76dbf232000863e742
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        500:
+          description: Internal Server Error
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    Challenge:
+      type: object
+      properties:
+        challenge_name:
+          type: string
+          description: challenge name.
+          example: Best Cybersecurity Related Hack
+        company:
+          type: string
+          description: company name.
+          example: OPIS
+        won:
+          type: boolean
+          description: list of challenges won.
+          example: false
+      description: Represents a challenge.
+      example:
+        challenge_name: Best Cybersecurity Related Hack
+        won: false
+        company: OPIS
+    Project:
+      type: object
+      properties:
+        challenges:
+          type: array
+          description: list of challenges applied to.
+          items:
+            $ref: '#/components/schemas/Challenge'
+        challenges_won:
+          type: array
+          description: list of challenges won.
+          items:
+            $ref: '#/components/schemas/Challenge'
+        project_id:
+          type: string
+          description: project id.
+          example: 5d499f76dbf232000863e742
+        project_name:
+          type: string
+          description: project name.
+          example: Anarchypedia
+        project_url:
+          type: string
+          description: list of challenges won.
+          example: http://bitcamp2018.devpost.com/submissions/92175-anarchypedia
+        table_number:
+          type: integer
+          description: table number.
+          example: 1
+      description: Represents a project.
+      example:
+        challenges_won:
+        - challenge_name: Best Cybersecurity Related Hack
+          won: false
+          company: OPIS
+        - challenge_name: Best Cybersecurity Related Hack
+          won: false
+          company: OPIS
+        challenges:
+        - challenge_name: Best Cybersecurity Related Hack
+          won: false
+          company: OPIS
+        - challenge_name: Best Cybersecurity Related Hack
+          won: false
+          company: OPIS
+        project_id: 5d499f76dbf232000863e742
+        table_number: 1
+        project_url: http://bitcamp2018.devpost.com/submissions/92175-anarchypedia
+        project_name: Anarchypedia
+    inline_response_200:
+      type: object
+      properties:
+        is_published:
+          type: boolean
+          description: whether projects are published.
+        projects:
+          type: array
+          description: list of projects.
+          items:
+            $ref: '#/components/schemas/Project'
+      example:
+        projects:
+        - challenges_won:
+          - challenge_name: Best Cybersecurity Related Hack
+            won: false
+            company: OPIS
+          - challenge_name: Best Cybersecurity Related Hack
+            won: false
+            company: OPIS
+          challenges:
+          - challenge_name: Best Cybersecurity Related Hack
+            won: false
+            company: OPIS
+          - challenge_name: Best Cybersecurity Related Hack
+            won: false
+            company: OPIS
+          project_id: 5d499f76dbf232000863e742
+          table_number: 1
+          project_url: http://bitcamp2018.devpost.com/submissions/92175-anarchypedia
+          project_name: Anarchypedia
+        - challenges_won:
+          - challenge_name: Best Cybersecurity Related Hack
+            won: false
+            company: OPIS
+          - challenge_name: Best Cybersecurity Related Hack
+            won: false
+            company: OPIS
+          challenges:
+          - challenge_name: Best Cybersecurity Related Hack
+            won: false
+            company: OPIS
+          - challenge_name: Best Cybersecurity Related Hack
+            won: false
+            company: OPIS
+          project_id: 5d499f76dbf232000863e742
+          table_number: 1
+          project_url: http://bitcamp2018.devpost.com/submissions/92175-anarchypedia
+          project_name: Anarchypedia
+        is_published: true
+
