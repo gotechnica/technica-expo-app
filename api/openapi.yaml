@@ -1,0 +1,154 @@
+openapi: 3.0.1
+info:
+  title: Technica Expo App
+  description: API documentation for the Technica Expo backend.
+  version: "0.1"
+servers:
+- url: http://127.0.0.1:8000
+paths:
+  /api/is_published_status:
+    get:
+      description: Get whether the app is published.
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+  /api/publish_winners_status:
+    get:
+      description: Get whether the expo winners are published.
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+  /api/projects_and_winners:
+    get:
+      description: Get an object containing list of available projects.
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+  /api/challenges:
+    get:
+      description: Get a challenge_list object.
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  example:
+                  - Best Use of React JS
+                  items:
+                    type: string
+  /api/projects/generate_projects_list_csv:
+    get:
+      description: Get an HTML table of challenges, companies and projects.
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            text/html; charset=utf-8:
+              schema:
+                type: string
+  /api/projects:
+    get:
+      description: Get an object containing list of available projects.
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+  /api/projects/id/{project_id}:
+    get:
+      description: Get details about a project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: 5d499f76dbf232000863e742
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        500:
+          description: Internal Server Error
+components:
+  schemas:
+    Challenge:
+      type: object
+      properties:
+        challenge_name:
+          type: string
+          description: challenge name.
+          example: Best Cybersecurity Related Hack
+        company:
+          type: string
+          description: company name.
+          example: OPIS
+        won:
+          type: boolean
+          description: list of challenges won.
+          example: false
+      description: Represents a challenge.
+    Project:
+      type: object
+      properties:
+        challenges:
+          type: array
+          description: list of challenges applied to.
+          items:
+            $ref: '#/components/schemas/Challenge'
+        challenges_won:
+          type: array
+          description: list of challenges won.
+          items:
+            $ref: '#/components/schemas/Challenge'
+        project_id:
+          type: string
+          description: project id.
+          example: 5d499f76dbf232000863e742
+        project_name:
+          type: string
+          description: project name.
+          example: Anarchypedia
+        project_url:
+          type: string
+          description: list of challenges won.
+          example: http://bitcamp2018.devpost.com/submissions/92175-anarchypedia
+        table_number:
+          type: integer
+          description: table number.
+          example: 1
+      description: Represents a project.
+    inline_response_200:
+      type: object
+      properties:
+        is_published:
+          type: boolean
+          description: whether projects are published.
+        projects:
+          type: array
+          description: list of projects.
+          items:
+            $ref: '#/components/schemas/Project'
