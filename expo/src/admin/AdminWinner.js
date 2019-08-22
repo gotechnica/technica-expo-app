@@ -1,3 +1,5 @@
+import Card from '../components/Card.js'
+
 import React, { Component } from "react";
 import axiosRequest from "../Backend.js";
 
@@ -178,26 +180,9 @@ class WinnerModule extends Component {
         <FontAwesomeIcon icon={faCaretUp} className="fa-caret-up"></FontAwesomeIcon>
         :
         <FontAwesomeIcon icon={faCaretDown} className="fa-caret-down"></FontAwesomeIcon>;
-  
+      
       return (
-        <div className="card">
-          <div className="card-header">
-            <div className="d-flex">
-              <div>
-                <h4>Administration</h4>
-              </div>
-              <div className="ml-auto">
-                <button
-                  type="button"
-                  className="link-button"
-                  onClick={this.props.logout}
-                >
-                  Logout
-                  </button>
-              </div>
-            </div>
-          </div>
-          <div className="card-body">
+        <Card title={"Administration"} action={this.props.logout} actionName={"Logout"}>
             <div>
               {this.state.expoIsPublished ?
                 <button type="button" className="button button-secondary m-r-m m-b-m"
@@ -290,9 +275,8 @@ class WinnerModule extends Component {
                 ""
             }
   
-          </div>
-        </div>
-      );
+        </Card>);
+      
     }
   
   }
