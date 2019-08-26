@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Card from './components/Card.js'
 
 /*
 Generic login component for Admins and Sponsors
@@ -22,11 +22,8 @@ class Login extends Component {
     return (
       <div class="row">
         <div class="col-md-8 offset-md-2">
-          <div className="card" >
-            <div className="card-header">
-              <h5>{this.props.title}</h5>
-            </div>
-            <div className="card-body">
+          <Card title={this.props.title}>
+            <div>
               <form onSubmit={(e) => {
                 e.preventDefault();
                 this.props.onLogin(this.state.accessCode);
@@ -50,12 +47,11 @@ class Login extends Component {
                 {this.props.error}
               </form>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     );
   }
-
 }
 
 export default Login;
