@@ -1,6 +1,6 @@
 import axios from 'axios';
-import projectData from './responseData/projects.json';
-import challengeData from './responseData/challenges.json';
+import projectData from 'responseData/projects.json';
+import challengeData from 'responseData/challenges.json';
 
 const backendDevURL = 'http://localhost:8000/';
 const prodURL = 'https://expo-api.bit.camp/';

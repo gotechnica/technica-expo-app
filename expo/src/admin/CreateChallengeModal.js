@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axiosRequest from '../Backend.js';
+import axiosRequest from 'Backend.js';
 
-import Error from '../Error.js';
+import Error from 'Error.js';
 
 
 const InvalidWinnerErr = <Error text="Invalid number of winners!

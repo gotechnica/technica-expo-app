@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import axiosRequest from "../Backend.js";
+import axiosRequest from "Backend.js";
 
-import "../Admin.css";
-import "../App.css";
-import WinnerBadge from "../imgs/winner_ribbon.svg";
+import "Admin.css";
+import "App.css";
+import WinnerBadge from "imgs/winner_ribbon.svg";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSquare } from "../../node_modules/@fortawesome/fontawesome-free-regular";
-import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "../../node_modules/@fortawesome/fontawesome-free-solid";
+import { faSquare } from "@fortawesome/fontawesome-free-regular";
+import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "@fortawesome/fontawesome-free-solid";
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);
@@ -29,7 +29,7 @@ class WinnerModule extends Component {
         missingWinners: [],
       };
     }
-  
+
     componentWillMount() {
       axiosRequest.get("api/is_published_status")
         .then((status) => {
@@ -44,10 +44,10 @@ class WinnerModule extends Component {
           });
         });
     }
-  
+
     loadWinners() {
       // toggle based on state
-  
+
       // Pull data, add to state, and show
       axiosRequest.get("api/companies")
         .then((sponsors) => {
@@ -55,13 +55,13 @@ class WinnerModule extends Component {
             return elt.challenges_won != undefined
               && elt.challenges_won.length > 0;
           });
-  
+
           //Build sponsor - challenge - winners struct
           let data = sponsors.filter(elt => {
             return elt.challenge_name != undefined
               && elt.winners != undefined && elt.winners.length > 0;
           }).map(elt => {
-  
+
             // elt.winners => winner IDs
             // for each project, if proj.challenges_won contains elt.challenge_id
             // add proj.project_name to winners
@@ -71,14 +71,14 @@ class WinnerModule extends Component {
                 winners.push(projects[i].project_name);
               }
             }
-  
+
             return {
               sponsor: elt.company_name,
               challenge: elt.challenge_name,
               winners: winners,
             };
           });
-  
+
           // Build list of sponsor - challenges without winners
           let missingWinners = sponsors.filter(elt => {
             return elt.challenge_name != undefined
@@ -89,16 +89,16 @@ class WinnerModule extends Component {
               challenge: elt.challenge_name,
             };
           });
-  
+
           /*this.setState({
             data: data.sort((s1, s2) => {
               if(s1.sponsor_name == undefined || s1.sponsor_name == undefined) {
                 return 0;
               }
-  
+
               return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
           });*/
-  
+
           this.setState({
             data: data.sort((s1, s2) => {
               if (s1.sponsor == undefined || s1.sponsor == undefined) {
@@ -113,10 +113,10 @@ class WinnerModule extends Component {
               return (s1.sponsor).localeCompare(s2.sponsor);
             }),
           });
-  
+
         });
     }
-  
+
     toggleWinnerPreview() {
       if (this.state.showPreview) {
         this.setState({
@@ -131,7 +131,7 @@ class WinnerModule extends Component {
         });
       }
     }
-  
+
     publishExpo() {
       axiosRequest.post("api/is_published_status", {
         "is_published": true,
@@ -141,7 +141,7 @@ class WinnerModule extends Component {
         });
       });
     }
-  
+
     unpublishExpo() {
       axiosRequest.post("api/is_published_status", {
         "is_published": false,
@@ -151,7 +151,7 @@ class WinnerModule extends Component {
         });
       });
     }
-  
+
     showWinners() {
       axiosRequest.post("api/publish_winners_status", {
         "publish_winners": true,
@@ -161,7 +161,7 @@ class WinnerModule extends Component {
         });
       });
     }
-  
+
     hideWinners() {
       axiosRequest.post("api/publish_winners_status", {
         "publish_winners": false,
@@ -171,14 +171,14 @@ class WinnerModule extends Component {
         });
       });
     }
-  
+
     render() {
-  
+
       let caret = this.state.showPreview ?
         <FontAwesomeIcon icon={faCaretUp} className="fa-caret-up"></FontAwesomeIcon>
         :
         <FontAwesomeIcon icon={faCaretDown} className="fa-caret-down"></FontAwesomeIcon>;
-  
+
       return (
         <div className="card">
           <div className="card-header">
@@ -233,7 +233,7 @@ class WinnerModule extends Component {
               </button>
             </div>
             <br />
-  
+
             {
               this.state.showPreview ?
                 <h5>
@@ -243,7 +243,7 @@ class WinnerModule extends Component {
                 </h5>
                 : ""
             }
-  
+
             {
               this.state.showPreview ?
                 this.state.data.length == 0 ?
@@ -261,7 +261,7 @@ class WinnerModule extends Component {
                 :
                 ""
             }
-  
+
             {
               this.state.showPreview ?
                 <h5>
@@ -271,7 +271,7 @@ class WinnerModule extends Component {
                 </h5>
                 : ""
             }
-  
+
             {
               this.state.showPreview ?
                 this.state.data.length == 0 ?
@@ -289,12 +289,12 @@ class WinnerModule extends Component {
                 :
                 ""
             }
-  
+
           </div>
         </div>
       );
     }
-  
+
   }
 
   export default WinnerModule;

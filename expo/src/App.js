@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { useCachedResponseData } from './Backend.js';
+import { useCachedResponseData } from 'Backend.js';
 
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'App.css';
 
-import Admin from './Admin.js';
-import AdminLogin from './AdminLogin.js';
-import Home from './Home.js';
-import Sponsor from './Sponsor.js';
-import SponsorLogin from './SponsorLogin.js';
+import Admin from 'Admin.js';
+import AdminLogin from 'AdminLogin.js';
+import Home from 'Home.js';
+import Sponsor from 'Sponsor.js';
+import SponsorLogin from 'SponsorLogin.js';
 
 
 /* Routing control for app overall */

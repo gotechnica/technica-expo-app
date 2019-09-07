@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import axiosRequest from './Backend.js';
+import axiosRequest from 'Backend.js';
 
-import Error from './Error.js';
-import Login from './Login.js';
-import SiteWrapper from './SiteWrapper.js';
+import Error from 'Error.js';
+import Login from 'Login.js';
+import SiteWrapper from 'SiteWrapper.js';
 
-import './App.css';
+import 'App.css';
 
 
 const InvalidErr = <Error text="Invalid login code!" />;

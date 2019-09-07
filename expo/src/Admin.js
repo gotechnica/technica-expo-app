@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import axiosRequest from "./Backend.js";
+import axiosRequest from "Backend.js";
 
-import "./Admin.css";
-import "./App.css";
-import { sortByTableNumber } from "./helpers.js";
+import "Admin.css";
+import "App.css";
+import { sortByTableNumber } from "helpers.js";
 
-import ProjectModule from "./admin/AdminProject.js";
-import WinnerModule from "./admin/AdminWinner.js";
-import SponsorModule from "./admin/AdminSponsor.js";
+import ProjectModule from "admin/AdminProject.js";
+import WinnerModule from "admin/AdminWinner.js";
+import SponsorModule from "admin/AdminSponsor.js";
 
-import SiteWrapper from "./SiteWrapper.js";
+import SiteWrapper from "SiteWrapper.js";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSquare } from "../node_modules/@fortawesome/fontawesome-free-regular";
-import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "../node_modules/@fortawesome/fontawesome-free-solid";
+import { faSquare } from "@fortawesome/fontawesome-free-regular";
+import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "@fortawesome/fontawesome-free-solid";
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);

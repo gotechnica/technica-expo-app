@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axiosRequest from '../Backend.js';
 
-import Error from '../Error.js';
-import ConfirmationButton from './ConfirmationButton';
+import Error from 'Error.js';
+import ConfirmationButton from 'admin/ConfirmationButton';
 
-import '../App.css';
+import 'App.css';
 
 
 let InvalidWinnerErr = <Error text="Invalid number of winners!

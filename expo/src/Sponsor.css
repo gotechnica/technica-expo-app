@@ -1,5 +1,5 @@
 
-@import url('./customize/customize.css');
+@import url('customize/customize.css');
 /* Hide default checkbox */
 #Sponsor input[type=checkbox] {
   display: none;
