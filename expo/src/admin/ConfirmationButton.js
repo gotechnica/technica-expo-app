@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import '../App.css';
 
 class ConfirmationButton extends Component {
-  constructor(props) {
-    super(props);
-  }
+  
   render() {
     return (
       <div className="p-a-m">

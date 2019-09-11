@@ -14,7 +14,7 @@ import './CircleCheck.css';
 
 import { faCircle } from '../node_modules/@fortawesome/fontawesome-free-regular';
 import { faCircle as faCircleSolid } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { faCheckCircle, faCheck, faExclamationTriangle, faTimesCircle, faClipboardList } from '../node_modules/@fortawesome/fontawesome-free-solid';
+import { faCheck, faExclamationTriangle, faTimesCircle, faClipboardList } from '../node_modules/@fortawesome/fontawesome-free-solid';
 import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
 library.add(faTimesCircle);
 library.add(faCircle);
@@ -108,7 +108,7 @@ export class SubmitModal extends Component {
                 </button>
               </div>
               <div class="modal-body">
-                {votes.length != vote_limit ?
+                {votes.length !== vote_limit ?
                   (votes.length > vote_limit ?
                     <Error icon={modal.error.icon} iconstyle={modal.error.iconstyle}>
                       {modal.error.message}
@@ -241,7 +241,7 @@ export class VotingTable extends Component {
           checked: updated_voting_data,
           challenges: this.props.sponsor_data
         },
-          function () { }.bind(this)
+          function () { }
         );
       }
     }
@@ -346,7 +346,7 @@ export class WelcomeHeader extends Component {
             <div className="task-header">
               {openTasksStillWaiting ? (
                 <p>
-                  You still have {tasks.length == 1 ? 'a challenge to select your winner' : 'challenges to select winners'} for!
+                  You still have {tasks.length === 1 ? 'a challenge to select your winner' : 'challenges to select winners'} for!
                   Use the challenge selection menu to filter by projects that submitted to your specific challenge.
                   <br />
                   If you want to select a project which did not submit to your specific challenge,
@@ -354,7 +354,7 @@ export class WelcomeHeader extends Component {
                 </p>
               ) : (
                   <p>
-                    You've finalized the winners for your {tasks.length == 1 ? 'challenge' : 'challenges'}. Thanks!
+                    You've finalized the winners for your {tasks.length === 1 ? 'challenge' : 'challenges'}. Thanks!
                 </p>
                 )}
             </div>
@@ -416,7 +416,7 @@ export default class Sponsor extends Component {
   }
 
   handleAfterSubmission(challenge, winners) {
-    if (this.state.sponsor_data != undefined && Object.keys(this.state.sponsor_data).length > 0) {
+    if (this.state.sponsor_data !== undefined && Object.keys(this.state.sponsor_data).length > 0) {
       let updated_sponsor_data = this.state.sponsor_data;
       updated_sponsor_data[challenge].votes_submitted = true;
       updated_sponsor_data[challenge].winners = winners;

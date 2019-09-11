@@ -26,7 +26,7 @@ class AdminLogin extends Component {
     // If already logged in, move directly to admin page
     axiosRequest.get('api/whoami')
       .then((credentials) => {
-        if (credentials != undefined && credentials.user_type == 'admin') {
+        if (credentials !== undefined && credentials.user_type === 'admin') {
           this.setState({ loggedIn: true, error: "" });
           this.props.history.push({
             pathname: '/admin'
@@ -37,7 +37,7 @@ class AdminLogin extends Component {
 
   onLogin(accessCode) {
     // TODO Validate login code in place
-    let codeExists = accessCode != undefined && accessCode != '';
+    let codeExists = accessCode !== undefined && accessCode !== '';
 
     if (codeExists) {
       this.setState({ logggedIn: true, error: "" });
@@ -48,7 +48,7 @@ class AdminLogin extends Component {
         { access_code: accessCode }
       )
         .then((status) => {
-          if (status == "Logged in as admin") {
+          if (status === "Logged in as admin") {
             // Log in was successful
             // Clear errors on component
             this.setState({ loggedIn: true, error: "" });

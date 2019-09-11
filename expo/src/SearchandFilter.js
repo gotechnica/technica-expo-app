@@ -39,7 +39,7 @@ class SearchandFilter extends Component {
 
   componentDidMount() {
     let getAllProjectsUrl = 'api/projects';
-    if (this.props.origin != 'home') { // If not on public page
+    if (this.props.origin !== 'home') { // If not on public page
       getAllProjectsUrl = 'api/projects_and_winners';
     }
 
@@ -75,8 +75,8 @@ class SearchandFilter extends Component {
     let updatedList = this.state.data;
     updatedList = updatedList.filter((item) => {
       // Check text filter
-      let matchesTextFilter = this.state.textSearch == undefined
-        || this.state.textSearch == ""
+      let matchesTextFilter = this.state.textSearch === undefined
+        || this.state.textSearch === ""
         || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase());
 
       // Check challenge filter
@@ -131,7 +131,7 @@ class SearchandFilter extends Component {
 
   createChallengeSponsorArray(challenge_data) {
     let challenges = [];
-    if (this.props.loggedIn != undefined) {
+    if (this.props.loggedIn !== undefined) {
       if (challenge_data[this.props.loggedIn] !== undefined) {
         challenges = challenge_data[this.props.loggedIn];
         challenges = challenges.sort(function (a, b) {
@@ -148,9 +148,10 @@ class SearchandFilter extends Component {
     if (this.props.origin === "sponsor") {
       let firstChallenge = this.createChallengeSponsorArray(challenges)[0];
       let initialData = [];
-      projects.map((obj) => {
-        obj.challenges.map((item) => {
-          if (item.company === this.props.loggedIn && item.challenge_name == firstChallenge) {
+
+      projects.forEach(function(obj){
+        obj.challenges.forEach(function(item){
+          if (item.company === this.props.loggedIn && item.challenge_name === firstChallenge) {
             initialData.push(obj);
           }
         });
@@ -163,11 +164,12 @@ class SearchandFilter extends Component {
   }
 
   makeVotingData(challenges) {
+
     if (this.props.origin === "sponsor") {
       let voting_data = {};
-      this.state.data.map((obj) => {
+      this.state.data.forEach(function(obj){
         let temp = {}
-        obj.challenges.map((item) => {
+        obj.challenges.forEach(function(item){
           if (item.company === this.props.loggedIn) {
             if (challenges.indexOf(item.challenge_name) !== -1) {
               temp[item.challenge_name] = false;

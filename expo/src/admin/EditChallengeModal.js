@@ -55,11 +55,11 @@ class EditChallengeModal extends Component {
       .then((challenges) => {
         let winners = [];
         for(let i = 0; i < challenges.length; i++) {
-          if(challenges[i].challenge_id == this.props.challengeID) {
+          if(challenges[i].challenge_id === this.props.challengeID) {
             winners = challenges[i].winners;
           }
         }
-        let minWinners = winners == undefined || winners.length == 0 ? 1 : winners.length;
+        let minWinners = winners === undefined || winners.length === 0 ? 1 : winners.length;
 
         // Block set fewer winners if winners have been selected
         let winnerLessZero = Number(this.state.num_winners) < minWinners;
