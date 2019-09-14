@@ -1,8 +1,9 @@
 import csv
+import json
 import re
 import requests
-import json
 import time
+from typing import List
 
 """
 Assumption: Given A1 -> N15
@@ -21,12 +22,6 @@ assignments -> list of spots that are taken
 
 """
 
-# TODO: remove this comment block, don't need.
-# # gdi_devpost -> csv is dumb lmao
-# gdi_devpost = "Does Your Hack Need To Stay At Your Current Table? " \
-#               "(I.E. Hardware, Vr/Ar Hacks). If So, What Table" \
-#              " Number Are You At?"
-
 moving, not_moving = {}, {}
 
 num_tables = 26
@@ -41,7 +36,7 @@ assignments = ["None | "] * (num_tables * spots_per_table)
 
 class Project:
     """Project class to hold certain metadata regarding a given project."""
-    def __init__(self, project_url, challenges):
+    def __init__(self, project_url: str, challenges: List[str]):
         self.project_url = project_url
         self.challenges = challenges
         self.table_number = ""
@@ -50,7 +45,7 @@ class Project:
         return str(self.table_number) + " " + str(self.project_url)
 
 
-def table_to_number(table):
+def table_to_number(table: str) -> int:
     """Converts a table number into an integer
     Examples:
     * 'A1' -> 1
@@ -65,7 +60,7 @@ def table_to_number(table):
     return (ord(letter) - 65) * spots_per_table + int(num)
 
 
-def number_to_table(number):
+def number_to_table(number: int) -> str:
     """Converts an integer into a table number.
     Examples:
     * 150 -> 'O10'
@@ -83,7 +78,7 @@ def number_to_table(number):
     return str(letter) + str(num)
 
 
-def check_if_needs_to_stay(response):
+def check_if_needs_to_stay(response: str):
     """Checks if a string matches a table number. Used for a hacker's response
     if they reply with a table number, either purely numerical or prefixed with
     A-Z.
@@ -203,20 +198,6 @@ def seed_hackers():
         moving[hacker].table_number = number_to_table(place)
 
 
-# def add_project(projects):
-#     url = "http://127.0.0.1:5000/api/projects/add"
-
-#     for project_name in projects:
-#         info = {
-#             'table_number': projects[project_name].table_number,
-#             'project_name': project_name,
-#             'project_url': projects[project_name].project_url,
-#             'challenges': projects[project_name].challenges,
-#             'challenges_won': []
-#         }
-#         r = requests.post(url, json=info)
-
-
 def bulk_add_projects_local(projects):
     """Adds multiple projects from a dict of project names mapped to Project
     objects."""
@@ -238,16 +219,12 @@ def bulk_add_projects_local(projects):
 
 
 def main():
-    # csvFile = open("sample-devpost-submissions-export.csv", 'rt')
-    # reader = csv.DictReader(csvFile)
     reader = csv.DictReader(open("sample-devpost-submissions-export.csv", "rt",
                                  encoding="utf8", errors='ignore'))
 
     parse_csv_internal(reader)
     seed_hackers()
     # fancy_seed_hackers()
-    #add_project(not_moving)
-    #add_project(moving)
     bulk_add_projects_local(not_moving)
     bulk_add_projects_local(moving)
 
