@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  dynamo:
+    image: "cnadiminti/dynamodb-local"
+    volumes:
+     - ./.data/dynamodb:/dynamodb_local_db
+    ports:
+     - "27017:27017"
+  web:
+     build:
+       context: ./api
+     volumes:
+       - .:/var/www/webapps/hackathon-expo-app/api
+     depends_on:
+       - dynamo
+     ports:
+       - "8000:8000"
+     links:
+       - dynamo:dynamo
+     environment:
+       DYNAMO_ENDPOINT: http://dynamo:27017
+
+       AWS_ACCESS_KEY_ID: "abc"
+       AWS_SECRET_ACCESS_KEY: "xyz"
+     depends_on:
+       - dynamo
+     links:
+       - "dynamo:dynamo"
+    
