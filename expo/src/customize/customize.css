@@ -1,26 +1,5 @@
 /* CUSTOMIZABLE PARAMS */
 /* Fonts */
-@font-face {
-    font-family: AvenirBold;
-    src: url("../fonts/Avenir/AvenirLTStd-Heavy.otf") format("opentype");
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: Avenir;
-    src: url("../fonts/Avenir/AvenirLTStd-Book.otf") format("opentype");
-}
-
-@font-face {
-    font-family: Aleo;
-    src: url("../fonts/Aleo/Aleo-Bold.otf") format("opentype");
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: Aleo, ;
-    src: url("../fonts/Aleo/Aleo-Regular.otf") format("opentype");
-}
 
 :root {
     /* font families */
@@ -35,7 +14,6 @@
     --warning: #FC4363;
     --warning-darker: #DF3B57;
     --accent: #528CA5;
-    /* 528CA5 */
 
     /* variable naming scheme:
      * --filename_element_attribute */
@@ -46,7 +24,7 @@
     --supporting-primary-darker: rgb(52, 65, 68);
 
     /* App.css styles */
-    --app_background_banner: url('../imgs/background.jpg');
+    --app_background_banner: url('./imgs/background.jpg');
     --app_background_color: #2d2d2d;
     --app_modal_color: #222;
     --app_modal_border: rgba(0,0,0,.125);
@@ -108,9 +86,6 @@
 }
 
 @media (max-width: 500px) {
-    /* :root {
-        --app_background_banner: url('../imgs/small-bg.svg');
-    } */
     .App::before {
         background-size: 100% 100% !important;
         background-position-y: 28vh;
