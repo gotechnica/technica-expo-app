@@ -116,7 +116,7 @@ class ProjectColumn extends Component {
     let attempted_challenges = this.props.attempted_challenges;
     let challenges_won = this.props.challenges_won;
     let colors = customize.table_color;
-    let index = this.props.counter % 3;
+    let index = this.props.counter % colors.length;
     return (
       <td>
         <div className="Project header-font">
