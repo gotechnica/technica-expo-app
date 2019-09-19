@@ -3,7 +3,7 @@ import axiosRequest from "../Backend.js";
 
 import "../Admin.css";
 import "../App.css";
-import WinnerBadge from "../imgs/winner_ribbon.png";
+import WinnerBadge from "../customize/imgs/winner_ribbon.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

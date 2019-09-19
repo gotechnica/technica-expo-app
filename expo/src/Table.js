@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import WinnerBadge from './imgs/winner_ribbon.png';
+import WinnerBadge from './customize/imgs/winner_ribbon.png';
 import SmallerParentheses from './SmallerParentheses.js';
 import { SubmitModal } from './Sponsor.js';
 
