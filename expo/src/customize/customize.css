@@ -28,13 +28,13 @@
     --body-font: "Avenir", sans-serif;
 
     /* primary color scheme */
-    --primary-action: #FF8860;
-    --primary-action-darker: #FF6F3F;
-    --cancel-action: #A58D7C;
-    --cancel-action-darker: #7F6C5F;
-    --warning: #FF5B60;
-    --warning-darker: #FF3F46;
-    --accent: #CBF2FF;
+    --primary-action: #00FFFF;
+    --primary-action-darker: #00C7C7;
+    --cancel-action: #FF7BAC;
+    --cancel-action-darker: #FF96BD;
+    --warning: #FC4363;
+    --warning-darker: #DF3B57;
+    --accent: #528CA5;
     /* 528CA5 */
 
     /* variable naming scheme:
@@ -42,12 +42,12 @@
 
     /* supporting color scheme */
     /* Technica: 2f2f2f, Bitcamp Midnight Blue: 1A2E33 */
-    --supporting-primary: #1A2E33;
+    --supporting-primary: #2f2f2f;
     --supporting-primary-darker: rgb(52, 65, 68);
 
     /* App.css styles */
-    --app_background_banner: url('../imgs/large-bg.svg');
-    --app_background_color: #CBF2FF;
+    --app_background_banner: url('../imgs/background.jpg');
+    --app_background_color: #2d2d2d;
     --app_modal_color: #222;
     --app_modal_border: rgba(0,0,0,.125);
     --app_button_color: white;
@@ -80,7 +80,7 @@
     --slider_after: #2D2D2D;
     --slider_checked_hover: var(--primary-action);
     --slider_unchecked_hover: #999;
-    
+
     /* Sponsor.css */
     --sponsor_fa_square: var(--primary-action);
     --sponsor_project_table: #999;

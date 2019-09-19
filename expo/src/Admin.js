@@ -13,7 +13,7 @@ import SubmitInputModal from './components/SubmitInputModal';
 import './Admin.css';
 import './App.css';
 import { sortByTableNumber } from './helpers.js';
-import WinnerBadge from './imgs/winner_ribbon.svg';
+import WinnerBadge from './imgs/winner_ribbon.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SiteWrapper from './SiteWrapper.js';
@@ -56,13 +56,13 @@ class ProjectModule extends Component {
     const allChallengesMapping = {};
     for (let company in challenges_obj) {
       challenges_obj[company].forEach(function(challenge){
-        allChallengesMapping[challenge] = company; 
+        allChallengesMapping[challenge] = company;
       })
-      
+
     }
     return allChallengesMapping;
   }
-  
+
   createAllChallenges(obj) {
     let allChallenges = [];
     for (let key in obj) {
@@ -85,7 +85,7 @@ class ProjectModule extends Component {
   sortData() {
     let data = this.props.projects;
     let finalProjectsData = [];
-    
+
     data.forEach(function(obj){
       let challenge = [];
       obj.challenges.forEach(function(item){
@@ -101,7 +101,7 @@ class ProjectModule extends Component {
           company_challenge: obj.challenges
         }
       )
-       
+
     })
     return finalProjectsData;
   }
@@ -608,7 +608,7 @@ class SponsorModule extends Component {
             modalId="seed-devpost-challenges"
             modalTitle="Seed Sponsors and Challenges from Devpost"
             bodyText="Give us your hackathon's Devpost link (with the https) and we'll seed your Expo App
-              with all of your sponsors and challenges! Make sure you're following our Devpost naming guidelines 
+              with all of your sponsors and challenges! Make sure you're following our Devpost naming guidelines
               (Ex: challenge_name - company_name)."
             inputLabel="Devpost Link"
             inputPlaceholder="https://bitcamp2019.devpost.com"
