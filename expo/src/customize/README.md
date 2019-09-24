@@ -34,3 +34,9 @@ The main colors you can customize are documented here:
 - `supporting-primary` Supporting color scheme. Used as element backgrounds.
 - `app_background_banner` Defaults to `background.png` from above. Comment out if you want a solid color background.
 - `app_background_color` Soild color background for loading, or when there is no background.
+
+## Examples
+By just replacing a few assets and styles, you can get a whole new look, while still keeping all the functionality.
+
+![Technica Expo Site](example/technica.png)
+![Bitcamp Expo Site](example/bitcamp.png)
