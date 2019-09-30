@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 347 73" style="enable-background:new 0 0 347 73;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:url(#XMLID_1427_);}
+	.st2{display:none;}
+	.st3{display:inline;}
+	.st4{font-family:'MyriadPro-Regular';}
+	.st5{font-size:12px;}
+</style>
+<g id="Layer_1">
+	<g id="XMLID_842_">
+		<g id="XMLID_705_">
+			<path id="XMLID_721_" class="st0" d="M23.4,10.2v42.3h-10V10.2H0V1.3h36.8v8.9H23.4z"/>
+			<path id="XMLID_719_" class="st0" d="M44.9,52.6V1.3h33.8v8.9H54.9v12h20.2v8.9H54.9v12.5h23.8v8.9H44.9z"/>
+			<path id="XMLID_717_" class="st0" d="M105.6,53c-5.5,0-10.1-1.9-13.8-5.6c-2.2-2.2-3.6-4.8-4.2-7.7s-0.9-7.1-0.9-12.7
+				c0-5.6,0.3-9.9,0.9-12.7c0.6-3,1.9-5.5,4.2-7.7c3.7-3.7,8.4-5.6,13.8-5.6c9.9,0,17.1,5.8,18.9,16.2h-10.2
+				c-1.1-4.4-3.8-7.3-8.6-7.3c-2.7,0-4.9,0.9-6.4,2.7c-2.1,2.2-2.5,4.5-2.5,14.5c0,9.9,0.4,12.2,2.5,14.5c1.5,1.8,3.7,2.7,6.4,2.7
+				c4.8,0,7.6-2.9,8.6-7.3h10.2C122.8,47.2,115.4,53,105.6,53z"/>
+			<path id="XMLID_715_" class="st0" d="M160.5,52.6V31.1h-17.4v21.5h-10V1.3h10v21h17.4v-21h10v51.3H160.5z"/>
+			<path id="XMLID_713_" class="st0" d="M212.8,52.6l-20.3-31.5v31.5h-10V1.3h8.9l20.3,31.4V1.3h10v51.3H212.8z"/>
+			<path id="XMLID_711_" class="st0" d="M233.6,52.6V1.3h10v51.3H233.6z"/>
+			<path id="XMLID_709_" class="st0" d="M272.7,53c-5.5,0-10.1-1.9-13.8-5.6c-2.2-2.2-3.6-4.8-4.2-7.7s-0.9-7.1-0.9-12.7
+				c0-5.6,0.3-9.9,0.9-12.7c0.6-3,1.9-5.5,4.2-7.7c3.7-3.7,8.4-5.6,13.8-5.6c9.9,0,17.1,5.8,18.9,16.2h-10.2
+				c-1.1-4.4-3.8-7.3-8.6-7.3c-2.7,0-4.9,0.9-6.4,2.7c-2.1,2.2-2.5,4.5-2.5,14.5c0,9.9,0.4,12.2,2.5,14.5c1.5,1.8,3.7,2.7,6.4,2.7
+				c4.8,0,7.6-2.9,8.6-7.3h10.2C289.9,47.2,282.5,53,272.7,53z"/>
+			<path id="XMLID_706_" class="st0" d="M328.6,52.6l-3-9.1h-18.2l-3.1,9.1h-10.4l18.6-51.3h7.8l18.7,51.3H328.6z M316.7,16.4
+				l-6.5,18.7h12.7L316.7,16.4z"/>
+		</g>
+		<linearGradient id="XMLID_1427_" gradientUnits="userSpaceOnUse" x1="1.818989e-12" y1="68" x2="346.5119" y2="68">
+			<stop  offset="0" style="stop-color:#00FFFF"/>
+			<stop  offset="0.1702" style="stop-color:#39E1EC"/>
+			<stop  offset="0.3969" style="stop-color:#7FBDD6"/>
+			<stop  offset="0.6015" style="stop-color:#B6A1C4"/>
+			<stop  offset="0.7765" style="stop-color:#DE8CB7"/>
+			<stop  offset="0.9151" style="stop-color:#F680AF"/>
+			<stop  offset="1" style="stop-color:#FF7BAC"/>
+		</linearGradient>
+		<polygon id="XMLID_681_" class="st1" points="346.5,73 342.9,63 0,63 0,73 		"/>
+	</g>
+</g>
+<g id="nyt_x5F_exporter_x5F_info" class="st2">
+	<text id="XMLID_1_" class="st3"><tspan x="0" y="0" class="st4 st5">&lt;nyt_prefs&gt;</tspan><tspan x="0" y="14.4" class="st4 st5">  &lt;nyt_prefix&gt;&lt;/nyt_prefix&gt;</tspan><tspan x="0" y="28.8" class="st4 st5">  &lt;nyt_suffix&gt;&lt;/nyt_suffix&gt;</tspan><tspan x="0" y="43.2" class="st4 st5">  &lt;nyt_base_path&gt;~/Desktop&lt;/nyt_base_path&gt;</tspan><tspan x="0" y="57.6" class="st4 st5">  &lt;nyt_scaling&gt;100&lt;/nyt_scaling&gt;</tspan><tspan x="0" y="72" class="st4 st5">  &lt;nyt_transparency&gt;true&lt;/nyt_transparency&gt;</tspan><tspan x="0" y="86.4" class="st4 st5">  &lt;nyt_embedImage&gt;true&lt;/nyt_embedImage&gt;</tspan><tspan x="0" y="100.8" class="st4 st5">  &lt;nyt_embedFont&gt;true&lt;/nyt_embedFont&gt;</tspan><tspan x="0" y="115.2" class="st4 st5">  &lt;nyt_trimEdges&gt;true&lt;/nyt_trimEdges&gt;</tspan><tspan x="0" y="129.6" class="st4 st5">  &lt;nyt_innerPadding&gt;false&lt;/nyt_innerPadding&gt;</tspan><tspan x="0" y="144" class="st4 st5">  &lt;nyt_format&gt;SVG&lt;/nyt_format&gt;</tspan><tspan x="0" y="158.4" class="st4 st5">  &lt;nyt_artboards&gt;all&lt;/nyt_artboards&gt;</tspan><tspan x="0" y="172.8" class="st4 st5">  &lt;nyt_layers&gt;all&lt;/nyt_layers&gt;</tspan><tspan x="0" y="187.2" class="st4 st5">  &lt;nyt_exportArtboards&gt;false&lt;/nyt_exportArtboards&gt;</tspan><tspan x="0" y="201.6" class="st4 st5">  &lt;nyt_ignoreWarnings&gt;false&lt;/nyt_ignoreWarnings&gt;</tspan><tspan x="0" y="216" class="st4 st5">&lt;/nyt_prefs&gt;</tspan></text>
+</g>
+</svg>

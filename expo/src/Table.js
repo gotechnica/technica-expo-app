@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import WinnerBadge from './imgs/winner_ribbon.svg';
+import WinnerBadge from './customize/imgs/winner_ribbon.png';
 import SmallerParentheses from './SmallerParentheses.js';
 import { SubmitModal } from './Sponsor.js';
 
@@ -116,7 +116,7 @@ class ProjectColumn extends Component {
     let attempted_challenges = this.props.attempted_challenges;
     let challenges_won = this.props.challenges_won;
     let colors = customize.table_color;
-    let index = this.props.counter % 3;
+    let index = this.props.counter % colors.length;
     return (
       <td>
         <div className="Project header-font">
