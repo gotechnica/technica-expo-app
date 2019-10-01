@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import '../App.css';
+import 'App.css';
 
 class ConfirmationButton extends Component {
-  
+
   render() {
     return (
       <div className="p-a-m">

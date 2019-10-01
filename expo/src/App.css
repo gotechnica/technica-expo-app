@@ -1,4 +1,4 @@
-@import url('./customize/customize.css');
+@import url('customize/customize.css');
 
 html {
   background-color: var(--app_background_color);

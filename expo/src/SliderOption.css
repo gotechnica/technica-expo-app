@@ -1,5 +1,5 @@
 
-@import url('./customize/customize.css');
+@import url('customize/customize.css');
 
 .toggle {
   margin-top: 20px;

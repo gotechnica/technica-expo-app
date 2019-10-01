@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import axiosRequest from "../Backend.js";
+import axiosRequest from "Backend.js";
 
-import "../Admin.css";
-import "../App.css";
-import WinnerBadge from "../customize/imgs/winner_ribbon.png";
+import "Admin.css";
+import "App.css";
+import WinnerBadge from "customize/imgs/winner_ribbon.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSquare } from "../../node_modules/@fortawesome/fontawesome-free-regular";
-import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "../../node_modules/@fortawesome/fontawesome-free-solid";
+import { faSquare } from "@fortawesome/fontawesome-free-regular";
+import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "@fortawesome/fontawesome-free-solid";
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);

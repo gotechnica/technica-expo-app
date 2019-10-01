@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import axiosRequest from './Backend.js';
+import axiosRequest from 'Backend.js';
 
-import { VotingTable, WelcomeHeader } from './Sponsor.js';
-import Table from './Table.js';
-import SmallerParentheses from './SmallerParentheses.js';
+import { VotingTable, WelcomeHeader } from 'Sponsor.js';
+import Table from 'Table.js';
+import SmallerParentheses from 'SmallerParentheses.js';
 
-import './components/Card.css';
-import './SliderOption.css';
-import { sortByTableNumber } from './helpers.js';
+import 'components/Card.css';
+import 'SliderOption.css';
+import { sortByTableNumber } from 'helpers.js';
 
 class SearchandFilter extends Component {
 

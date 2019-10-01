@@ -1,9 +1,9 @@
 import React from 'react';
 
-import SearchandFilter from './SearchandFilter';
-import SiteWrapper from './SiteWrapper.js';
+import SearchandFilter from 'SearchandFilter';
+import SiteWrapper from 'SiteWrapper.js';
 
-import './App.css';
+import 'App.css';
 
 
 export default class Home extends React.Component {

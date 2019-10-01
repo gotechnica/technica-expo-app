@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import axiosRequest from '../Backend.js';
+import axiosRequest from 'Backend.js';
 
-import Error from '../Error.js';
-import ConfirmationButton from './ConfirmationButton';
+import Error from 'Error.js';
+import ConfirmationButton from 'admin/ConfirmationButton';
 
-import '../App.css';
+import 'App.css';
 
 
 const InvalidAccessErr = <Error text="Invalid access code!
@@ -64,7 +64,7 @@ class EditSponsorModal extends Component {
 
         let missingCompany = this.state.company_name === ''
           || this.state.company_name === undefined;
- 
+
         let valid = validAccess && !missingAccess && !missingCompany;
 
         let sponsor_id = this.props.sponsorID;
