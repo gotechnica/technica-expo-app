@@ -4,7 +4,7 @@ import requests
 import json
 
 
-def delete_project():
+def delete_project() -> None:
     project_name = input('What is the project name? ')
     password = input('What is the password? ')
 
@@ -18,7 +18,7 @@ def delete_project():
     print(r.url)
 
 
-def delete_all_projects():
+def delete_all_projects() -> None:
     password = input('What is the password? ')
 
     url = "http://127.0.0.1:5000/api/projects/deleteAll"
@@ -29,7 +29,7 @@ def delete_all_projects():
     r = requests.delete(url, json=payload)
 
 
-def main():
+def main() -> None:
     #delete_project()
     delete_all_projects()
 
