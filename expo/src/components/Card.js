@@ -10,11 +10,11 @@ import 'components/Card.css';
 class Card extends Component {
   render() {
     return (
-      <div class="card">
-        <div class="card-header">
+      <div className="card">
+        <div className="card-header">
           <h5>{this.props.title}</h5>
         </div>
-        <div class="card-body">
+        <div className="card-body">
           {this.props.children}
         </div>
       </div>
