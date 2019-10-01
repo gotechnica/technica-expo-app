@@ -1,6 +1,6 @@
 import logging
 
-# setting WSGI logger to console only ERROR 
+# setting WSGI logger to console only ERROR
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
@@ -23,8 +23,8 @@ file_handler.setFormatter(formatter)
 # add handler
 logger.addHandler(file_handler)
 
-## Public endpoint logging 
+## Public endpoint logging
 
-def logged_message(message):
+def logged_message(message: str) -> None:
     logger.info(message)
-    return    
+    return

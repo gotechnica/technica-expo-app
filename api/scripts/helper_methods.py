@@ -1,5 +1,5 @@
 # helper method for printing stuff
-def pretty_print_POST(req):
+def pretty_print_POST(req) -> None:
     print('{}\n{}\n{}\n\n{}'.format(
         '-----------START-----------',
         req.method + ' ' + req.url,
@@ -9,7 +9,7 @@ def pretty_print_POST(req):
 
 
 # prints it in the order shown above
-def prettyPrint(assignments):
+def prettyPrint(assignments) -> None:
     for i in range(1, 26):
         start = (i - 1) * 15
         end = start + 15

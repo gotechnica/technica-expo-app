@@ -4,7 +4,7 @@ import re
 import urllib.request as ur
 from typing import List, Tuple
 
-def get_challenges(link: str) -> List[Tuple(str, str, int)]:
+def get_challenges(link: str) -> List[Tuple[str, str, int]]:
     """Given a devpost url, returns a list of companies and their challenges"""
     sock = ur.urlopen(link)
     soup = BeautifulSoup(sock,"html.parser")
