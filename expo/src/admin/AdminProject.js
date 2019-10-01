@@ -9,7 +9,7 @@ import "Admin.css";
 import "App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SmallerParentheses from "admin/SmallerParentheses.js";
+import SmallerParentheses from "SmallerParentheses.js";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSquare } from "@fortawesome/fontawesome-free-regular";
@@ -44,7 +44,7 @@ class ProjectModule extends Component {
     createChallengesToCompanyMap(challenges_obj) {
       const allChallengesMapping = {};
       for (let company in challenges_obj) {
-        challenges_obj[company].map((challenge) => {
+        challenges_obj[company].forEach((challenge) => {
           allChallengesMapping[challenge] = company;
         });
       }
@@ -54,7 +54,7 @@ class ProjectModule extends Component {
     createAllChallenges(obj) {
       let allChallenges = [];
       for (let key in obj) {
-        obj[key].map((item) => {
+        obj[key].forEach((item) => {
           if (allChallenges.indexOf(item) === -1) {
             allChallenges.push(item);
           }
@@ -73,10 +73,10 @@ class ProjectModule extends Component {
     sortData() {
       let data = this.props.projects;
       let finalProjectsData = [];
-      let seen = undefined;
-      data.map((obj) => {
+
+      data.forEach((obj) => {
         let challenge = [];
-        obj.challenges.map((item) => {
+        obj.challenges.forEach((item) => {
           challenge.push(item.challenge_name);
         });
         finalProjectsData.push(
@@ -99,7 +99,7 @@ class ProjectModule extends Component {
       const data = new FormData();
       data.append("projects_csv", this.projects_csv.files[0]);
 
-      if (this.projects_csv.files[0] == null) {
+      if (this.projects_csv.files[0] === null) {
         this.setState({
           uploadStatus: "Please select a file before hitting upload!",
         });
@@ -133,7 +133,7 @@ class ProjectModule extends Component {
 
     onAutoAssignTableNumbers(e) {
       e.preventDefault();
-      if (this.state.tableAssignmentSchema == "") {
+      if (this.state.tableAssignmentSchema === "") {
         this.setState({
           tableAssignmentStatus: "Please first select a schema for assigning table numbers.",
         });
@@ -147,9 +147,9 @@ class ProjectModule extends Component {
         {
           table_assignment_schema: this.state.tableAssignmentSchema,
           table_start_letter: this.state.tableStartLetter,
-          table_start_number: parseInt(this.state.tableStartNumber),
+          table_start_number: parseInt(this.state.tableStartNumber, 10),
           table_end_letter: this.state.tableEndLetter,
-          table_end_number: parseInt(this.state.tableEndNumber),
+          table_end_number: parseInt(this.state.tableEndNumber, 10),
           skip_every_other_table: this.state.skipEveryOtherTable,
         },
       )
@@ -240,7 +240,7 @@ class ProjectModule extends Component {
       let filteredProjects = this.sortData();
       let allChallenges = this.createAllChallenges(this.props.challenges);
       let challengesToCompanyMap = this.createChallengesToCompanyMap(this.props.challenges);
-      if (this.state.textSearch != "" && this.state.textSearch != undefined) {
+      if (this.state.textSearch !== "" && this.state.textSearch !== undefined) {
         filteredProjects = filteredProjects.filter(elt => {
           const upperCaseTextSearch = this.state.textSearch.toUpperCase();
           return elt.project_name.toUpperCase().includes(upperCaseTextSearch) ||
@@ -279,7 +279,7 @@ class ProjectModule extends Component {
                 </div>
               </div>
               <button className="button button-primary" type="submit">Upload</button>
-              {this.state.uploadStatus != "" &&
+              {this.state.uploadStatus !== "" &&
                 <div className="row col" style={{ "padding-top": "1rem" }}>
                   <i>{this.state.uploadStatus}</i>
                 </div>
@@ -295,10 +295,10 @@ class ProjectModule extends Component {
               onSubmit={this.onAutoAssignTableNumbers.bind(this)}
             >
               <div onChange={this.handleInputChange.bind(this)} className="m-b-m">
-                <div><input type="radio" name="tableAssignmentSchema" value="numeric" checked={this.state.tableAssignmentSchema == "numeric"} /> Numeric (1, 2, 3...)</div>
-                <div><input type="radio" name="tableAssignmentSchema" value="odds" checked={this.state.tableAssignmentSchema == "odds"} /> Odds (1, 3, 5...)</div>
-                <div><input type="radio" name="tableAssignmentSchema" value="evens" checked={this.state.tableAssignmentSchema == "evens"} /> Evens (2, 4, 6...)</div>
-                <div><input type="radio" name="tableAssignmentSchema" value="custom" checked={this.state.tableAssignmentSchema == "custom"} /> Custom</div>
+                <div><input type="radio" name="tableAssignmentSchema" value="numeric" checked={this.state.tableAssignmentSchema === "numeric"} /> Numeric (1, 2, 3...)</div>
+                <div><input type="radio" name="tableAssignmentSchema" value="odds" checked={this.state.tableAssignmentSchema === "odds"} /> Odds (1, 3, 5...)</div>
+                <div><input type="radio" name="tableAssignmentSchema" value="evens" checked={this.state.tableAssignmentSchema === "evens"} /> Evens (2, 4, 6...)</div>
+                <div><input type="radio" name="tableAssignmentSchema" value="custom" checked={this.state.tableAssignmentSchema === "custom"} /> Custom</div>
               </div>
               {this.state.tableAssignmentSchema === "custom" &&
                 <div className="m-b-m">
@@ -347,7 +347,7 @@ class ProjectModule extends Component {
               <button className="button button-warning assign_button2" onClick={this.onRemoveAllTableAssignments.bind(this)}>
                 Remove All Table Assignments
               </button>
-              {this.state.tableAssignmentStatus != "" &&
+              {this.state.tableAssignmentStatus !== "" &&
                 <div className="row col" style={{ "padding-top": "1rem" }}>
                   <i>{this.state.tableAssignmentStatus}</i>
                 </div>

@@ -68,7 +68,7 @@ class SponsorModule extends Component {
 
     seedChallengesFromDevpost(devpostUrl) {
       // Determine inputted URL or default server Devpost URL
-      const params = devpostUrl == "" ? {} : { "devpostUrl": devpostUrl };
+      const params = devpostUrl === "" ? {} : { "devpostUrl": devpostUrl };
       axiosRequest.post("api/seed-challenges-from-devpost", params)
         .then(() => {
           this.loadCompanies();
@@ -87,12 +87,12 @@ class SponsorModule extends Component {
         // Check whether code is unique
         let codeSeen = false;
         compressedSponsors.forEach((sponsor) => {
-          if (sponsor.access_code == elt.access_code) {
+          if (sponsor.access_code === elt.access_code) {
             codeSeen = true;
           }
         });
 
-        if (codeSeen == false) {
+        if (codeSeen === false) {
           // Set new item
           compressedSponsors.push(
             {
@@ -107,11 +107,11 @@ class SponsorModule extends Component {
         // Add challenge to corresponding sponsor
         let current_sponsor = null;
         compressedSponsors.forEach((sponsor) => {
-          if (sponsor.access_code == elt.access_code) {
+          if (sponsor.access_code === elt.access_code) {
             current_sponsor = sponsor;
           }
         });
-        if (elt.challenge_name != undefined) {
+        if (elt.challenge_name !== undefined) {
           current_sponsor.challenges.push({
             challenge: elt.challenge_name,
             id: elt.challenge_id,
@@ -123,7 +123,7 @@ class SponsorModule extends Component {
 
       // Prepare sponsor list against filter (including sponsor name and challenges)
       let filteredSponsors = compressedSponsors;
-      if (this.state.textSearch != "" && this.state.textSearch != undefined) {
+      if (this.state.textSearch !== "" && this.state.textSearch !== undefined) {
         filteredSponsors = filteredSponsors.filter(elt => {
 
           let casedTextSearch = this.state.textSearch.toUpperCase();

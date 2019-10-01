@@ -20,8 +20,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div class="row">
-        <div class="col-md-8 offset-md-2">
+      <div className="row">
+        <div className="col-md-8 offset-md-2">
           <Card title={this.props.title}>
             <div>
               <form onSubmit={(e) => {
