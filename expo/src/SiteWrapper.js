@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import hackathon_logo from './customize/imgs/hackathon-logo.svg'
-import './SiteWrapper.css';
+import hackathon_logo from 'customize/imgs/hackathon-logo.svg'
+import 'SiteWrapper.css';
 
 /* Header / constant app features */
 

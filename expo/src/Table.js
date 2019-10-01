@@ -1,20 +1,20 @@
 import React, { Component, Fragment } from 'react';
 
-import { FontAwesomeIcon } from '../node_modules/@fortawesome/react-fontawesome';
-import WinnerBadge from './customize/imgs/winner_ribbon.png';
-import SmallerParentheses from './SmallerParentheses.js';
-import { SubmitModal } from './Sponsor.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import WinnerBadge from 'customize/imgs/winner_ribbon.png';
+import SmallerParentheses from 'SmallerParentheses.js';
+import { SubmitModal } from 'Sponsor.js';
 
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import './Table.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'App.css';
+import 'Table.css';
 
-import './customize/customize';
-import { faSquare } from '../node_modules/@fortawesome/fontawesome-free-regular';
-import { faCheckSquare } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import { library } from '../node_modules/@fortawesome/fontawesome-svg-core';
-import { faExclamationCircle } from '../node_modules/@fortawesome/fontawesome-free-solid';
-import customize from './customize/customize';
+import 'customize/customize';
+import { faSquare } from '@fortawesome/fontawesome-free-regular';
+import { faCheckSquare } from '@fortawesome/fontawesome-free-solid';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faExclamationCircle } from '@fortawesome/fontawesome-free-solid';
+import customize from 'customize/customize';
 library.add(faCheckSquare);
 library.add(faSquare);
 

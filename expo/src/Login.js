@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Card from './components/Card.js'
+import Card from 'components/Card.js'
 
 /*
 Generic login component for Admins and Sponsors
