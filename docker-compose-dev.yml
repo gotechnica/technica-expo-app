@@ -10,14 +10,16 @@ services:
             MONGO_INITDB_DATABASE: expo-testing
         ports:
             - "27017:27017"
+        command: --quiet
     web:
         build:
             context: ./api
         volumes:
-            - .:/var/www/webapps/hackathon-expo-app/api
+            - ./api:/app
         depends_on:
             - db
         ports:
             - "8000:8000"
         links:
             - db:db
+        command: gunicorn -b 0.0.0.0:8000 server:app  --capture-output
