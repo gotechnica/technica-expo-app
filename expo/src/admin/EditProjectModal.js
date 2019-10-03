@@ -74,7 +74,7 @@ class EditProjectModal extends Component {
   saveProject(e) {
     //create challenges to POST
     let challenges = [];
-    this.state.challenges.forEach(function(item){
+    this.state.challenges.forEach((item)=>{
       let object = {}
       if (this.state.company_map[item]) {
         object = {
@@ -223,7 +223,7 @@ class EditProjectModal extends Component {
                   <br />
                    
                   { 
-                    this.state.allChallenges.forEach(function(challenge, index){
+                    this.state.allChallenges.forEach((challenge, index)=>{
                     
                     if (challenge !== undefined) {
                       return (
