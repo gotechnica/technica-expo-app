@@ -91,7 +91,7 @@ If you want to deploy to AWS you can follow these steps.
 1. Start a new EC2 instance. When choosing an image we recommend Ubuntu Server 18.04.
 2. Choose what size instance you want.
 3. Most of the other defaults will be ok to keep, however you will want to configure your security group to have port 80 and 443 open. SSH port should already be configured.
-   
+
    | Type | Protocol | Port Range | Source |
    | --- | --- | --- | --- |
    | HTTPS | TCP | 443 | Anywhere |
@@ -105,4 +105,8 @@ If you want to deploy to AWS you can follow these steps.
 ---
 
 # Testing
-[Coming soon]
+We use Pytest. From the root directory (one up from here), you can run
+
+`sudo docker-compose -f docker-compose-test.yml up --abort-on-container-exit`
+
+To run all the tests in a docker image.
