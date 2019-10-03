@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import '../App.css';
+import 'App.css';
 
 class WarningModal extends Component {
-    
+
     render() {
         return (
             <div className="modal fade" id={this.props.modalId} role="dialog">

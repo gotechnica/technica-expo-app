@@ -1,4 +1,4 @@
-@import url('./customize/customize.css');
+@import url('customize/customize.css');
 
 /* Remove Default Link Style */
 #Home .link, #Sponsor .link,

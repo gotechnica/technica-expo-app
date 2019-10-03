@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import axiosRequest from '../Backend.js';
+import axiosRequest from 'Backend.js';
 
-import Error from '../Error';
-import Checkbox from './Checkbox';
-import ConfirmationButton from './ConfirmationButton';
+import Error from 'Error';
+import Checkbox from 'admin/Checkbox';
+import ConfirmationButton from 'admin/ConfirmationButton';
 
-import '../App.css';
+import 'App.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCheck, faTimes } from '../../node_modules/@fortawesome/fontawesome-free-solid';
+import { faCheck, faTimes } from '@fortawesome/fontawesome-free-solid';
 library.add(faTimes);
 library.add(faCheck);
 
-
-let challengeStore = [];
-
+let challengeStore = []
 
 class EditProjectModal extends Component {
   // Expect the project ID from this.props as projectID
@@ -32,23 +30,21 @@ class EditProjectModal extends Component {
       editable: true,
       showConfirmation: false
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.toggleConfirmation = this.toggleConfirmation.bind(this);
   }
 
-  
-  componentWillMount() { 
-    this.state.challenges.forEach(function(challenge){
-      if (challengeStore.indexOf(challenge) === -1)
-        challengeStore.push(challenge);
+
+  componentWillMount = () => {
+    this.state.challenges.forEach((challenge) => {
+      if (this.state.challengeStore.indexOf(challenge) === -1)
+        this.state.challengeStore.push(challenge);
       })
   }
 
-  toggleConfirmation() {
+  toggleConfirmation = () => {
     this.setState({ showConfirmation: !this.state.showConfirmation });
   }
 
-  cancelProject(e) {
+  cancelProject = () => {
     let checkboxes = document.getElementById(this.state.project_id).children;
     let count = document.getElementById(this.state.project_id).childElementCount;
     for (let i = 2; i < count; i++) {
@@ -71,7 +67,7 @@ class EditProjectModal extends Component {
     });
   }
 
-  saveProject(e) {
+  saveProject = () => {
     //create challenges to POST
     let challenges = [];
     this.state.challenges.forEach((item)=>{
@@ -85,7 +81,7 @@ class EditProjectModal extends Component {
         challenges.push(object);
       }
     })
-    
+
     let checks = document.querySelector('.black');
     let missing = this.state.project_name === '' ||
       this.state.table_number === '' ||
@@ -95,10 +91,11 @@ class EditProjectModal extends Component {
     //   if (this.state.challenges[i])
     //     check++;
     // }
-    
+
     this.setState({
       error: missing
     });
+
     if (!missing) {
       // TODO: Send access code and company name to db if valid access code
       // TODO: Update state against db change
@@ -128,10 +125,10 @@ class EditProjectModal extends Component {
     }
   }
 
-  handleChange(color, index, e) {
+  handleChange = (color, index, e) => {
     let lol = index;
     challengeStore = this.state.challenges;
-    
+
     if (color) {
       let label = (document.getElementById(`${lol}label`))
       let word = label.textContent;
@@ -157,7 +154,7 @@ class EditProjectModal extends Component {
       });
   }
 
-  render() {
+  render = () => {
     return (
       <div className="modal fade" id={this.props.editID}>
         <div className="modal-dialog" role="document">
@@ -221,11 +218,10 @@ class EditProjectModal extends Component {
                 <div className="form-group" id={this.state.project_id}>
                   <label> Attempted Challenges </label>
                   <br />
-                   
-                  { 
-                    this.state.allChallenges.forEach((challenge, index)=>{
-                    
-                    if (challenge !== undefined) {
+
+                  {
+                    this.state.allChallenges.forEach((challenge, index) => {
+                      if (challenge !== undefined) {
                       return (
                         <Checkbox handleChange={this.handleChange}
                           value={challenge}

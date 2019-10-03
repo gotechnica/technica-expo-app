@@ -1,15 +1,17 @@
-import React, { Component } from "react";
-import axiosRequest from "../Backend.js";
+import Card from '../components/Card.js'
 
-import "../Admin.css";
-import "../App.css";
-import WinnerBadge from "../imgs/winner_ribbon.svg";
+import React, { Component } from "react";
+import axiosRequest from "Backend.js";
+
+import "Admin.css";
+import "App.css";
+import WinnerBadge from "customize/imgs/winner_ribbon.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSquare } from "../../node_modules/@fortawesome/fontawesome-free-regular";
-import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "../../node_modules/@fortawesome/fontawesome-free-solid";
+import { faSquare } from "@fortawesome/fontawesome-free-regular";
+import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "@fortawesome/fontawesome-free-solid";
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);
@@ -29,39 +31,39 @@ class WinnerModule extends Component {
         missingWinners: [],
       };
     }
-  
+
     componentWillMount() {
       axiosRequest.get("api/is_published_status")
         .then((status) => {
           this.setState({
-            expoIsPublished: status == "True",
+            expoIsPublished: status === "True",
           });
         });
       axiosRequest.get("api/publish_winners_status")
         .then((status) => {
           this.setState({
-            winnersRevealed: status == "True",
+            winnersRevealed: status === "True",
           });
         });
     }
-  
+
     loadWinners() {
       // toggle based on state
-  
+
       // Pull data, add to state, and show
       axiosRequest.get("api/companies")
         .then((sponsors) => {
           let projects = this.props.projects.filter(elt => {
-            return elt.challenges_won != undefined
+            return elt.challenges_won !== undefined
               && elt.challenges_won.length > 0;
           });
-  
+
           //Build sponsor - challenge - winners struct
           let data = sponsors.filter(elt => {
-            return elt.challenge_name != undefined
-              && elt.winners != undefined && elt.winners.length > 0;
+            return elt.challenge_name !== undefined
+              && elt.winners !== undefined && elt.winners.length > 0;
           }).map(elt => {
-  
+
             // elt.winners => winner IDs
             // for each project, if proj.challenges_won contains elt.challenge_id
             // add proj.project_name to winners
@@ -71,52 +73,52 @@ class WinnerModule extends Component {
                 winners.push(projects[i].project_name);
               }
             }
-  
+
             return {
               sponsor: elt.company_name,
               challenge: elt.challenge_name,
               winners: winners,
             };
           });
-  
+
           // Build list of sponsor - challenges without winners
           let missingWinners = sponsors.filter(elt => {
-            return elt.challenge_name != undefined
-              && elt.winners.length == 0;
+            return elt.challenge_name !== undefined
+              && elt.winners.length === 0;
           }).map(elt => {
             return {
               sponsor: elt.company_name,
               challenge: elt.challenge_name,
             };
           });
-  
+
           /*this.setState({
             data: data.sort((s1, s2) => {
-              if(s1.sponsor_name == undefined || s1.sponsor_name == undefined) {
+              if(s1.sponsor_name === undefined || s1.sponsor_name === undefined) {
                 return 0;
               }
-  
+
               return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
           });*/
-  
+
           this.setState({
             data: data.sort((s1, s2) => {
-              if (s1.sponsor == undefined || s1.sponsor == undefined) {
+              if (s1.sponsor === undefined || s1.sponsor === undefined) {
                 return 0;
               }
               return (s1.sponsor).localeCompare(s2.sponsor);
             }),
             missingWinnerData: missingWinners.sort((s1, s2) => {
-              if (s1.sponsor == undefined || s1.sponsor == undefined) {
+              if (s1.sponsor === undefined || s1.sponsor === undefined) {
                 return 0;
               }
               return (s1.sponsor).localeCompare(s2.sponsor);
             }),
           });
-  
+
         });
     }
-  
+
     toggleWinnerPreview() {
       if (this.state.showPreview) {
         this.setState({
@@ -131,7 +133,7 @@ class WinnerModule extends Component {
         });
       }
     }
-  
+
     publishExpo() {
       axiosRequest.post("api/is_published_status", {
         "is_published": true,
@@ -141,7 +143,7 @@ class WinnerModule extends Component {
         });
       });
     }
-  
+
     unpublishExpo() {
       axiosRequest.post("api/is_published_status", {
         "is_published": false,
@@ -151,7 +153,7 @@ class WinnerModule extends Component {
         });
       });
     }
-  
+
     showWinners() {
       axiosRequest.post("api/publish_winners_status", {
         "publish_winners": true,
@@ -161,7 +163,7 @@ class WinnerModule extends Component {
         });
       });
     }
-  
+
     hideWinners() {
       axiosRequest.post("api/publish_winners_status", {
         "publish_winners": false,
@@ -171,33 +173,16 @@ class WinnerModule extends Component {
         });
       });
     }
-  
+
     render() {
-  
+
       let caret = this.state.showPreview ?
         <FontAwesomeIcon icon={faCaretUp} className="fa-caret-up"></FontAwesomeIcon>
         :
         <FontAwesomeIcon icon={faCaretDown} className="fa-caret-down"></FontAwesomeIcon>;
-  
+
       return (
-        <div className="card">
-          <div className="card-header">
-            <div className="d-flex">
-              <div>
-                <h4>Administration</h4>
-              </div>
-              <div className="ml-auto">
-                <button
-                  type="button"
-                  className="link-button"
-                  onClick={this.props.logout}
-                >
-                  Logout
-                  </button>
-              </div>
-            </div>
-          </div>
-          <div className="card-body">
+        <Card title={"Administration"} action={this.props.logout} actionName={"Logout"}>
             <div>
               {this.state.expoIsPublished ?
                 <button type="button" className="button button-secondary m-r-m m-b-m"
@@ -233,20 +218,20 @@ class WinnerModule extends Component {
               </button>
             </div>
             <br />
-  
+
             {
               this.state.showPreview ?
                 <h5>
-                  <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
+                  <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" alt="Winner badge"/>
                   NO WINNERS SUBMITTED
-                  <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
+                  <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" alt="Winner badge"/>
                 </h5>
                 : ""
             }
-  
+
             {
               this.state.showPreview ?
-                this.state.data.length == 0 ?
+                this.state.data.length === 0 ?
                   "No winners have been selected"
                   :
                   this.state.missingWinnerData.map(elt => {
@@ -261,20 +246,20 @@ class WinnerModule extends Component {
                 :
                 ""
             }
-  
+
             {
               this.state.showPreview ?
                 <h5>
-                  <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
+                  <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" alt="Ribbon"/>
                   SUBMITTED WINNERS
-                  <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" />
+                  <img src= {WinnerBadge} className="Ribbon" height="30px" width="30px" alt="Ribbon"/>
                 </h5>
                 : ""
             }
-  
+
             {
               this.state.showPreview ?
-                this.state.data.length == 0 ?
+                this.state.data.length === 0 ?
                   "No winners have been selected"
                   :
                   this.state.data.map(elt => {
@@ -289,12 +274,10 @@ class WinnerModule extends Component {
                 :
                 ""
             }
-  
-          </div>
-        </div>
-      );
+
+        </Card>);
     }
-  
+
   }
 
   export default WinnerModule;

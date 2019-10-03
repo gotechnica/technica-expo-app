@@ -3,7 +3,7 @@ import json
 import re
 import requests
 import time
-from typing import List
+from typing import Dict, List
 
 """
 Assumption: Given A1 -> N15
@@ -41,7 +41,7 @@ class Project:
         self.challenges = challenges
         self.table_number = ""
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.table_number) + " " + str(self.project_url)
 
 
@@ -93,7 +93,7 @@ def check_if_needs_to_stay(response: str):
     return re.search('([a-zA-Z]*\d+)', response)
 
 
-def format_challenges(challenges):
+def format_challenges(challenges) -> List[Dict[any, any]]:
     """Parses a string of challenge titles into a list of prizes a hacker may
     win.
 
@@ -176,7 +176,7 @@ def parse_csv_internal(reader, not_moving_question=None):
     return moving, not_moving
 
 
-def fancy_seed_hackers():
+def fancy_seed_hackers() -> None:
     """Evenly spreads out hackers amongst available seats."""
     place = 0
     skip = 391//len(moving)
@@ -188,7 +188,7 @@ def fancy_seed_hackers():
         place = (place + skip) % 391
 
 
-def seed_hackers():
+def seed_hackers() -> None:
     """Sortof spreads out hackers amongst available seats."""
     place = 0
     for hacker in moving:
@@ -198,7 +198,7 @@ def seed_hackers():
         moving[hacker].table_number = number_to_table(place)
 
 
-def bulk_add_projects_local(projects):
+def bulk_add_projects_local(projects) -> None:
     """Adds multiple projects from a dict of project names mapped to Project
     objects."""
     url = 'http://127.0.0.1:5000/api/projects/bulk_add'
@@ -218,7 +218,7 @@ def bulk_add_projects_local(projects):
     r = requests.post(url, json=packet)
 
 
-def main():
+def main() -> None:
     reader = csv.DictReader(open("sample-devpost-submissions-export.csv", "rt",
                                  encoding="utf8", errors='ignore'))
 

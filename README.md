@@ -64,6 +64,8 @@ guide! You can find the linter for Atom
   console)).
 - Prepare some form of communication to give your sponsors their access codes
   and login link.
+- Follow the instructions in `expo/src/customize` to customize the app for
+  your hackathon.
 
 ### Before The Expo
 - Hold sponsor briefing to give winner selection instructions and guidelines.

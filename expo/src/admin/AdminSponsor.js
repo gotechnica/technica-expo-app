@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import axiosRequest from "../Backend.js";
+import axiosRequest from "Backend.js";
 
-import CreateChallengeModal from "./CreateChallengeModal";
-import CreateSponsorModal from "./CreateSponsorModal";
-import EditChallengeModal from "./EditChallengeModal";
-import EditSponsorModal from "./EditSponsorModal";
-import WarningModal from "./WarningModal";
-import SubmitInputModal from "../components/SubmitInputModal";
+import CreateChallengeModal from "admin/CreateChallengeModal";
+import CreateSponsorModal from "admin/CreateSponsorModal";
+import EditChallengeModal from "admin/EditChallengeModal";
+import EditSponsorModal from "admin/EditSponsorModal";
+import WarningModal from "admin/WarningModal";
+import SubmitInputModal from "components/SubmitInputModal";
 
-import "../Admin.css";
-import "../App.css";
+import "Admin.css";
+import "App.css";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSquare } from "../../node_modules/@fortawesome/fontawesome-free-regular";
-import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "../../node_modules/@fortawesome/fontawesome-free-solid";
+import { faSquare } from "@fortawesome/fontawesome-free-regular";
+import { faCaretDown, faCaretUp, faCheckSquare, faUpload } from "@fortawesome/fontawesome-free-solid";
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);
@@ -31,7 +31,7 @@ class SponsorModule extends Component {
         viewable: true,
       };
     }
-  
+
     loadCompanies() {
       axiosRequest.get("api/companies")
         .then((sponsors) => {
@@ -40,7 +40,7 @@ class SponsorModule extends Component {
           });
         });
     }
-  
+
     toggleView() {
       if (this.state.viewable) {
         this.setState({
@@ -54,7 +54,7 @@ class SponsorModule extends Component {
         document.getElementById("sponsor-content").style.display = "block";
       }
     }
-  
+
     deleteAllSponsors() {
       if (window.confirm("Are you sure you want to remove ALL sponsors from your database?")) {
         if (window.confirm("This action is not reversable.")) {
@@ -65,21 +65,21 @@ class SponsorModule extends Component {
         }
       }
     }
-  
+
     seedChallengesFromDevpost(devpostUrl) {
       // Determine inputted URL or default server Devpost URL
-      const params = devpostUrl == "" ? {} : { "devpostUrl": devpostUrl };
+      const params = devpostUrl === "" ? {} : { "devpostUrl": devpostUrl };
       axiosRequest.post("api/seed-challenges-from-devpost", params)
         .then(() => {
           this.loadCompanies();
         });
     }
-  
+
     // Pull data for sponsor list
     componentWillMount() {
       this.loadCompanies();
     }
-  
+
     render() {
       // Compress list by access_code to suit view
       let compressedSponsors = [];
@@ -87,12 +87,12 @@ class SponsorModule extends Component {
         // Check whether code is unique
         let codeSeen = false;
         compressedSponsors.forEach((sponsor) => {
-          if (sponsor.access_code == elt.access_code) {
+          if (sponsor.access_code === elt.access_code) {
             codeSeen = true;
           }
         });
-  
-        if (codeSeen == false) {
+
+        if (codeSeen === false) {
           // Set new item
           compressedSponsors.push(
             {
@@ -103,31 +103,31 @@ class SponsorModule extends Component {
             },
           );
         }
-  
+
         // Add challenge to corresponding sponsor
         let current_sponsor = null;
         compressedSponsors.forEach((sponsor) => {
-          if (sponsor.access_code == elt.access_code) {
+          if (sponsor.access_code === elt.access_code) {
             current_sponsor = sponsor;
           }
         });
-        if (elt.challenge_name != undefined) {
+        if (elt.challenge_name !== undefined) {
           current_sponsor.challenges.push({
             challenge: elt.challenge_name,
             id: elt.challenge_id,
             num_winners: elt.num_winners,
           });
         }
-  
+
       });
-  
+
       // Prepare sponsor list against filter (including sponsor name and challenges)
       let filteredSponsors = compressedSponsors;
-      if (this.state.textSearch != "" && this.state.textSearch != undefined) {
+      if (this.state.textSearch !== "" && this.state.textSearch !== undefined) {
         filteredSponsors = filteredSponsors.filter(elt => {
-  
+
           let casedTextSearch = this.state.textSearch.toUpperCase();
-  
+
           let chalSearch = false;
           elt.challenges.forEach(chal => {
             if (chal.challenge.toUpperCase().includes(casedTextSearch)) {
@@ -138,12 +138,12 @@ class SponsorModule extends Component {
             || chalSearch;
         });
       }
-  
+
       // Sort Sponsors
       filteredSponsors.sort((s1, s2) => {
         return (s1.company_name).localeCompare(s2.company_name);
       });
-  
+
       return (
         <div className="card">
           <div className="card-header">
@@ -230,7 +230,7 @@ class SponsorModule extends Component {
                           </button>
                       </span>
                     </div>
-  
+
                     <div>
                       <CreateChallengeModal
                         createID={"modalCreateChallenge" + key.toString()}
@@ -247,7 +247,7 @@ class SponsorModule extends Component {
                         Create Challenge
                             </button>
                     </div>
-  
+
                     {elt.challenges.map((challenge, i) => {
                       return (
                         <div>
