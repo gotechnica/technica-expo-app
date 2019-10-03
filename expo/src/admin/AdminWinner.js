@@ -92,15 +92,6 @@ class WinnerModule extends Component {
             };
           });
 
-          /*this.setState({
-            data: data.sort((s1, s2) => {
-              if(s1.sponsor_name === undefined || s1.sponsor_name === undefined) {
-                return 0;
-              }
-
-              return (s1.sponsor_name).localeCompare(s2.sponsor_name); })
-          });*/
-
           this.setState({
             data: data.sort((s1, s2) => {
               if (s1.sponsor === undefined || s1.sponsor === undefined) {
@@ -137,7 +128,7 @@ class WinnerModule extends Component {
     publishExpo() {
       axiosRequest.post("api/is_published_status", {
         "is_published": true,
-      }).then((data) => {
+      }).then(() => {
         this.setState({
           expoIsPublished: true,
         });
@@ -147,7 +138,7 @@ class WinnerModule extends Component {
     unpublishExpo() {
       axiosRequest.post("api/is_published_status", {
         "is_published": false,
-      }).then((data) => {
+      }).then(() => {
         this.setState({
           expoIsPublished: false,
         });
@@ -157,7 +148,7 @@ class WinnerModule extends Component {
     showWinners() {
       axiosRequest.post("api/publish_winners_status", {
         "publish_winners": true,
-      }).then((data) => {
+      }).then(() => {
         this.setState({
           winnersRevealed: true,
         });
@@ -167,7 +158,7 @@ class WinnerModule extends Component {
     hideWinners() {
       axiosRequest.post("api/publish_winners_status", {
         "publish_winners": false,
-      }).then((data) => {
+      }).then(() => {
         this.setState({
           winnersRevealed: false,
         });
