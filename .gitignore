@@ -12,3 +12,5 @@ api/analytics.log
 nginx/certbot/
 !nginx/certbot/.gitkeep
 api/.mypy_cache/
+.pytest_cache
+pyvenv.cfg
