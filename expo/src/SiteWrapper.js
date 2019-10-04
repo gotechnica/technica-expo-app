@@ -11,18 +11,6 @@ let SiteWrapper = (content) => (
       <Link to="/">
         <img className="logo" src= {hackathon_logo} alt="Logo" />
       </Link>
-      {/*
-      <div className="collapse navbar-collapse">
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link to="/sponsorlogin">Sponsor Login</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/adminlogin">Admin Login</Link>
-          </li>
-        </ul>
-      </div> */}
-
     </nav>
     <div className="container">
       {content}
