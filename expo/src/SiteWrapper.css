@@ -1,11 +1,7 @@
 .logo {
-  /* CUSTOMIZABLE PARAMS */
   height: 6rem;
   margin-top: 50px;
   margin-bottom: 25px;
-  /* -webkit-filter: drop-shadow(3px 3px 10px rgba(255, 255, 255, 1)); */
-  /* filter: drop-shadow(3px 3px 10px rgba(255, 255, 255, 1)); */
-  /* END CUSTOMIZABLE PARAMS */
   text-align: center;
 }
 

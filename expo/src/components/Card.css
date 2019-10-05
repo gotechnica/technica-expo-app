@@ -1,6 +1,5 @@
 
 @import url('/customize/customize.css');
-/* TODO decide on app-wide color scheme */
 
 .card {
   margin: 10px;
@@ -16,8 +15,5 @@
 
 .card-header {
   background-color: var(--card_header_background);
-  /*background-color: #ff7bac;
-  color:#fff;
-  font-size:.2rem;*/
 }
 

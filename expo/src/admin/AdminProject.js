@@ -61,12 +61,6 @@ class ProjectModule extends Component {
         });
       }
       allChallenges.sort();
-      // obj.map((item)=>{
-      //   item.challenges.map((challenge)=>{
-      //     if(allChallenges.indexOf(challenge)===-1)
-      //       allChallenges.push(challenge);
-      //   })
-      // })
       return allChallenges;
     }
 
