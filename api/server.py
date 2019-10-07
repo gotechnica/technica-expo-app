@@ -18,6 +18,7 @@ from loggingAnalytics import *
 from seed_db import *
 from devpost_scraper import *
 
+
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.config.from_object('config')
@@ -224,14 +225,18 @@ def csv_tester():
 @app.route('/parse_csv', methods=['POST'])
 @is_admin
 def parse_csv():
+    # print("Loading file...")
     file = request.files['projects_csv']
+
     logged_message(f'endpoint = /parse_csv, method = POST, params = NONE, type = admin')
     if not file:
         return "No file"
     with file.stream as temp_file:
         fd = temp_file.fileno()
         reader = csv.DictReader(io.open(fd, "rt", encoding="utf8", errors='ignore'))
+
         moving, not_moving = parse_csv_internal(reader, current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION'])
+
         bulk_add_projects_internal(get_project_list(not_moving))
         bulk_add_projects_internal(get_project_list(moving))
     # TODO(timothychen01): Just return the integer
@@ -456,6 +461,7 @@ def delete_all_projects():
     logged_message(f'endpoint = /api/projects/deleteAll, method = DELETE, params = NONE, type = admin')
 
     projects.delete_many({})
+    delete_projects() # clear dictionary from seed_db
     return jsonify({'Delete': 'all'})
 
 

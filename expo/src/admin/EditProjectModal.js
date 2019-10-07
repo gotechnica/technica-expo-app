@@ -70,7 +70,7 @@ class EditProjectModal extends Component {
   saveProject = () => {
     //create challenges to POST
     let challenges = [];
-    this.state.challenges.forEach((item) => {
+    this.state.challenges.forEach((item)=>{
       let object = {}
       if (this.state.company_map[item]) {
         object = {

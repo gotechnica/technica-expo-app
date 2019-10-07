@@ -131,6 +131,14 @@ def already_in_db():
     return projects
 
 
+# clear moving, not_moving
+def delete_projects():
+    moving.clear()
+    not_moving.clear()
+
+    # print("size of moving: ", len(moving))
+    # print("size of not moving: ", len(not_moving))
+
 def parse_csv_internal(reader, not_moving_question=None):
     """Parses a CSV exported from DevPort and seperates hackers based on if
     their hack needs to be stationary (i.e. can't move from table) or not.
@@ -173,6 +181,7 @@ def parse_csv_internal(reader, not_moving_question=None):
             not_moving[project_name].table_number = needs_to_stay.group(0)
         else:
             moving[project_name] = Project(project_url, challenges)
+    
     return moving, not_moving
 
 
