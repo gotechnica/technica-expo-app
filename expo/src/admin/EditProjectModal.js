@@ -34,10 +34,10 @@ class EditProjectModal extends Component {
 
 
   componentWillMount = () => {
-    this.state.challenges.forEach((challenge) => {
+    /*this.state.challenges.forEach((challenge) => {
       if (this.state.challengeStore.indexOf(challenge) === -1)
         this.state.challengeStore.push(challenge);
-      })
+      })*/
   }
 
   toggleConfirmation = () => {
