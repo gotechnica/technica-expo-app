@@ -1,5 +1,4 @@
-
-@import url('/customize/customize.css');
+@import url("/customize/customize.css");
 
 .card {
   margin: 10px;
@@ -16,4 +15,3 @@
 .card-header {
   background-color: var(--card_header_background);
 }
-

@@ -1,14 +1,15 @@
-
-@import url('customize/customize.css');
+@import url("customize/customize.css");
 /* Hide default checkbox */
-#Sponsor input[type=checkbox] {
+#Sponsor input[type="checkbox"] {
   display: none;
 }
-#Sponsor .fa-square, #Sponsor .fa-check-square {
+#Sponsor .fa-square,
+#Sponsor .fa-check-square {
   font-size: 50px;
   color: var(--sponsor_fa_square);
 }
- #Sponsor .fa-square, #Sponsor .disabled {
+#Sponsor .fa-square,
+#Sponsor .disabled {
   opacity: 0.5;
 }
 #Sponsor .hoverable:hover {
@@ -16,7 +17,7 @@
 }
 
 #diversifyWinnersModal .warning {
-  color: var(--warning)
+  color: var(--warning);
 }
 #diversifyWinnersModal div.diversity-modal {
   background-color: transparent;
@@ -78,8 +79,6 @@
 
 /* ================================================== */
 
-
-
 @media screen and (max-width: 374px) {
   #Sponsor div.no-submissions {
     word-break: break-word;
@@ -108,19 +107,17 @@ div.bd-example-modal-sm button.button {
   }
 }
 
-
-
-
 /*=====================================================*/
 #Sponsor button.task-header {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 #Sponsor ul {
   list-style: none;
 }
 
-.fa-user-check, .fa-check-circle {
+.fa-user-check,
+.fa-check-circle {
   color: var(--sponsor_fa_user_circle);
 }
 
@@ -131,7 +128,8 @@ div.bd-example-modal-sm button.button {
   margin-left: 7px;
 }
 
-#Sponsor div.task-header h5, p {
+#Sponsor div.task-header h5,
+p {
   margin-left: 7px;
 }
 
@@ -152,7 +150,7 @@ div.bd-example-modal-sm button.button {
   padding-bottom: 5px;
   outline: none;
   padding-left: 7px;
-  width:100%;
+  width: 100%;
 }
 
 #Sponsor button.task-icon {

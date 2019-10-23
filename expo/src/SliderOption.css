@@ -1,5 +1,4 @@
-
-@import url('customize/customize.css');
+@import url("customize/customize.css");
 
 .toggle {
   margin-top: 20px;
@@ -21,7 +20,9 @@
   height: 20px;
 }
 
-.switch input {display:none;}
+.switch input {
+  display: none;
+}
 
 .slider {
   position: absolute;
@@ -72,26 +73,23 @@ input:checked + .slider:before {
   transform: translateX(40px);
 }
 
-.slider:after
-{
- content:'OFF';
- color: var(--slider_after);
- display: block;
- position: absolute;
- white-space: nowrap;
- transform: translate(-50%,-50%);
- top: 50%;
- left: 65%;
- font-size: 13px;
- font-weight: bold;
- -webkit-transition: all 0.3s ease-out;
- transition: all 0.3s ease-out;
+.slider:after {
+  content: "OFF";
+  color: var(--slider_after);
+  display: block;
+  position: absolute;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 65%;
+  font-size: 13px;
+  font-weight: bold;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
-input:checked + .slider:after
-{
+input:checked + .slider:after {
   left: 38%;
-  content:'ON';
+  content: "ON";
   color: white;
 }
-

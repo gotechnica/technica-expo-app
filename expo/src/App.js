@@ -1,16 +1,15 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { useCachedResponseData } from 'Backend.js';
+import React from "react";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { useCachedResponseData } from "Backend.js";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "App.css";
 
-import Admin from 'Admin.js';
-import AdminLogin from 'AdminLogin.js';
-import Home from 'Home.js';
-import Sponsor from 'Sponsor.js';
-import SponsorLogin from 'SponsorLogin.js';
-
+import Admin from "Admin.js";
+import AdminLogin from "pages/AdminLogin.js";
+import Home from "pages/Home.js";
+import Sponsor from "Sponsor.js";
+import SponsorLogin from "pages/SponsorLogin.js";
 
 /* Routing control for app overall */
 const Routing = () => (
@@ -32,4 +31,4 @@ const Routing = () => (
   </Router>
 );
 
-export default Routing
+export default Routing;
