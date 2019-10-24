@@ -12,8 +12,8 @@
     --primary-action-darker: #00C7C7;
     --cancel-action: #FF7BAC;
     --cancel-action-darker: #FF96BD;
-    --warning: #FC4363;
-    --warning-darker: #DF3B57;
+    --warning: #FF7BAC;
+    --warning-darker: #FF96BD;
     --accent: #528CA5;
 
     /* variable naming scheme:
@@ -22,7 +22,7 @@
     /* supporting color scheme */
     /* Technica: 2f2f2f, Bitcamp Midnight Blue: 1A2E33 */
     --supporting-primary: #2f2f2f;
-    --supporting-primary-darker: rgb(52, 65, 68);
+    --supporting-primary-darker: #1c1c1c;
 
     /* App.css styles */
     --app_background_banner: url('./imgs/background.jpg');
