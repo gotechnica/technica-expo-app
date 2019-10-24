@@ -149,8 +149,8 @@ class SearchandFilter extends Component {
       let firstChallenge = this.createChallengeSponsorArray(challenges)[0];
       let initialData = [];
 
-      projects.forEach(function(obj){
-        obj.challenges.forEach(function(item){
+      projects.forEach((obj) => {
+        obj.challenges.forEach((item) =>{
           if (item.company === this.props.loggedIn && item.challenge_name === firstChallenge) {
             initialData.push(obj);
           }
@@ -167,9 +167,9 @@ class SearchandFilter extends Component {
 
     if (this.props.origin === "sponsor") {
       let voting_data = {};
-      this.state.data.forEach(function(obj){
+      this.state.data.forEach((obj) => {
         let temp = {}
-        obj.challenges.forEach(function(item){
+        obj.challenges.forEach((item) =>{
           if (item.company === this.props.loggedIn) {
             if (challenges.indexOf(item.challenge_name) !== -1) {
               temp[item.challenge_name] = false;
