@@ -175,3 +175,16 @@ div.bd-example-modal-sm button.button {
   color: var(--sponsor_fa_times_circle);
   font-size: 18px;
 }
+
+
+/*************************/
+
+.nowrap {
+  display: inline-block;
+  white-space:nowrap;
+  margin-top: 20px;
+}
+
+.inline-numinput {
+  max-width: 80px;
+}

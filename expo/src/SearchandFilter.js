@@ -9,6 +9,8 @@ import 'components/Card.css';
 import 'SliderOption.css';
 import { sortByTableNumber } from 'helpers.js';
 
+import JudgingTimes from './JudgingTime';
+
 class SearchandFilter extends Component {
 
   constructor(props) {
@@ -24,7 +26,9 @@ class SearchandFilter extends Component {
       workingdata: [],
       width: window.innerWidth,
       winnersRevealed: false,
-      expoIsPublished: false
+      expoIsPublished: false,
+      expoLength: 0,
+      totalCount: 0,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -55,6 +59,10 @@ class SearchandFilter extends Component {
               challenges: challenge_data,
               workingdata: this.setSponsorWorkingData(project_data['projects'], challenge_data),
               isLoadingData: false,
+            }, () => {
+              this.setState({
+                totalCount: this.state.workingdata.length,
+              })
             });
           });
         this.setState({
@@ -62,6 +70,13 @@ class SearchandFilter extends Component {
           expoIsPublished: project_data['is_published']
         });
       });
+
+      axiosRequest.get("api/expo_length")
+      .then((length) => {
+        this.setState({
+          expoLength: parseInt(length)
+        })
+      })
 
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
@@ -262,6 +277,13 @@ class SearchandFilter extends Component {
       <Fragment></Fragment>
     );
 
+    let judging_times = (this.props.origin === "sponsor" ?
+      <div class="row">
+        <div class="col">
+          <JudgingTimes count={this.state.totalCount} time={this.state.expoLength} />
+        </div>
+      </div> : <Fragment></Fragment>);
+
     let toggle_style = (this.props.origin === "home" ? {
       display: "inline-block",
       textAlign: "left",
@@ -277,6 +299,7 @@ class SearchandFilter extends Component {
     return (
       <div>
         {welcome_header}
+        {judging_times}
         <div class="card">
           {this.props.origin === 'sponsor' ?
             <div class="card-header">
