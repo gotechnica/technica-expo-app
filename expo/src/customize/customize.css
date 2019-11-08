@@ -25,7 +25,7 @@
     --supporting-primary-darker: #1c1c1c;
 
     /* App.css styles */
-    --app_background_banner: url('./imgs/background.jpg');
+    --app_background_banner: url('./imgs/background.png');
     --app_background_color: #2d2d2d;
     --app_modal_color: #222;
     --app_modal_border: rgba(0,0,0,.125);
