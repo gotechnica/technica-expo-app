@@ -1,4 +1,4 @@
-From python:3
+From python:3.7
 
 ADD . /app
 

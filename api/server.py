@@ -192,6 +192,11 @@ def get_is_published_flag():
     logged_message(f'endpoint = /api/is_published_status, method = GET, params = NONE, type = public')
     return str(is_published)
 
+@app.route('/api/expo_length', methods=['GET'])
+def get_expo_length():
+    logged_message(f'endpoint = /api/expo_length, method = GET, params = NONE, type = public')
+    return str(current_app.config['EXPO_LENGTH'])
+
 
 # Admin routes #################################################################
 # All endpoints under the Admin routes should require admin authorization.
