@@ -20,7 +20,7 @@ def number_to_table(number: int) -> str:
 
 def available_tables() -> None:
     all_tables = list(map(lambda x: number_to_table(x), list(range(1, 391))))
-    r = requests.get("http://127.0.0.1:5000/api/projects")
+    r = requests.get("https://expo-api.gotechnica.org/api/projects")
 
     taken = re.findall('\"table_number\": \"(\w\d+)\"', r.text)
     taken.sort()
@@ -33,7 +33,7 @@ def available_tables() -> None:
 
 def add_project(table_number: int, project_url: str, project_name: str, challenges) -> None:
     s = helpers.login()
-    url = "http://127.0.0.1:5000/api/projects/add"
+    url = "https://expo-api.gotechnica.org/api/projects/add"
     info = {
         'table_number': table_number,
         'project_name': project_name,

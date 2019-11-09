@@ -8,7 +8,7 @@ def delete_project() -> None:
     s = helpers.login()
 
     project_name = input('What is the project name? ')
-    url = "http://127.0.0.1:5000/api/projects/delete"
+    url = "https://expo-api.gotechnica.org/api/projects/delete"
 
     payload = {
         'project_name': project_name,
@@ -20,7 +20,7 @@ def delete_project() -> None:
 def delete_all_projects() -> None:
     s = helpers.login()
 
-    url = "http://127.0.0.1:5000/api/projects/deleteAll"
+    url = "https://expo-api.gotechnica.org/api/projects/deleteAll"
     r = s.delete(url)
 
 
