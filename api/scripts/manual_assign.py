@@ -2,6 +2,7 @@ import csv
 import re
 import requests
 import json
+import helpers
 
 
 def table_to_number(table: str) -> int:
@@ -31,6 +32,7 @@ def available_tables() -> None:
 
 
 def add_project(table_number: int, project_url: str, project_name: str, challenges) -> None:
+    s = helpers.login()
     url = "http://127.0.0.1:5000/api/projects/add"
     info = {
         'table_number': table_number,
@@ -39,7 +41,7 @@ def add_project(table_number: int, project_url: str, project_name: str, challeng
         'challenges': challenges,
         'challenges_won': ""
     }
-    r = requests.post(url, json=info)
+    r = s.post(url, json=info)
 
 
 def main() -> None:

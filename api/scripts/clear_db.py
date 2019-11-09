@@ -2,31 +2,26 @@ import csv
 import re
 import requests
 import json
-
+import helpers
 
 def delete_project() -> None:
-    project_name = input('What is the project name? ')
-    password = input('What is the password? ')
+    s = helpers.login()
 
+    project_name = input('What is the project name? ')
     url = "http://127.0.0.1:5000/api/projects/delete"
 
     payload = {
         'project_name': project_name,
-        'password': password
     }
-    r = requests.delete(url, json=payload)
+    r = s.delete(url, json=payload)
     print(r.url)
 
 
 def delete_all_projects() -> None:
-    password = input('What is the password? ')
+    s = helpers.login()
 
     url = "http://127.0.0.1:5000/api/projects/deleteAll"
-
-    payload = {
-        'password': password
-    }
-    r = requests.delete(url, json=payload)
+    r = s.delete(url)
 
 
 def main() -> None:
