@@ -24,7 +24,7 @@ export default function JudgingTimes(props) {
         <div className="nowrap">
             Given
                 <input className="inline-numinput" type="number" id="numJudges" name="judges" min="1" value={judges} onChange={(e) => {setJudges(parseInt(e.target.value))}} /> {plural}, and
-                <input className="inline-numinput" type="number" id="endTime" name="selectionTime" min="1" value={endTime} onChange={(e) => {setEndTime(parseInt(e.target.value))}} /> minutes at the end to select a winner, <br/>
+                <input className="inline-numinput" type="number" id="endTime" name="selectionTime" min="1" value={endTime} onChange={(e) => {setEndTime(parseInt(e.target.value))}} /> minutes of buffer time, <br/>
             each judge can spend about {time.toFixed(1)} minutes per hack.</div>
     </div>);
 }
