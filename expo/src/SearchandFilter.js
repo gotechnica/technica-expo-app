@@ -277,12 +277,13 @@ class SearchandFilter extends Component {
       <Fragment></Fragment>
     );
 
-    let judging_times = (this.props.origin === "sponsor" ?
+    /*let judging_times = (this.props.origin === "sponsor" ?
       <div class="row">
         <div class="col">
           <JudgingTimes count={this.state.totalCount} time={this.state.expoLength} />
         </div>
-      </div> : <Fragment></Fragment>);
+      </div> : <Fragment></Fragment>);*/
+      let judging_times = null;
 
     let toggle_style = (this.props.origin === "home" ? {
       display: "inline-block",
