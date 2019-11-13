@@ -1,14 +1,17 @@
-@import url('customize/customize.css');
+@import url("customize/customize.css");
 
 /* Remove Default Link Style */
-#Home .link, #Sponsor .link,
-#Home .link:hover, #Sponsor .link:hover {
+#Home .link,
+#Sponsor .link,
+#Home .link:hover,
+#Sponsor .link:hover {
   color: white;
   text-decoration: none;
 }
 
 /* Winning Project Ribbon */
-#Home img.Ribbon, #Sponsor img.Ribbon {
+#Home img.Ribbon,
+#Sponsor img.Ribbon {
   height: 30px;
   width: 30px;
   margin-right: 7px;
@@ -18,10 +21,11 @@
 }
 
 #Home button:disabled {
-  opacity: 1.0;
+  opacity: 1;
 }
 
-#Home .btn:active,.btn:focus {
+#Home .btn:active,
+.btn:focus {
   outline: none;
   box-shadow: none;
 }
@@ -35,19 +39,21 @@
   outline: none;
 }
 
-
-#Sponsor table, #Home table {
+#Sponsor table,
+#Home table {
   width: 100%;
   border-collapse: collapse;
 }
 
-#Sponsor table thead th, #Home table thead th {
+#Sponsor table thead th,
+#Home table thead th {
   font-size: 17.5px;
   text-align: center;
   padding-bottom: 5px;
 }
 
-#Sponsor tr td, #Home tr td {
+#Sponsor tr td,
+#Home tr td {
   padding: 15px 0px;
   border-top: 2px solid var(--table_home_tr_td);
 }
@@ -149,7 +155,8 @@
   }
 }
 
-#Sponsor div.no-submissions, #Home div.no-submissions {
+#Sponsor div.no-submissions,
+#Home div.no-submissions {
   text-align: center;
   white-space: pre-wrap;
 
@@ -166,7 +173,8 @@
   justify-content: center;
 }
 
-#Sponsor div.no-submissions h2, #Home div.no-submissions h2 {
+#Sponsor div.no-submissions h2,
+#Home div.no-submissions h2 {
   font-weight: bolder;
 }
 

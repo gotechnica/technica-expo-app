@@ -1,4 +1,4 @@
-@import url('customize/customize.css');
+@import url("customize/customize.css");
 
 html {
   background-color: var(--app_background_color);
@@ -18,7 +18,7 @@ body {
   background-repeat: no-repeat;
   background-color: var(--app_background_color);
   background-size: cover;
-  content: '';
+  content: "";
   height: 100%;
   left: 0;
   position: fixed;
@@ -27,7 +27,13 @@ body {
   z-index: 0;
 }
 
-h1, h2, h3, h4, h5, h6, .header-font {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.header-font {
   font-family: var(--header-font);
 }
 
@@ -36,10 +42,10 @@ h1, h2, h3, h4, h5, h6, .header-font {
   background-color: var(--app_modal_color);
 }
 .modal-header {
-  border-bottom: 1px solid rgba(0,0,0,.125);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 .modal-footer {
-  border-top: 1px solid rgba(0,0,0,.125);
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 .close {
   color: #fff;
@@ -62,7 +68,8 @@ h1, h2, h3, h4, h5, h6, .header-font {
 }
 
 /* Get rid of dark blue outline */
-.button:active, .button:focus {
+.button:active,
+.button:focus {
   outline: none;
 }
 
@@ -105,7 +112,7 @@ h1, h2, h3, h4, h5, h6, .header-font {
   background: none;
   color: var(--app_link_button_color);
   font-size: 1rem;
-  border:none;
+  border: none;
 }
 .link-button:hover {
   color: var(--primary-action);
@@ -124,7 +131,7 @@ h1, h2, h3, h4, h5, h6, .header-font {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   outline: none;
-  width:100%;
+  width: 100%;
   padding: 10px;
 }
 .error-icon {
