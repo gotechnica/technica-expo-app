@@ -1,21 +1,26 @@
-import React, { Component, Fragment } from 'react';
-import axiosRequest from 'Backend.js';
+import React, { Component, Fragment } from "react";
+import axiosRequest from "Backend.js";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Error from 'Error.js';
-import SearchandFilter from 'SearchandFilter.js';
-import SiteWrapper from 'SiteWrapper.js';
-import Table from 'Table.js';
-import customize from 'customize/customize';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Error from "Error.js";
+import SearchandFilter from "SearchandFilter.js";
+import SiteWrapper from "SiteWrapper.js";
+import Table from "Table.js";
+import customize from "customize/customize";
 
-import 'App.css';
-import 'Sponsor.css';
-import 'CircleCheck.css';
+import "App.css";
+import "Sponsor.css";
+import "CircleCheck.css";
 
-import { faCircle } from '@fortawesome/fontawesome-free-regular';
-import { faCircle as faCircleSolid } from '@fortawesome/fontawesome-free-solid';
-import { faCheck, faExclamationTriangle, faTimesCircle, faClipboardList } from '@fortawesome/fontawesome-free-solid';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCircle } from "@fortawesome/fontawesome-free-regular";
+import { faCircle as faCircleSolid } from "@fortawesome/fontawesome-free-solid";
+import {
+  faCheck,
+  faExclamationTriangle,
+  faTimesCircle,
+  faClipboardList
+} from "@fortawesome/fontawesome-free-solid";
+import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faTimesCircle);
 library.add(faCircle);
 library.add(faCheck);
@@ -24,28 +29,65 @@ library.add(faClipboardList);
 library.add(faCircle, faCircleSolid);
 
 class WinnersSubmmitedModal extends Component {
-
   render() {
     return (
-      <div class="modal fade bd-example-modal-sm" id="winnersSubmmitedModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div
+        class="modal fade bd-example-modal-sm"
+        id="winnersSubmmitedModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="mySmallModalLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-sm modal-dialog-centered">
           <div class="modal-content" style={{ border: "0px solid" }}>
             <div class="modal-header" style={{ border: "0px solid" }}>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body" style={{ color: "white", textAlign: "center", marginTop: "-40px" }}>
-              <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+            <div
+              class="modal-body"
+              style={{
+                color: "white",
+                textAlign: "center",
+                marginTop: "-40px"
+              }}
+            >
+              <svg
+                class="checkmark"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 52 52"
+              >
+                <circle
+                  class="checkmark__circle"
+                  cx="26"
+                  cy="26"
+                  r="25"
+                  fill="none"
+                />
+                <path
+                  class="checkmark__check"
+                  fill="none"
+                  d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                />
               </svg>
               <h3 style={{ padding: "0px 10px" }}>
                 Thanks for submitting your winners!
               </h3>
             </div>
-            <div class="modal-footer" style={{ border: "0px solid", paddingTop: "0px" }}>
-              <button className="button button-primary" data-dismiss="modal">OK</button>
+            <div
+              class="modal-footer"
+              style={{ border: "0px solid", paddingTop: "0px" }}
+            >
+              <button className="button button-primary" data-dismiss="modal">
+                OK
+              </button>
             </div>
           </div>
         </div>
@@ -60,7 +102,7 @@ export class SubmitModal extends Component {
     this.handleModalEvent = this.handleModalEvent.bind(this);
     this.state = {
       toggle: false
-    }
+    };
   }
   handleModalEvent() {
     if (!this.state.toggle) {
@@ -70,57 +112,83 @@ export class SubmitModal extends Component {
   render() {
     let vote_limit = this.props.vote_limit;
     let votes = [];
-    this.props.votes.forEach((project) => {
+    this.props.votes.forEach(project => {
       votes.push(<li>{project}</li>);
     });
     let modal = {
       error: {
         icon: faTimesCircle,
         iconstyle: "fa-times-circle",
-        message:
+        message: (
           <Fragment>
             Oops! Too many projects are selected to win this challenge.&nbsp;
-            Our records show that you only intended to provide prizes for {vote_limit} project{vote_limit > 1 ? 's' : ''}.&nbsp;
-            Come chat with someone on the {customize.hackathon_name} team if you want to select more!
+            Our records show that you only intended to provide prizes for{" "}
+            {vote_limit} project{vote_limit > 1 ? "s" : ""}.&nbsp; Come chat
+            with someone on the {customize.hackathon_name} team if you want to
+            select more!
           </Fragment>
+        )
       },
       warning: {
         icon: faExclamationTriangle,
         iconstyle: "fa-exclamation-triangle",
-        message:
+        message: (
           <Fragment>
-            Just a heads up! Our records show that you originally intended to provide prizes to {vote_limit} project{vote_limit > 1 ? 's' : ''} for this challenge, but
-            {votes.length === 0 ? ' none ' : ` only ${votes.length} `}
-            {votes.length === 1 ? ' was ' : ' were '} selected.
+            Just a heads up! Our records show that you originally intended to
+            provide prizes to {vote_limit} project{vote_limit > 1 ? "s" : ""}{" "}
+            for this challenge, but
+            {votes.length === 0 ? " none " : ` only ${votes.length} `}
+            {votes.length === 1 ? " was " : " were "} selected.
           </Fragment>
+        )
       }
     };
 
     return (
       <Fragment>
-        <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div
+          class="modal fade"
+          id="submitModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true"
+        >
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Winner Selection</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+                  Confirm Winner Selection
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                {votes.length !== vote_limit ?
-                  (votes.length > vote_limit ?
-                    <Error icon={modal.error.icon} iconstyle={modal.error.iconstyle}>
+                {votes.length !== vote_limit ? (
+                  votes.length > vote_limit ? (
+                    <Error
+                      icon={modal.error.icon}
+                      iconstyle={modal.error.iconstyle}
+                    >
                       {modal.error.message}
                     </Error>
-                    :
-                    <Error icon={modal.warning.icon} iconstyle={modal.warning.iconstyle}>
+                  ) : (
+                    <Error
+                      icon={modal.warning.icon}
+                      iconstyle={modal.warning.iconstyle}
+                    >
                       {modal.warning.message}
                     </Error>
                   )
-                  :
+                ) : (
                   <Fragment></Fragment>
-                }
+                )}
                 <Error
                   icon={modal.warning.icon}
                   iconstyle={modal.warning.iconstyle}
@@ -134,23 +202,33 @@ export class SubmitModal extends Component {
                 </ul>
               </div>
               <div class="modal-footer">
-                <button className="button button-secondary" data-dismiss="modal">Cancel</button>
-                {votes.length > vote_limit ?
-                  <button className="button button-primary" disabled>Submit</button>
-                  :
+                <button
+                  className="button button-secondary"
+                  data-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                {votes.length > vote_limit ? (
+                  <button className="button button-primary" disabled>
+                    Submit
+                  </button>
+                ) : (
                   <button
                     className="button button-primary"
                     data-toggle="modal"
                     data-target="#winnersSubmmitedModal"
                     data-dismiss="modal"
                     onClick={this.props.submit_handler.bind(
-                      this, this.props.company_id,
+                      this,
+                      this.props.company_id,
                       this.props.challenge_id,
                       this.props.value,
-                      this.props.after_submission_handler)}>
+                      this.props.after_submission_handler
+                    )}
+                  >
                     Submit
-                </button>
-                }
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -163,11 +241,11 @@ export class SubmitModal extends Component {
 
 class Task extends Component {
   render() {
-    let winners = []
+    let winners = [];
     if (this.props.winners.length > 0) {
-      this.props.winners.forEach((project_id) => {
+      this.props.winners.forEach(project_id => {
         winners.push(<li>{this.props.project_hash[project_id]}</li>);
-      })
+      });
     }
     let circle = this.props.submitted ? faCheck : faClipboardList;
 
@@ -180,17 +258,24 @@ class Task extends Component {
           {this.props.submitted ? (
             <button className="task-title">{this.props.challenge}</button>
           ) : (
-              <button className="task-title">Select your winner{this.props.winners > 1 ? "s" : ""} for {this.props.challenge}</button>
-            )}
+            <button className="task-title">
+              Select your winner{this.props.winners > 1 ? "s" : ""} for{" "}
+              {this.props.challenge}
+            </button>
+          )}
         </div>
-        {winners.length > 0 ?
-          <ul className="selection-list" style={{ marginLeft: "50px", marginBottom: "0px" }}>
+        {winners.length > 0 ? (
+          <ul
+            className="selection-list"
+            style={{ marginLeft: "50px", marginBottom: "0px" }}
+          >
             {winners}
           </ul>
-          :
-          <Fragment></Fragment>}
+        ) : (
+          <Fragment></Fragment>
+        )}
       </Fragment>
-    )
+    );
   }
 }
 
@@ -215,8 +300,8 @@ export class VotingTable extends Component {
     this.state = {
       checked: {},
       challenges: {},
-      width: window.innerWidth,
-    }
+      width: window.innerWidth
+    };
   }
 
   /* Force VotingTable component to re-render once GET requests were granted */
@@ -227,21 +312,22 @@ export class VotingTable extends Component {
         let challenge_data = this.state.challenges;
         let updated_voting_data = this.props.voting_data;
         if (Object.keys(updated_voting_data).length > 0) {
-          Object.keys(challenge_data).forEach((challenge) => {
+          Object.keys(challenge_data).forEach(challenge => {
             let winners = challenge_data[challenge].winners;
             if (winners.length > 0) {
-              winners.forEach((project_id) => {
+              winners.forEach(project_id => {
                 updated_voting_data[project_id].checked[challenge] = true;
               });
             }
           });
         }
         /* Force state to update once GET calls and login goes through */
-        this.setState({
-          checked: updated_voting_data,
-          challenges: this.props.sponsor_data
-        },
-          function () { }
+        this.setState(
+          {
+            checked: updated_voting_data,
+            challenges: this.props.sponsor_data
+          },
+          function() {}
         );
       }
     }
@@ -258,13 +344,14 @@ export class VotingTable extends Component {
           company_id: company_id,
           challenge_id: challenge_id
         };
-        let route = 'api/projects/id/' + ckbx.value + '/makeWinner';
-        axiosRequest.post(route, params)
-          .then((response) => {
+        let route = "api/projects/id/" + ckbx.value + "/makeWinner";
+        axiosRequest
+          .post(route, params)
+          .then(response => {
             update(challenge_name, winners);
           })
-          .catch((error) => {
-            console.error('Error:', error);
+          .catch(error => {
+            console.error("Error:", error);
           });
       }
     }
@@ -272,7 +359,7 @@ export class VotingTable extends Component {
 
   handleClearEvent() {
     let cleared = this.state.checked;
-    Object.keys(this.state.checked).forEach((key) => {
+    Object.keys(this.state.checked).forEach(key => {
       cleared[key].checked[this.props.value] = false;
     });
     this.setState({ checked: cleared });
@@ -280,7 +367,8 @@ export class VotingTable extends Component {
 
   handleVoteEvent(project_id) {
     let new_checked = this.state.checked;
-    new_checked[project_id].checked[this.props.value] = !new_checked[project_id].checked[this.props.value];
+    new_checked[project_id].checked[this.props.value] = !new_checked[project_id]
+      .checked[this.props.value];
     this.setState({ checked: new_checked });
   }
 
@@ -288,7 +376,7 @@ export class VotingTable extends Component {
     return (
       <div style={{ marginTop: "20px" }} id="Sponsor">
         <Table
-          headers={['Select', 'Table', 'Challenges Won', 'Project']}
+          headers={["Select", "Table", "Challenges Won", "Project"]}
           company_id={this.props.company_id}
           isLoadingData={this.props.isLoadingData}
           projects={this.props.projects}
@@ -311,8 +399,10 @@ export class WelcomeHeader extends Component {
   render() {
     let tasks = [];
     let openTasksStillWaiting = false;
-    Object.keys(this.props.sponsor_data).forEach((challenge) => {
-      openTasksStillWaiting = openTasksStillWaiting || !this.props.sponsor_data[challenge].votes_submitted;
+    Object.keys(this.props.sponsor_data).forEach(challenge => {
+      openTasksStillWaiting =
+        openTasksStillWaiting ||
+        !this.props.sponsor_data[challenge].votes_submitted;
       tasks.push(
         <Task
           challenge={challenge}
@@ -346,17 +436,24 @@ export class WelcomeHeader extends Component {
             <div className="task-header">
               {openTasksStillWaiting ? (
                 <p>
-                  You still have {tasks.length === 1 ? 'a challenge to select your winner' : 'challenges to select winners'} for!
-                  Use the challenge selection menu to filter by projects that submitted to your specific challenge.
+                  You still have{" "}
+                  {tasks.length === 1
+                    ? "a challenge to select your winner"
+                    : "challenges to select winners"}{" "}
+                  for! Use the challenge selection menu to filter by projects
+                  that submitted to your specific challenge.
                   <br />
-                  If you want to select a project which did not submit to your specific challenge,
-                  come chat with someone on the {customize.hackathon_name} team and we'll get that updated for you!
+                  If you want to select a project which did not submit to your
+                  specific challenge, come chat with someone on the{" "}
+                  {customize.hackathon_name} team and we'll get that updated for
+                  you!
                 </p>
               ) : (
-                  <p>
-                    You've finalized the winners for your {tasks.length === 1 ? 'challenge' : 'challenges'}. Thanks!
+                <p>
+                  You've finalized the winners for your{" "}
+                  {tasks.length === 1 ? "challenge" : "challenges"}. Thanks!
                 </p>
-                )}
+              )}
             </div>
             {tasks}
           </Fragment>
@@ -366,7 +463,6 @@ export class WelcomeHeader extends Component {
   }
 }
 
-
 export default class Sponsor extends Component {
   constructor(props) {
     super(props);
@@ -375,48 +471,52 @@ export default class Sponsor extends Component {
       loggedIn: false,
       loggedInAs: null,
       company_id: null,
-      sponsor_data: null,
+      sponsor_data: null
     };
-    axiosRequest.get('api/whoami')
-      .then((credentials) => {
-        if (credentials !== undefined && credentials.user_type === 'sponsor') {
+    axiosRequest
+      .get("api/whoami")
+      .then(credentials => {
+        if (credentials !== undefined && credentials.user_type === "sponsor") {
           this.setState({
             loggedIn: true,
             loggedInAs: credentials.name,
             company_id: credentials.id,
-            sponsor_data: {},
+            sponsor_data: {}
           });
-          axiosRequest.get('api/v2/companies/current_sponsor')
-            .then((company) => {
-              let sponsor_challenges = {};
-              if (company.company_name === this.state.loggedInAs) {
-                Object.keys(company.challenges).forEach((challenge) => {
-                  let challenge_obj = company.challenges[challenge];
-                  sponsor_challenges[challenge_obj.challenge_name] = {
-                    challenge_id: challenge,
-                    vote_limit: challenge_obj.num_winners,
-                    votes_submitted: (challenge_obj.winners.length > 0 ? true : false),
-                    winners: challenge_obj.winners
-                  }
-                });
-                this.setState({
-                  sponsor_data: sponsor_challenges
-                });
-              }
-            });
+          axiosRequest.get("api/v2/companies/current_sponsor").then(company => {
+            let sponsor_challenges = {};
+            if (company.company_name === this.state.loggedInAs) {
+              Object.keys(company.challenges).forEach(challenge => {
+                let challenge_obj = company.challenges[challenge];
+                sponsor_challenges[challenge_obj.challenge_name] = {
+                  challenge_id: challenge,
+                  vote_limit: challenge_obj.num_winners,
+                  votes_submitted:
+                    challenge_obj.winners.length > 0 ? true : false,
+                  winners: challenge_obj.winners
+                };
+              });
+              this.setState({
+                sponsor_data: sponsor_challenges
+              });
+            }
+          });
         } else {
           this.props.history.push({
-            pathname: '/sponsorlogin'
+            pathname: "/sponsorlogin"
           });
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
 
   handleAfterSubmission(challenge, winners) {
-    if (this.state.sponsor_data !== undefined && Object.keys(this.state.sponsor_data).length > 0) {
+    if (
+      this.state.sponsor_data !== undefined &&
+      Object.keys(this.state.sponsor_data).length > 0
+    ) {
       let updated_sponsor_data = this.state.sponsor_data;
       updated_sponsor_data[challenge].votes_submitted = true;
       updated_sponsor_data[challenge].winners = winners;
@@ -427,13 +527,14 @@ export default class Sponsor extends Component {
   }
 
   onLogout() {
-    axiosRequest.post('api/logout')
-      .then((data) => {
+    axiosRequest
+      .post("api/logout")
+      .then(data => {
         this.props.history.push({
-          pathname: '/sponsorlogin'
+          pathname: "/sponsorlogin"
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -455,9 +556,9 @@ export default class Sponsor extends Component {
             </div>
           </div>
         </div>
-      )
+      );
     } else {
-      return SiteWrapper()
+      return SiteWrapper();
     }
   }
 }
