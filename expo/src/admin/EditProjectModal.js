@@ -12,7 +12,7 @@ import { faCheck, faTimes } from "@fortawesome/fontawesome-free-solid";
 library.add(faTimes);
 library.add(faCheck);
 
-let challengeStore = [];
+let allChallenges = [];
 
 class EditProjectModal extends Component {
   // Expect the project ID from this.props as projectID
@@ -33,10 +33,11 @@ class EditProjectModal extends Component {
   }
 
   componentWillMount = () => {
-    /*this.state.challenges.forEach((challenge) => {
-      if (this.state.challengeStore.indexOf(challenge) === -1)
-        this.state.challengeStore.push(challenge);
-      })*/
+    /*this.state.challenges.forEach(challenge => {
+      console.log(challenge);
+      if (this.state.allChallenges.indexOf(challenge) === -1)
+        this.state.allChallenges.push(challenge);
+    });*/
   };
 
   toggleConfirmation = () => {
@@ -121,7 +122,7 @@ class EditProjectModal extends Component {
         .then(this.props.onEdit);
       if (checks) {
         this.setState({
-          challenges: challengeStore
+          challenges: allChallenges
         });
       }
       document
@@ -132,22 +133,22 @@ class EditProjectModal extends Component {
 
   handleChange = (color, index, e) => {
     let lol = index;
-    challengeStore = this.state.challenges;
+    allChallenges = this.state.challenges;
 
     if (color) {
       let label = document.getElementById(`${lol}label`);
       let word = label.textContent;
       word = word.trim();
       let ind = this.state.challenges.indexOf(word);
-      challengeStore.splice(ind, 1);
+      allChallenges.splice(ind, 1);
     } else if (!color) {
       let label = document.getElementById(`${lol}label`);
       let word = label.textContent;
       word = word.trim();
-      if (!challengeStore.includes(word) && word.length > 0)
-        challengeStore.push(word);
+      if (!allChallenges.includes(word) && word.length > 0)
+        allChallenges.push(word);
     }
-    return challengeStore;
+    return allChallenges;
   };
 
   deleteProject = () => {
@@ -227,7 +228,7 @@ class EditProjectModal extends Component {
                   <label> Attempted Challenges </label>
                   <br />
 
-                  {this.state.allChallenges.forEach((challenge, index) => {
+                  {this.state.allChallenges.map((challenge, index) => {
                     if (challenge !== undefined) {
                       return (
                         <Checkbox

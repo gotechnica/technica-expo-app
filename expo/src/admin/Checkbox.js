@@ -19,6 +19,7 @@ export default class Checkbox extends Component {
   }
 
   render() {
+    console.log("a");
     let id = `defaultChecked${this.props.id}${this.props.project_id}`;
     let label = `defaultChecked${this.props.id}${this.props.project_id}label`;
     return (
