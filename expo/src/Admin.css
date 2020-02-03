@@ -1,4 +1,4 @@
-@import url('./customize/customize.css');
+@import url("customize/customize.css");
 
 h4 {
   font-weight: bold;
@@ -64,17 +64,17 @@ h5 {
 }
 
 .inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 .inputfile + label {
   width: 9rem;
-  padding-top:0.5rem;
+  padding-top: 0.5rem;
   height: 2.2rem;
   text-align: center;
   font-size: 0.95rem;
@@ -107,6 +107,7 @@ h5 {
 
 .custom-table-assignment-child {
   flex-basis: 6rem;
+  min-width: 0;
 }
 
 .upload-btn-wrapper {
@@ -115,7 +116,7 @@ h5 {
   display: inline-block;
 }
 
-.upload-btn-wrapper input[type=file] {
+.upload-btn-wrapper input[type="file"] {
   font-size: 100px;
   position: absolute;
   left: 0;
@@ -143,13 +144,13 @@ h5 {
   color: white;
 }
 
-@media (min-width:768px) and (max-width: 1200px)  {
+@media (min-width: 768px) and (max-width: 1200px) {
   .assign_button1 {
     margin-bottom: 1rem;
   }
 }
 
-@media (max-width:567px) {
+@media (max-width: 567px) {
   .assign_button1 {
     margin-bottom: 1rem;
   }

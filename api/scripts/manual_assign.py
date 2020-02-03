@@ -2,24 +2,25 @@ import csv
 import re
 import requests
 import json
+import helpers
 
 
-def table_to_number(table):
+def table_to_number(table: str) -> int:
     letter = table[0].upper()
     num = table[1:]
     return (ord(letter) - 65) * 15 + int(num)
 
 
 # numeric value to table number: 210 -> N15, 1 -> A1
-def number_to_table(number):
+def number_to_table(number: int) -> str:
     letter = chr((int(number) - 1)//15 + 65)
     num = int(number) - (int(number) - 1)//15 * 15
     return str(letter) + str(num)
 
 
-def available_tables():
+def available_tables() -> None:
     all_tables = list(map(lambda x: number_to_table(x), list(range(1, 391))))
-    r = requests.get("http://127.0.0.1:5000/api/projects")
+    r = requests.get("https://expo-api.gotechnica.org/api/projects")
 
     taken = re.findall('\"table_number\": \"(\w\d+)\"', r.text)
     taken.sort()
@@ -30,8 +31,9 @@ def available_tables():
     print(open_tables)
 
 
-def add_project(table_number, project_url, project_name, challenges):
-    url = "http://127.0.0.1:5000/api/projects/add"
+def add_project(table_number: int, project_url: str, project_name: str, challenges) -> None:
+    s = helpers.login()
+    url = "https://expo-api.gotechnica.org/api/projects/add"
     info = {
         'table_number': table_number,
         'project_name': project_name,
@@ -39,10 +41,10 @@ def add_project(table_number, project_url, project_name, challenges):
         'challenges': challenges,
         'challenges_won': ""
     }
-    r = requests.post(url, json=info)
+    r = s.post(url, json=info)
 
 
-def main():
+def main() -> None:
     project_name = input('What is the project name? ')
     project_url = input('What is the project URL? ')
     challenges = input('What prizes are they signed up for? ')

@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import axiosRequest from './Backend.js';
+import React, { Component } from "react";
+import axiosRequest from "Backend.js";
 
-import Error from './Error.js';
-import Login from './Login.js';
-import SiteWrapper from './SiteWrapper.js';
-import customize from './customize/customize';
+import Error from "Error.js";
+import Login from "Login.js";
+import SiteWrapper from "SiteWrapper.js";
+import customize from "customize/customize";
 
-import './App.css';
+import "App.css";
 
-const errorText = "Invalid login code! Please see a member of the "
-  + customize.hackathon_name + " staff if you don't know your access "
-  + "code or are having trouble logging in.";
+const errorText =
+  "Invalid login code! Please see a member of the " +
+  customize.hackathon_name +
+  " staff if you don't know your access " +
+  "code or are having trouble logging in.";
 const InvalidErr = <Error text={errorText} />;
 
 /* Sponsor login page content (see PRD) */
 class SponsorLogin extends Component {
-
   constructor() {
     super();
     this.state = {
@@ -26,18 +27,19 @@ class SponsorLogin extends Component {
   }
 
   onLogin(accessCode) {
-    let codeExists = accessCode != undefined && accessCode != '';
+    let codeExists = accessCode !== undefined && accessCode !== "";
 
-    if(codeExists) {
-      axiosRequest.post('api/login/sponsor', {access_code: accessCode})
-        .then((data) => {
-          if (data.includes('Logged in')) {
+    if (codeExists) {
+      axiosRequest
+        .post("api/login/sponsor", { access_code: accessCode })
+        .then(data => {
+          if (data.includes("Logged in")) {
             this.setState({
               loggedIn: true,
-              error: ''
+              error: ""
             });
             this.props.history.push({
-              pathname: '/sponsor'
+              pathname: "/sponsor"
             });
           } else {
             this.setState({
@@ -46,7 +48,7 @@ class SponsorLogin extends Component {
             });
           }
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     } else {
@@ -58,14 +60,14 @@ class SponsorLogin extends Component {
   }
 
   render() {
-    return (
-      SiteWrapper(
-        <div className="SponsorLogin">
-          <Login title="Sponsor Login"
-            onLogin={this.onLogin}
-            error={this.state.error}/>
-        </div>
-      )
+    return SiteWrapper(
+      <div className="SponsorLogin">
+        <Login
+          title="Sponsor Login"
+          onLogin={this.onLogin}
+          error={this.state.error}
+        />
+      </div>
     );
   }
 }

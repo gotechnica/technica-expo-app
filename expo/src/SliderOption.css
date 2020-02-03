@@ -1,5 +1,4 @@
-
-@import url('./customize/customize.css');
+@import url("customize/customize.css");
 
 .toggle {
   margin-top: 20px;
@@ -11,10 +10,6 @@
 }
 
 .toggle-label {
-  /*display: inline-block;
-  margin-left: 10px;
-  position: absolute;
-  bottom: 47px;*/
   background: var(--supporting-primary);
 }
 
@@ -25,12 +20,9 @@
   height: 20px;
 }
 
-/*.Vote .switch {
-  width: 110px;
-  height: 40px;
-}*/
-
-.switch input {display:none;}
+.switch input {
+  display: none;
+}
 
 .slider {
   position: absolute;
@@ -40,16 +32,8 @@
   left: -7px;
   right: 7px;
   bottom: 17px;
-  /* border-style: solid; */
-  /* border-color: #969696; */
-  /* border-width: 1px; */
-  /* box-shadow: inset -1.5px 1px 2px lightgray; */
   border-radius: 10px;
 }
-
-/*.Vote .slider {
-  border-radius: 4px;
-}*/
 
 .slider:before {
   z-index: 999;
@@ -63,12 +47,6 @@
   width: 20px;
   border-radius: 11px;
 }
-
-/*.Vote .slider:before {
-  height: 40px;
-  width: 15px;
-  border-radius: 4px;
-}*/
 
 input:checked + .slider {
   background-color: var(--slider_checked);
@@ -95,61 +73,23 @@ input:checked + .slider:before {
   transform: translateX(40px);
 }
 
-/*.Vote input:checked + .slider:before {
-  -webkit-transform: translateX(95px);
-  -ms-transform: translateX(95px);
-  transform: translateX(95px);
-}*/
-
-/*------ ADDED CSS ---------
-.Vote .slider:after
-{
- content:'NO VOTE';
- color: #2d2d2d;
- display: block;
- position: absolute;
- white-space: nowrap;
- transform: translate(-50%,-50%);
- top: 50%;
- left: 55%;
- font-size: 15px;
- font-weight: bold;
- -webkit-transition: all 0.3s ease-out;
- transition: all 0.3s ease-out;
+.slider:after {
+  content: "OFF";
+  color: var(--slider_after);
+  display: block;
+  position: absolute;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 65%;
+  font-size: 13px;
+  font-weight: bold;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
-.Vote input:checked + .slider:after
-{
-  left: 45%;
-  content:'WINNER';
-  color: #2f2f2f;
-}
-
-/*--------- END --------*/
-
-/*------ ADDED CSS ---------*/
-.slider:after
-{
- content:'OFF';
- color: var(--slider_after);
- display: block;
- position: absolute;
- white-space: nowrap;
- transform: translate(-50%,-50%);
- top: 50%;
- left: 65%;
- font-size: 13px;
- font-weight: bold;
- -webkit-transition: all 0.3s ease-out;
- transition: all 0.3s ease-out;
-}
-
-input:checked + .slider:after
-{
+input:checked + .slider:after {
   left: 38%;
-  content:'ON';
+  content: "ON";
   color: white;
 }
-
-/*--------- END --------*/
-

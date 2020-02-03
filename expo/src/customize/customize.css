@@ -1,120 +1,96 @@
 /* CUSTOMIZABLE PARAMS */
-/* Fonts */
-@font-face {
-    font-family: AvenirBold;
-    src: url("../fonts/Avenir/AvenirLTStd-Heavy.otf") format("opentype");
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: Avenir;
-    src: url("../fonts/Avenir/AvenirLTStd-Book.otf") format("opentype");
-}
-
-@font-face {
-    font-family: Aleo;
-    src: url("../fonts/Aleo/Aleo-Bold.otf") format("opentype");
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: Aleo, ;
-    src: url("../fonts/Aleo/Aleo-Regular.otf") format("opentype");
-}
+/* Fonts - Import font families here */
+/* End fonts*/
 
 :root {
-    /* font families */
-    --header-font: "Aleo", sans-serif;
-    --body-font: "Avenir", sans-serif;
+  /* font families */
+  --header-font: "Aleo", sans-serif;
+  --body-font: "Avenir", sans-serif;
 
-    /* primary color scheme */
-    --primary-action: #FF8860;
-    --primary-action-darker: #FF6F3F;
-    --cancel-action: #A58D7C;
-    --cancel-action-darker: #7F6C5F;
-    --warning: #FF5B60;
-    --warning-darker: #FF3F46;
-    --accent: #CBF2FF;
-    /* 528CA5 */
+  /* primary color scheme */
+  --primary-action: #00ffff;
+  --primary-action-darker: #00c7c7;
+  --cancel-action: #ff7bac;
+  --cancel-action-darker: #ff96bd;
+  --warning: #ff7bac;
+  --warning-darker: #ff96bd;
+  --accent: #528ca5;
 
-    /* variable naming scheme:
+  /* variable naming scheme:
      * --filename_element_attribute */
 
-    /* supporting color scheme */
-    /* Technica: 2f2f2f, Bitcamp Midnight Blue: 1A2E33 */
-    --supporting-primary: #1A2E33;
-    --supporting-primary-darker: rgb(52, 65, 68);
+  /* supporting color scheme */
+  /* Technica: 2f2f2f, Bitcamp Midnight Blue: 1A2E33 */
+  --supporting-primary: #2f2f2f;
+  --supporting-primary-darker: #1c1c1c;
 
-    /* App.css styles */
-    --app_background_banner: url('../imgs/large-bg.svg');
-    --app_background_color: #CBF2FF;
-    --app_modal_color: #222;
-    --app_modal_border: rgba(0,0,0,.125);
-    --app_button_color: white;
-    --app_prim_button_color: var(--primary-action-darker);
-    --app_prim_button_border: var(--primary-action-darker);
-    --app_sec_button_color: var(--cancel-action-darker);
-    --app_sec_button_border: var(--cancel-action-darker);
-    --app_warn_button_color: var(--warning-darker);
-    --app_warn_button_border: var(--warning-darker);
-    --app_link_button_color: var(--primary-action-darker);
-    --app_link_button_border: var(--primary-action-darker);
-    --app_error_text: black;
-    --app_error_text_background: var(--warning);
-    --app_error_icon_border: rgb(255,255,255,0.125);
+  /* App.css styles */
+  --app_background_banner: url("./imgs/background.png");
+  --app_background_color: #2d2d2d;
+  --app_modal_color: #222;
+  --app_modal_border: rgba(0, 0, 0, 0.125);
+  --app_button_color: white;
+  --app_prim_button_color: var(--primary-action-darker);
+  --app_prim_button_border: var(--primary-action-darker);
+  --app_sec_button_color: var(--cancel-action-darker);
+  --app_sec_button_border: var(--cancel-action-darker);
+  --app_warn_button_color: var(--warning-darker);
+  --app_warn_button_border: var(--warning-darker);
+  --app_link_button_color: var(--primary-action-darker);
+  --app_link_button_border: var(--primary-action-darker);
+  --app_error_text: black;
+  --app_error_text_background: var(--warning);
+  --app_error_icon_border: rgb(255, 255, 255, 0.125);
 
-    /* Card.css styles */
-    --card_background_color: var(--supporting-primary);
-    --card_box_shadow: rgba(0,0,0,0.2);
-    --card_header_background: var(--supporting-primary);
+  /* Card.css styles */
+  --card_background_color: var(--supporting-primary);
+  --card_box_shadow: rgba(0, 0, 0, 0.2);
+  --card_header_background: var(--supporting-primary);
 
-    /* CircleCheck.css styles */
-    --check_circle_stroke: var(--accent);
-    --check_mark_background: var(--accent);
-    --check_mark_stroke: var(--supporting-primary);
-    --check_mark_box_shadow: var(--accent);
+  /* CircleCheck.css styles */
+  --check_circle_stroke: var(--accent);
+  --check_mark_background: var(--accent);
+  --check_mark_stroke: var(--supporting-primary);
+  --check_mark_box_shadow: var(--accent);
 
-    /* SliderOption.css */
-    --slider_checked: var(--primary-action-darker);
-    --slider_unchecked: #888;
-    --slider_after: #2D2D2D;
-    --slider_checked_hover: var(--primary-action);
-    --slider_unchecked_hover: #999;
-    
-    /* Sponsor.css */
-    --sponsor_fa_square: var(--primary-action);
-    --sponsor_project_table: #999;
-    --sponsor_ul_selector: var(--accent);
-    --sponsor_button: rgba(0,0,0,0.2);
-    --sponsor_fa_user_circle: var(--accent);
-    --sponsor_task_header: var(--supporting-primary-darker);
-    --sponsor_button_task_icon: var(--supporting-primary);
-    --sponsor_fa_circle: var(--accent);
-    --sponsor_fa_times_circle: var(--cancel-action-darker);
+  /* SliderOption.css */
+  --slider_checked: var(--primary-action-darker);
+  --slider_unchecked: #888;
+  --slider_after: #2d2d2d;
+  --slider_checked_hover: var(--primary-action);
+  --slider_unchecked_hover: #999;
 
-    /* Table.css */
-    --table_home_btn: var(--supporting-primary);
-    --table_home_tr_td: #222222;
-    --table_att_challenges: #999999;
-    --table_no_submissions: var(--supporting-primary-darker);
+  /* Sponsor.css */
+  --sponsor_fa_square: var(--primary-action);
+  --sponsor_project_table: #999;
+  --sponsor_ul_selector: var(--accent);
+  --sponsor_button: rgba(0, 0, 0, 0.2);
+  --sponsor_fa_user_circle: var(--accent);
+  --sponsor_task_header: var(--supporting-primary-darker);
+  --sponsor_button_task_icon: var(--supporting-primary);
+  --sponsor_fa_circle: var(--accent);
+  --sponsor_fa_times_circle: var(--cancel-action-darker);
 
-    /* Admin.css */
-    --admin_sponsor_name: var(--cancel-action-darker);
-    --admin_subhead: #999999;
-    --admin_challenge_pink: var(--accent);
-    --admin_challenge_black: #000000;
-    --admin_all_bgcolor: var(--primary-action-darker);
-    --admin_input_label: var(--primary-action-darker);
+  /* Table.css */
+  --table_home_btn: var(--supporting-primary);
+  --table_home_tr_td: #222222;
+  --table_att_challenges: #999999;
+  --table_no_submissions: var(--supporting-primary-darker);
+
+  /* Admin.css */
+  --admin_sponsor_name: var(--cancel-action-darker);
+  --admin_subhead: #999999;
+  --admin_challenge_pink: var(--accent);
+  --admin_challenge_black: #000000;
+  --admin_all_bgcolor: var(--primary-action-darker);
+  --admin_input_label: var(--primary-action-darker);
 }
 
 @media (max-width: 500px) {
-    /* :root {
-        --app_background_banner: url('../imgs/small-bg.svg');
-    } */
-    .App::before {
-        background-size: 100% 100% !important;
-        background-position-y: 28vh;
-    }
+  .App::before {
+    background-size: 100% 100% !important;
+    background-position-y: 28vh;
+  }
 }
 
 /* END CUSTOMIZABLE PARAMS */
