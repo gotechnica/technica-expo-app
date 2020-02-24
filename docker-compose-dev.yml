@@ -3,12 +3,10 @@ version: '3'
 services:
     db:
         image: mongo
-        #command: [--auth]
         environment:
             MONGO_INITDB_DATABASE: expo-testing
             MONGO_INITDB_ROOT_USERNAME: admin
             MONGO_INITDB_ROOT_PASSWORD: password
-            #MONGO_INITDB_DATABASE: expo-testing
         ports:
             - "27017:27017"
         command: --quiet
@@ -29,6 +27,7 @@ services:
             context: ./expo
         volumes:
             - ./expo:/app
+            - /app/node_modules
         depends_on:
             - backend
         links:
