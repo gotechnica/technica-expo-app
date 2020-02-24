@@ -27,7 +27,7 @@ class Card extends Component {
             </div>
           </div>
         </div>
-        <div class="card-body">{this.props.children}</div>
+        <div className="card-body">{this.props.children}</div>
       </div>
     );
   }
