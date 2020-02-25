@@ -10,13 +10,13 @@ import WinnerBadge from "customize/imgs/winner_ribbon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSquare } from "@fortawesome/fontawesome-free-regular";
+import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import {
   faCaretDown,
   faCaretUp,
   faCheckSquare,
   faUpload
-} from "@fortawesome/fontawesome-free-solid";
+} from "@fortawesome/free-solid-svg-icons";
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);

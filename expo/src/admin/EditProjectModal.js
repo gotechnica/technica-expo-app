@@ -8,7 +8,7 @@ import ConfirmationButton from "admin/ConfirmationButton";
 import "App.css";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCheck, faTimes } from "@fortawesome/fontawesome-free-solid";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 library.add(faTimes);
 library.add(faCheck);
 

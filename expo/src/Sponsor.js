@@ -12,14 +12,14 @@ import "App.css";
 import "Sponsor.css";
 import "CircleCheck.css";
 
-import { faCircle } from "@fortawesome/fontawesome-free-regular";
-import { faCircle as faCircleSolid } from "@fortawesome/fontawesome-free-solid";
+import { faCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCircle as faCircleSolid } from "@fortawesome/free-solid-svg-icons";
 import {
   faCheck,
   faExclamationTriangle,
   faTimesCircle,
   faClipboardList
-} from "@fortawesome/fontawesome-free-solid";
+} from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faTimesCircle);
 library.add(faCircle);
