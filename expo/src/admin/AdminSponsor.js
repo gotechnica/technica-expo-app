@@ -32,14 +32,16 @@ class SponsorModule extends Component {
     this.state = {
       textSearch: "",
       sponsors: [],
-      viewable: true
+      viewable: true,
+      sponsor_names: []
     };
   }
 
   loadCompanies() {
     axiosRequest.get("api/companies").then(sponsors => {
       this.setState({
-        sponsors: sponsors
+        sponsors: sponsors, // this is the list of challenges
+        sponsor_names: [... new Set (sponsors.map(x => x['company_name']))]
       });
     });
   }
@@ -150,7 +152,7 @@ class SponsorModule extends Component {
       <div className="card">
         <div className="card-header">
           <div className="d-flex">
-            <h4>Sponsors ({this.state.sponsors.length})</h4>
+            <h4>Sponsors ({this.state.sponsor_names.length})</h4>
             <span className="ml-auto">
               <button
                 className="link-button"
