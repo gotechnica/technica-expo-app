@@ -10,10 +10,10 @@ import "App.css";
 import "Table.css";
 
 import "customize/customize";
-import { faSquare } from "@fortawesome/fontawesome-free-regular";
-import { faCheckSquare } from "@fortawesome/fontawesome-free-solid";
+import { faSquare } from "@fortawesome/free-regular-svg-icons";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faExclamationCircle } from "@fortawesome/fontawesome-free-solid";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import customize from "customize/customize";
 library.add(faCheckSquare);
 library.add(faSquare);
