@@ -43,7 +43,6 @@ class SponsorModule extends Component {
         sponsors: sponsors, // this is the list of challenges
         sponsor_names: [... new Set (sponsors.map(x => x['company_name']))]
       });
-      console.log('Sponsors: ',sponsors)
     });
   }
 
