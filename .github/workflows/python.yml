@@ -25,4 +25,4 @@ jobs:
         tox -e flake8
     - name: pytest
       run: |
-        tox -e pytest
+        tox -e py36
