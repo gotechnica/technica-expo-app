@@ -28,72 +28,71 @@ library.add(faExclamationTriangle);
 library.add(faClipboardList);
 library.add(faCircle, faCircleSolid);
 
-class WinnersSubmmitedModal extends Component {
-  render() {
-    return (
-      <div
-        class="modal fade bd-example-modal-sm"
-        id="winnersSubmmitedModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="mySmallModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-          <div class="modal-content" style={{ border: "0px solid" }}>
-            <div class="modal-header" style={{ border: "0px solid" }}>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div
-              class="modal-body"
-              style={{
-                color: "white",
-                textAlign: "center",
-                marginTop: "-40px"
-              }}
+// TODO: Replace with `components/GenericConfirmationModal`?
+function WinnersSubmmitedModal() {
+  return (
+    <div
+      class="modal fade bd-example-modal-sm"
+      id="winnersSubmmitedModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="mySmallModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content" style={{ border: "0px solid" }}>
+          <div class="modal-header" style={{ border: "0px solid" }}>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
             >
-              <svg
-                class="checkmark"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 52 52"
-              >
-                <circle
-                  class="checkmark__circle"
-                  cx="26"
-                  cy="26"
-                  r="25"
-                  fill="none"
-                />
-                <path
-                  class="checkmark__check"
-                  fill="none"
-                  d="M14.1 27.2l7.1 7.2 16.7-16.8"
-                />
-              </svg>
-              <h3 style={{ padding: "0px 10px" }}>
-                Thanks for submitting your winners!
-              </h3>
-            </div>
-            <div
-              class="modal-footer"
-              style={{ border: "0px solid", paddingTop: "0px" }}
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div
+            class="modal-body"
+            style={{
+              color: "white",
+              textAlign: "center",
+              marginTop: "-40px"
+            }}
+          >
+            <svg
+              class="checkmark"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 52 52"
             >
-              <button className="button button-primary" data-dismiss="modal">
-                OK
-              </button>
-            </div>
+              <circle
+                class="checkmark__circle"
+                cx="26"
+                cy="26"
+                r="25"
+                fill="none"
+              />
+              <path
+                class="checkmark__check"
+                fill="none"
+                d="M14.1 27.2l7.1 7.2 16.7-16.8"
+              />
+            </svg>
+            <h3 style={{ padding: "0px 10px" }}>
+              Thanks for submitting your winners!
+            </h3>
+          </div>
+          <div
+            class="modal-footer"
+            style={{ border: "0px solid", paddingTop: "0px" }}
+          >
+            <button className="button button-primary" data-dismiss="modal">
+              OK
+            </button>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export class SubmitModal extends Component {
@@ -239,44 +238,42 @@ export class SubmitModal extends Component {
   }
 }
 
-class Task extends Component {
-  render() {
-    let winners = [];
-    if (this.props.winners.length > 0) {
-      this.props.winners.forEach(project_id => {
-        winners.push(<li>{this.props.project_hash[project_id]}</li>);
-      });
-    }
-    let circle = this.props.submitted ? faCheck : faClipboardList;
-
-    return (
-      <Fragment>
-        <div className="btn-group task" role="group">
-          <button className="task-icon">
-            <FontAwesomeIcon icon={circle} className="fa-circle" />
-          </button>
-          {this.props.submitted ? (
-            <button className="task-title">{this.props.challenge}</button>
-          ) : (
-            <button className="task-title">
-              Select your winner{this.props.winners > 1 ? "s" : ""} for{" "}
-              {this.props.challenge}
-            </button>
-          )}
-        </div>
-        {winners.length > 0 ? (
-          <ul
-            className="selection-list"
-            style={{ marginLeft: "50px", marginBottom: "0px" }}
-          >
-            {winners}
-          </ul>
-        ) : (
-          <Fragment></Fragment>
-        )}
-      </Fragment>
-    );
+function Task(props) {
+  let winners = [];
+  if (props.winners.length > 0) {
+    props.winners.forEach(project_id => {
+      winners.push(<li>{props.project_hash[project_id]}</li>);
+    });
   }
+  let circle = props.submitted ? faCheck : faClipboardList;
+
+  return (
+    <Fragment>
+      <div className="btn-group task" role="group">
+        <button className="task-icon">
+          <FontAwesomeIcon icon={circle} className="fa-circle" />
+        </button>
+        {props.submitted ? (
+          <button className="task-title">{props.challenge}</button>
+        ) : (
+          <button className="task-title">
+            Select your winner{props.winners > 1 ? "s" : ""} for{" "}
+            {props.challenge}
+          </button>
+        )}
+      </div>
+      {winners.length > 0 ? (
+        <ul
+          className="selection-list"
+          style={{ marginLeft: "50px", marginBottom: "0px" }}
+        >
+          {winners}
+        </ul>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </Fragment>
+  );
 }
 
 /* this.props.voting_data =

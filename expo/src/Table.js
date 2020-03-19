@@ -18,358 +18,340 @@ import customize from "customize/customize";
 library.add(faCheckSquare);
 library.add(faSquare);
 
-class DiversifyWinnersModal extends Component {
-  render() {
-    return (
-      <div
-        class="modal fade bd-example-modal-sm"
-        id="diversifyWinnersModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="mySmallModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-          <div class="modal-content" style={{ border: "0px solid" }}>
-            <div class="modal-header" style={{ border: "0px solid" }}>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div
-              class="modal-body"
-              style={{ color: "white", textAlign: "center" }}
+function DiversifyWinnersModal() {
+  return (
+    <div
+      class="modal fade bd-example-modal-sm"
+      id="diversifyWinnersModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="mySmallModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content" style={{ border: "0px solid" }}>
+          <div class="modal-header" style={{ border: "0px solid" }}>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
             >
-              <FontAwesomeIcon
-                icon={faExclamationCircle}
-                size="5x"
-                className="warning"
-              />
-              <div className="diversity-modal">
-                Our current numbers indicate that this project will win 2 +
-                prizes this weekend. We recommend considering alternative
-                projects to allow for more diversity in winners.
-              </div>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div
+            class="modal-body"
+            style={{ color: "white", textAlign: "center" }}
+          >
+            <FontAwesomeIcon
+              icon={faExclamationCircle}
+              size="5x"
+              className="warning"
+            />
+            <div className="diversity-modal">
+              Our current numbers indicate that this project will win 2 + prizes
+              this weekend. We recommend considering alternative projects to
+              allow for more diversity in winners.
             </div>
-            <div
-              class="modal-footer"
-              style={{ border: "0px solid", paddingTop: "0px" }}
-            >
-              <button className="button button-primary" data-dismiss="modal">
-                OK
-              </button>
-            </div>
+          </div>
+          <div
+            class="modal-footer"
+            style={{ border: "0px solid", paddingTop: "0px" }}
+          >
+            <button className="button button-primary" data-dismiss="modal">
+              OK
+            </button>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export class CheckBoxColumn extends Component {
-  render() {
-    let checkbox = this.props.checked ? faCheckSquare : faSquare;
-    let input = this.props.checked ? (
-      this.props.disabled ? (
-        <input
-          type="checkbox"
-          className="voting-checkbox"
-          value={this.props.project_id}
-          checked
-          disabled
-        />
-      ) : (
-        <input
-          type="checkbox"
-          className="voting-checkbox"
-          value={this.props.project_id}
-          checked
-        />
-      )
-    ) : this.props.disabled ? (
+export function CheckBoxColumn(props) {
+  let checkbox = props.checked ? faCheckSquare : faSquare;
+  let input = props.checked ? (
+    props.disabled ? (
       <input
         type="checkbox"
         className="voting-checkbox"
-        value={this.props.project_id}
+        value={props.project_id}
+        checked
         disabled
       />
     ) : (
       <input
         type="checkbox"
         className="voting-checkbox"
-        value={this.props.project_id}
+        value={props.project_id}
+        checked
       />
-    );
-    let checkboxStyle = this.props.checked
-      ? this.props.disabled
-        ? "fa-check-square disabled"
-        : "fa-check-square"
-      : this.props.disabled
-      ? "fa-square"
-      : "fa-square hoverable";
-    let CustomCheckbox = this.props.disabled ? (
-      <FontAwesomeIcon icon={checkbox} className={checkboxStyle} />
-    ) : (
-      <FontAwesomeIcon
-        icon={checkbox}
-        className={checkboxStyle}
-        onClick={this.props.vote_handler.bind(this, this.props.project_id)}
-      />
-    );
-    return (
-      <td>
-        {!this.props.checked &&
-        this.props.num_challenges_won >= 2 &&
-        !this.props.disabled ? (
-          <label data-toggle="modal" data-target="#diversifyWinnersModal">
-            {CustomCheckbox}
-          </label>
-        ) : (
-          <label>{CustomCheckbox}</label>
-        )}
-        {input}
-        {!this.props.checked && this.props.num_challenges_won >= 2 ? (
-          <DiversifyWinnersModal />
-        ) : (
-          <Fragment></Fragment>
-        )}
-      </td>
-    );
-  }
-}
-
-class ProjectColumn extends Component {
-  render() {
-    let attempted_challenges = this.props.attempted_challenges;
-    let challenges_won = this.props.challenges_won;
-    let colors = customize.table_color;
-    let index = this.props.counter % colors.length;
-    return (
-      <td>
-        <div className="Project header-font">
-          <a href={this.props.project_url} target="_tab" className="link">
-            {this.props.project_name}
-          </a>
-          {this.props.width < 460 ? (
-            this.props.table_number !== "" ? (
-              this.props.origin === "home" ? (
-                <div>
-                  <button
-                    className="Table"
-                    style={{ backgroundColor: colors[index] }}
-                  >
-                    <div className="Table header-font">Table</div>
-                    <div className="Table-Number header-font">
-                      {this.props.table_number}
-                    </div>
-                  </button>
-                </div>
-              ) : (
-                <div className="Sponsor-Table">
-                  Table: {this.props.table_number}
-                </div>
-              )
-            ) : (
-              <Fragment></Fragment>
-            )
-          ) : (
-            <Fragment></Fragment>
-          )}
-          {this.props.width < 460 &&
-          this.props.num_challenges_won > 0 &&
-          this.props.origin === "sponsor" ? (
-            <div className="Sponsor-Table">
-              <img
-                src={WinnerBadge}
-                alt="Winner Badge"
-                style={{ height: "20px", marginRight: "5px" }}
-              />
-              Challenges Won: {this.props.num_challenges_won}
-            </div>
-          ) : (
-            <Fragment></Fragment>
-          )}
-        </div>
-        {this.props.origin === "home" ? (
-          <Fragment>
-            {challenges_won.length > 0 ? (
-              <div className="challenges-won">{challenges_won}</div>
-            ) : (
-              <Fragment></Fragment>
-            )}
-            {attempted_challenges.length > 0 ? (
-              <Fragment>
-                {this.props.width < 460 &&
-                !this.props.show_attempted_challenges ? (
-                  <hr className="attempted-challenges" />
-                ) : null}
-                <div className="attempted-challenges">
-                  {this.props.show_attempted_challenges ? (
-                    <b>
-                      Attempted Challenge
-                      <SmallerParentheses font_size="12px">
-                        s
-                      </SmallerParentheses>
-                      : {attempted_challenges.length}
-                    </b>
-                  ) : (
-                    attempted_challenges
-                  )}
-                </div>
-              </Fragment>
-            ) : (
-              <Fragment></Fragment>
-            )}
-          </Fragment>
-        ) : (
-          <Fragment></Fragment>
-        )}
-      </td>
-    );
-  }
-}
-
-class ChallengeCard extends Component {
-  render() {
-    let text =
-      this.props.width >= 460 ? (
-        " | " + this.props.company
+    )
+  ) : props.disabled ? (
+    <input
+      type="checkbox"
+      className="voting-checkbox"
+      value={props.project_id}
+      disabled
+    />
+  ) : (
+    <input
+      type="checkbox"
+      className="voting-checkbox"
+      value={props.project_id}
+    />
+  );
+  let checkboxStyle = props.checked
+    ? props.disabled
+      ? "fa-check-square disabled"
+      : "fa-check-square"
+    : props.disabled
+    ? "fa-square"
+    : "fa-square hoverable";
+  let CustomCheckbox = props.disabled ? (
+    <FontAwesomeIcon icon={checkbox} className={checkboxStyle} />
+  ) : (
+    <FontAwesomeIcon
+      icon={checkbox}
+      className={checkboxStyle}
+      onClick={this.props.vote_handler.bind(this, props.project_id)}
+    />
+  );
+  return (
+    <td>
+      {!props.checked && props.num_challenges_won >= 2 && !props.disabled ? (
+        <label data-toggle="modal" data-target="#diversifyWinnersModal">
+          {CustomCheckbox}
+        </label>
       ) : (
-        <Fragment>
-          <br />
-          {this.props.company}
-        </Fragment>
-      );
-    return this.props.won && this.props.winnersRevealed ? (
-      this.props.width >= 460 ? (
-        <div className="btn-group">
-          <button className="btn" disabled>
-            <img src={WinnerBadge} alt="Winner Badge" className="Ribbon" />
-          </button>
-          <button className="btn btn-block" disabled>
-            <b>{this.props.challenge_name}</b>
-            {text}
-          </button>
-        </div>
-      ) : (
-        <div>
-          <b>{this.props.challenge_name}</b>
-          {text} <img src={WinnerBadge} alt="Winner Badge" className="Ribbon" />
-        </div>
-      )
-    ) : (
-      <div>
-        <button className="btn btn-block" disabled>
-          <b>{this.props.challenge_name}</b>
-          {text}
-        </button>
-      </div>
-    );
-  }
-}
-
-export class Row extends Component {
-  render() {
-    let attempted_challenges = [];
-    let challenges_won = [];
-    let winner_count = 0;
-    if (this.props.challenges !== undefined) {
-      this.props.challenges.forEach(challenge => {
-        let challenge_card = (
-          <ChallengeCard
-            company={challenge.company}
-            challenge_name={challenge.challenge_name}
-            won={challenge.won}
-            width={this.props.width}
-            winnersRevealed={this.props.winnersRevealed}
-          />
-        );
-        if (challenge.won) {
-          if (this.props.winnersRevealed) {
-            challenges_won.push(challenge_card);
-          } else {
-            attempted_challenges.push(challenge_card);
-          }
-          winner_count += 1;
-        } else {
-          attempted_challenges.push(challenge_card);
-        }
-      });
-    }
-    let table =
-      this.props.width >= 460 ? (
-        <td className="Table-Number header-font">
-          {this.props.table_number === "" ? "-" : this.props.table_number}
-        </td>
+        <label>{CustomCheckbox}</label>
+      )}
+      {input}
+      {!props.checked && props.num_challenges_won >= 2 ? (
+        <DiversifyWinnersModal />
       ) : (
         <Fragment></Fragment>
-      );
-    return (
-      <tr className="voting-row">
-        {this.props.origin === "sponsor" ? (
-          <CheckBoxColumn
-            vote_handler={this.props.vote_handler}
-            project_id={this.props.project_id}
-            checked={this.props.checked}
-            disabled={this.props.disabled}
-            num_challenges_won={winner_count}
-          />
-        ) : (
-          <Fragment></Fragment>
-        )}
-        {table}
-        <ProjectColumn
-          project_name={this.props.project_name}
-          project_url={this.props.project_url}
-          challenges={
-            this.props.origin === "home" ? this.props.challenges : undefined
-          }
-          table_number={this.props.table_number}
-          width={this.props.width}
-          origin={this.props.origin}
-          counter={this.props.counter}
-          show_attempted_challenges={this.props.show_attempted_challenges}
-          attempted_challenges={attempted_challenges}
-          challenges_won={challenges_won}
-          num_challenges_won={winner_count}
-        />
-        {this.props.origin === "sponsor" ? (
-          this.props.width >= 460 ? (
-            <td
-              className="Trophy-Case"
-              style={{
-                fontSize: "35px",
-                fontWeight: "bold",
-                textAlign: "center"
-              }}
-            >
-              {winner_count > 0 ? (
-                <Fragment>
-                  <img
-                    src={WinnerBadge}
-                    alt="Winner Badge"
-                    style={{ height: "40px", marginRight: "10px" }}
-                  />
-                  {winner_count}
-                </Fragment>
-              ) : (
-                <Fragment></Fragment>
-              )}
-            </td>
+      )}
+    </td>
+  );
+}
+
+function ProjectColumn(props) {
+  let attempted_challenges = props.attempted_challenges;
+  let challenges_won = props.challenges_won;
+  let colors = customize.table_color;
+  let index = props.counter % colors.length;
+  return (
+    <td>
+      <div className="Project header-font">
+        <a href={props.project_url} target="_tab" className="link">
+          {props.project_name}
+        </a>
+        {props.width < 460 ? (
+          props.table_number !== "" ? (
+            props.origin === "home" ? (
+              <div>
+                <button
+                  className="Table"
+                  style={{ backgroundColor: colors[index] }}
+                >
+                  <div className="Table header-font">Table</div>
+                  <div className="Table-Number header-font">
+                    {this.props.table_number}
+                  </div>
+                </button>
+              </div>
+            ) : (
+              <div className="Sponsor-Table">Table: {props.table_number}</div>
+            )
           ) : (
             <Fragment></Fragment>
           )
         ) : (
           <Fragment></Fragment>
         )}
-      </tr>
+        {props.width < 460 &&
+        props.num_challenges_won > 0 &&
+        props.origin === "sponsor" ? (
+          <div className="Sponsor-Table">
+            <img
+              src={WinnerBadge}
+              alt="Winner Badge"
+              style={{ height: "20px", marginRight: "5px" }}
+            />
+            Challenges Won: {props.num_challenges_won}
+          </div>
+        ) : (
+          <Fragment></Fragment>
+        )}
+      </div>
+      {props.origin === "home" ? (
+        <Fragment>
+          {challenges_won.length > 0 ? (
+            <div className="challenges-won">{challenges_won}</div>
+          ) : (
+            <Fragment></Fragment>
+          )}
+          {attempted_challenges.length > 0 ? (
+            <Fragment>
+              {props.width < 460 && !props.show_attempted_challenges ? (
+                <hr className="attempted-challenges" />
+              ) : null}
+              <div className="attempted-challenges">
+                {this.props.show_attempted_challenges ? (
+                  <b>
+                    Attempted Challenge
+                    <SmallerParentheses font_size="12px">
+                      s
+                    </SmallerParentheses>: {attempted_challenges.length}
+                  </b>
+                ) : (
+                  attempted_challenges
+                )}
+              </div>
+            </Fragment>
+          ) : (
+            <Fragment></Fragment>
+          )}
+        </Fragment>
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </td>
+  );
+}
+
+function ChallengeCard(props) {
+  let text =
+    props.width >= 460 ? (
+      " | " + props.company
+    ) : (
+      <Fragment>
+        <br />
+        {props.company}
+      </Fragment>
     );
+  return props.won && props.winnersRevealed ? (
+    props.width >= 460 ? (
+      <div className="btn-group">
+        <button className="btn" disabled>
+          <img src={WinnerBadge} alt="Winner Badge" className="Ribbon" />
+        </button>
+        <button className="btn btn-block" disabled>
+          <b>{props.challenge_name}</b>
+          {text}
+        </button>
+      </div>
+    ) : (
+      <div>
+        <b>{props.challenge_name}</b>
+        {text} <img src={WinnerBadge} alt="Winner Badge" className="Ribbon" />
+      </div>
+    )
+  ) : (
+    <div>
+      <button className="btn btn-block" disabled>
+        <b>{props.challenge_name}</b>
+        {text}
+      </button>
+    </div>
+  );
+}
+
+export function Row(props) {
+  let attempted_challenges = [];
+  let challenges_won = [];
+  let winner_count = 0;
+  if (props.challenges !== undefined) {
+    props.challenges.forEach(challenge => {
+      let challenge_card = (
+        <ChallengeCard
+          company={challenge.company}
+          challenge_name={challenge.challenge_name}
+          won={challenge.won}
+          width={props.width}
+          winnersRevealed={props.winnersRevealed}
+        />
+      );
+      if (challenge.won) {
+        if (props.winnersRevealed) {
+          challenges_won.push(challenge_card);
+        } else {
+          attempted_challenges.push(challenge_card);
+        }
+        winner_count += 1;
+      } else {
+        attempted_challenges.push(challenge_card);
+      }
+    });
   }
+  let table =
+    props.width >= 460 ? (
+      <td className="Table-Number header-font">
+        {props.table_number === "" ? "-" : props.table_number}
+      </td>
+    ) : (
+      <Fragment></Fragment>
+    );
+  return (
+    <tr className="voting-row">
+      {props.origin === "sponsor" ? (
+        <CheckBoxColumn
+          vote_handler={props.vote_handler}
+          project_id={props.project_id}
+          checked={props.checked}
+          disabled={props.disabled}
+          num_challenges_won={winner_count}
+        />
+      ) : (
+        <Fragment></Fragment>
+      )}
+      {table}
+      <ProjectColumn
+        project_name={props.project_name}
+        project_url={props.project_url}
+        challenges={props.origin === "home" ? props.challenges : undefined}
+        table_number={props.table_number}
+        width={props.width}
+        origin={props.origin}
+        counter={props.counter}
+        show_attempted_challenges={props.show_attempted_challenges}
+        attempted_challenges={attempted_challenges}
+        challenges_won={challenges_won}
+        num_challenges_won={winner_count}
+      />
+      {props.origin === "sponsor" ? (
+        props.width >= 460 ? (
+          <td
+            className="Trophy-Case"
+            style={{
+              fontSize: "35px",
+              fontWeight: "bold",
+              textAlign: "center"
+            }}
+          >
+            {winner_count > 0 ? (
+              <Fragment>
+                <img
+                  src={WinnerBadge}
+                  alt="Winner Badge"
+                  style={{ height: "40px", marginRight: "10px" }}
+                />
+                {winner_count}
+              </Fragment>
+            ) : (
+              <Fragment></Fragment>
+            )}
+          </td>
+        ) : (
+          <Fragment></Fragment>
+        )
+      ) : (
+        <Fragment></Fragment>
+      )}
+    </tr>
+  );
 }
 
 export class Table extends Component {

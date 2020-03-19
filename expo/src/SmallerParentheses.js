@@ -1,16 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 
-export class SmallerParentheses extends Component {
-  render() {
-    let reducedFontSize = { fontSize: this.props.font_size };
-    return (
-      <Fragment>
-        <span style={reducedFontSize}>(</span>
-        {this.props.children}
-        <span style={reducedFontSize}>)</span>
-      </Fragment>
-    );
-  }
+export default function SmallerParentheses(props) {
+  let reducedFontSize = { fontSize: props.font_size };
+  return (
+    <Fragment>
+      <span style={reducedFontSize}>(</span>
+      {props.children}
+      <span style={reducedFontSize}>)</span>
+    </Fragment>
+  );
 }
-
-export default SmallerParentheses;

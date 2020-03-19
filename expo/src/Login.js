@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Card from "components/Card.js";
 
 /*
@@ -9,50 +9,39 @@ Required this.props
   error - graphic or message to show on login failure
 */
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      accessCode: ""
-    };
-  }
+export default function Login(props) {
+  const [accessCode, setAccessCode] = useState("");
 
-  render() {
-    return (
-      <div className="row">
-        <div className="col-md-8 offset-md-2">
-          <Card title={this.props.title}>
-            <div>
-              <form
-                onSubmit={e => {
-                  e.preventDefault();
-                  this.props.onLogin(this.state.accessCode);
-                }}
-              >
-                <div className="form-group">
-                  <label htmlFor="txtAccessCode">Access Code</label>
-                  <input
-                    type="text"
-                    id="txtAccessCode"
-                    className="form-control"
-                    onChange={event =>
-                      this.setState({ accessCode: event.target.value })
-                    }
-                  />
-                </div>
-                <button className="button button-primary" type="submit">
-                  Login
-                </button>
-                <br />
-                <br />
-                {this.props.error}
-              </form>
-            </div>
-          </Card>
-        </div>
+  return (
+    <div className="row">
+      <div className="col-md-8 offset-md-2">
+        <Card title={props.title}>
+          <div>
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                props.onLogin(accessCode);
+              }}
+            >
+              <div className="form-group">
+                <label htmlFor="txtAccessCode">Access Code</label>
+                <input
+                  type="text"
+                  id="txtAccessCode"
+                  className="form-control"
+                  onChange={event => setAccessCode(event.target.value)}
+                />
+              </div>
+              <button className="button button-primary" type="submit">
+                Login
+              </button>
+              <br />
+              <br />
+              {props.error}
+            </form>
+          </div>
+        </Card>
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-export default Login;

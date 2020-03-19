@@ -9,8 +9,6 @@ import "components/Card.css";
 import "SliderOption.css";
 import { sortByTableNumber } from "helpers.js";
 
-import JudgingTimes from "./JudgingTime";
-
 class SearchandFilter extends Component {
   constructor(props) {
     super(props);
