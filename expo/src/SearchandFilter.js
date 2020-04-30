@@ -301,16 +301,14 @@ class SearchandFilter extends Component {
           project_hash={project_hash}
           logout={this.props.logout}
         />
-      ) : (
-        <Fragment></Fragment>
-      );
+      ) : null;
 
     /*let judging_times = (this.props.origin === "sponsor" ?
-      <div class="row">
-        <div class="col">
+      <div className="row">
+        <div className="col">
           <JudgingTimes count={this.state.totalCount} time={this.state.expoLength} />
         </div>
-      </div> : <Fragment></Fragment>);*/
+      </div> : null);*/
     let judging_times = null;
 
     let toggle_style =
@@ -332,9 +330,9 @@ class SearchandFilter extends Component {
       <div>
         {welcome_header}
         {judging_times}
-        <div class="card">
+        <div className="card">
           {this.props.origin === "sponsor" ? (
-            <div class="card-header">
+            <div className="card-header">
               <h5>
                 Select Your Challenge Winner
                 <SmallerParentheses font_size="15px">s</SmallerParentheses>
@@ -343,7 +341,7 @@ class SearchandFilter extends Component {
           ) : (
             <div style={{ marginTop: "15px" }}></div>
           )}
-          <div class="card-body">
+          <div className="card-body">
             <form>
               <div className="form-group">
                 <input
@@ -366,12 +364,10 @@ class SearchandFilter extends Component {
                 </div>
               </div>
               {/* Show Attempted Challenge Toggle */}
-              {this.props.origin === "sponsor" ? (
-                <Fragment></Fragment>
-              ) : (
+              {this.props.origin === "sponsor" ? null : (
                 <Fragment>
                   <div style={{ textAlign: style }}>
-                    <div class="btn-group">
+                    <div className="btn-group">
                       <button
                         className="toggle-btn"
                         style={toggle_style}
@@ -403,9 +399,7 @@ class SearchandFilter extends Component {
                         >
                           Show Attempted Challenges
                         </button>
-                      ) : (
-                        <Fragment></Fragment>
-                      )}
+                      ) : null}
                     </div>
                   </div>
 
@@ -425,26 +419,22 @@ class SearchandFilter extends Component {
                         Show Attempted Challenges
                       </button>
                     </div>
-                  ) : (
-                    <Fragment></Fragment>
-                  )}
+                  ) : null}
                 </Fragment>
               )}
             </form>
-            {this.props.origin === "sponsor" ? table : <Fragment></Fragment>}
+            {this.props.origin === "sponsor" ? table : null}
           </div>
         </div>
         {this.props.origin === "home" ? (
-          <div class="row">
-            <div class="col">
-              <div class="card">
-                <div class="card-body">{table}</div>
+          <div className="row">
+            <div className="col">
+              <div className="card">
+                <div className="card-body">{table}</div>
               </div>
             </div>
           </div>
-        ) : (
-          <Fragment></Fragment>
-        )}
+        ) : null}
       </div>
     );
   }

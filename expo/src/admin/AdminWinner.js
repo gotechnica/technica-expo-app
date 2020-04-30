@@ -1,4 +1,4 @@
-import Card from "../components/Card.js";
+import Card from "components/Card.js";
 
 import React, { Component } from "react";
 import axiosRequest from "Backend.js";

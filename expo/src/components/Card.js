@@ -11,7 +11,7 @@ import "components/Card.css";
  */
 export default function Card(props) {
   return (
-    <div class="card">
+    <div className="card">
       <div className="card-header">
         <div className="d-flex">
           <div>

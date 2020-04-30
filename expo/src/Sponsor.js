@@ -32,16 +32,16 @@ library.add(faCircle, faCircleSolid);
 function WinnersSubmmitedModal() {
   return (
     <div
-      class="modal fade bd-example-modal-sm"
+      className="modal fade bd-example-modal-sm"
       id="winnersSubmmitedModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="mySmallModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content" style={{ border: "0px solid" }}>
-          <div class="modal-header" style={{ border: "0px solid" }}>
+      <div className="modal-dialog modal-sm modal-dialog-centered">
+        <div className="modal-content" style={{ border: "0px solid" }}>
+          <div className="modal-header" style={{ border: "0px solid" }}>
             <button
               type="button"
               class="close"
@@ -52,7 +52,7 @@ function WinnersSubmmitedModal() {
             </button>
           </div>
           <div
-            class="modal-body"
+            className="modal-body"
             style={{
               color: "white",
               textAlign: "center",
@@ -95,147 +95,128 @@ function WinnersSubmmitedModal() {
   );
 }
 
-export class SubmitModal extends Component {
-  constructor(props) {
-    super(props);
-    this.handleModalEvent = this.handleModalEvent.bind(this);
-    this.state = {
-      toggle: false
-    };
-  }
-  handleModalEvent() {
-    if (!this.state.toggle) {
-      this.setState({ toggle: true });
+export function SubmitModal(props) {
+  let vote_limit = props.vote_limit;
+  let votes = [];
+  props.votes.forEach(project => {
+    votes.push(<li>{project}</li>);
+  });
+  let modal = {
+    error: {
+      icon: faTimesCircle,
+      iconstyle: "fa-times-circle",
+      message: (
+        <Fragment>
+          Oops! Too many projects are selected to win this challenge.&nbsp; Our
+          records show that you only intended to provide prizes for {vote_limit}{" "}
+          project{vote_limit > 1 ? "s" : ""}.&nbsp; Come chat with someone on
+          the {customize.hackathon_name} team if you want to select more!
+        </Fragment>
+      )
+    },
+    warning: {
+      icon: faExclamationTriangle,
+      iconstyle: "fa-exclamation-triangle",
+      message: (
+        <Fragment>
+          Just a heads up! Our records show that you originally intended to
+          provide prizes to {vote_limit} project{vote_limit > 1 ? "s" : ""} for
+          this challenge, but
+          {votes.length === 0 ? " none " : ` only ${votes.length} `}
+          {votes.length === 1 ? " was " : " were "} selected.
+        </Fragment>
+      )
     }
-  }
-  render() {
-    let vote_limit = this.props.vote_limit;
-    let votes = [];
-    this.props.votes.forEach(project => {
-      votes.push(<li>{project}</li>);
-    });
-    let modal = {
-      error: {
-        icon: faTimesCircle,
-        iconstyle: "fa-times-circle",
-        message: (
-          <Fragment>
-            Oops! Too many projects are selected to win this challenge.&nbsp;
-            Our records show that you only intended to provide prizes for{" "}
-            {vote_limit} project{vote_limit > 1 ? "s" : ""}.&nbsp; Come chat
-            with someone on the {customize.hackathon_name} team if you want to
-            select more!
-          </Fragment>
-        )
-      },
-      warning: {
-        icon: faExclamationTriangle,
-        iconstyle: "fa-exclamation-triangle",
-        message: (
-          <Fragment>
-            Just a heads up! Our records show that you originally intended to
-            provide prizes to {vote_limit} project{vote_limit > 1 ? "s" : ""}{" "}
-            for this challenge, but
-            {votes.length === 0 ? " none " : ` only ${votes.length} `}
-            {votes.length === 1 ? " was " : " were "} selected.
-          </Fragment>
-        )
-      }
-    };
+  };
 
-    return (
-      <Fragment>
-        <div
-          class="modal fade"
-          id="submitModal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalCenterTitle"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">
-                  Confirm Winner Selection
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                {votes.length !== vote_limit ? (
-                  votes.length > vote_limit ? (
-                    <Error
-                      icon={modal.error.icon}
-                      iconstyle={modal.error.iconstyle}
-                    >
-                      {modal.error.message}
-                    </Error>
-                  ) : (
-                    <Error
-                      icon={modal.warning.icon}
-                      iconstyle={modal.warning.iconstyle}
-                    >
-                      {modal.warning.message}
-                    </Error>
-                  )
-                ) : (
-                  <Fragment></Fragment>
-                )}
-                <Error
-                  icon={modal.warning.icon}
-                  iconstyle={modal.warning.iconstyle}
-                  text="All submitted selections are final."
-                />
-                <h5 className="modal-challenge">
-                  {this.props.value + " Winner" + (votes.length > 1 ? "s" : "")}
-                </h5>
-                <ul className="selection-list">
-                  {votes.length > 0 ? votes : <li>No Projects Selected</li>}
-                </ul>
-              </div>
-              <div class="modal-footer">
-                <button
-                  className="button button-secondary"
-                  data-dismiss="modal"
-                >
-                  Cancel
-                </button>
-                {votes.length > vote_limit ? (
-                  <button className="button button-primary" disabled>
-                    Submit
-                  </button>
-                ) : (
-                  <button
-                    className="button button-primary"
-                    data-toggle="modal"
-                    data-target="#winnersSubmmitedModal"
-                    data-dismiss="modal"
-                    onClick={this.props.submit_handler.bind(
-                      this,
-                      this.props.company_id,
-                      this.props.challenge_id,
-                      this.props.value,
-                      this.props.after_submission_handler
-                    )}
+  return (
+    <Fragment>
+      <div
+        class="modal fade"
+        id="submitModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">
+                Confirm Winner Selection
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {votes.length !== vote_limit ? (
+                votes.length > vote_limit ? (
+                  <Error
+                    icon={modal.error.icon}
+                    iconstyle={modal.error.iconstyle}
                   >
-                    Submit
-                  </button>
-                )}
-              </div>
+                    {modal.error.message}
+                  </Error>
+                ) : (
+                  <Error
+                    icon={modal.warning.icon}
+                    iconstyle={modal.warning.iconstyle}
+                  >
+                    {modal.warning.message}
+                  </Error>
+                )
+              ) : null}
+              <Error
+                icon={modal.warning.icon}
+                iconstyle={modal.warning.iconstyle}
+                text="All submitted selections are final."
+              />
+              <h5 className="modal-challenge">
+                {props.value + " Winner" + (votes.length > 1 ? "s" : "")}
+              </h5>
+              <ul className="selection-list">
+                {votes.length > 0 ? votes : <li>No Projects Selected</li>}
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button className="button button-secondary" data-dismiss="modal">
+                Cancel
+              </button>
+              {votes.length > vote_limit ? (
+                <button className="button button-primary" disabled>
+                  Submit
+                </button>
+              ) : (
+                <button
+                  className="button button-primary"
+                  data-toggle="modal"
+                  data-target="#winnersSubmmitedModal"
+                  data-dismiss="modal"
+                  onClick={() => {
+                    props.submit_handler(
+                      props.company_id,
+                      props.challenge_id,
+                      props.value,
+                      props.after_submission_handler
+                    );
+                  }}
+                >
+                  Submit
+                </button>
+              )}
             </div>
           </div>
         </div>
-        <WinnersSubmmitedModal />
-      </Fragment>
-    );
-  }
+      </div>
+      <WinnersSubmmitedModal />
+    </Fragment>
+  );
 }
 
 function Task(props) {
@@ -269,9 +250,7 @@ function Task(props) {
         >
           {winners}
         </ul>
-      ) : (
-        <Fragment></Fragment>
-      )}
+      ) : null}
     </Fragment>
   );
 }

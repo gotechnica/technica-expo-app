@@ -4,6 +4,7 @@ import axiosRequest from "Backend.js";
 import CreateProjectModal from "admin/CreateProjectModal";
 import EditProjectModal from "admin/EditProjectModal";
 import WarningModal from "admin/WarningModal";
+import Card from "components/Card";
 
 import "Admin.css";
 import "App.css";
@@ -216,29 +217,6 @@ class ProjectModule extends Component {
     }
   }
 
-  renderEditProjectModal = (
-    elt,
-    index,
-    allChallenges,
-    challengesToCompanyMap
-  ) => {
-    return (
-      <EditProjectModal
-        index={index}
-        editID={"modalEditProject" + index.toString()}
-        projectID={elt.project_id}
-        project_name={elt.project_name}
-        project_table={elt.table_number}
-        url={elt.url}
-        challenges={elt.challenges}
-        toggle={elt.checkVal}
-        allChallenges={allChallenges}
-        company_map={challengesToCompanyMap}
-        onEdit={this.props.loadProjects}
-      />
-    );
-  };
-
   toggleView() {
     if (this.state.viewable) {
       this.setState({
@@ -268,26 +246,38 @@ class ProjectModule extends Component {
         );
       });
     }
+    let editProjectModal;
+
+    if (this.state.projectIndexToEdit >= 0) {
+      const index = this.state.projectIndexToEdit;
+      const elt = filteredProjects[index];
+
+      editProjectModal = (
+        <EditProjectModal
+          index={index}
+          key={"editProjectModal" + index}
+          id={"modalEditProject" + index.toString()}
+          projectID={elt.project_id}
+          project_name={elt.project_name}
+          project_table={elt.table_number}
+          url={elt.url}
+          challenges={elt.challenges}
+          toggle={elt.checkVal}
+          allChallenges={allChallenges}
+          company_map={challengesToCompanyMap}
+          onEdit={this.props.loadProjects}
+        />
+      );
+    }
 
     return (
-      <div className="card">
-        <div className="card-header">
-          <div className="d-flex">
-            <h4>Projects</h4>
-            <span className="ml-auto">
-              <button
-                className="link-button"
-                type="button"
-                onClick={() => {
-                  this.toggleView();
-                }}
-              >
-                {!this.state.viewable ? "Show" : "Hide"}
-              </button>
-            </span>
-          </div>
-        </div>
-
+      <Card
+        title="Projects"
+        action={() => {
+          this.toggleView();
+        }}
+        actionName={!this.state.viewable ? "Show" : "Hide"}
+      >
         <div className="card-body" id="project-content">
           <h5>Seed Database</h5>
           <form
@@ -449,7 +439,7 @@ class ProjectModule extends Component {
             </SmallerParentheses>
           </h5>
           <CreateProjectModal
-            createID="modalCreateProject"
+            id="modalCreateProject"
             onCreate={this.props.loadProjects}
             allChallenges={allChallenges}
             company_map={challengesToCompanyMap}
@@ -507,28 +497,21 @@ class ProjectModule extends Component {
                     type="button"
                     data-toggle="modal"
                     data-target={"#modalEditProject" + index.toString()}
-                    // Hacky solution to only mount the modal when necessary
-                    // (helps if huge amount of projects in DB)
                     onMouseOver={() => {
-                      this.setState({ projectIndexToEdit: index });
+                      this.setState({
+                        projectIndexToEdit: index
+                      });
                     }}
                   >
                     Edit
                   </button>
                 </div>
-                {this.state.projectIndexToEdit === index
-                  ? this.renderEditProjectModal(
-                      elt,
-                      index,
-                      allChallenges,
-                      challengesToCompanyMap
-                    )
-                  : null}
               </div>
             );
           })}
         </div>
-      </div>
+        {editProjectModal}
+      </Card>
     );
   }
 }

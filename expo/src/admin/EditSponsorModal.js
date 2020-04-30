@@ -36,17 +36,6 @@ class EditSponsorModal extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      access_code: nextProps.sponsorCode,
-      invalid_access: false,
-      company_name: nextProps.sponsorName,
-      missing_access: false,
-      missing_company: false,
-      showConfirmation: false
-    });
-  }
-
   toggleConfirmation = () => {
     this.setState({ showConfirmation: !this.state.showConfirmation });
   };
@@ -91,27 +80,14 @@ class EditSponsorModal extends Component {
           missing_access: false
         });
         document
-          .getElementById("btnCancelEditSponsorModal" + this.props.editID)
+          .getElementById("btnCancelEditSponsorModal" + this.props.id)
           .click();
       } else {
-        // Show errors
-        if (!validAccess) {
-          this.setState({ invalid_access: true });
-        } else {
-          this.setState({ invalid_access: false });
-        }
-
-        if (missingCompany) {
-          this.setState({ missing_company: true });
-        } else {
-          this.setState({ missing_company: false });
-        }
-
-        if (missingAccess) {
-          this.setState({ missing_access: true });
-        } else {
-          this.setState({ missing_access: false });
-        }
+        this.setState({
+          invalid_access: !validAccess,
+          missing_company: missingCompany,
+          missing_access: missingAccess
+        });
       }
     });
   };
@@ -128,14 +104,14 @@ class EditSponsorModal extends Component {
           missing_access: false
         });
         document
-          .getElementById("btnCloseEditSponsorModal" + this.props.editID)
+          .getElementById("btnCloseEditSponsorModal" + this.props.id)
           .click();
       });
   };
 
   render() {
     return (
-      <div className="modal fade" id={this.props.editID}>
+      <div className="modal fade" id={this.props.id}>
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -143,7 +119,7 @@ class EditSponsorModal extends Component {
               <button
                 type="button"
                 className="close"
-                id={`btnCloseEditSponsorModal${this.props.editID}`}
+                id={`btnCloseEditSponsorModal${this.props.id}`}
                 data-dismiss="modal"
                 aria-label="Close"
               >
@@ -201,7 +177,7 @@ class EditSponsorModal extends Component {
                   <button
                     type="button"
                     className="button button-secondary m-r-s"
-                    id={"btnCancelEditSponsorModal" + this.props.editID}
+                    id={"btnCancelEditSponsorModal" + this.props.id}
                     data-dismiss="modal"
                     onClick={() => {
                       this.setState({

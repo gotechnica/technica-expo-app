@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axiosRequest from "Backend.js";
+import Modal from "components/Modal";
 
 import Error from "Error.js";
 import ConfirmationButton from "admin/ConfirmationButton";
@@ -113,7 +114,7 @@ class EditChallengeModal extends Component {
           });
 
           document
-            .getElementById("btnHideCreateChallengeModal" + this.props.editID)
+            .getElementById("btnHideCreateChallengeModal" + this.props.id)
             .click();
         }
 
@@ -153,108 +154,104 @@ class EditChallengeModal extends Component {
 
   render() {
     return (
-      <div className="modal fade" id={this.props.editID}>
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Edit Challenge</h5>
-              <button
-                type="button"
-                className="close"
-                id={`btnCloseEditChallengeModal${this.props.challengeID}`}
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <div className="form-group">
-                <label>Challenge Title</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={this.state.challenge_title}
-                  onChange={event =>
-                    this.setState({ challenge_title: event.target.value })
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <label>Number of Winners</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={this.state.num_winners}
-                  min="1"
-                  onChange={event =>
-                    this.setState({ num_winners: event.target.value })
-                  }
-                />
-                <br />
-                {this.state.winner_error ? InvalidWinnerErr : ""}
-                {this.state.missing_fields ? MissingFieldsErr : ""}
-              </div>
-            </div>
-
-            {this.state.showConfirmation ? (
-              <ConfirmationButton
-                elementToDelete={this.state.challenge_title}
-                deleteElement={this.deleteChallenge}
-                toggleConfirmation={this.toggleConfirmation}
-              />
-            ) : (
-              <div className="modal-footer flex justify-space-between">
-                <div>
-                  <button
-                    type="button"
-                    className="button button-warning float-left m-r-s"
-                    onClick={this.toggleConfirmation}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    type="button"
-                    className="button button-warning float-left"
-                    onClick={this.resetWinners}
-                  >
-                    Reset Winners
-                  </button>
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    className="button button-secondary m-r-s"
-                    id={"btnHideCreateChallengeModal" + this.props.editID}
-                    data-dismiss="modal"
-                    onClick={() => {
-                      this.setState({
-                        winner_error: false,
-                        missing_fields: false,
-                        challenge_title: this.props.challengeTitle,
-                        num_winners: this.props.numWinners,
-                        showConfirmation: false
-                      });
-                    }}
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    type="button"
-                    className="button button-primary"
-                    onClick={event => {
-                      this.saveChallenge(event);
-                    }}
-                  >
-                    Save
-                  </button>
-                </div>
-              </div>
-            )}
+      <Modal id={this.props.id}>
+        <div className="modal-header">
+          <h5 className="modal-title">Edit Challenge</h5>
+          <button
+            type="button"
+            className="close"
+            id={`btnCloseEditChallengeModal${this.props.challengeID}`}
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div className="modal-body">
+          <div className="form-group">
+            <label>Challenge Title</label>
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.challenge_title}
+              onChange={event =>
+                this.setState({ challenge_title: event.target.value })
+              }
+            />
+          </div>
+          <div className="form-group">
+            <label>Number of Winners</label>
+            <input
+              type="number"
+              className="form-control"
+              value={this.state.num_winners}
+              min="1"
+              onChange={event =>
+                this.setState({ num_winners: event.target.value })
+              }
+            />
+            <br />
+            {this.state.winner_error ? InvalidWinnerErr : ""}
+            {this.state.missing_fields ? MissingFieldsErr : ""}
           </div>
         </div>
-      </div>
+
+        {this.state.showConfirmation ? (
+          <ConfirmationButton
+            elementToDelete={this.state.challenge_title}
+            deleteElement={this.deleteChallenge}
+            toggleConfirmation={this.toggleConfirmation}
+          />
+        ) : (
+          <div className="modal-footer flex justify-space-between">
+            <div>
+              <button
+                type="button"
+                className="button button-warning float-left m-r-s"
+                onClick={this.toggleConfirmation}
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                className="button button-warning float-left"
+                onClick={this.resetWinners}
+              >
+                Reset Winners
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                className="button button-secondary m-r-s"
+                id={"btnHideCreateChallengeModal" + this.props.id}
+                data-dismiss="modal"
+                onClick={() => {
+                  this.setState({
+                    winner_error: false,
+                    missing_fields: false,
+                    challenge_title: this.props.challengeTitle,
+                    num_winners: this.props.numWinners,
+                    showConfirmation: false
+                  });
+                }}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                className="button button-primary"
+                onClick={event => {
+                  this.saveChallenge(event);
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        )}
+      </Modal>
     );
   }
 }

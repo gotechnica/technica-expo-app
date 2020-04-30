@@ -21,16 +21,16 @@ library.add(faSquare);
 function DiversifyWinnersModal() {
   return (
     <div
-      class="modal fade bd-example-modal-sm"
+      className="modal fade bd-example-modal-sm"
       id="diversifyWinnersModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="mySmallModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content" style={{ border: "0px solid" }}>
-          <div class="modal-header" style={{ border: "0px solid" }}>
+      <div className="modal-dialog modal-sm modal-dialog-centered">
+        <div className="modal-content" style={{ border: "0px solid" }}>
+          <div className="modal-header" style={{ border: "0px solid" }}>
             <button
               type="button"
               class="close"
@@ -41,7 +41,7 @@ function DiversifyWinnersModal() {
             </button>
           </div>
           <div
-            class="modal-body"
+            className="modal-body"
             style={{ color: "white", textAlign: "center" }}
           >
             <FontAwesomeIcon
@@ -56,7 +56,7 @@ function DiversifyWinnersModal() {
             </div>
           </div>
           <div
-            class="modal-footer"
+            className="modal-footer"
             style={{ border: "0px solid", paddingTop: "0px" }}
           >
             <button className="button button-primary" data-dismiss="modal">
@@ -71,35 +71,13 @@ function DiversifyWinnersModal() {
 
 export function CheckBoxColumn(props) {
   let checkbox = props.checked ? faCheckSquare : faSquare;
-  let input = props.checked ? (
-    props.disabled ? (
-      <input
-        type="checkbox"
-        className="voting-checkbox"
-        value={props.project_id}
-        checked
-        disabled
-      />
-    ) : (
-      <input
-        type="checkbox"
-        className="voting-checkbox"
-        value={props.project_id}
-        checked
-      />
-    )
-  ) : props.disabled ? (
+  let input = (
     <input
       type="checkbox"
       className="voting-checkbox"
       value={props.project_id}
-      disabled
-    />
-  ) : (
-    <input
-      type="checkbox"
-      className="voting-checkbox"
-      value={props.project_id}
+      checked={props.checked}
+      disabled={props.disabled}
     />
   );
   let checkboxStyle = props.checked
@@ -115,7 +93,9 @@ export function CheckBoxColumn(props) {
     <FontAwesomeIcon
       icon={checkbox}
       className={checkboxStyle}
-      onClick={this.props.vote_handler.bind(this, props.project_id)}
+      onClick={() => {
+        props.vote_handler(props.project_id);
+      }}
     />
   );
   return (
@@ -130,9 +110,7 @@ export function CheckBoxColumn(props) {
       {input}
       {!props.checked && props.num_challenges_won >= 2 ? (
         <DiversifyWinnersModal />
-      ) : (
-        <Fragment></Fragment>
-      )}
+      ) : null}
     </td>
   );
 }
@@ -165,12 +143,8 @@ function ProjectColumn(props) {
             ) : (
               <div className="Sponsor-Table">Table: {props.table_number}</div>
             )
-          ) : (
-            <Fragment></Fragment>
-          )
-        ) : (
-          <Fragment></Fragment>
-        )}
+          ) : null
+        ) : null}
         {props.width < 460 &&
         props.num_challenges_won > 0 &&
         props.origin === "sponsor" ? (
@@ -182,17 +156,13 @@ function ProjectColumn(props) {
             />
             Challenges Won: {props.num_challenges_won}
           </div>
-        ) : (
-          <Fragment></Fragment>
-        )}
+        ) : null}
       </div>
       {props.origin === "home" ? (
         <Fragment>
           {challenges_won.length > 0 ? (
             <div className="challenges-won">{challenges_won}</div>
-          ) : (
-            <Fragment></Fragment>
-          )}
+          ) : null}
           {attempted_challenges.length > 0 ? (
             <Fragment>
               {props.width < 460 && !props.show_attempted_challenges ? (
@@ -211,13 +181,9 @@ function ProjectColumn(props) {
                 )}
               </div>
             </Fragment>
-          ) : (
-            <Fragment></Fragment>
-          )}
+          ) : null}
         </Fragment>
-      ) : (
-        <Fragment></Fragment>
-      )}
+      ) : null}
     </td>
   );
 }
@@ -291,9 +257,7 @@ export function Row(props) {
       <td className="Table-Number header-font">
         {props.table_number === "" ? "-" : props.table_number}
       </td>
-    ) : (
-      <Fragment></Fragment>
-    );
+    ) : null;
   return (
     <tr className="voting-row">
       {props.origin === "sponsor" ? (
@@ -304,9 +268,7 @@ export function Row(props) {
           disabled={props.disabled}
           num_challenges_won={winner_count}
         />
-      ) : (
-        <Fragment></Fragment>
-      )}
+      ) : null}
       {table}
       <ProjectColumn
         project_name={props.project_name}
@@ -340,16 +302,10 @@ export function Row(props) {
                 />
                 {winner_count}
               </Fragment>
-            ) : (
-              <Fragment></Fragment>
-            )}
+            ) : null}
           </td>
-        ) : (
-          <Fragment></Fragment>
-        )
-      ) : (
-        <Fragment></Fragment>
-      )}
+        ) : null
+      ) : null}
     </tr>
   );
 }
@@ -378,13 +334,9 @@ export class Table extends Component {
     let rows = [];
     let counter = 0;
     let table =
-      this.state.width >= 460 ? (
-        <th className="header-font">Table</th>
-      ) : (
-        <Fragment></Fragment>
-      );
+      this.state.width >= 460 ? <th className="header-font">Table</th> : null;
     let trophy_header =
-      this.state.width >= 460 ? <th>Challenges Won</th> : <Fragment></Fragment>;
+      this.state.width >= 460 ? <th>Challenges Won</th> : null;
     this.props.projects.forEach(project => {
       rows.push(
         this.props.origin === "sponsor" ? (
@@ -467,9 +419,7 @@ export class Table extends Component {
                 {trophy_header}
               </tr>
             </thead>
-          ) : (
-            <Fragment></Fragment>
-          )}
+          ) : null}
           <tbody>{rows}</tbody>
         </table>
         {this.props.origin === "sponsor" ? (
@@ -512,9 +462,7 @@ export class Table extends Component {
               />
             </div>
           )
-        ) : (
-          <Fragment></Fragment>
-        )}
+        ) : null}
       </Fragment>
     ) : (
       <div className="card no-submissions">

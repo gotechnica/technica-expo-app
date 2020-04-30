@@ -27,9 +27,7 @@ export default function AdminLogin(props) {
             setError("");
 
             // Move to admin page
-            props.history.push({
-              pathname: "/admin"
-            });
+            redirect(props);
           } else {
             // Log in failed, show error
             setError(InvalidErr);
@@ -43,16 +41,20 @@ export default function AdminLogin(props) {
   useEffect(() => {
     axiosRequest.get("api/whoami").then(credentials => {
       if (credentials !== undefined && credentials.user_type === "admin") {
-        props.history.push({
-          pathname: "/admin"
-        });
+        redirect(props);
       }
     });
-  }, []);
+  }, [props]);
 
   return SiteWrapper(
     <div className="AdminLogin">
       <Login title="Admin Login" onLogin={onLogin} error={error} />
     </div>
   );
+}
+
+function redirect(props) {
+  props.history.push({
+    pathname: "/admin"
+  });
 }

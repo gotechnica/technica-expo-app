@@ -7,9 +7,9 @@ import "App.css";
 
 export default function Home() {
   return SiteWrapper(
-    <div class="Home">
-      <div class="row">
-        <div class="col">
+    <div className="Home">
+      <div className="row">
+        <div className="col">
           <SearchandFilter origin="home" />
         </div>
       </div>
