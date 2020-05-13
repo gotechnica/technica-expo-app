@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WinnerBadge from "customize/imgs/winner_ribbon.png";
@@ -15,6 +15,7 @@ import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import customize from "customize/customize";
+import { useWindowWidth } from "./helpers";
 library.add(faCheckSquare);
 library.add(faSquare);
 
@@ -136,7 +137,7 @@ function ProjectColumn(props) {
                 >
                   <div className="Table header-font">Table</div>
                   <div className="Table-Number header-font">
-                    {this.props.table_number}
+                    {props.table_number}
                   </div>
                 </button>
               </div>
@@ -169,7 +170,7 @@ function ProjectColumn(props) {
                 <hr className="attempted-challenges" />
               ) : null}
               <div className="attempted-challenges">
-                {this.props.show_attempted_challenges ? (
+                {props.show_attempted_challenges ? (
                   <b>
                     Attempted Challenge
                     <SmallerParentheses font_size="12px">
@@ -230,7 +231,7 @@ export function Row(props) {
   let challenges_won = [];
   let winner_count = 0;
   if (props.challenges !== undefined) {
-    props.challenges.forEach(challenge => {
+    props.challenges.forEach((challenge) => {
       let challenge_card = (
         <ChallengeCard
           company={challenge.company}
@@ -290,7 +291,7 @@ export function Row(props) {
             style={{
               fontSize: "35px",
               fontWeight: "bold",
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             {winner_count > 0 ? (
@@ -310,170 +311,143 @@ export function Row(props) {
   );
 }
 
-export class Table extends Component {
-  constructor(props) {
-    super(props);
-    this.updateDimensions = this.updateDimensions.bind(this);
-    this.state = { width: window.innerWidth };
-  }
+export function Table(props) {
+  const width = useWindowWidth();
 
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions);
-  }
-
-  updateDimensions() {
-    this.setState({ width: window.innerWidth });
-  }
-
-  render() {
-    let rows = [];
-    let counter = 0;
-    let table =
-      this.state.width >= 460 ? <th className="header-font">Table</th> : null;
-    let trophy_header =
-      this.state.width >= 460 ? <th>Challenges Won</th> : null;
-    this.props.projects.forEach(project => {
-      rows.push(
-        this.props.origin === "sponsor" ? (
-          <Row
-            project_id={project.project_id}
-            table_number={project.table_number}
-            project_name={project.project_name}
-            project_url={project.project_url}
-            vote_handler={this.props.vote_handler}
-            checked={
-              this.props.checked[project.project_id] === undefined
-                ? false
-                : this.props.checked[project.project_id].checked[
-                    this.props.value
-                  ]
-            }
-            disabled={this.props.sponsor_data[this.props.value].votes_submitted}
-            origin={this.props.origin}
-            width={this.state.width}
-            challenges={project.challenges}
-            winnersRevealed={this.props.winnersRevealed}
-          />
-        ) : (
-          <Row
-            project_id={project.project_id}
-            table_number={project.table_number}
-            project_name={project.project_name}
-            project_url={project.project_url}
-            challenges={project.challenges}
-            origin={this.props.origin}
-            width={this.state.width}
-            counter={counter}
-            show_attempted_challenges={this.props.show_attempted_challenges}
-            winnersRevealed={this.props.winnersRevealed}
-          />
-        )
-      );
-      counter += 1;
-    });
-    let selections = [];
-    if (this.props.origin === "sponsor") {
-      Object.keys(this.props.checked).forEach(project_id => {
-        let challenges = this.props.checked[project_id];
-        Object.keys(challenges.checked).forEach(challenge => {
-          if (
-            challenge === this.props.value &&
-            challenges.checked[challenge] === true
-          ) {
-            selections.push(challenges.project_name);
+  let rows = [];
+  let counter = 0;
+  let table = width >= 460 ? <th className="header-font">Table</th> : null;
+  let trophy_header = width >= 460 ? <th>Challenges Won</th> : null;
+  props.projects.forEach((project) => {
+    rows.push(
+      props.origin === "sponsor" ? (
+        <Row
+          project_id={project.project_id}
+          table_number={project.table_number}
+          project_name={project.project_name}
+          project_url={project.project_url}
+          vote_handler={props.vote_handler}
+          checked={
+            props.checked[project.project_id] === undefined
+              ? false
+              : props.checked[project.project_id].checked[props.value]
           }
-        });
+          disabled={props.sponsor_data[props.value].votes_submitted}
+          origin={props.origin}
+          width={width}
+          challenges={project.challenges}
+          winnersRevealed={props.winnersRevealed}
+        />
+      ) : (
+        <Row
+          project_id={project.project_id}
+          table_number={project.table_number}
+          project_name={project.project_name}
+          project_url={project.project_url}
+          challenges={project.challenges}
+          origin={props.origin}
+          width={width}
+          counter={counter}
+          show_attempted_challenges={props.show_attempted_challenges}
+          winnersRevealed={props.winnersRevealed}
+        />
+      )
+    );
+    counter += 1;
+  });
+  let selections = [];
+  if (props.origin === "sponsor") {
+    Object.keys(props.checked).forEach((project_id) => {
+      let challenges = props.checked[project_id];
+      Object.keys(challenges.checked).forEach((challenge) => {
+        if (
+          challenge === props.value &&
+          challenges.checked[challenge] === true
+        ) {
+          selections.push(challenges.project_name);
+        }
       });
-    }
+    });
+  }
 
-    if (!this.props.expoIsPublished) {
-      return (
-        <div className="card no-submissions">
-          <h3>We're currently working on loading in the projects.</h3>
-          <h3>Expo will begin shortly!</h3>
-        </div>
-      );
-    }
-
-    return rows.length > 0 ? (
-      <Fragment>
-        <table>
-          {this.props.origin === "home" ? (
-            <thead>
-              <tr>
-                {table}
-                <th className="header-font">Project Information</th>
-              </tr>
-            </thead>
-          ) : this.state.width >= 460 ? (
-            <thead>
-              <tr>
-                <th>Select</th>
-                {table}
-                <th>Project</th>
-                {trophy_header}
-              </tr>
-            </thead>
-          ) : null}
-          <tbody>{rows}</tbody>
-        </table>
-        {this.props.origin === "sponsor" ? (
-          this.props.sponsor_data[this.props.value].votes_submitted ? (
-            <div className="float-right-desktop">
-              <button className="button button-secondary clear m-r-m" disabled>
-                Clear
-              </button>
-              <button className="button button-primary submit" disabled>
-                Submit
-              </button>
-            </div>
-          ) : (
-            <div className="float-right-desktop">
-              <button
-                className="button button-secondary clear m-r-m"
-                onClick={this.props.clear}
-              >
-                Clear
-              </button>
-              <button
-                className="button button-primary submit"
-                data-toggle="modal"
-                data-target="#submitModal"
-              >
-                Submit
-              </button>
-              <SubmitModal
-                value={this.props.value}
-                votes={selections}
-                vote_limit={
-                  this.props.sponsor_data[this.props.value].vote_limit
-                }
-                submit_handler={this.props.submit}
-                company_id={this.props.company_id}
-                challenge_id={
-                  this.props.sponsor_data[this.props.value].challenge_id
-                }
-                after_submission_handler={this.props.after_submission_handler}
-              />
-            </div>
-          )
-        ) : null}
-      </Fragment>
-    ) : (
+  if (!props.expoIsPublished) {
+    return (
       <div className="card no-submissions">
-        {this.props.isLoadingData ? (
-          <h2>Loading projects...</h2>
-        ) : (
-          <h2>No Submissions</h2>
-        )}
+        <h3>We're currently working on loading in the projects.</h3>
+        <h3>Expo will begin shortly!</h3>
       </div>
     );
   }
+
+  return rows.length > 0 ? (
+    <Fragment>
+      <table>
+        {props.origin === "home" ? (
+          <thead>
+            <tr>
+              {table}
+              <th className="header-font">Project Information</th>
+            </tr>
+          </thead>
+        ) : width >= 460 ? (
+          <thead>
+            <tr>
+              <th>Select</th>
+              {table}
+              <th>Project</th>
+              {trophy_header}
+            </tr>
+          </thead>
+        ) : null}
+        <tbody>{rows}</tbody>
+      </table>
+      {props.origin === "sponsor" ? (
+        props.sponsor_data[props.value].votes_submitted ? (
+          <div className="float-right-desktop">
+            <button className="button button-secondary clear m-r-m" disabled>
+              Clear
+            </button>
+            <button className="button button-primary submit" disabled>
+              Submit
+            </button>
+          </div>
+        ) : (
+          <div className="float-right-desktop">
+            <button
+              className="button button-secondary clear m-r-m"
+              onClick={props.clear}
+            >
+              Clear
+            </button>
+            <button
+              className="button button-primary submit"
+              data-toggle="modal"
+              data-target="#submitModal"
+            >
+              Submit
+            </button>
+            <SubmitModal
+              value={props.value}
+              votes={selections}
+              vote_limit={props.sponsor_data[props.value].vote_limit}
+              submit_handler={props.submit}
+              company_id={props.company_id}
+              challenge_id={props.sponsor_data[props.value].challenge_id}
+              after_submission_handler={props.after_submission_handler}
+            />
+          </div>
+        )
+      ) : null}
+    </Fragment>
+  ) : (
+    <div className="card no-submissions">
+      {props.isLoadingData ? (
+        <h2>Loading projects...</h2>
+      ) : (
+        <h2>No Submissions</h2>
+      )}
+    </div>
+  );
 }
 
 export default Table;
