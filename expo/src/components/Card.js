@@ -4,10 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "components/Card.css";
 
 /**
- * @props
- * title - Title that goes in card header
- * action
- * actionName
+ * Wrapper for Bootstrap Card
+ * @param {Object} props
+ * @param {String} props.title Card title
+ * @param {String=} props.action Callback on card action
+ * @param {String=} props.actionName Name of the action in the card header
  */
 export default function Card(props) {
   return (

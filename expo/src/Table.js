@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WinnerBadge from "customize/imgs/winner_ribbon.png";
-import SmallerParentheses from "SmallerParentheses.js";
+import SmallerParentheses from "components/SmallerParentheses.js";
 import { SubmitModal } from "Sponsor.js";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -173,7 +173,7 @@ function ProjectColumn(props) {
                 {props.show_attempted_challenges ? (
                   <b>
                     Attempted Challenge
-                    <SmallerParentheses font_size="12px">
+                    <SmallerParentheses fontSize="12px">
                       s
                     </SmallerParentheses>: {attempted_challenges.length}
                   </b>

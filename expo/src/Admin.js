@@ -18,7 +18,7 @@ export default function Admin(props) {
   const [challenges, setChallenges] = useState("");
 
   const loadProjects = () => {
-    axiosRequest.get("api/projects_and_winners").then(projectData => {
+    axiosRequest.get("api/projects_and_winners").then((projectData) => {
       // Check first project element and see if table numbers consist of both alpha and numeric portions
       const tableNumbersAreOnlyNumeric =
         projectData["projects"].length > 0 &&
@@ -33,7 +33,7 @@ export default function Admin(props) {
   };
 
   const loadChallenges = () => {
-    axiosRequest.get("api/challenges").then(challengeData => {
+    axiosRequest.get("api/challenges").then((challengeData) => {
       setChallenges(challengeData);
     });
   };
@@ -46,12 +46,12 @@ export default function Admin(props) {
   };
 
   useEffect(() => {
-    axiosRequest.get("api/whoami").then(credentials => {
+    axiosRequest.get("api/whoami").then((credentials) => {
       if (credentials !== undefined && credentials.user_type === "admin") {
         setLoggedIn(true);
       } else {
         props.history.push({
-          pathname: "/adminlogin"
+          pathname: "/adminlogin",
         });
       }
     });

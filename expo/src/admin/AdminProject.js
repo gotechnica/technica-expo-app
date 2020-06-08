@@ -10,7 +10,7 @@ import "Admin.css";
 import "App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SmallerParentheses from "SmallerParentheses.js";
+import SmallerParentheses from "components/SmallerParentheses.js";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
@@ -433,7 +433,7 @@ class ProjectModule extends Component {
 
           <h5>
             Projects{" "}
-            <SmallerParentheses font_size="15px">
+            <SmallerParentheses fontSize="15px">
               {filteredProjects.length}
             </SmallerParentheses>
           </h5>
@@ -461,8 +461,8 @@ class ProjectModule extends Component {
           </button>
           <WarningModal
             modalId="projectWipeWarningModal"
-            whatToDelete="Projects"
-            deleteAll={this.deleteAllProjects.bind(this)}
+            collection="Projects"
+            onDelete={this.deleteAllProjects.bind(this)}
           />
           <div className="form-group">
             <input

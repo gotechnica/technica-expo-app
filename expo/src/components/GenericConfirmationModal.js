@@ -4,11 +4,12 @@ import Modal from "components/Modal";
 import "App.css";
 
 /**
- * @props
- * id - unique id for this modal (safest to only use once in the entire app)
- * modalTitle - h5 to display (main confirmation text)
- * bodyText - p to offer any explanations/descriptions/information
- * completeAction - method bound to calling class to be called on confirmation
+ * Wrapper for a modal with "Yes" and "No" options
+ * @param {Object} props
+ * @param {String} props.id Unique HTML id
+ * @param {String} props.modalTitle Modal header title
+ * @param {String} props.bodyText Main body text for modal
+ * @param {*} props.completeAction Callback
  */
 export default function GenericConfirmationModal(props) {
   return (

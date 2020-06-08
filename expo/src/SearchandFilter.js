@@ -3,7 +3,7 @@ import axiosRequest from "Backend.js";
 
 import { VotingTable, WelcomeHeader } from "Sponsor.js";
 import Table from "Table.js";
-import SmallerParentheses from "SmallerParentheses.js";
+import SmallerParentheses from "components/SmallerParentheses.js";
 
 import "components/Card.css";
 import "SliderOption.css";
@@ -331,7 +331,7 @@ class SearchandFilterInner extends Component {
             <div className="card-header">
               <h5>
                 Select Your Challenge Winner
-                <SmallerParentheses font_size="15px">s</SmallerParentheses>
+                <SmallerParentheses fontSize="15px">s</SmallerParentheses>
               </h5>
             </div>
           ) : (

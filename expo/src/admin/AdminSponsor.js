@@ -18,7 +18,7 @@ import {
   faCaretDown,
   faCaretUp,
   faCheckSquare,
-  faUpload
+  faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 library.add(faUpload);
 library.add(faCaretDown);
@@ -34,15 +34,15 @@ class SponsorModule extends Component {
       textSearch: "",
       sponsors: [],
       viewable: true,
-      sponsor_names: []
+      sponsor_names: [],
     };
   }
 
   loadCompanies() {
-    axiosRequest.get("api/companies").then(sponsors => {
+    axiosRequest.get("api/companies").then((sponsors) => {
       this.setState({
         sponsors: sponsors, // this is the list of challenges
-        sponsor_names: [...new Set(sponsors.map(x => x["company_name"]))]
+        sponsor_names: [...new Set(sponsors.map((x) => x["company_name"]))],
       });
     });
   }
@@ -77,10 +77,10 @@ class SponsorModule extends Component {
   render() {
     // Compress list by access_code to suit view
     let compressedSponsors = [];
-    this.state.sponsors.forEach(elt => {
+    this.state.sponsors.forEach((elt) => {
       // Check whether code is unique
       let codeSeen = false;
-      compressedSponsors.forEach(sponsor => {
+      compressedSponsors.forEach((sponsor) => {
         if (sponsor.access_code === elt.access_code) {
           codeSeen = true;
         }
@@ -92,13 +92,13 @@ class SponsorModule extends Component {
           access_code: elt.access_code,
           company_name: elt.company_name,
           challenges: [],
-          id: elt.company_id
+          id: elt.company_id,
         });
       }
 
       // Add challenge to corresponding sponsor
       let current_sponsor = null;
-      compressedSponsors.forEach(sponsor => {
+      compressedSponsors.forEach((sponsor) => {
         if (sponsor.access_code === elt.access_code) {
           current_sponsor = sponsor;
         }
@@ -107,7 +107,7 @@ class SponsorModule extends Component {
         current_sponsor.challenges.push({
           challenge: elt.challenge_name,
           id: elt.challenge_id,
-          num_winners: elt.num_winners
+          num_winners: elt.num_winners,
         });
       }
     });
@@ -115,11 +115,11 @@ class SponsorModule extends Component {
     // Prepare sponsor list against filter (including sponsor name and challenges)
     let filteredSponsors = compressedSponsors;
     if (this.state.textSearch !== "" && this.state.textSearch !== undefined) {
-      filteredSponsors = filteredSponsors.filter(elt => {
+      filteredSponsors = filteredSponsors.filter((elt) => {
         let casedTextSearch = this.state.textSearch.toUpperCase();
 
         let chalSearch = false;
-        elt.challenges.forEach(chal => {
+        elt.challenges.forEach((chal) => {
           if (chal.challenge.toUpperCase().includes(casedTextSearch)) {
             chalSearch = true;
           }
@@ -159,8 +159,8 @@ class SponsorModule extends Component {
         </button>
         <WarningModal
           modalId="companyWipeWarningModal"
-          whatToDelete="Sponsors"
-          deleteAll={this.deleteAllSponsors.bind(this)}
+          collection="Sponsors"
+          onDelete={this.deleteAllSponsors.bind(this)}
         />
         <button
           className="button button-primary m-b-m"
@@ -179,7 +179,7 @@ class SponsorModule extends Component {
           inputLabel="Devpost Link"
           inputPlaceholder="https://bitcamp2019.devpost.com"
           isInputRequired={true}
-          completeAction={devpostUrl =>
+          completeAction={(devpostUrl) =>
             this.seedChallengesFromDevpost(devpostUrl)
           }
           submitText="Seed from Devpost"
@@ -190,7 +190,7 @@ class SponsorModule extends Component {
             id="txtSponsorSearch"
             className="form-control"
             placeholder="Search for a sponsor or challenge name..."
-            onChange={event =>
+            onChange={(event) =>
               this.setState({ textSearch: event.target.value })
             }
           />

@@ -4,16 +4,16 @@ import Modal from "components/Modal";
 import "App.css";
 
 /**
- * @props
- * id - unique id for this modal (safest to only use once in the entire app)
- * modalTitle - h5 to display (main confirmation text)
- * bodyText - p to offer any explanations/descriptions/information (leave null if not needed)
- * inputLabel - label of the input you want from the user
- * inputPlaceholder - placeholder text for the input box
- * isInputRequired - boolean
- * completeAction - method bound to calling class to be called on confirmation,
- *                  takes @param inputValue (user inputted text)
- * submitText - what to display on the submit button (e.g. "Submit" or "Import from Devpost")
+ * Modal that requests text input
+ * @param {Object} props
+ * @param {String} props.id - HTML id
+ * @param {String} props.modalTitle Modal title
+ * @param {String} props.bodyText Additional modal body text
+ * @param {String} props.inputLabel Label for main input
+ * @param {String} props.inputPlaceholder Placeholder for main input
+ * @param {boolean} props.isInputRequired Is the input required?
+ * @param {*} props.completeAction Callback that takes the user input
+ * @param {String} props.submitText Text for the submit button
  */
 export default function SubmitInputModal(props) {
   const [inputValue, setInput] = useState("");
@@ -44,7 +44,7 @@ export default function SubmitInputModal(props) {
             type="text"
             className="form-control"
             placeholder={props.inputPlaceholder}
-            onChange={e => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
             required={props.isInputRequired || false}
           />
         </div>

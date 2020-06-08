@@ -40,7 +40,7 @@ export default function CreateChallengeModal(props) {
       axiosRequest
         .post(`api/companies/id/${props.sponsorID}/challenges/add`, {
           challenge_name: challengeTitle,
-          num_winners: numWinners
+          num_winners: numWinners,
         })
         .then(props.onCreate);
 
@@ -71,7 +71,7 @@ export default function CreateChallengeModal(props) {
             type="text"
             className="form-control"
             placeholder="Enter a challenge title"
-            onChange={event => setChallengeTitle(event.target.value)}
+            onChange={(event) => setChallengeTitle(event.target.value)}
             value={challengeTitle}
           />
         </div>
@@ -82,7 +82,7 @@ export default function CreateChallengeModal(props) {
             className="form-control"
             placeholder="Enter a number of winners"
             min="1"
-            onChange={event => setNumWinners(event.target.value)}
+            onChange={(event) => setNumWinners(event.target.value)}
             value={numWinners}
           />
           <br />

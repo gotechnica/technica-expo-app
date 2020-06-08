@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 
+/**
+ *
+ * @param {Object} props
+ * @param {*} props.id
+ * @param {*} props.project_id
+ * @param {*} props.value
+ * @param {*} props.handleChange
+ */
 export default function Checkbox(props) {
   const [checked, setChecked] = useState(props.check);
 
@@ -8,7 +16,7 @@ export default function Checkbox(props) {
   return (
     <div
       className="custom-control custom-checkbox"
-      onChange={e => {
+      onChange={(e) => {
         setChecked(!checked);
         props.handleChange(checked, id, e);
       }}

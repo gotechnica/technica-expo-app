@@ -32,7 +32,7 @@ class EditSponsorModal extends Component {
       company_name: this.props.sponsorName,
       missing_access: false,
       missing_company: false,
-      showConfirmation: false
+      showConfirmation: false,
     };
   }
 
@@ -41,7 +41,7 @@ class EditSponsorModal extends Component {
   };
 
   saveSponsor = () => {
-    axiosRequest.get("api/companies").then(sponsors => {
+    axiosRequest.get("api/companies").then((sponsors) => {
       let validAccess = true;
       for (let i = 0; i < sponsors.length; i++) {
         // Validate that code does not exist
@@ -69,7 +69,7 @@ class EditSponsorModal extends Component {
         axiosRequest
           .post(`api/companies/id/${sponsor_id}`, {
             company_name: this.state.company_name,
-            access_code: this.state.access_code
+            access_code: this.state.access_code,
           })
           .then(this.props.onEdit);
 
@@ -77,7 +77,7 @@ class EditSponsorModal extends Component {
         this.setState({
           missing_company: false,
           invalid_access: false,
-          missing_access: false
+          missing_access: false,
         });
         document
           .getElementById("btnCancelEditSponsorModal" + this.props.id)
@@ -86,7 +86,7 @@ class EditSponsorModal extends Component {
         this.setState({
           invalid_access: !validAccess,
           missing_company: missingCompany,
-          missing_access: missingAccess
+          missing_access: missingAccess,
         });
       }
     });
@@ -95,13 +95,13 @@ class EditSponsorModal extends Component {
   deleteSponsor = () => {
     axiosRequest
       .delete(`api/companies/id/${this.props.sponsorID}`)
-      .then(data => {
+      .then((data) => {
         this.props.onEdit();
         // Reset state and close modal
         this.setState({
           missing_company: false,
           invalid_access: false,
-          missing_access: false
+          missing_access: false,
         });
         document
           .getElementById("btnCloseEditSponsorModal" + this.props.id)
@@ -134,7 +134,7 @@ class EditSponsorModal extends Component {
                   className="form-control"
                   id="lblAccessCode"
                   value={this.state.access_code.toString()}
-                  onChange={event =>
+                  onChange={(event) =>
                     this.setState({ access_code: event.target.value })
                   }
                 />
@@ -148,7 +148,7 @@ class EditSponsorModal extends Component {
                   className="form-control"
                   id="lblSponsorName"
                   value={this.state.company_name.toString()}
-                  onChange={event =>
+                  onChange={(event) =>
                     this.setState({ company_name: event.target.value })
                   }
                 />
@@ -186,7 +186,7 @@ class EditSponsorModal extends Component {
                         company_name: this.props.sponsorName,
                         missing_access: false,
                         missing_company: false,
-                        showConfirmation: false
+                        showConfirmation: false,
                       });
                     }}
                   >

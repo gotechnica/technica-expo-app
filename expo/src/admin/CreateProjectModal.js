@@ -11,7 +11,7 @@ class CreateProjectModal extends Component {
       error: false,
       project_name: "",
       project_url: "",
-      table_number: ""
+      table_number: "",
     };
   }
 
@@ -20,15 +20,15 @@ class CreateProjectModal extends Component {
       .post("api/projects/add", {
         project_name: this.state.project_name,
         project_url: this.state.project_url,
-        table_number: this.state.table_number
+        table_number: this.state.table_number,
       })
-      .then(data => {
+      .then((data) => {
         this.props.onCreate();
         document.getElementById("btnCancelCreateProjectModal").click();
       });
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     let change = {};
     change[e.target.name] = e.target.value;
     this.setState(change);
@@ -57,7 +57,7 @@ class CreateProjectModal extends Component {
               name="project_name"
               type="text"
               value={this.state.project_name}
-              onChange={e => this.handleChange(e)}
+              onChange={(e) => this.handleChange(e)}
               required
             />
           </div>
@@ -68,7 +68,7 @@ class CreateProjectModal extends Component {
               name="table_number"
               type="text"
               value={this.state.table_number}
-              onChange={e => this.handleChange(e)}
+              onChange={(e) => this.handleChange(e)}
             />
           </div>
           <div className="form-group">
@@ -78,7 +78,7 @@ class CreateProjectModal extends Component {
               name="project_url"
               type="text"
               value={this.state.project_url}
-              onChange={e => this.handleChange(e)}
+              onChange={(e) => this.handleChange(e)}
             />
           </div>
 

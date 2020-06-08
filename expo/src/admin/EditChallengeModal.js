@@ -29,7 +29,7 @@ class EditChallengeModal extends Component {
       missing_fields: false,
       challenge_title: this.props.challengeTitle,
       num_winners: this.props.numWinners,
-      showConfirmation: false
+      showConfirmation: false,
     };
   }
 
@@ -39,7 +39,7 @@ class EditChallengeModal extends Component {
       missing_fields: false,
       challenge_title: nextProps.challengeTitle,
       num_winners: nextProps.numWinners,
-      showConfirmation: false
+      showConfirmation: false,
     });
   }
 
@@ -57,7 +57,7 @@ class EditChallengeModal extends Component {
         .put(
           `api/companies/id/${this.props.sponsorID}/challenges/${this.props.challengeID}/resetWinners`
         )
-        .then(data => {
+        .then((data) => {
           this.props.onEdit();
           document
             .getElementById(
@@ -71,7 +71,7 @@ class EditChallengeModal extends Component {
   saveChallenge(e) {
     axiosRequest
       .get(`api/companies/id/${this.props.sponsorID}`)
-      .then(challenges => {
+      .then((challenges) => {
         let winners = [];
         for (let i = 0; i < challenges.length; i++) {
           if (challenges[i].challenge_id === this.props.challengeID) {
@@ -100,7 +100,7 @@ class EditChallengeModal extends Component {
               `api/companies/id/${this.props.sponsorID}/challenges/${this.props.challengeID}`,
               {
                 challenge_name: this.state.challenge_title,
-                num_winners: this.state.num_winners
+                num_winners: this.state.num_winners,
               }
             )
             .then(this.props.onEdit);
@@ -110,7 +110,7 @@ class EditChallengeModal extends Component {
             challenge_title: this.props.challengeTitle,
             num_winners: this.props.numWinners,
             winner_error: false,
-            missing_fields: false
+            missing_fields: false,
           });
 
           document
@@ -174,7 +174,7 @@ class EditChallengeModal extends Component {
               type="text"
               className="form-control"
               value={this.state.challenge_title}
-              onChange={event =>
+              onChange={(event) =>
                 this.setState({ challenge_title: event.target.value })
               }
             />
@@ -186,7 +186,7 @@ class EditChallengeModal extends Component {
               className="form-control"
               value={this.state.num_winners}
               min="1"
-              onChange={event =>
+              onChange={(event) =>
                 this.setState({ num_winners: event.target.value })
               }
             />
@@ -232,7 +232,7 @@ class EditChallengeModal extends Component {
                     missing_fields: false,
                     challenge_title: this.props.challengeTitle,
                     num_winners: this.props.numWinners,
-                    showConfirmation: false
+                    showConfirmation: false,
                   });
                 }}
               >
@@ -242,7 +242,7 @@ class EditChallengeModal extends Component {
               <button
                 type="button"
                 className="button button-primary"
-                onClick={event => {
+                onClick={(event) => {
                   this.saveChallenge(event);
                 }}
               >

@@ -24,7 +24,7 @@ class EditProjectModal extends Component {
       error: false,
       company_map: this.props.company_map,
       editable: true,
-      showConfirmation: false
+      showConfirmation: false,
     };
   }
 
@@ -35,13 +35,13 @@ class EditProjectModal extends Component {
   saveProject = () => {
     //create challenges to POST
     let challenges = [];
-    this.state.challenges.forEach(item => {
+    this.state.challenges.forEach((item) => {
       let object = {};
       if (this.state.company_map[item]) {
         object = {
           challenge_name: item,
           company: this.state.company_map[item],
-          won: false
+          won: false,
         };
         challenges.push(object);
       }
@@ -59,7 +59,7 @@ class EditProjectModal extends Component {
     // }
 
     this.setState({
-      error: missing
+      error: missing,
     });
 
     if (!missing) {
@@ -71,12 +71,12 @@ class EditProjectModal extends Component {
           project_name: this.state.project_name,
           project_url: this.state.project_url,
           table_number: this.state.table_number,
-          challenges: challenges
+          challenges: challenges,
         })
         .then(this.props.onEdit);
       if (checks) {
         this.setState({
-          challenges: challengeStore
+          challenges: challengeStore,
         });
       }
       document
@@ -108,7 +108,7 @@ class EditProjectModal extends Component {
   deleteProject = () => {
     axiosRequest
       .delete(`api/projects/id/${this.state.project_id}`)
-      .then(data => {
+      .then((data) => {
         this.props.onEdit();
         // Reset state and close modal
         document
@@ -140,9 +140,9 @@ class EditProjectModal extends Component {
                 className="form-control input"
                 type="text"
                 value={this.state.project_name.toString()}
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({
-                    project_name: event.target.value
+                    project_name: event.target.value,
                   })
                 }
               />
@@ -153,9 +153,9 @@ class EditProjectModal extends Component {
                 className="form-control"
                 type="text"
                 value={this.state.table_number.toString()}
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({
-                    table_number: event.target.value
+                    table_number: event.target.value,
                   })
                 }
               />
@@ -166,9 +166,9 @@ class EditProjectModal extends Component {
                 className="form-control"
                 type="text"
                 value={this.state.project_url.toString()}
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({
-                    project_url: event.target.value
+                    project_url: event.target.value,
                   })
                 }
               />
@@ -231,7 +231,7 @@ class EditProjectModal extends Component {
               <button
                 type="button"
                 className="button button-primary"
-                onClick={event => {
+                onClick={(event) => {
                   this.saveProject(event);
                 }}
               >

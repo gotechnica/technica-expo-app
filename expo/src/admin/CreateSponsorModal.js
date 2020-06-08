@@ -3,7 +3,7 @@ import axiosRequest from "Backend.js";
 
 import Error from "Error.js";
 import Modal from "components/Modal";
-import SmallerParentheses from "SmallerParentheses.js";
+import SmallerParentheses from "components/SmallerParentheses.js";
 
 const InvalidAccessErr = (
   <Error
@@ -21,7 +21,7 @@ export default function CreateSponsorModal(props) {
   const [companyError, setCompanyError] = useState(false);
 
   const saveSponsor = () => {
-    axiosRequest.get("api/companies").then(sponsors => {
+    axiosRequest.get("api/companies").then((sponsors) => {
       let validAccess = true;
       for (let i = 0; i < sponsors.length; i++) {
         if (sponsors[i].access_code === accessCode) {
@@ -37,7 +37,7 @@ export default function CreateSponsorModal(props) {
         axiosRequest
           .post("api/companies/add", {
             company_name: companyName,
-            access_code: accessCode
+            access_code: accessCode,
           })
           .then(props.onCreate);
 
@@ -77,14 +77,14 @@ export default function CreateSponsorModal(props) {
             id="lblSponsorName"
             placeholder="Enter the sponsor or company name"
             value={companyName}
-            onChange={event => setCompanyName(event.target.value)}
+            onChange={(event) => setCompanyName(event.target.value)}
           />
           {companyError ? MissingFieldErr : ""}
         </div>
         <div className="form-group">
           <label>
             Access Code{" "}
-            <SmallerParentheses font_size="15px">
+            <SmallerParentheses fontSize="15px">
               leave blank to auto generate
             </SmallerParentheses>
           </label>
@@ -94,7 +94,7 @@ export default function CreateSponsorModal(props) {
             id="lblAccessCode"
             value={accessCode}
             placeholder="Enter an access code"
-            onChange={event => setAccessCode(event.target.value)}
+            onChange={(event) => setAccessCode(event.target.value)}
           />
           {accessError ? InvalidAccessErr : ""}
         </div>
