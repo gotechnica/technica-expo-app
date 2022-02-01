@@ -10,7 +10,7 @@ def get_challenges(link: str) -> List[Tuple[str, str, int]]:
     soup = BeautifulSoup(sock, "html.parser")
 
     prizes = soup.find("article",
-                       {"id": "prizes"}).find("ul").findAll("li")[1:]
+                       {"id": "prizes"}).find_all("div", {"class": "prize"})
     prizes = list(map(lambda x: x.find("h6").text.strip(), prizes))
     prizes = [i for i in prizes if "-" in i]
 

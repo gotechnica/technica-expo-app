@@ -10,8 +10,8 @@ export function sortByTableNumber(array, sortWithAlphaNumeric) {
   if (sortWithAlphaNumeric) {
     // Sort based on alpha portion first, and then numeric as tie-breaker
     return array.sort(function (a, b) {
-      const x = a[key].toLowerCase().split(/([0-9]+)/);
-      const y = b[key].toLowerCase().split(/([0-9]+)/);
+      const x = a[key].toString().toLowerCase().split(/([0-9]+)/);
+      const y = b[key].toString().toLowerCase().split(/([0-9]+)/);
       const xLetter = x[0];
       const yLetter = y[0];
 

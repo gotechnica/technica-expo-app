@@ -96,7 +96,7 @@ class ProjectModule extends Component {
     const data = new FormData();
     data.append("projects_csv", this.state.projects_csv.files[0]);
 
-    if (this.projects_csv.files[0] === null) {
+    if (this.state.projects_csv.files[0] === null) {
       this.setState({
         uploadStatus: "Please select a file before hitting upload!",
       });
@@ -301,7 +301,7 @@ class ProjectModule extends Component {
                   name="projectsCSV"
                   onChange={this.handleInputChange.bind(this)}
                   ref={(ref) => {
-                    this.projects_csv = ref;
+                    this.state.projects_csv = ref;
                   }}
                 />
                 {this.state.projectsCSV.replace("C:\\fakepath\\", "")}
