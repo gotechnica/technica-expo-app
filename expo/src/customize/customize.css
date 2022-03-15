@@ -8,12 +8,12 @@
   --body-font: "Avenir", sans-serif;
 
   /* primary color scheme */
-  --primary-action: #00ffff;
-  --primary-action-darker: #00c7c7;
-  --cancel-action: #ff7bac;
-  --cancel-action-darker: #ff96bd;
-  --warning: #ff7bac;
-  --warning-darker: #ff96bd;
+  --primary-action: #ff8800;
+  --primary-action-darker: #ff8800;
+  --cancel-action: #94160d;
+  --cancel-action-darker: #94160d;
+  --warning: #94160d;
+  --warning-darker: #94160d;
   --accent: #528ca5;
 
   /* variable naming scheme:
@@ -21,8 +21,8 @@
 
   /* supporting color scheme */
   /* Technica: 2f2f2f, Bitcamp Midnight Blue: 1A2E33 */
-  --supporting-primary: #2f2f2f;
-  --supporting-primary-darker: #1c1c1c;
+  --supporting-primary: #1A2E33;
+  --supporting-primary-darker: #1A2E33;
 
   /* App.css styles */
   --app_background_banner: url("./imgs/background.png");
