@@ -112,6 +112,7 @@ class ProjectModule extends Component {
           this.props.loadProjects();
         })
         .catch((error) => {
+          console.log(error.toString());
           this.setState({
             // Flash error message
             uploadStatus: "Oops! Something went wrong...",

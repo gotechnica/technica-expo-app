@@ -255,7 +255,7 @@ def csv_tester():
 @app.route('/parse_csv', methods=['POST'])
 @is_admin
 def parse_csv():
-    # print("Loading file...")
+    print("Loading file...")
     file = request.files['projects_csv']
 
     logged_message(f'endpoint = /parse_csv, method = POST, params = NONE, type = admin')  # noqa
