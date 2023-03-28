@@ -34,10 +34,11 @@ assignments = ["None | "] * (num_tables * spots_per_table)
 
 class Project:
     """Project class to hold certain metadata regarding a given project."""
-    def __init__(self, project_url: str, challenges: List[str]):
+    def __init__(self, project_url: str, challenges: List[str], virtual: bool = False):
         self.project_url = project_url
         self.challenges = challenges
         self.table_number = ""
+        self.virtual = virtual
 
     def __str__(self) -> str:
         return str(self.table_number) + " " + str(self.project_url)
@@ -162,6 +163,7 @@ def parse_csv_internal(reader, not_moving_question=None):
         project_name = row["Submission Title"].strip()
         project_url = row["Submission Url"].strip()
         challenges = format_challenges(row["Desired Prizes"])
+        virtual = row["Virtual"].strip() == 'Yes' # TODO: make sure this matches devpost format
 
         # Skip iteration if current project is not valid
         if project_name == "" and project_url == "":
@@ -177,12 +179,12 @@ def parse_csv_internal(reader, not_moving_question=None):
             needs_to_stay = check_if_needs_to_stay(response)
 
         if needs_to_stay is not None:
-            not_moving[project_name] = Project(project_url, challenges)
+            not_moving[project_name] = Project(project_url, challenges, virtual)
             assignments[table_to_number(needs_to_stay.group(0))] = \
                 project_name + " | "
             not_moving[project_name].table_number = needs_to_stay.group(0)
         else:
-            moving[project_name] = Project(project_url, challenges)
+            moving[project_name] = Project(project_url, challenges, virtual)
 
     return moving, not_moving
 

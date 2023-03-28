@@ -284,7 +284,8 @@ def get_project_list(projects_obj):
             'project_name': project_name,
             'project_url': projects_obj[project_name].project_url,
             'challenges': projects_obj[project_name].challenges,
-            'challenges_won': []
+            'challenges_won': [],
+            'virtual': projects_obj[project_name].virtual,
         }
         project_data.append(info)
     return project_data
@@ -323,7 +324,7 @@ def assign_remaining_table_numbers():
     db_update_operations = []
     for p in all_projects:
         # If table number hasn't been assigned yet, assign next available one
-        if p['table_number'] == '' and i < len(available_tables_list):
+        if not p['virtual'] and p['table_number'] == '' and i < len(available_tables_list):
             db_update_operations.append(UpdateOne(
                 {'_id': ObjectId(p['_id'])},
                 {'$set': {'table_number': available_tables_list[i]}}
