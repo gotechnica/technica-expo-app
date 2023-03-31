@@ -35,7 +35,7 @@ function WinnersSubmmitedModal() {
     <div
       className="modal fade bd-example-modal-sm"
       id="winnersSubmmitedModal"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="mySmallModalLabel"
       aria-hidden="true"
@@ -135,7 +135,7 @@ export function SubmitModal(props) {
       <div
         class="modal fade"
         id="submitModal"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true"
@@ -273,6 +273,7 @@ export function VotingTable(props) {
   const [challenges, setChallenges] = useState({});
 
   useEffect(() => {
+    console.log('UPDATED VOTING DATA')
     if (Object.keys(checked).length === 0) {
       /* Updates voting data for challenges where votes have been submitted */
       let challenge_data = challenges;
@@ -326,10 +327,12 @@ export function VotingTable(props) {
   }
 
   function handleVoteEvent(project_id) {
+    console.log('HANDLEVOTEEVENT')
     let new_checked = checked;
     new_checked[project_id].checked[props.value] = !new_checked[project_id]
       .checked[props.value];
-    setChecked(new_checked);
+    // console.log('new_checked', new_checked)
+    setChecked({...new_checked});
   }
 
   return (

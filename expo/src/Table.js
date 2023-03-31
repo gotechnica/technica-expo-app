@@ -78,7 +78,7 @@ export function CheckBoxColumn(props) {
       className="voting-checkbox"
       value={props.project_id}
       checked={props.checked}
-      disabled={props.disabled}
+      disabled={false}
     />
   );
   let checkboxStyle = props.checked
