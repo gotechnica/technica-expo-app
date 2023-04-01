@@ -241,7 +241,7 @@ class ProjectModule extends Component {
         const upperCaseTextSearch = this.state.textSearch.toUpperCase();
         return (
           elt.project_name.toUpperCase().includes(upperCaseTextSearch) ||
-          elt.table_number.toUpperCase().includes(upperCaseTextSearch)
+          elt.table_number.toString().toUpperCase().includes(upperCaseTextSearch)
         );
       });
     }
@@ -469,7 +469,7 @@ class ProjectModule extends Component {
               type="text"
               id="txtProjectSearch"
               className="form-control"
-              placeholder="Search for a project name..."
+              placeholder="Search by project name or table number..."
               onChange={(event) =>
                 this.setState({ textSearch: event.target.value })
               }
