@@ -54,9 +54,8 @@
 # def get_next_availability(item):
 #     pass
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 import pytz
-from flask import current_app
 
 # create a timezone object for New York
 ny_timezone = pytz.timezone('America/New_York')
