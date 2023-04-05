@@ -1089,13 +1089,18 @@ def testjudging():
 
     return "hello world"
 
-@app.route('/api/scheduling', methods=['GET'])
+@app.route('/api/schedule-judging', methods=['POST'])
 def scheduling():
+
     projects = mongo.db.projects
     projects_all = projects.find()
-    judging_length = 10
+    judging_length = request.json['judging_length']
     
     total_time = 150
+
+    if judging_length > total_time:
+        error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
+        return jsonify(error_message), 400
 
     all_chlng_availability = {}
 
@@ -1104,6 +1109,7 @@ def scheduling():
         proj_availability = [True] * (total_time // judging_length)
         proj_challenges = project['challenges']
 
+
         for i in range(len(proj_challenges)):
             challenge = proj_challenges[i]
             name = challenge['challenge_name']
@@ -1111,26 +1117,27 @@ def scheduling():
 
             challenge_id = (name, company)
 
-            if challenge_id not in proj_availability:
+            if challenge_id not in all_chlng_availability:
                 all_chlng_availability[challenge_id] = [True] * (total_time // judging_length)
             
             chlng_availability = all_chlng_availability[challenge_id]
             schedule_time = find_common_availability(chlng_availability, proj_availability)
             
             if schedule_time == -1:
-                return "Try another config"
+                error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
+                return jsonify(error_message), 400
             
             chlng_availability[schedule_time] = False
             proj_availability[schedule_time] = False
             
-            challenge['time'] = index_to_time(schedule_time, judging_length)
+            challenge['time'] = index_to_time(schedule_time, judging_length, current_app.config['EXPO_START_TIME_DT'])
         
         projects.find_one_and_update(
             {'_id': ObjectId(proj_id)},
             {'$set': project}
         )
 
-    return "All Scheduled!"
+    return 'Scheduling successful!', 200
 
 
 if __name__ == '__main__':
