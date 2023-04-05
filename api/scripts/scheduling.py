@@ -56,12 +56,10 @@
 
 from datetime import datetime, timedelta
 import pytz
+from flask import current_app
 
 # create a timezone object for New York
 ny_timezone = pytz.timezone('America/New_York')
-
-# create a datetime object for April 9th, 2023 at 10:30 AM in New York timezone
-START_TIME = ny_timezone.localize(datetime(2023, 4, 9, 10, 30))
 
 
 def find_common_availability(a1, a2):
@@ -71,8 +69,8 @@ def find_common_availability(a1, a2):
     
     return -1
 
-def index_to_time(index, interval):
-    time = START_TIME + timedelta(minutes=interval*index)
+def index_to_time(index, interval, start_time):
+    time = start_time + timedelta(minutes=interval*index)
 
     return time.astimezone(ny_timezone)
 
