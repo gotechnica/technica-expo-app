@@ -43,6 +43,7 @@ class ProjectModule extends Component {
       tableEndNumber: 0,
       skipEveryOtherTable: true,
       viewable: true,
+      judgingLength: 10
     };
   }
 
@@ -214,6 +215,39 @@ class ProjectModule extends Component {
         });
       }
     }
+  }
+
+  scheduleJudging(e) {
+    e.preventDefault();
+    console.log("Here!");
+
+    axiosRequest.post("api/schedule-judging", {
+      judging_length: parseInt(this.state.judgingLength, 10),
+    })
+    .then((data) => {
+      this.props.loadProjects();
+      alert('Successfully generated!')
+    })
+    .catch((error) => {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error:', error.response.data);
+        // Display an error message to the user
+        alert(error.response.data.error);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('Error:', error.request);
+        // Display a generic error message to the user
+        alert('Oops! Something went wrong. Please try again later.');
+      } else {
+        // Something else happened in making the request that triggered an error
+        console.error('Error:', error.message);
+        // Display a generic error message to the user
+        alert('Oops! Something went wrong. Please try again later.');
+      }
+    });
+
   }
 
   toggleView() {
@@ -427,6 +461,36 @@ class ProjectModule extends Component {
               </div>
             )}
           </form>
+
+          <br />
+          <br />
+
+          <h5>Generate Judging Schedule</h5>
+          <form
+            method="post"
+            onSubmit={this.scheduleJudging.bind(this)}
+          >
+            
+            <div className="form-group">
+            <div className="form-group custom-table-assignment-container">
+                Judging Length (min): 
+                <input
+                  type="text"
+                  name="judgingLength"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="button button-primary m-r-m assign_button1">
+                Assign Tables
+              </button>
+
+            </div>
+          </form> 
 
           <br />
           <br />

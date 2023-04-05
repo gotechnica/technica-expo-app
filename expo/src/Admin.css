@@ -110,6 +110,11 @@ h5 {
   min-width: 0;
 }
 
+.judging-schedule-child {
+  flex-basis: 3.5rem;
+  min-width: 0;
+}
+
 .upload-btn-wrapper {
   position: relative;
   overflow: hidden;
