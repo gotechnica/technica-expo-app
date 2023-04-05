@@ -9,7 +9,7 @@ let SiteWrapper = (content) => (
   <div className="App">
     <nav className="navbar navbar-expand-md">
       <Link to="/">
-        <div class="header">
+        <div className="header">
           <img className="logo" src={hackathon_logo} alt="Logo" />
         </div>
       </Link>
