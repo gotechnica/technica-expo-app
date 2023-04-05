@@ -17,6 +17,7 @@ from seed_db import delete_projects, format_challenges, \
     parse_csv_internal
 from devpost_scraper import get_challenges
 
+from scripts.scheduling import *
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -1075,6 +1076,61 @@ def logout():
     session.pop('name', None)
     session.pop('id', None)
     return "Logged out"
+
+@app.route('/api/testing')
+def testjudging():
+    # companies = mongo.db.companies
+    projects = mongo.db.projects
+
+    # all_companies = companies.find()
+    all_projects = projects.find()
+
+    print(all_projects[0])
+
+    return "hello world"
+
+@app.route('/api/scheduling', methods=['GET'])
+def scheduling():
+    projects = mongo.db.projects
+    projects_all = projects.find()
+    judging_length = 10
+    
+    total_time = 150
+
+    all_chlng_availability = {}
+
+    for project in projects_all:
+        proj_id = project['_id']
+        proj_availability = [True] * (total_time // judging_length)
+        proj_challenges = project['challenges']
+
+        for i in range(len(proj_challenges)):
+            challenge = proj_challenges[i]
+            name = challenge['challenge_name']
+            company = challenge['company']
+
+            challenge_id = (name, company)
+
+            if challenge_id not in proj_availability:
+                all_chlng_availability[challenge_id] = [True] * (total_time // judging_length)
+            
+            chlng_availability = all_chlng_availability[challenge_id]
+            schedule_time = find_common_availability(chlng_availability, proj_availability)
+            
+            if schedule_time == -1:
+                return "Try another config"
+            
+            chlng_availability[schedule_time] = False
+            proj_availability[schedule_time] = False
+            
+            challenge['time'] = index_to_time(schedule_time, judging_length)
+        
+        projects.find_one_and_update(
+            {'_id': ObjectId(proj_id)},
+            {'$set': project}
+        )
+
+    return "All Scheduled!"
 
 
 if __name__ == '__main__':
