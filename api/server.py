@@ -1139,6 +1139,60 @@ def scheduling():
 
     return 'Scheduling successful!', 200
 
+@app.route('/api/scheduling-v2', methods=['POST'])
+def scheduling_v2():
+    projects = mongo.db.projects
+    total_time = 150
+    
+    challenges_count = get_challenge_count()
+    num_slots = max(challenges_count.values())
+    
+    judging_length = total_time // num_slots
+    if judging_length < 1:
+        error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
+        return jsonify(error_message), 400
+
+
+    schedule = {challenge_id: i for i, challenge_id in enumerate(challenges_count.keys())}
+
+    for project in projects.find():
+        proj_id = project['_id']
+        challenges = project['challenges']
+        for i in range(len(challenges)):
+            challenge = challenges[i]
+            challenge_id = get_challenge_id(challenge)
+            
+            slot = (schedule[challenge_id]) % num_slots
+            schedule[challenge_id] += 1
+
+            challenge['time'] = index_to_time(slot, judging_length, current_app.config['EXPO_START_TIME_DT'])
+
+        projects.find_one_and_update(
+            {'_id': ObjectId(proj_id)},
+            {'$set': project}
+        )
+
+    return 'Scheduling successful!', 200
+
+
+def get_challenge_count():
+    projects = mongo.db.projects
+    challenges_count = {}
+
+    for project in projects.find():
+        for challenge in project['challenges']:
+            # Not a robust ID, but it's not available to projects by default
+            challenge_id = get_challenge_id(challenge)
+
+            if challenge_id not in challenges_count:
+                challenges_count[challenge_id] = 0
+            
+            challenges_count[challenge_id] += 1
+    
+    return challenges_count
+
+def get_challenge_id(challenge):
+    return challenge['challenge_name'] + "," + challenge['company']
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
