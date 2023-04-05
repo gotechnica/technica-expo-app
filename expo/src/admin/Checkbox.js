@@ -26,6 +26,7 @@ export default function Checkbox(props) {
         className="custom-control-input"
         id={id}
         value={checked}
+        checked={checked}
       />
       <label className="custom-control-label" htmlFor={id} id={label}>
         {props.value}
