@@ -178,7 +178,9 @@ function ProjectColumn(props) {
                     </SmallerParentheses>: {attempted_challenges.length}
                   </b>
                 ) : (
-                  attempted_challenges
+                  <span>
+                  {attempted_challenges}
+                  </span>
                 )}
               </div>
             </Fragment>
@@ -209,6 +211,7 @@ function ChallengeCard(props) {
           <b>{props.challenge_name}</b>
           {text}
         </button>
+        <span className="schedule-time">{props.time}</span>
       </div>
     ) : (
       <div>
@@ -221,24 +224,50 @@ function ChallengeCard(props) {
       <button className="btn btn-block" disabled>
         <b>{props.challenge_name}</b>
         {text}
+        <span className="schedule-time">{props.time}</span>
       </button>
     </div>
   );
 }
 
 export function Row(props) {
+  function formatTime(dateTime) {
+    const timezone = "America/New_York"
+
+    if (!dateTime) {
+      return ""
+    }
+    return new Date(dateTime).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      timeZone: timezone,
+    });
+  }
   let attempted_challenges = [];
   let challenges_won = [];
   let winner_count = 0;
   if (props.challenges !== undefined) {
-    props.challenges.forEach((challenge) => {
+    const { challenges } = props;
+    challenges.sort((a, b) => {
+      if (!a.time) {
+        return -1; // Place challenges without a time at the beginning
+      } else if (!b.time) {
+        return 1; // Place challenges without a time at the beginning
+      } else {
+        return new Date(a.time) - new Date(b.time); // Compare times numerically
+      }
+    });
+    challenges.forEach((challenge) => {
       let challenge_card = (
         <ChallengeCard
+          key={challenge.challenge_name}
           company={challenge.company}
           challenge_name={challenge.challenge_name}
           won={challenge.won}
           width={props.width}
           winnersRevealed={props.winnersRevealed}
+          time={formatTime(challenge.time)}
         />
       );
       if (challenge.won) {
@@ -340,6 +369,7 @@ export function Table(props) {
         />
       ) : (
         <Row
+          key={project.project_id}
           project_id={project.project_id}
           table_number={project.table_number}
           project_name={project.project_name}
