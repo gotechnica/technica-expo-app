@@ -1091,47 +1091,84 @@ def testjudging():
 
 @app.route('/api/schedule-judging', methods=['POST'])
 def scheduling():
+    """
+    scheduling_v2()
 
+    API POST function: Assigns schedule to each project's challenges. 
+
+    Algorithmic approach:
+    This algorithm uses arrays to keep track of availability, where each index represents the time increment past
+    the start time. For example, if the judging_length is 5 and the index is 10, the scheduled time is 5*10 = 50 min
+    past the start time. 
+
+    The approach iterates through each project and through each project's challenges. It finds the earliest index 
+    (time slot) in common between the judges (challenge) and the project and assigns them the time slot. If all time 
+    slots are exhausted, then the judging time is too long and it returns a 400 error. 
+
+    The time is stored in the challenge instance variable within each project as a new dictionary field: challenge['time'].
+    """
+    # Retrieve projects
     projects = mongo.db.projects
     projects_all = projects.find()
+
+    # Retrieves the judging_length from the POST request, which is set in the front-end admin console
     judging_length = request.json['judging_length']
     
+    # Length of expo: 150 min / 2.5 hours
     total_time = 150
 
+    # Length of judging_length can't be greater than time allotted 
     if judging_length > total_time:
         error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
         return jsonify(error_message), 400
 
+    # The availability of each challenge. Since we iterate through all projects and hence all possible challenges
+    # we can just keep a running dictionary
     all_chlng_availability = {}
 
+    # Loop through projects
     for project in projects_all:
         proj_id = project['_id']
+        
+        # Availability for project. We use total_time // judging_length to instantiate the possible time slots,
+        # which are True by default (available)
         proj_availability = [True] * (total_time // judging_length)
         proj_challenges = project['challenges']
 
-
+        # Loop through the project's challenges
         for i in range(len(proj_challenges)):
             challenge = proj_challenges[i]
             name = challenge['challenge_name']
             company = challenge['company']
 
+            # Temporary ID to identify challenge
             challenge_id = (name, company)
 
+            # If the challenge is not in the availability dictionary, add a default, same array
+            # as project availability 
             if challenge_id not in all_chlng_availability:
                 all_chlng_availability[challenge_id] = [True] * (total_time // judging_length)
             
             chlng_availability = all_chlng_availability[challenge_id]
+
+            # Call method to find the earliest time slot where both parties are available.
             schedule_time = find_common_availability(chlng_availability, proj_availability)
             
+            # The index time slot was not found. This means they're "fully booked", no available slot.
+            # Shorten the judging length. This is not an exact process / it's not optimized.
+            # The assumption that there are a lot of teams and few categories allows this to work
             if schedule_time == -1:
                 error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
                 return jsonify(error_message), 400
             
+            # Set availabilities to False after successful scheduling
             chlng_availability[schedule_time] = False
             proj_availability[schedule_time] = False
             
+            # Call method to convert index time slot to a real datetime object. Start time is taken from the config file
             challenge['time'] = index_to_time(schedule_time, judging_length, current_app.config['EXPO_START_TIME_DT'])
         
+        # Update MongoDB
         projects.find_one_and_update(
             {'_id': ObjectId(proj_id)},
             {'$set': project}
@@ -1141,32 +1178,64 @@ def scheduling():
 
 @app.route('/api/scheduling-v2', methods=['POST'])
 def scheduling_v2():
+    """
+    scheduling_v2()
+
+    API POST function: Assigns schedule to each project's challenges using a circular scheduling approach. 
+
+    Algorithmic approach:
+    This algorithm uses the most popular challenge to determine the judging window, as it cannot be any less than that.
+    It assigns a default index (time slot) to each challenge in a dictionary. Each project is given the time slot in the dictionary
+    as we loop through. After scheduling, we increment the time slot in the dictionary. 
+
+    This ensures that each judge only judges one team at a time, but we can end up with projects having multiple judges concurrently.
+    However, a large project size compared categories makes this occurrence rare. 
+
+    This allows judges to go in table order. There can be a lot of empty space, however. It also optimizes the judging time window. 
+    """
+
     projects = mongo.db.projects
+    
+    # Expo length: 150 minutes = 2.5 hours 
     total_time = 150
     
+    # Get dictionary of the teams participating in each challenge
     challenges_count = get_challenge_count()
+    # The number of slots is the maximal number of teams in one challenge
     num_slots = max(challenges_count.values())
     
+    # Set judging window accordingly
     judging_length = total_time // num_slots
+
+    # Can't have judge window be 0. 
     if judging_length < 1:
         error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
         return jsonify(error_message), 400
 
-
+    # Set a default schedule where each challenge gets a unique index. 
+    # Can choose to maximize distance at the beginning to prevent judging conflict. 
     schedule = {challenge_id: i for i, challenge_id in enumerate(challenges_count.keys())}
+    # increment = num_slots // len(challenges_count)
+    # schedule = {challenge_id: i*increment for i, challenge_id in enumerate(challenges_count.keys())}
 
+    # Iterate over projects
     for project in projects.find():
         proj_id = project['_id']
         challenges = project['challenges']
+
+        # Iterate over challenges
         for i in range(len(challenges)):
             challenge = challenges[i]
             challenge_id = get_challenge_id(challenge)
             
-            slot = (schedule[challenge_id]) % num_slots
-            schedule[challenge_id] += 1
+            # Get the slot and increment for next project
+            slot = schedule[challenge_id]
+            schedule[challenge_id] = (schedule[challenge_id] + 1) % num_slots
 
+            # Convert index time slot to time
             challenge['time'] = index_to_time(slot, judging_length, current_app.config['EXPO_START_TIME_DT'])
 
+        # Update MongoDB
         projects.find_one_and_update(
             {'_id': ObjectId(proj_id)},
             {'$set': project}
@@ -1192,6 +1261,13 @@ def get_challenge_count():
     return challenges_count
 
 def get_challenge_id(challenge):
+    """
+        Get challenge_id
+        Just a combination of challenge name and company name because for some reason the unique ids
+        are not stored with the challenges within projects. 
+
+        Don't ask me, I didn't implement this - Eric Chen
+    """
     return challenge['challenge_name'] + "," + challenge['company']
 
 if __name__ == '__main__':
