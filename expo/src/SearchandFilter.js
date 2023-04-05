@@ -215,6 +215,7 @@ class SearchandFilterInner extends Component {
   }
 
   handleToggle() {
+    console.log("Handle Toggle");
     this.setState({
       toggle_off: !this.state.toggle_off,
     });
@@ -371,6 +372,7 @@ class SearchandFilterInner extends Component {
                       >
                         <div className="toggle" onChange={this.handleToggle}>
                           <label className="switch">
+                            
                             {this.state.toggle_off ? (
                               <input type="checkbox" />
                             ) : (

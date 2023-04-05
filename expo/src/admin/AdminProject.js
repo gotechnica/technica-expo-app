@@ -486,7 +486,7 @@ class ProjectModule extends Component {
               <button
                 type="submit"
                 className="button button-primary m-r-m assign_button1">
-                Assign Tables
+                  Schedule
               </button>
 
             </div>
