@@ -16,6 +16,7 @@ from loggingAnalytics import logged_message
 from seed_db import delete_projects, format_challenges, \
     parse_csv_internal
 from devpost_scraper import get_challenges
+from math import ceil
 
 from scripts.scheduling import *
 
@@ -1077,18 +1078,6 @@ def logout():
     session.pop('id', None)
     return "Logged out"
 
-@app.route('/api/testing')
-def testjudging():
-    # companies = mongo.db.companies
-    projects = mongo.db.projects
-
-    # all_companies = companies.find()
-    all_projects = projects.find()
-
-    print(all_projects[0])
-
-    return "hello world"
-
 @app.route('/api/schedule-judging', methods=['POST'])
 def scheduling():
     """
@@ -1111,6 +1100,9 @@ def scheduling():
     projects = mongo.db.projects
     projects_all = projects.find()
 
+    # Minimum size before we split the judging group
+    block_size = 30
+
     # Retrieves the judging_length from the POST request, which is set in the front-end admin console
     judging_length = request.json['judging_length']
     
@@ -1125,6 +1117,7 @@ def scheduling():
     # The availability of each challenge. Since we iterate through all projects and hence all possible challenges
     # we can just keep a running dictionary
     all_chlng_availability = {}
+    challenge_count = get_challenge_count()
 
     # Loop through projects
     for project in projects_all:
@@ -1138,21 +1131,26 @@ def scheduling():
         # Loop through the project's challenges
         for i in range(len(proj_challenges)):
             challenge = proj_challenges[i]
-            name = challenge['challenge_name']
-            company = challenge['company']
 
             # Temporary ID to identify challenge
-            challenge_id = (name, company)
+            challenge_id = get_challenge_id(challenge)
 
+            # Only allow judge splitting for Bitcamp hosted prizes
+            if "bitcamp" in challenge['company'].lower():
+                block_multiple = ceil(challenge_count[challenge_id] / block_size)
+            else: 
+                block_multiple = 1
             # If the challenge is not in the availability dictionary, add a default, same array
             # as project availability 
             if challenge_id not in all_chlng_availability:
-                all_chlng_availability[challenge_id] = [True] * (total_time // judging_length)
+
+                # int array
+                all_chlng_availability[challenge_id] = [block_multiple] * (total_time // judging_length)
             
             chlng_availability = all_chlng_availability[challenge_id]
 
             # Call method to find the earliest time slot where both parties are available.
-            schedule_time = find_common_availability(chlng_availability, proj_availability)
+            schedule_time = find_common_availability(proj_availability, chlng_availability)
             
             # The index time slot was not found. This means they're "fully booked", no available slot.
             # Shorten the judging length. This is not an exact process / it's not optimized.
@@ -1162,11 +1160,16 @@ def scheduling():
                 return jsonify(error_message), 400
             
             # Set availabilities to False after successful scheduling
-            chlng_availability[schedule_time] = False
             proj_availability[schedule_time] = False
+            chlng_availability[schedule_time] -= 1
             
             # Call method to convert index time slot to a real datetime object. Start time is taken from the config file
             challenge['time'] = index_to_time(schedule_time, judging_length, current_app.config['EXPO_START_TIME_DT'])
+            if block_multiple > 1:
+                group_num = (schedule_time + 1) % block_multiple
+                if group_num == 0:
+                    group_num = block_multiple
+                challenge['group'] = group_num
         
         # Update MongoDB
         projects.find_one_and_update(
@@ -1244,7 +1247,7 @@ def scheduling_v2():
     return 'Scheduling successful!', 200
 
 
-def get_challenge_count():
+def get_challenge_count() -> dict:
     projects = mongo.db.projects
     challenges_count = {}
 
@@ -1260,7 +1263,7 @@ def get_challenge_count():
     
     return challenges_count
 
-def get_challenge_id(challenge):
+def get_challenge_id(challenge) -> str:
     """
         Get challenge_id
         Just a combination of challenge name and company name because for some reason the unique ids
