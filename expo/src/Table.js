@@ -211,7 +211,10 @@ function ChallengeCard(props) {
           <b>{props.challenge_name}</b>
           {text}
         </button>
-        <span className="schedule-time">{props.time}</span>
+        <span className="schedule-time">
+          {props.group ? <span>Group {props.group}</span> : null} - 
+          {props.time}
+        </span>
       </div>
     ) : (
       <div>
@@ -224,7 +227,9 @@ function ChallengeCard(props) {
       <button className="btn btn-block" disabled>
         <b>{props.challenge_name}</b>
         {text}
-        <span className="schedule-time">{props.time}</span>
+        <span className="schedule-time">
+          {props.group ? <span>Group {props.group} - </span> : null} 
+          {props.time}</span>
       </button>
     </div>
   );
@@ -268,6 +273,7 @@ export function Row(props) {
           width={props.width}
           winnersRevealed={props.winnersRevealed}
           time={formatTime(challenge.time)}
+          group={challenge.group}
         />
       );
       if (challenge.won) {
