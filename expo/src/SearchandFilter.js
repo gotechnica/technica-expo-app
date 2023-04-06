@@ -365,7 +365,7 @@ class SearchandFilterInner extends Component {
                 <Fragment>
                   <div style={{ textAlign: style }}>
                     <div className="btn-group">
-                      <button
+                      <span
                         className="toggle-btn"
                         style={toggle_style}
                         disabled
@@ -381,7 +381,7 @@ class SearchandFilterInner extends Component {
                             <div className="slider round"></div>
                           </label>
                         </div>
-                      </button>
+                      </span>
                       {this.props.width >= 427 ? (
                         <button
                           disabled
