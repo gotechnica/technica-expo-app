@@ -6,7 +6,6 @@ WORKDIR /app
 
 COPY requirements.txt /tmp/
 RUN pip install --requirement /tmp/requirements.txt
-RUN pip install pytz
 RUN pip install gunicorn
 
 EXPOSE 8000
