@@ -1144,7 +1144,7 @@ def scheduling():
             challenge_id = get_challenge_id(challenge)
 
             # Only allow judge splitting for Bitcamp hosted prizes
-            if "bitcamp" in challenge['company'].lower():
+            if current_app.config['SPLIT_SPONSOR_JUDGING'] or "bitcamp" in challenge['company'].lower():
                 block_multiple = ceil(challenge_count[challenge_id] / block_size)
             else: 
                 block_multiple = 1
