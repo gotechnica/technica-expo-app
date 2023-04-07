@@ -213,7 +213,7 @@ function ChallengeCard(props) {
           {text}
         </button>
         <span className="schedule-time">
-          {props.group ? <span>Group {props.group}</span> : null} - 
+          {props.group ? <span>Judge {props.group}</span> : null} - 
           {props.time}
         </span>
       </div>
@@ -229,7 +229,7 @@ function ChallengeCard(props) {
         <b>{props.challenge_name}</b>
         {text}
         <span className="schedule-time">
-          {props.group ? <span>Group {props.group} - </span> : null} 
+          {props.group ? <span>Judge {props.group} - </span> : null} 
           {props.time}</span>
       </button>
     </div>
