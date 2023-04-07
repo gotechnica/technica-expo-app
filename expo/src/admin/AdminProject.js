@@ -86,6 +86,7 @@ class ProjectModule extends Component {
         url: obj.project_url,
         challenges: challenge,
         company_challenge: obj.challenges,
+        virtual: obj.virtual,
       });
     });
     return finalProjectsData;
@@ -299,6 +300,7 @@ class ProjectModule extends Component {
           allChallenges={allChallenges}
           company_map={challengesToCompanyMap}
           onEdit={this.props.loadProjects}
+          virtual={elt.virtual}
         />
       );
     }
@@ -456,7 +458,7 @@ class ProjectModule extends Component {
               Remove All Table Assignments
             </button>
             {this.state.tableAssignmentStatus !== "" && (
-              <div className="row col" style={{ "padding-top": "1rem" }}>
+              <div className="row col" style={{ "paddingTop": "1rem" }}>
                 <i>{this.state.tableAssignmentStatus}</i>
               </div>
             )}
@@ -552,7 +554,7 @@ class ProjectModule extends Component {
                 id={`project-${elt.project_id}`}
               >
                 <div className="col grow-5 break-word">{elt.project_name}</div>
-                <div className="col">{elt.table_number}</div>
+                <div className="col">{elt.virtual ? ('virtual'):(elt.table_number)}</div>
                 <div className="col">
                   <button
                     className="link-button"

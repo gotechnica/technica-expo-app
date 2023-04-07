@@ -25,6 +25,7 @@ class EditProjectModal extends Component {
       company_map: this.props.company_map,
       editable: true,
       showConfirmation: false,
+      virtual: this.props.virtual,
     };
   }
 
@@ -50,7 +51,7 @@ class EditProjectModal extends Component {
     let checks = document.querySelector(".black");
     let missing =
       this.state.project_name === "" ||
-      this.state.table_number === "" ||
+      // this.state.table_number === "" ||
       this.state.project_url === "";
     // Note: removed requirement to have at least one checked challenge
     // for (let i = 0; i < this.state.challenges.length; i++) {
@@ -72,6 +73,7 @@ class EditProjectModal extends Component {
           project_url: this.state.project_url,
           table_number: this.state.table_number,
           challenges: challenges,
+          virtual: this.state.virtual,
         })
         .then(this.props.onEdit);
       if (checks) {
@@ -169,6 +171,19 @@ class EditProjectModal extends Component {
                 onChange={(event) =>
                   this.setState({
                     project_url: event.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label> Virtual Hacker? </label>
+              <input
+                className="form-control"
+                type="checkbox"
+                checked={this.state.virtual}
+                onChange={(event) =>
+                  this.setState({
+                    virtual: !this.state.virtual
                   })
                 }
               />

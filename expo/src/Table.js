@@ -12,6 +12,7 @@ import "Table.css";
 import "customize/customize";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+import { faVideo } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import customize from "customize/customize";
@@ -252,6 +253,15 @@ export function Row(props) {
   let attempted_challenges = [];
   let challenges_won = [];
   let winner_count = 0;
+
+  let { table_number} = props;
+  if (props.virtual) {
+    table_number = <FontAwesomeIcon className="table-number-icon" icon={faVideo} />
+  } else if (props.table_number === "") {
+    table_number = "-";
+    
+  }
+  
   if (props.challenges !== undefined) {
     const { challenges } = props;
     challenges.sort((a, b) => {
@@ -291,7 +301,7 @@ export function Row(props) {
   let table =
     props.width >= 460 ? (
       <td className="Table-Number header-font">
-        {props.table_number === "" ? "-" : props.table_number}
+        {table_number}
       </td>
     ) : null;
   return (
@@ -372,6 +382,7 @@ export function Table(props) {
           width={width}
           challenges={project.challenges}
           winnersRevealed={props.winnersRevealed}
+          virtual={project.virtual}
         />
       ) : (
         <Row
@@ -386,6 +397,7 @@ export function Table(props) {
           counter={counter}
           show_attempted_challenges={props.show_attempted_challenges}
           winnersRevealed={props.winnersRevealed}
+          virtual={project.virtual}
         />
       )
     );
