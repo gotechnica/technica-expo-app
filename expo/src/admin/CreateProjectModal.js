@@ -21,6 +21,7 @@ class CreateProjectModal extends Component {
         project_name: this.state.project_name,
         project_url: this.state.project_url,
         table_number: this.state.table_number,
+        virtual: false,
       })
       .then((data) => {
         this.props.onCreate();

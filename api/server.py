@@ -438,7 +438,8 @@ def add_project():
         'project_name': project_name,
         'project_url': project_url,
         'challenges': challenges,
-        'challenges_won': []
+        'challenges_won': [],
+        'virtual': False
     }
 
     project_id = projects.insert(project)
