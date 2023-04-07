@@ -88,7 +88,8 @@ def get_all_projects():
             'project_name': p['project_name'],
             'project_url': p['project_url'],
             'challenges': challenges,
-            'challenges_won': challenges_won
+            'challenges_won': challenges_won,
+            'virtual': p['virtual']
         }
         projects_list.append(temp_project)
 
@@ -114,7 +115,8 @@ def get_all_projects_with_winners():
             'project_name': p['project_name'],
             'project_url': p['project_url'],
             'challenges': p['challenges'],
-            'challenges_won': p['challenges_won']
+            'challenges_won': p['challenges_won'],
+            'virtual': p['virtual'],
         }
         projects_list.append(temp_project)
 
@@ -137,7 +139,8 @@ def get_project(project_id):
         'project_name': project_obj['project_name'],
         'project_url': project_obj['project_url'],
         'challenges': project_obj['challenges'],
-        'challenges_won': project_obj['challenges_won']
+        'challenges_won': project_obj['challenges_won'],
+        'virtual': project_obj['virtual'],
     }
 
     return jsonify(temp_project)
@@ -452,11 +455,13 @@ def bulk_add_project():
 def update_project(project_id):
     projects = mongo.db.projects
     logged_message(f'endpoint = /api/projects/id/{project_id}, method = POST, params = {project_id}, type = admin')  # noqa
+    
     updated_project_obj = {
         'table_number': request.json['table_number'],
         'project_name': request.json['project_name'],
         'project_url': request.json['project_url'],
         'challenges': request.json['challenges'],
+        'virtual': request.json['virtual'], 
         # 'challenges_won': []  // Don't update challenges_won array
     }
 
