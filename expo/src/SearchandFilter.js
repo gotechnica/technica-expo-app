@@ -27,6 +27,7 @@ class SearchandFilterInner extends Component {
       value: "",
       textSearch: "",
       toggle_off: true,
+      projectFilter: undefined,
       challenges: {},
       workingdata: [],
       winnersRevealed: false,
@@ -36,6 +37,7 @@ class SearchandFilterInner extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleProjectFilter = this.handleProjectFilter.bind(this);
     this.setSponsorWorkingData = this.setSponsorWorkingData.bind(this);
     this.makeVotingData = this.makeVotingData.bind(this);
   }
@@ -110,7 +112,11 @@ class SearchandFilterInner extends Component {
           }
         }, false);
 
-      return matchesTextFilter && matchesChallengeFilter;
+      let matchesTypeFilter = this.state.projectFilter === undefined ||
+        (this.state.projectFilter === "inperson" && !item.virtual) ||
+        (this.state.projectFilter === "virtual" && item.virtual);
+
+      return matchesTextFilter && matchesChallengeFilter && matchesTypeFilter;
     });
     this.setState({
       workingdata: updatedList,
@@ -221,6 +227,14 @@ class SearchandFilterInner extends Component {
     });
   }
 
+  handleProjectFilter(value) {
+    this.setState({
+      projectFilter: value,
+    },
+      () => this.applyFilters()
+    );
+  }
+
   render() {
     let challenge_array = this.createChallengeArray().map((obj, index) => {
       return <option key={index}>{obj}</option>;
@@ -311,16 +325,16 @@ class SearchandFilterInner extends Component {
     let toggle_style =
       this.props.origin === "home"
         ? {
-            display: "inline-block",
-            textAlign: "left",
-            marginTop: "10px",
-            border: "0px solid",
-            height: "30px",
-            outline: "none",
-          }
+          display: "inline-block",
+          textAlign: "left",
+          marginTop: "10px",
+          border: "0px solid",
+          height: "30px",
+          outline: "none",
+        }
         : {
-            display: "none",
-          };
+          display: "none",
+        };
     let style = this.props.width < 460 ? "center" : "left";
 
     return (
@@ -360,66 +374,107 @@ class SearchandFilterInner extends Component {
                   {select}
                 </div>
               </div>
-              {/* Show Attempted Challenge Toggle */}
-              {this.props.origin === "sponsor" ? null : (
-                <Fragment>
-                  <div style={{ textAlign: style }}>
-                    <div className="btn-group">
-                      <span
-                        className="toggle-btn"
-                        style={toggle_style}
-                        disabled
-                      >
-                        <div className="toggle" onChange={this.handleToggle}>
-                          <label className="switch">
-                            
-                            {this.state.toggle_off ? (
-                              <input type="checkbox" />
-                            ) : (
-                              <input type="checkbox" checked />
-                            )}
-                            <div className="slider round"></div>
-                          </label>
-                        </div>
-                      </span>
-                      {this.props.width >= 427 ? (
-                        <button
+              <div className="form-row" style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                {/* Show Attempted Challenge Toggle */}
+                {this.props.origin === "sponsor" ? null : (
+                  <Fragment>
+                    <div style={{ textAlign: style }}>
+                      <div className="btn-group">
+                        <span
+                          className="toggle-btn"
+                          style={toggle_style}
                           disabled
+                        >
+                          <div className="toggle" onChange={this.handleToggle}>
+                            <label className="switch">
+
+                              {this.state.toggle_off ? (
+                                <input type="checkbox" />
+                              ) : (
+                                <input type="checkbox" checked />
+                              )}
+                              <div className="slider round"></div>
+                            </label>
+                          </div>
+                        </span>
+                        {this.props.width >= 427 ? (
+                          <button
+                            disabled
+                            className="toggle-label"
+                            style={{
+                              textAlign: "left",
+                              border: "0px solid",
+                              outline: "none",
+                              color: "white",
+                              marginTop: "10px",
+                              marginLeft: "-7px",
+                            }}
+                          >
+                            Show Attempted Challenges
+                          </button>
+                        ) : null}
+                      </div>
+                    </div>
+
+                    {this.props.width < 427 ? (
+                      <div style={{ textAlign: "center" }}>
+                        <button
                           className="toggle-label"
                           style={{
-                            textAlign: "left",
+                            textAlign: "center",
                             border: "0px solid",
                             outline: "none",
                             color: "white",
-                            marginTop: "10px",
-                            marginLeft: "-7px",
+                            marginTop: "0px",
                           }}
+                          disabled
                         >
                           Show Attempted Challenges
                         </button>
-                      ) : null}
+                      </div>
+                    ) : null}
+                  </Fragment>
+                )}
+                {/* a toggle for showing all projects, virtual only, or in person only */}
+                {this.props.origin === "sponsor" ? null : (
+                  <div 
+                    style={{ 
+                      marginTop: "10px", 
+                      padding: "1px 6px", 
+                      display: "flex", 
+                      columnGap: "16px" 
+                    }}
+                  >
+                    <div>
+                      <input 
+                        type="radio" 
+                        value="all" 
+                        name="projectType" 
+                        checked={!this.state.projectFilter} 
+                        onChange={() => this.handleProjectFilter()} 
+                      /> All projects
+                    </div>
+                    <div>
+                      <input 
+                        type="radio" 
+                        value="inperson" 
+                        name="projectType" 
+                        checked={this.state.projectFilter === "inperson"} 
+                        onChange={() => this.handleProjectFilter("inperson")} 
+                      /> In person only
+                    </div>
+                    <div>
+                      <input 
+                        type="radio" 
+                        value="virtual" 
+                        name="projectType" 
+                        checked={this.state.projectFilter === "virtual"} 
+                        onChange={() => this.handleProjectFilter("virtual")} 
+                      /> Virtual only
                     </div>
                   </div>
-
-                  {this.props.width < 427 ? (
-                    <div style={{ textAlign: "center" }}>
-                      <button
-                        className="toggle-label"
-                        style={{
-                          textAlign: "center",
-                          border: "0px solid",
-                          outline: "none",
-                          color: "white",
-                          marginTop: "0px",
-                        }}
-                        disabled
-                      >
-                        Show Attempted Challenges
-                      </button>
-                    </div>
-                  ) : null}
-                </Fragment>
-              )}
+                )}
+              </div>
             </form>
             {this.props.origin === "sponsor" ? table : null}
           </div>
