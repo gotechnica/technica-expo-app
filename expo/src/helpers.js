@@ -36,6 +36,11 @@ export function sortByTableNumber(array, sortWithAlphaNumeric) {
   } else {
     // Normal numeric-only straightforward sorting
     return array.sort(function (a, b) {
+      if (b[key].toString() === '') {
+        return -1;
+      } else if (a[key].toString() === '') {
+        return 1;
+      }
       let x = a[key];
       let y = b[key];
 
