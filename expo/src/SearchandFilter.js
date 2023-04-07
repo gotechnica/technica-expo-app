@@ -215,6 +215,7 @@ class SearchandFilterInner extends Component {
   }
 
   handleToggle() {
+    console.log("Handle Toggle");
     this.setState({
       toggle_off: !this.state.toggle_off,
     });
@@ -364,13 +365,14 @@ class SearchandFilterInner extends Component {
                 <Fragment>
                   <div style={{ textAlign: style }}>
                     <div className="btn-group">
-                      <button
+                      <span
                         className="toggle-btn"
                         style={toggle_style}
                         disabled
                       >
                         <div className="toggle" onChange={this.handleToggle}>
                           <label className="switch">
+                            
                             {this.state.toggle_off ? (
                               <input type="checkbox" />
                             ) : (
@@ -379,7 +381,7 @@ class SearchandFilterInner extends Component {
                             <div className="slider round"></div>
                           </label>
                         </div>
-                      </button>
+                      </span>
                       {this.props.width >= 427 ? (
                         <button
                           disabled

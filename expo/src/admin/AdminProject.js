@@ -43,6 +43,7 @@ class ProjectModule extends Component {
       tableEndNumber: 0,
       skipEveryOtherTable: true,
       viewable: true,
+      judgingLength: 10
     };
   }
 
@@ -85,6 +86,7 @@ class ProjectModule extends Component {
         url: obj.project_url,
         challenges: challenge,
         company_challenge: obj.challenges,
+        virtual: obj.virtual,
       });
     });
     return finalProjectsData;
@@ -216,6 +218,39 @@ class ProjectModule extends Component {
     }
   }
 
+  scheduleJudging(e) {
+    e.preventDefault();
+    console.log("Here!");
+
+    axiosRequest.post("api/schedule-judging", {
+      judging_length: parseInt(this.state.judgingLength, 10),
+    })
+    .then((data) => {
+      this.props.loadProjects();
+      alert('Successfully generated!')
+    })
+    .catch((error) => {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error:', error.response.data);
+        // Display an error message to the user
+        alert(error.response.data.error);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('Error:', error.request);
+        // Display a generic error message to the user
+        alert('Oops! Something went wrong. Please try again later.');
+      } else {
+        // Something else happened in making the request that triggered an error
+        console.error('Error:', error.message);
+        // Display a generic error message to the user
+        alert('Oops! Something went wrong. Please try again later.');
+      }
+    });
+
+  }
+
   toggleView() {
     if (this.state.viewable) {
       this.setState({
@@ -265,6 +300,7 @@ class ProjectModule extends Component {
           allChallenges={allChallenges}
           company_map={challengesToCompanyMap}
           onEdit={this.props.loadProjects}
+          virtual={elt.virtual}
         />
       );
     }
@@ -422,11 +458,41 @@ class ProjectModule extends Component {
               Remove All Table Assignments
             </button>
             {this.state.tableAssignmentStatus !== "" && (
-              <div className="row col" style={{ "padding-top": "1rem" }}>
+              <div className="row col" style={{ "paddingTop": "1rem" }}>
                 <i>{this.state.tableAssignmentStatus}</i>
               </div>
             )}
           </form>
+
+          <br />
+          <br />
+
+          <h5>Generate Judging Schedule</h5>
+          <form
+            method="post"
+            onSubmit={this.scheduleJudging.bind(this)}
+          >
+            
+            <div className="form-group">
+            <div className="form-group custom-table-assignment-container">
+                Judging Length (min): 
+                <input
+                  type="text"
+                  name="judgingLength"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="button button-primary m-r-m assign_button1">
+                  Schedule
+              </button>
+
+            </div>
+          </form> 
 
           <br />
           <br />
@@ -488,7 +554,7 @@ class ProjectModule extends Component {
                 id={`project-${elt.project_id}`}
               >
                 <div className="col grow-5 break-word">{elt.project_name}</div>
-                <div className="col">{elt.table_number}</div>
+                <div className="col">{elt.virtual ? ('virtual'):(elt.table_number)}</div>
                 <div className="col">
                   <button
                     className="link-button"

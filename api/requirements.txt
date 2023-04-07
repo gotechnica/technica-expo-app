@@ -13,6 +13,7 @@ logger==1.4
 MarkupSafe==1.1.1
 public==1.0.3
 pymongo==3.6.1
+pytz==2023.3
 query-string==1.0.2
 requests==2.20.0
 six==1.11.0

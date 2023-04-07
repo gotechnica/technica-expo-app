@@ -12,6 +12,7 @@ import "Table.css";
 import "customize/customize";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+import { faVideo } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import customize from "customize/customize";
@@ -178,7 +179,9 @@ function ProjectColumn(props) {
                     </SmallerParentheses>: {attempted_challenges.length}
                   </b>
                 ) : (
-                  attempted_challenges
+                  <span>
+                  {attempted_challenges}
+                  </span>
                 )}
               </div>
             </Fragment>
@@ -209,6 +212,10 @@ function ChallengeCard(props) {
           <b>{props.challenge_name}</b>
           {text}
         </button>
+        <span className="schedule-time">
+          {props.group ? <span>Judge {props.group}</span> : null} - 
+          {props.time}
+        </span>
       </div>
     ) : (
       <div>
@@ -221,24 +228,62 @@ function ChallengeCard(props) {
       <button className="btn btn-block" disabled>
         <b>{props.challenge_name}</b>
         {text}
+        <span className="schedule-time">
+          {props.group ? <span>Judge {props.group} - </span> : null} 
+          {props.time}</span>
       </button>
     </div>
   );
 }
 
 export function Row(props) {
+  function formatTime(dateTime) {
+    const timezone = "America/New_York"
+
+    if (!dateTime) {
+      return ""
+    }
+    return new Date(dateTime).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      timeZone: timezone,
+    });
+  }
   let attempted_challenges = [];
   let challenges_won = [];
   let winner_count = 0;
+
+  let { table_number} = props;
+  if (props.virtual) {
+    table_number = <FontAwesomeIcon className="table-number-icon" icon={faVideo} />
+  } else if (props.table_number === "") {
+    table_number = "-";
+    
+  }
+  
   if (props.challenges !== undefined) {
-    props.challenges.forEach((challenge) => {
+    const { challenges } = props;
+    challenges.sort((a, b) => {
+      if (!a.time) {
+        return -1; // Place challenges without a time at the beginning
+      } else if (!b.time) {
+        return 1; // Place challenges without a time at the beginning
+      } else {
+        return new Date(a.time) - new Date(b.time); // Compare times numerically
+      }
+    });
+    challenges.forEach((challenge) => {
       let challenge_card = (
         <ChallengeCard
+          key={challenge.challenge_name}
           company={challenge.company}
           challenge_name={challenge.challenge_name}
           won={challenge.won}
           width={props.width}
           winnersRevealed={props.winnersRevealed}
+          time={formatTime(challenge.time)}
+          group={challenge.group}
         />
       );
       if (challenge.won) {
@@ -256,7 +301,7 @@ export function Row(props) {
   let table =
     props.width >= 460 ? (
       <td className="Table-Number header-font">
-        {props.table_number === "" ? "-" : props.table_number}
+        {table_number}
       </td>
     ) : null;
   return (
@@ -337,9 +382,11 @@ export function Table(props) {
           width={width}
           challenges={project.challenges}
           winnersRevealed={props.winnersRevealed}
+          virtual={project.virtual}
         />
       ) : (
         <Row
+          key={project.project_id}
           project_id={project.project_id}
           table_number={project.table_number}
           project_name={project.project_name}
@@ -350,6 +397,7 @@ export function Table(props) {
           counter={counter}
           show_attempted_challenges={props.show_attempted_challenges}
           winnersRevealed={props.winnersRevealed}
+          virtual={project.virtual}
         />
       )
     );
