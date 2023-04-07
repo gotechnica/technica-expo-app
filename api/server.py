@@ -455,9 +455,10 @@ def bulk_add_project():
 def update_project(project_id):
     projects = mongo.db.projects
     logged_message(f'endpoint = /api/projects/id/{project_id}, method = POST, params = {project_id}, type = admin')  # noqa
-    
+
+    table_number = "" if request.json['virtual'] else request.json['table_number']
     updated_project_obj = {
-        'table_number': request.json['table_number'],
+        'table_number': table_number,
         'project_name': request.json['project_name'],
         'project_url': request.json['project_url'],
         'challenges': request.json['challenges'],
