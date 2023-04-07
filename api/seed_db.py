@@ -163,7 +163,11 @@ def parse_csv_internal(reader, not_moving_question=None):
         project_name = row["Submission Title"].strip()
         project_url = row["Submission Url"].strip()
         challenges = format_challenges(row["Desired Prizes"])
-        virtual = row["Virtual"].strip() == 'Yes' # TODO: make sure this matches devpost format
+        
+        if "Virtual" in row or "virtual" in row: 
+            virtual = row["Virtual"].strip() == 'Yes' # TODO: make sure this matches devpost format
+        else:
+            virtual = False
 
         # Skip iteration if current project is not valid
         if project_name == "" and project_url == "":
