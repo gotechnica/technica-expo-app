@@ -87,31 +87,35 @@ class SearchandFilterInner extends Component {
   }
 
   applyFilters() {
-    let updatedList = this.state.data;
-    updatedList = updatedList.filter((item) => {
-      // Check text filter
-      let matchesTextFilter =
-        this.state.textSearch === undefined ||
-        this.state.textSearch === "" ||
-        item.project_name
-          .toUpperCase()
-          .includes(this.state.textSearch.toUpperCase());
+    console.log('APPLY FILTER');
+    console.log('this.state.data: ', this.state.data);
 
-      // Check challenge filter
-      let matchesChallengeFilter =
-        this.state.value === undefined ||
-        this.state.value === "" ||
-        this.state.value === "All Challenges" ||
-        item.challenges.reduce((acc, chal) => {
-          if (chal.challenge_name === this.state.value) {
-            return true;
-          } else {
-            return acc;
-          }
-        }, false);
+    // flags for whether to perform filters
+    const mustMatchTextFilter = ![undefined, ''].includes(this.state.textSearch);
+    const mustMatchChallengeFilter = ![undefined, '', 'All Challenges'].includes(this.state.value);
 
-      return matchesTextFilter && matchesChallengeFilter;
-    });
+    console.log('mustMatchTextFilter: ', mustMatchTextFilter);
+    console.log('mustMatchChallengeFilter: ', mustMatchChallengeFilter)
+
+    console.log(this.state.data.map(item => item.challenges));
+    console.log(this.state.data.map(item => item.challenges.map(c => c.challenge_name)));
+    console.log(this.state.value);
+    console.log(this.state.data.map(item => item.challenges.some(c => c.challenge_name === this.state.value)));
+
+    // perform filtering
+    const updatedList = this.state.data.filter(item => (
+      (!mustMatchTextFilter || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase())) &&
+      (!mustMatchChallengeFilter || item.challenges.some(c => c.challenge_name === this.state.value))
+    ));
+
+    // item.challenges.map(c => c.challenge_name === this.state.value)
+
+    // if challenge filter is selected, filter by time
+    // if (![undefined, '', 'All Challenges'].includes(this.state.value)) {
+    //   console.log('FILTER BY TIME');
+    //   console.log(updatedList)
+    // }
+
     this.setState({
       workingdata: updatedList,
     });
