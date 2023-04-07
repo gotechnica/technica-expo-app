@@ -87,6 +87,8 @@ class SearchandFilterInner extends Component {
   }
 
   applyFilters() {
+    console.log('this.state.data: ', this.state.data);
+
     // flags for whether to perform filters
     const mustMatchTextFilter = ![undefined, ''].includes(this.state.textSearch);
     const mustMatchChallengeFilter = ![undefined, '', 'All Challenges'].includes(this.state.value);
@@ -97,12 +99,13 @@ class SearchandFilterInner extends Component {
       (!mustMatchChallengeFilter || item.challenges.some(c => c.challenge_name === this.state.value))
     ));
 
-    // sort/display times if filtering by challenge
+    // if filtering by challenge ...
     if (mustMatchChallengeFilter) {
+      // sort by time for that challenge
       updatedList.sort((pa, pb) => {
         // find challenge entries in projects
-        const ca = pa.challenges.find(c => c.challenge_name == this.state.value);
-        const cb = pb.challenges.find(c => c.challenge_name == this.state.value);
+        const ca = pa.challenges.find(c => c.challenge_name === this.state.value);
+        const cb = pb.challenges.find(c => c.challenge_name === this.state.value);
 
         // get times for projects
         const ta = ca.time ? new Date(ca.time) : null;
@@ -115,7 +118,13 @@ class SearchandFilterInner extends Component {
         else if (ta < tb) return -1;
         else if (tb < ta) return 1;
         else return 0;
-      })
+      });
+
+      // dont display other challenges
+      updatedList = updatedList.map(item => ({
+        ...item,
+        challenges: item.challenges.filter(c => c.challenge_name === this.state.value)
+      }));
     }
 
     this.setState({
