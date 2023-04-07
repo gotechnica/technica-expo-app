@@ -140,7 +140,7 @@ def delete_projects():
     # print("size of not moving: ", len(not_moving))
 
 
-def parse_csv_internal(reader, not_moving_question=None):
+def parse_csv_internal(reader, not_moving_question=None, virtual_row_name=None):
     """Parses a CSV exported from DevPort and seperates hackers based on if
     their hack needs to be stationary (i.e. can't move from table) or not.
 
@@ -164,8 +164,8 @@ def parse_csv_internal(reader, not_moving_question=None):
         project_url = row["Submission Url"].strip()
         challenges = format_challenges(row["Desired Prizes"])
         
-        if "Virtual" in row or "virtual" in row: 
-            virtual = row["Virtual"].strip() == 'Yes' # TODO: make sure this matches devpost format
+        if virtual_row_name in row: 
+            virtual = row[virtual_row_name].strip() == 'Yes' # TODO: make sure this matches devpost format
         else:
             virtual = False
 

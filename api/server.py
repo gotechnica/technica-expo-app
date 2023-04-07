@@ -272,7 +272,8 @@ def parse_csv():
                                         encoding="utf8",
                                         errors='ignore'))
 
-        moving, not_moving = parse_csv_internal(reader, current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION'])  # noqa
+        moving, not_moving = parse_csv_internal(reader, current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION'], 
+                                                current_app.config['VIRTUAL_ROW_NAME'])  # noqa
 
         bulk_add_projects_internal(get_project_list(not_moving))
         bulk_add_projects_internal(get_project_list(moving))
