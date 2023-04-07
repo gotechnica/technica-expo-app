@@ -87,34 +87,36 @@ class SearchandFilterInner extends Component {
   }
 
   applyFilters() {
-    console.log('APPLY FILTER');
-    console.log('this.state.data: ', this.state.data);
-
     // flags for whether to perform filters
     const mustMatchTextFilter = ![undefined, ''].includes(this.state.textSearch);
     const mustMatchChallengeFilter = ![undefined, '', 'All Challenges'].includes(this.state.value);
 
-    console.log('mustMatchTextFilter: ', mustMatchTextFilter);
-    console.log('mustMatchChallengeFilter: ', mustMatchChallengeFilter)
-
-    console.log(this.state.data.map(item => item.challenges));
-    console.log(this.state.data.map(item => item.challenges.map(c => c.challenge_name)));
-    console.log(this.state.value);
-    console.log(this.state.data.map(item => item.challenges.some(c => c.challenge_name === this.state.value)));
-
     // perform filtering
-    const updatedList = this.state.data.filter(item => (
+    let updatedList = this.state.data.filter(item => (
       (!mustMatchTextFilter || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase())) &&
       (!mustMatchChallengeFilter || item.challenges.some(c => c.challenge_name === this.state.value))
     ));
 
-    // item.challenges.map(c => c.challenge_name === this.state.value)
+    // sort/display times if filtering by challenge
+    if (mustMatchChallengeFilter) {
+      updatedList.sort((pa, pb) => {
+        // find challenge entries in projects
+        const ca = pa.challenges.find(c => c.challenge_name == this.state.value);
+        const cb = pb.challenges.find(c => c.challenge_name == this.state.value);
 
-    // if challenge filter is selected, filter by time
-    // if (![undefined, '', 'All Challenges'].includes(this.state.value)) {
-    //   console.log('FILTER BY TIME');
-    //   console.log(updatedList)
-    // }
+        // get times for projects
+        const ta = ca.time ? new Date(ca.time) : null;
+        const tb = cb.time ? new Date(cb.time) : null;
+
+        // perform comparison
+        if (ta === null && tb === null) return 0;
+        else if (ta === null) return 1;
+        else if (tb === null) return -1;
+        else if (ta < tb) return -1;
+        else if (tb < ta) return 1;
+        else return 0;
+      })
+    }
 
     this.setState({
       workingdata: updatedList,
