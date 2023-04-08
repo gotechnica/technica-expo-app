@@ -87,31 +87,46 @@ class SearchandFilterInner extends Component {
   }
 
   applyFilters() {
-    let updatedList = this.state.data;
-    updatedList = updatedList.filter((item) => {
-      // Check text filter
-      let matchesTextFilter =
-        this.state.textSearch === undefined ||
-        this.state.textSearch === "" ||
-        item.project_name
-          .toUpperCase()
-          .includes(this.state.textSearch.toUpperCase());
+    console.log('this.state.data: ', this.state.data);
 
-      // Check challenge filter
-      let matchesChallengeFilter =
-        this.state.value === undefined ||
-        this.state.value === "" ||
-        this.state.value === "All Challenges" ||
-        item.challenges.reduce((acc, chal) => {
-          if (chal.challenge_name === this.state.value) {
-            return true;
-          } else {
-            return acc;
-          }
-        }, false);
+    // flags for whether to perform filters
+    const mustMatchTextFilter = ![undefined, ''].includes(this.state.textSearch);
+    const mustMatchChallengeFilter = ![undefined, '', 'All Challenges'].includes(this.state.value);
 
-      return matchesTextFilter && matchesChallengeFilter;
-    });
+    // perform filtering
+    let updatedList = this.state.data.filter(item => (
+      (!mustMatchTextFilter || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase())) &&
+      (!mustMatchChallengeFilter || item.challenges.some(c => c.challenge_name === this.state.value))
+    ));
+
+    // if filtering by challenge ...
+    if (mustMatchChallengeFilter) {
+      // sort by time for that challenge
+      updatedList.sort((pa, pb) => {
+        // find challenge entries in projects
+        const ca = pa.challenges.find(c => c.challenge_name === this.state.value);
+        const cb = pb.challenges.find(c => c.challenge_name === this.state.value);
+
+        // get times for projects
+        const ta = ca.time ? new Date(ca.time) : null;
+        const tb = cb.time ? new Date(cb.time) : null;
+
+        // perform comparison
+        if (ta === null && tb === null) return 0;
+        else if (ta === null) return 1;
+        else if (tb === null) return -1;
+        else if (ta < tb) return -1;
+        else if (tb < ta) return 1;
+        else return 0;
+      });
+
+      // dont display other challenges
+      updatedList = updatedList.map(item => ({
+        ...item,
+        challenges: item.challenges.filter(c => c.challenge_name === this.state.value)
+      }));
+    }
+
     this.setState({
       workingdata: updatedList,
     });
