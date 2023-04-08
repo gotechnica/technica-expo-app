@@ -34,6 +34,7 @@ class ProjectModule extends Component {
       textSearch: "",
       projectIndexToEdit: -1,
       uploadStatus: "",
+      tableUploadStatus: "",
       projectsCSV: "",
       tableAssignmentStatus: "",
       tableAssignmentSchema: "",
@@ -43,7 +44,8 @@ class ProjectModule extends Component {
       tableEndNumber: 0,
       skipEveryOtherTable: true,
       viewable: true,
-      judgingLength: 10
+      judgingLength: 10,
+      tableAssignmentFile: "",
     };
   }
 
@@ -98,7 +100,7 @@ class ProjectModule extends Component {
     const data = new FormData();
     data.append("projects_csv", this.state.projects_csv.files[0]);
 
-    if (this.state.projects_csv.files[0] === null) {
+    if (this.state.projects_csv.files[0] == null) {
       this.setState({
         uploadStatus: "Please select a file before hitting upload!",
       });
@@ -122,6 +124,41 @@ class ProjectModule extends Component {
     }
   }
 
+  onUploadTableAssignment() {
+    const data = new FormData();
+    data.append("table_file", this.state.table_file.files[0]);
+    data.append("table_assignment_schema", 'custom_file');
+
+    if (this.state.table_file.files[0] == null) {
+      this.setState({
+        tableAssignmentStatus: "Please select a file before hitting upload!",
+      });
+    } else {
+      axiosRequest
+        .post("api/projects/assign_tables", data)
+        .then((data) => {
+        this.setState({
+          // Flash success message
+          tableAssignmentStatus: data,
+          tableAssignmentSchema: "",
+          tableStartLetter: "",
+          tableStartNumber: 0,
+          tableEndLetter: "",
+          tableEndNumber: 0,
+          skipEveryOtherTable: true,
+          tableAssignmentFile: "",
+        });
+        this.props.loadProjects();
+      })
+      .catch((error) => {
+        this.setState({
+          // Flash error message
+          tableAssignmentStatus: "Oops! Something went wrong...",
+        });
+      });
+    }
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -139,6 +176,10 @@ class ProjectModule extends Component {
         tableAssignmentStatus:
           "Please first select a schema for assigning table numbers.",
       });
+      return;
+    }
+    if (this.state.tableAssignmentSchema === "custom_file") {
+      this.onUploadTableAssignment();
       return;
     }
     this.setState({
@@ -164,6 +205,7 @@ class ProjectModule extends Component {
           tableEndLetter: "",
           tableEndNumber: 0,
           skipEveryOtherTable: true,
+          tableAssignmentFile: "",
         });
         this.props.loadProjects();
       })
@@ -393,13 +435,41 @@ class ProjectModule extends Component {
                 <input
                   type="radio"
                   name="tableAssignmentSchema"
-                  value="custom"
-                  checked={this.state.tableAssignmentSchema === "custom"}
+                  value="custom_file"
+                  checked={this.state.tableAssignmentSchema === "custom_file"}
                 />{" "}
                 Custom
               </div>
             </div>
-            {this.state.tableAssignmentSchema === "custom" && (
+            {this.state.tableAssignmentSchema === "custom_file" && (
+              <div className="m-b-m">
+                 
+            <div className="form-group">
+              <label>Custom Table Assignment File</label>
+              <br />
+              <div className="upload-btn-wrapper">
+                <button className="button button-primary font-weight-normal m-r-m">
+                  <FontAwesomeIcon
+                    icon="upload"
+                    className="upload_icon"
+                  ></FontAwesomeIcon>
+                  Choose a file
+                </button>
+                <input
+                  type="file"
+                  id="table-assignment-file"
+                  name="tableAssignmentFile"
+                  onChange={this.handleInputChange.bind(this)}
+                  ref={(ref) => {
+                    this.state.table_file = ref;
+                  }}
+                />
+                {this.state.tableAssignmentFile.replace("C:\\fakepath\\", "")}
+              </div>
+            </div>
+              </div>
+            )}
+            {/* {this.state.tableAssignmentSchema === "custom" && (
               <div className="m-b-m">
                 <p>
                   Enter the starting and ending/maximum alphanumeric
@@ -444,7 +514,8 @@ class ProjectModule extends Component {
                 />{" "}
                 Skip every other table? (Provides more spacious expo)
               </div>
-            )}
+            )} */}
+            
             <button
               type="submit"
               className="button button-primary m-r-m assign_button1"
