@@ -325,7 +325,7 @@ def assign_remaining_table_numbers():
 
     available_tables_list = get_available_table_numbers(request.json,
                                                         used_tables_set,
-                                                        all_projects.count())
+                                                        all_projects.count(), request)
     i = 0
     db_update_operations = []
     for p in all_projects:
@@ -346,9 +346,20 @@ def assign_remaining_table_numbers():
 
 
 # Valid schemas: 'numeric', 'evens', 'odds', 'custom'
-def get_available_table_numbers(request_params, used_tables_set, num_projects):
+def get_available_table_numbers(request_params, used_tables_set, num_projects, request):
+    def csv_cleaner(item):
+        item = item.strip()
+        if item.isdigit():
+            item = int(item)
+        return item
+    
     logged_message(f'endpoint = /api/projects/assign_tables, method = POST, params = {request_params},{used_tables_set},{num_projects}, type = admin')  # noqa
-    table_assignment_schema = request_params['table_assignment_schema']
+    
+    if not request_params:
+        table_assignment_schema = request.form['table_assignment_schema']
+    else:
+        table_assignment_schema = request_params['table_assignment_schema']
+    
     max_table_numbers_list = []
     num_tables_needed = num_projects + len(used_tables_set)
     if table_assignment_schema == 'evens':
@@ -365,6 +376,20 @@ def get_available_table_numbers(request_params, used_tables_set, num_projects):
                 max_table_numbers_list.append(letter + str(number))
         if request_params['skip_every_other_table']:
             max_table_numbers_list = max_table_numbers_list[::2]
+    elif table_assignment_schema == 'custom_file':
+        file = request.files['table_file']
+        print('here')
+
+        if not file:
+            return "No file"
+
+        with io.StringIO(file.stream.read().decode('utf-8'), newline='') as temp_file:
+            csv_reader = csv.reader(temp_file, delimiter=',')
+            for row in csv_reader:
+                row = list(map(csv_cleaner, row))
+                max_table_numbers_list += row
+        max_table_numbers_list *= 2
+        
     # Remove used table numbers
     for table in max_table_numbers_list:
         if table in used_tables_set:
