@@ -98,7 +98,12 @@ class SearchandFilterInner extends Component {
     // perform filtering
     let updatedList = this.state.data.filter(item => (
       (!mustMatchTextFilter || item.project_name.toUpperCase().includes(this.state.textSearch.toUpperCase())) &&
-      (!mustMatchChallengeFilter || item.challenges.some(c => c.challenge_name === this.state.value))
+      (!mustMatchChallengeFilter || item.challenges.some(c => c.challenge_name === this.state.value)) &&
+      (
+        (this.state.projectFilter === undefined) ||
+        (this.state.projectFilter === "inperson" && !item.virtual) ||
+        (this.state.projectFilter == "virtual" && item.virtual)
+      )
     ));
 
     // if filtering by challenge ...
@@ -129,12 +134,12 @@ class SearchandFilterInner extends Component {
       }));
     }
 
-      let matchesTypeFilter = this.state.projectFilter === undefined ||
-        (this.state.projectFilter === "inperson" && !item.virtual) ||
-        (this.state.projectFilter === "virtual" && item.virtual);
+    //   let matchesTypeFilter = this.state.projectFilter === undefined ||
+    //     (this.state.projectFilter === "inperson" && !item.virtual) ||
+    //     (this.state.projectFilter === "virtual" && item.virtual);
 
-      return matchesTextFilter && matchesChallengeFilter && matchesTypeFilter;
-    });
+    //   return matchesTextFilter && matchesChallengeFilter && matchesTypeFilter;
+    // };
     this.setState({
       workingdata: updatedList,
     });
