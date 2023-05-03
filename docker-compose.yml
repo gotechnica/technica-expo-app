@@ -10,7 +10,10 @@ services:
         ports:
             - "80:80"
             - "443:443"
-        network_mode: "host"
+        networks:
+            - nginx_network
+        depends_on:
+            - web
     certbot:
         image: certbot/certbot
         volumes:
@@ -18,9 +21,31 @@ services:
             - ./nginx/certbot/www:/var/www/certbot
         entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     web:
-        build: './api'
+        build: 
+            context: ./api
+        volumes:
+            - ./api:/app
         depends_on:
-            - nginx
+            - db
+        links:
+            - db
+        networks:
+            - db_network
+            - nginx_network
+        command: gunicorn -b 0.0.0.0:80 server:app --capture-output
+    db:
+        image: mongo:4.1
+        environment:
+            MONGO_INITDB_DATABASE: expo-production
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: password
         ports:
-            - "8000:8000"
-        network_mode: "host"
+            - 27017:21017
+        command: --quiet  
+        networks:
+            - db_network
+networks:
+    nginx_network:
+        driver: bridge
+    db_network:
+        driver: bridge

@@ -19,6 +19,7 @@ from devpost_scraper import get_challenges
 from math import ceil
 
 from scripts.scheduling import *
+from functools import cmp_to_key
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -303,6 +304,17 @@ def bulk_add_projects_internal(packet):
         result = projects.insert_many(packet)
         return result
 
+def is_quantum(project):
+    challenges = project['challenges']
+    for challenge in challenges:
+        c_name = challenge['challenge_name']
+        c_company = challenge['company']
+
+        if 'quantum' in c_name.lower() or 'quantum' in c_company.lower():
+            return True
+    return False
+
+
 
 @app.route('/api/projects/assign_tables', methods=['POST'])
 @is_admin
@@ -330,7 +342,7 @@ def assign_remaining_table_numbers():
     db_update_operations = []
     for p in all_projects:
         # If table number hasn't been assigned yet, assign next available one
-        if not p['virtual'] and p['table_number'] == '' and i < len(available_tables_list):
+        if not is_quantum(p) and not p['virtual'] and p['table_number'] == '' and i < len(available_tables_list):
             db_update_operations.append(UpdateOne(
                 {'_id': ObjectId(p['_id'])},
                 {'$set': {'table_number': available_tables_list[i]}}
@@ -463,7 +475,8 @@ def add_project():
         'project_name': project_name,
         'project_url': project_url,
         'challenges': challenges,
-        'challenges_won': []
+        'challenges_won': [],
+        'virtual': False
     }
 
     project_id = projects.insert(project)
@@ -653,6 +666,37 @@ def generate_random_access_code(length):
     # Only allow characters that are not ambiguous (I, L, O, 1, 0)
     return ''.join(random.choice('ABCDEFGHJKMNPQRTUVWXYZ2346789')
                    for _ in range(length))
+
+
+@app.route('/api/custom_assignment', methods=['POST']) 
+def assign_time():
+    index = int(request.json['index'])
+    group = request.json['group']
+    project_name = request.json['project_name'] 
+    c_name = request.json['challenge']
+    projects = mongo.db.projects
+
+    proj = projects.find_one(
+        {'project_name': project_name}
+    )
+
+    for i, challenge in enumerate(proj['challenges']):
+        if c_name.lower() in challenge['challenge_name'].lower() or c_name.lower() in challenge['company'].lower():
+            challenge = proj['challenges'][i]
+            challenge['time'] = index_to_time(index, 5, current_app.config['EXPO_START_TIME_DT'])
+
+            if group is not None:
+                challenge['group'] = group
+
+            projects.find_one_and_update(
+                {'_id': ObjectId(proj["_id"])},
+                {'$set': proj}
+            )
+            break
+        
+    
+    return "Success, 200"
+            
 
 
 @app.route('/api/companies/id/<company_id>', methods=['POST'])
@@ -1114,7 +1158,7 @@ def logout():
 @app.route('/api/schedule-judging', methods=['POST'])
 def scheduling():
     """
-    scheduling_v2()
+    scheduling()
 
     API POST function: Assigns schedule to each project's challenges. 
 
@@ -1134,13 +1178,15 @@ def scheduling():
     projects_all = projects.find()
 
     # Minimum size before we split the judging group
-    block_size = 30
+    block_size = 15
+
+    judge_block_size = 30
 
     # Retrieves the judging_length from the POST request, which is set in the front-end admin console
     judging_length = request.json['judging_length']
     
     # Length of expo: 150 min / 2.5 hours
-    total_time = 150
+    total_time = 130
 
     # Length of judging_length can't be greater than time allotted 
     if judging_length > total_time:
@@ -1150,7 +1196,19 @@ def scheduling():
     # The availability of each challenge. Since we iterate through all projects and hence all possible challenges
     # we can just keep a running dictionary
     all_chlng_availability = {}
+    judge_availability = {}
     challenge_count = get_challenge_count()
+
+    def sort_bitcamp_last(challenge_a, challenge_b):
+        company_a = challenge_a['company']
+        company_b = challenge_b['company']
+
+        if "bitcamp" in company_a.lower():
+            return 1
+        elif "bitcamp" in company_b.lower():
+            return -1
+        
+        return 0
 
     # Loop through projects
     for project in projects_all:
@@ -1161,48 +1219,52 @@ def scheduling():
         proj_availability = [True] * (total_time // judging_length)
         proj_challenges = project['challenges']
 
+        proj_challenges.sort(key=cmp_to_key(sort_bitcamp_last))
         # Loop through the project's challenges
-        for i in range(len(proj_challenges)):
-            challenge = proj_challenges[i]
+        if not is_quantum(project) and not project['virtual']:
+            for i in range(len(proj_challenges)):
+                challenge = proj_challenges[i]
 
-            # Temporary ID to identify challenge
-            challenge_id = get_challenge_id(challenge)
+                # Temporary ID to identify challenge
+                challenge_id = get_challenge_id(challenge)
+                if "people's choice" not in challenge_id.lower():
 
-            # Only allow judge splitting for Bitcamp hosted prizes
-            if current_app.config['SPLIT_SPONSOR_JUDGING'] or "bitcamp" in challenge['company'].lower():
-                block_multiple = ceil(challenge_count[challenge_id] / block_size)
-            else: 
-                block_multiple = 1
-            # If the challenge is not in the availability dictionary, add a default, same array
-            # as project availability 
-            if challenge_id not in all_chlng_availability:
+                    # Only allow judge splitting for Bitcamp hosted prizes
+                    if current_app.config['SPLIT_SPONSOR_JUDGING'] or "bitcamp" in challenge['company'].lower():
+                        block_multiple = ceil(challenge_count[challenge_id] / block_size)
+                    elif ("bloomberg" in challenge['company'].lower() or "bloomberg" in challenge['challenge_name'].lower()):
+                        block_multiple = ceil(challenge_count[challenge_id] / judge_block_size)
+                    else: 
+                        block_multiple = 1
+                    # If the challenge is not in the availability dictionary, add a default, same array
+                    # as project availability 
+                    if challenge_id not in all_chlng_availability:
 
-                # int array
-                all_chlng_availability[challenge_id] = [block_multiple] * (total_time // judging_length)
-            
-            chlng_availability = all_chlng_availability[challenge_id]
+                        # int array
+                        all_chlng_availability[challenge_id] = [block_multiple] * (total_time // judging_length)
+                        judge_availability[challenge_id] = [[i for i in range(1, block_multiple+1)] for i in range(total_time // judging_length)]
+                    
+                    chlng_availability = all_chlng_availability[challenge_id]
 
-            # Call method to find the earliest time slot where both parties are available.
-            schedule_time = find_common_availability(proj_availability, chlng_availability)
-            
-            # The index time slot was not found. This means they're "fully booked", no available slot.
-            # Shorten the judging length. This is not an exact process / it's not optimized.
-            # The assumption that there are a lot of teams and few categories allows this to work
-            if schedule_time == -1:
-                error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
-                return jsonify(error_message), 400
-            
-            # Set availabilities to False after successful scheduling
-            proj_availability[schedule_time] = False
-            chlng_availability[schedule_time] -= 1
-            
-            # Call method to convert index time slot to a real datetime object. Start time is taken from the config file
-            challenge['time'] = index_to_time(schedule_time, judging_length, current_app.config['EXPO_START_TIME_DT'])
-            if block_multiple > 1:
-                group_num = (schedule_time + 1) % block_multiple
-                if group_num == 0:
-                    group_num = block_multiple
-                challenge['group'] = group_num
+                    # Call method to find the earliest time slot where both parties are available.
+                    schedule_time = find_common_availability(proj_availability, chlng_availability)
+                    
+                    # The index time slot was not found. This means they're "fully booked", no available slot.
+                    # Shorten the judging length. This is not an exact process / it's not optimized.
+                    # The assumption that there are a lot of teams and few categories allows this to work
+                    if schedule_time == -1:
+                        error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
+                        return jsonify(error_message), 400
+                    
+                    # Set availabilities to False after successful scheduling
+                    proj_availability[schedule_time] = False
+                    chlng_availability[schedule_time] -= 1
+                    
+                    # Call method to convert index time slot to a real datetime object. Start time is taken from the config file
+                    challenge['time'] = index_to_time(schedule_time, judging_length, current_app.config['EXPO_START_TIME_DT'])
+                    if block_multiple > 1:
+                        group_num = judge_availability[challenge_id][schedule_time].pop(0)
+                        challenge['group'] = group_num
         
         # Update MongoDB
         projects.find_one_and_update(

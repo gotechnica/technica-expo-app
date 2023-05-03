@@ -73,7 +73,7 @@
 
   /* Table.css */
   --table_home_btn: var(--supporting-primary);
-  --table_home_tr_td: #222222;
+  --table_home_tr_td: rgba(255, 255, 255, 0.1);
   --table_att_challenges: #999999;
   --table_no_submissions: var(--supporting-primary-darker);
 

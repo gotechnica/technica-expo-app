@@ -46,6 +46,10 @@ class ProjectModule extends Component {
       viewable: true,
       judgingLength: 10,
       tableAssignmentFile: "",
+      projectName:"",
+      myindex:"",
+      newGroup: "",
+      challengeName: "",
     };
   }
 
@@ -169,6 +173,31 @@ class ProjectModule extends Component {
     });
   }
 
+  editTime(e) {
+    e.preventDefault();
+    console.log(this.state.projectName);
+    console.log(this.state.myindex)
+    console.log(this.state.newGroup);
+    console.log(this.state.challengeName);
+    axiosRequest
+      .post("api/custom_assignment", {
+        index: this.state.myindex,
+        project_name: this.state.projectName,
+        group: this.state.newGroup,
+        challenge: this.state.challengeName,
+      })
+      .then((data) => {
+        
+        this.props.loadProjects();
+      })
+      .catch((error) => {
+
+        // Flash error message
+          alert("FUCK YOU");
+
+      });
+    
+  }
   onAutoAssignTableNumbers(e) {
     e.preventDefault();
     if (this.state.tableAssignmentSchema === "") {
@@ -397,6 +426,64 @@ class ProjectModule extends Component {
 
           <br />
           <br />
+          
+          {/* <h5>Add New Time</h5>
+          <form
+            method="post"
+            onSubmit={this.editTime.bind(this)}
+          >
+            <div className="form-group custom-table-assignment-container">
+                Project Name: 
+                <input
+                  type="text"
+                  name="projectName"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <div className="form-group custom-table-assignment-container">
+                Challenge Name: 
+                <input
+                  type="text"
+                  name="challengeName"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <div className="form-group custom-table-assignment-container">
+                 New Group: 
+                <input
+                  type="text"
+                  name="newGroup"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <div className="form-group custom-table-assignment-container">
+                Index: 
+                <input
+                  type="text"
+                  name="myindex"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <button
+              type="submit"
+              className="button button-primary m-r-m assign_button1"
+            >
+              Assign Time
+            </button>
+          </form> */}
+
 
           <h5>Auto Assign Table Numbers</h5>
           <form

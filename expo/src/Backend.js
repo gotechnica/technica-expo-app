@@ -6,7 +6,7 @@ const backendDevURL = 'http://localhost:8000/';
 // const prodURL = "https://expo-api.gotechnica.org/";
 
 const URL = backendDevURL;
-export const useCachedResponseData = false;
+export const useCachedResponseData = true;
 
 // axiosRequest usage examples:
 /*

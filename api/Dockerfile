@@ -5,6 +5,7 @@ ADD . /app
 WORKDIR /app
 
 COPY requirements.txt /tmp/
+COPY . /app/
 RUN pip install --requirement /tmp/requirements.txt
 RUN pip install gunicorn
 

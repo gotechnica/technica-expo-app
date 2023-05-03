@@ -24,7 +24,7 @@ class SearchandFilterInner extends Component {
     this.state = {
       isLoadingData: true,
       data: [],
-      value: "",
+      value: "All Challenges",
       textSearch: "",
       toggle_off: true,
       projectFilter: undefined,
@@ -102,7 +102,7 @@ class SearchandFilterInner extends Component {
       (
         (this.state.projectFilter === undefined) ||
         (this.state.projectFilter === "inperson" && !item.virtual) ||
-        (this.state.projectFilter == "virtual" && item.virtual)
+        (this.state.projectFilter === "virtual" && item.virtual)
       )
     ));
 
@@ -159,6 +159,7 @@ class SearchandFilterInner extends Component {
       this.setState(
         {
           value: val,
+          toggle_off: val === "All Challenges",
         },
         () => this.applyFilters()
       );
@@ -396,9 +397,9 @@ class SearchandFilterInner extends Component {
                   {select}
                 </div>
               </div>
-              <div className="form-row" style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <div className="form-row" style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 {/* Show Attempted Challenge Toggle */}
-                {this.props.origin === "sponsor" ? null : (
+                {this.props.origin === "sponsor" || this.state.value !== "All Challenges" ? <span></span> : (
                   <Fragment>
                     <div style={{ textAlign: style }}>
                       <div className="btn-group">
@@ -459,12 +460,13 @@ class SearchandFilterInner extends Component {
                 )}
                 {/* a toggle for showing all projects, virtual only, or in person only */}
                 {this.props.origin === "sponsor" ? null : (
-                  <div 
+                  <span 
                     style={{ 
                       marginTop: "10px", 
+                      marginBottom: "10px",
                       padding: "1px 6px", 
                       display: "flex", 
-                      columnGap: "16px" 
+                      columnGap: "16px",
                     }}
                   >
                     <div>
@@ -494,7 +496,7 @@ class SearchandFilterInner extends Component {
                         onChange={() => this.handleProjectFilter("virtual")} 
                       /> Virtual only
                     </div>
-                  </div>
+                  </span>
                 )}
               </div>
             </form>

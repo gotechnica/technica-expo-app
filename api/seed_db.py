@@ -107,6 +107,7 @@ def format_challenges(challenges) -> List[Dict[any, any]]:
         and if it has been 'won'
 
     """
+    bitcamp_counter = 0
     challenges_list = []
     if challenges:
         challenges = challenges.split(',')
@@ -114,12 +115,21 @@ def format_challenges(challenges) -> List[Dict[any, any]]:
             # TODO: possibly look into creating a hash from companies DB
             # instead of hard coding the dash separator rule
             data = str.strip(challenge).split(' - ')
-            prize = {
-                'company': data[1],
-                'challenge_name': data[0],
-                'won': False
-            }
-            challenges_list.append(prize)
+            company = data[1]
+            challenge_name = data[0]
+
+            is_bitcamp = "bitcamp" in company.lower() or "bitcamp" in challenge_name.lower()
+
+            if is_bitcamp:
+                bitcamp_counter += 1
+            
+            if  not is_bitcamp or bitcamp_counter <= 3:
+                prize = {
+                    'company': company,
+                    'challenge_name': challenge_name,
+                    'won': False
+                }
+                challenges_list.append(prize)
     return challenges_list
 
 
@@ -160,35 +170,37 @@ def parse_csv_internal(reader, not_moving_question=None, virtual_row_name=None):
     """
     # already_stored = already_in_db()
     for row in reader:
-        project_name = row["Submission Title"].strip()
-        project_url = row["Submission Url"].strip()
-        challenges = format_challenges(row["Desired Prizes"])
-        
-        if virtual_row_name in row: 
-            virtual = row[virtual_row_name].strip() == 'Yes' # TODO: make sure this matches devpost format
-        else:
-            virtual = False
+        if row["Project Status"] is not None and row["Project Status"] != "Submitted (Hidden)" and row["Project Status"] != \
+             "Draft" and row["Project Status"] != "":
+            project_name = row["Project Title"].strip()
+            project_url = row["Submission Url"].strip()
+            challenges = format_challenges(row["Opt-In Prizes"])
+            
+            if virtual_row_name in row: 
+                virtual = row[virtual_row_name].strip() == 'No' # TODO: make sure this matches devpost format
+            else:
+                virtual = False
 
-        # Skip iteration if current project is not valid
-        if project_name == "" and project_url == "":
-            continue
+            # Skip iteration if current project is not valid
+            if project_name == "" and project_url == "":
+                continue
 
-        if not_moving_question is None:
-            needs_to_stay = None
-            response = None
-        else:
-            # If config file has a question string defined for Devpost question
-            # asking if project shouldn't move, then get curr row's response
-            response = row[not_moving_question]
-            needs_to_stay = check_if_needs_to_stay(response)
+            if not_moving_question is None:
+                needs_to_stay = None
+                response = None
+            else:
+                # If config file has a question string defined for Devpost question
+                # asking if project shouldn't move, then get curr row's response
+                response = row[not_moving_question]
+                needs_to_stay = check_if_needs_to_stay(response)
 
-        if needs_to_stay is not None:
-            not_moving[project_name] = Project(project_url, challenges, virtual)
-            assignments[table_to_number(needs_to_stay.group(0))] = \
-                project_name + " | "
-            not_moving[project_name].table_number = needs_to_stay.group(0)
-        else:
-            moving[project_name] = Project(project_url, challenges, virtual)
+            if needs_to_stay is not None:
+                not_moving[project_name] = Project(project_url, challenges, virtual)
+                assignments[table_to_number(needs_to_stay.group(0))] = \
+                    project_name + " | "
+                not_moving[project_name].table_number = needs_to_stay.group(0)
+            else:
+                moving[project_name] = Project(project_url, challenges, virtual)
 
     return moving, not_moving
 

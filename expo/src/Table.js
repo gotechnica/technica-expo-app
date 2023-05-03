@@ -13,6 +13,7 @@ import "customize/customize";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faVideo } from "@fortawesome/free-solid-svg-icons";
+import { faMicrochip } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import customize from "customize/customize";
@@ -128,10 +129,10 @@ function ProjectColumn(props) {
         <a href={props.project_url} target="_tab" className="link">
           {props.project_name}
         </a>
-        {props.width < 460 ? (
+        {props.width < 1000 ? (
           props.table_number !== "" ? (
             props.origin === "home" ? (
-              <div>
+              <div className="mini-table">
                 <button
                   className="Table"
                   style={{ backgroundColor: colors[index] }}
@@ -147,7 +148,7 @@ function ProjectColumn(props) {
             )
           ) : null
         ) : null}
-        {props.width < 460 &&
+        {props.width < 1000 &&
         props.num_challenges_won > 0 &&
         props.origin === "sponsor" ? (
           <div className="Sponsor-Table">
@@ -167,7 +168,7 @@ function ProjectColumn(props) {
           ) : null}
           {attempted_challenges.length > 0 ? (
             <Fragment>
-              {props.width < 460 && !props.show_attempted_challenges ? (
+              {props.width < 1000 && !props.show_attempted_challenges ? (
                 <hr className="attempted-challenges" />
               ) : null}
               <div className="attempted-challenges">
@@ -194,7 +195,7 @@ function ProjectColumn(props) {
 
 function ChallengeCard(props) {
   let text =
-    props.width >= 460 ? (
+    props.width >= 1000 ? (
       " | " + props.company
     ) : (
       <Fragment>
@@ -203,7 +204,7 @@ function ChallengeCard(props) {
       </Fragment>
     );
   return props.won && props.winnersRevealed ? (
-    props.width >= 460 ? (
+    props.width >= 1000 ? (
       <div className="btn-group">
         <button className="btn" disabled>
           <img src={WinnerBadge} alt="Winner Badge" className="Ribbon" />
@@ -213,8 +214,8 @@ function ChallengeCard(props) {
           {text}
         </button>
         <span className="schedule-time">
-          {props.group ? <span>Judge {props.group}</span> : null} - 
-          {props.time}
+          {props.group && props.value !== "All Challenges" ? <span>Judge {props.group}</span> : null} - 
+          <span class="time">{props.time}</span>
         </span>
       </div>
     ) : (
@@ -229,8 +230,10 @@ function ChallengeCard(props) {
         <b>{props.challenge_name}</b>
         {text}
         <span className="schedule-time">
-          {props.group ? <span>Judge {props.group} - </span> : null} 
-          {props.time}</span>
+          {props.group && props.value !== "All Challenges" ? <span>Judge {props.group} - </span> : null} 
+          <span class="time">{props.time}</span>
+          {console.log("Hi " + props.time)}
+          </span>
       </button>
     </div>
   );
@@ -257,9 +260,11 @@ export function Row(props) {
   let { table_number} = props;
   if (props.virtual) {
     table_number = <FontAwesomeIcon className="table-number-icon" icon={faVideo} />
+  } else if (table_number === "vquantum") {
+    table_number = <FontAwesomeIcon className="table-number-icon" icon={faMicrochip} />
   } else if (props.table_number === "") {
     table_number = "-";
-    
+
   }
   
   if (props.challenges !== undefined) {
@@ -284,6 +289,7 @@ export function Row(props) {
           winnersRevealed={props.winnersRevealed}
           time={formatTime(challenge.time)}
           group={challenge.group}
+          value={props.value}
         />
       );
       if (challenge.won) {
@@ -299,7 +305,7 @@ export function Row(props) {
     });
   }
   let table =
-    props.width >= 460 ? (
+    props.width >= 1000 ? (
       <td className="Table-Number header-font">
         {table_number}
       </td>
@@ -320,7 +326,7 @@ export function Row(props) {
         project_name={props.project_name}
         project_url={props.project_url}
         challenges={props.origin === "home" ? props.challenges : undefined}
-        table_number={props.table_number}
+        table_number={table_number}
         width={props.width}
         origin={props.origin}
         counter={props.counter}
@@ -330,7 +336,7 @@ export function Row(props) {
         num_challenges_won={winner_count}
       />
       {props.origin === "sponsor" ? (
-        props.width >= 460 ? (
+        props.width >= 1000 ? (
           <td
             className="Trophy-Case"
             style={{
@@ -361,8 +367,8 @@ export function Table(props) {
 
   let rows = [];
   let counter = 0;
-  let table = width >= 460 ? <th className="header-font">Table</th> : null;
-  let trophy_header = width >= 460 ? <th>Challenges Won</th> : null;
+  let table = width >= 1000 ? <th className="header-font">Table</th> : null;
+  let trophy_header = width >= 1000 ? <th>Challenges Won</th> : null;
   props.projects.forEach((project) => {
     rows.push(
       props.origin === "sponsor" ? (
@@ -383,6 +389,7 @@ export function Table(props) {
           challenges={project.challenges}
           winnersRevealed={props.winnersRevealed}
           virtual={project.virtual}
+
         />
       ) : (
         <Row
@@ -437,7 +444,7 @@ export function Table(props) {
               <th className="header-font">Project Information</th>
             </tr>
           </thead>
-        ) : width >= 460 ? (
+        ) : width >= 1000 ? (
           <thead>
             <tr>
               <th>Select</th>
