@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 /**
  * Sorts projects array by a table number.
  * @param {array} array List of project objects to sort
@@ -7,9 +9,16 @@ export function sortByTableNumber(array, sortWithAlphaNumeric) {
   const key = "table_number";
   if (sortWithAlphaNumeric) {
     // Sort based on alpha portion first, and then numeric as tie-breaker
-    return array.sort(function(a, b) {
-      const x = a[key].toLowerCase().split(/([0-9]+)/);
-      const y = b[key].toLowerCase().split(/([0-9]+)/);
+    return array.sort(function (a, b) {
+      // empty string sorts to the end
+      if (b[key].toString() === '') {
+        return -1;
+      } else if (a[key].toString() === '') {
+        return 1;
+      }
+
+      const x = a[key].toString().toLowerCase().split(/([0-9]+)/);
+      const y = b[key].toString().toLowerCase().split(/([0-9]+)/);
       const xLetter = x[0];
       const yLetter = y[0];
 
@@ -26,7 +35,12 @@ export function sortByTableNumber(array, sortWithAlphaNumeric) {
     });
   } else {
     // Normal numeric-only straightforward sorting
-    return array.sort(function(a, b) {
+    return array.sort(function (a, b) {
+      if (b[key].toString() === '') {
+        return -1;
+      } else if (a[key].toString() === '') {
+        return 1;
+      }
       let x = a[key];
       let y = b[key];
 
@@ -41,4 +55,18 @@ export function sortByTableNumber(array, sortWithAlphaNumeric) {
       return x < y || y === "" ? -1 : x > y || x === "" ? 1 : 0;
     });
   }
+}
+
+export function useWindowWidth() {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
+
+  return width;
 }

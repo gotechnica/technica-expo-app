@@ -7,6 +7,9 @@
 
 .toggle-btn {
   background: var(--supporting-primary);
+  padding-left: 12px;
+  margin-right: 5px;
+  padding-top: 2px;
 }
 
 .toggle-label {

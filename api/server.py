@@ -1,23 +1,25 @@
 # Main server file
 from flask import Flask, jsonify, request, session, current_app
 from flask_pymongo import PyMongo
-from pymongo import MongoClient, UpdateOne
+from pymongo import UpdateOne
 from flask_cors import CORS
 from bson.objectid import ObjectId
 from bson import json_util
 import logging
 import random
-import string
 import json
-import hashlib
 import io
 import datetime
-import os
 import re
-from loggingAnalytics import *
-from seed_db import *
-from devpost_scraper import *
+import csv
+from loggingAnalytics import logged_message
+from seed_db import delete_projects, format_challenges, \
+    parse_csv_internal
+from devpost_scraper import get_challenges
+from math import ceil
 
+from scripts.scheduling import *
+from functools import cmp_to_key
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -25,17 +27,21 @@ app.config.from_object('config')
 mongo = PyMongo(app)
 
 # Global variables
-publish_winners = False # Flag that admin can flip to show winner status in '/'
+publish_winners = False # Flag that admin can flip to show winner status in '/'  # noqa
 is_published = False
+
 
 # Auth Decorators
 def is_sponsor_or_admin(func):
     def function_wrapper(*args, **kwargs):
-        print("Checking if logged in as sponsor before calling " + func.__name__)
-        if 'user_type' in session and (session['user_type'] == 'sponsor' or session['user_type'] == 'admin'):
+        print("Checking if logged in as sponsor before calling " +
+              func.__name__)
+        if 'user_type' in session and (session['user_type'] == 'sponsor'
+                                       or session['user_type'] == 'admin'):
             return func(*args, **kwargs)
         else:
-            return 'Error: You are not authorized to complete that request.', 403
+            return ('Error: You are not authorized to complete that request.',
+                    403)
     # Renaming the function name:
     function_wrapper.__name__ = func.__name__
     return function_wrapper
@@ -47,7 +53,8 @@ def is_admin(func):
         if 'user_type' in session and session['user_type'] == 'admin':
             return func(*args, **kwargs)
         else:
-            return 'Error: You are not authorized to complete that request.', 403
+            return ('Error: You are not authorized to complete that request.',
+                    403)
     # Renaming the function name:
     function_wrapper.__name__ = func.__name__
     return function_wrapper
@@ -58,19 +65,22 @@ def hello():
     return get_all_projects()
 
 
-# Public routes ################################################################
+# Public routes ##############################################################
 # All endpoints under the public routes should not require any authentication.
+
 
 @app.route('/api/projects', methods=['GET'])
 def get_all_projects():
     projects = mongo.db.projects
-    logged_message("endpoint = /api/projects, method = GET, params = NONE, type = public")
+    logged_message("endpoint = /api/projects, method = GET, params = NONE, type = public")  # noqa
 
     projects_list = []
     for p in projects.find():
         challenges_won = p['challenges_won']
         challenges = p['challenges']
-        if not publish_winners: # Hide winners from public endpoint before winners are published
+        # Hide winners from public endpoint before winners are
+        # published
+        if not publish_winners:
             challenges_won = []
             for i in range(len(challenges)):
                 challenges[i]['won'] = False
@@ -81,32 +91,8 @@ def get_all_projects():
             'project_name': p['project_name'],
             'project_url': p['project_url'],
             'challenges': challenges,
-            'challenges_won': challenges_won
-        }
-        projects_list.append(temp_project)
-
-    output = {
-        'publish_winners': publish_winners,
-        'is_published':is_published,
-        'projects': projects_list
-    }
-    return jsonify(output)
-
-@app.route('/api/projects_and_winners', methods=['GET'])
-@is_sponsor_or_admin
-def get_all_projects_with_winners():
-    projects = mongo.db.projects
-    logged_message("endpoint = /api/projects_and_winners, method = GET, params = NONE, type = sponsor or admin")
-
-    projects_list = []
-    for p in projects.find():
-        temp_project = {
-            'project_id': str(p['_id']),
-            'table_number': p['table_number'],
-            'project_name': p['project_name'],
-            'project_url': p['project_url'],
-            'challenges': p['challenges'],
-            'challenges_won': p['challenges_won']
+            'challenges_won': challenges_won,
+            'virtual': p['virtual']
         }
         projects_list.append(temp_project)
 
@@ -117,10 +103,38 @@ def get_all_projects_with_winners():
     }
     return jsonify(output)
 
+
+@app.route('/api/projects_and_winners', methods=['GET'])
+@is_sponsor_or_admin
+def get_all_projects_with_winners():
+    projects = mongo.db.projects
+    logged_message("endpoint = /api/projects_and_winners, method = GET, params = NONE, type = sponsor or admin")  # noqa
+
+    projects_list = []
+    for p in projects.find():
+        temp_project = {
+            'project_id': str(p['_id']),
+            'table_number': p['table_number'],
+            'project_name': p['project_name'],
+            'project_url': p['project_url'],
+            'challenges': p['challenges'],
+            'challenges_won': p['challenges_won'],
+            'virtual': p['virtual'],
+        }
+        projects_list.append(temp_project)
+
+    output = {
+        'publish_winners': publish_winners,
+        'is_published': is_published,
+        'projects': projects_list
+    }
+    return jsonify(output)
+
+
 @app.route('/api/projects/id/<project_id>', methods=['GET'])
 def get_project(project_id):
     projects = mongo.db.projects
-    logged_message(f'endpoint = /api/projects/id/{project_id}, method = GET, params = {project_id}, type = public')
+    logged_message(f'endpoint = /api/projects/id/{project_id}, method = GET, params = {project_id}, type = public')  # noqa
     project_obj = projects.find_one({'_id': ObjectId(project_id)})
     temp_project = {
         'project_id': str(project_obj['_id']),
@@ -128,32 +142,39 @@ def get_project(project_id):
         'project_name': project_obj['project_name'],
         'project_url': project_obj['project_url'],
         'challenges': project_obj['challenges'],
-        'challenges_won': project_obj['challenges_won']
+        'challenges_won': project_obj['challenges_won'],
+        'virtual': project_obj['virtual'],
     }
 
     return jsonify(temp_project)
+
 
 @app.route('/api/projects/generate_projects_list_csv', methods=['GET'])
 def generate_projects_list_csv():
     projects = mongo.db.projects
     companies = mongo.db.companies
-    logged_message(f'endpoint = /api/projects/generate_projects_list_csv, method = GET, type = public')
+    logged_message(f'endpoint = /api/projects/generate_projects_list_csv, method = GET, type = public')  # noqa
 
     challenges_list = []
     for curr_company in companies.find():
         if curr_company['challenges']:
-            for curr_challenge_id, curr_challenge in curr_company['challenges'].items():
-                challenges_list.append((curr_challenge_id, curr_company['company_name'], curr_challenge['challenge_name']))
+            for curr_challenge_id, curr_challenge \
+                    in curr_company['challenges'].items():
+                challenges_list.append((curr_challenge_id,
+                                        curr_company['company_name'],
+                                        curr_challenge['challenge_name']))
 
     projects_str = '<table>'
-    projects_str += '<tr><th>Challenge Name</th><th>Company Name</th><th>Table Number</th><th>Project Name</th><th>Project URL</th></tr>'
+    projects_str += '<tr><th>Challenge Name</th><th>Company Name</th><th>Table Number</th><th>Project Name</th><th>Project URL</th></tr>'  # noqa
     all_projects = list(projects.find())
     for (_, company_name, challenge_name) in challenges_list:
         for p in all_projects:
             for attempted_challenges in p['challenges']:
-                # print(attempted_challenges['challenge_name'] + '==' + challenge_name  + ' and ' +  attempted_challenges['company'] + '==' + company_name)
-                if attempted_challenges['challenge_name'] == challenge_name and attempted_challenges['company'] == company_name:
-                    # This current project is competing in this current challenge
+                # print(attempted_challenges['challenge_name'] + '==' + challenge_name  + ' and ' +  attempted_challenges['company'] + '==' + company_name)  # noqa
+                if (attempted_challenges['challenge_name'] == challenge_name
+                        and attempted_challenges['company'] == company_name):
+                    # This current project is competing in this
+                    # current challenge
                     projects_str += '<tr>'
                     projects_str += ('<td>' + challenge_name + '</td>')
                     projects_str += ('<td>' + company_name + '</td>')
@@ -165,43 +186,50 @@ def generate_projects_list_csv():
     projects_str += '</table>'
     return projects_str
 
+
 @app.route('/api/challenges', methods=['GET'])
 def get_all_challenges():
     companies = mongo.db.companies
-    logged_message(f'endpoint = /api/challenges, method = GET, params = NONE, type = public')
+    logged_message(f'endpoint = /api/challenges, method = GET, params = NONE, type = public')  # noqa
     output = {}
     for curr_company in companies.find():
         if not curr_company['challenges']:
             output[curr_company['company_name']] = []
         else:
             curr_challenges_list = []
-            for curr_challenge_id, curr_challenge in curr_company['challenges'].items():
-                curr_challenges_list.append(curr_challenge['challenge_name'])
+            for curr_challenge_id, curr_challenge in \
+                    curr_company['challenges'].items():
+                curr_challenges_list.append(
+                    curr_challenge['challenge_name'])
             output[curr_company['company_name']] = curr_challenges_list
     return jsonify(output)
+
 
 @app.route('/api/publish_winners_status', methods=['GET'])
 def get_publish_winners_flag():
     global publish_winners  # Use the var defined at top of file
-    logged_message(f'endpoint = /api/publish_winners_status, method = GET, params = NONE, type = public')
+    logged_message(f'endpoint = /api/publish_winners_status, method = GET, params = NONE, type = public')  # noqa
     return str(publish_winners)
+
 
 @app.route('/api/is_published_status', methods=['GET'])
 def get_is_published_flag():
     global is_published  # Use the var defined at top of file
-    logged_message(f'endpoint = /api/is_published_status, method = GET, params = NONE, type = public')
+    logged_message(f'endpoint = /api/is_published_status, method = GET, params = NONE, type = public')  # noqa
     return str(is_published)
+
 
 @app.route('/api/expo_length', methods=['GET'])
 def get_expo_length():
-    logged_message(f'endpoint = /api/expo_length, method = GET, params = NONE, type = public')
+    logged_message(f'endpoint = /api/expo_length, method = GET, params = NONE, type = public')  # noqa
     return str(current_app.config['EXPO_LENGTH'])
 
 
-# Admin routes #################################################################
+# Admin routes #############################################################
 # All endpoints under the Admin routes should require admin authorization.
 
-## MONGODB SCHEMA:
+
+# MONGODB SCHEMA:
 # Project (data from Devpost)
     # Table Number
     # Project Name
@@ -209,17 +237,19 @@ def get_expo_length():
     # Attempted Challenges
     # Challenges Won
 
+
 @app.route('/test/seed_db', methods=['GET'])
 @is_admin
 def csv_tester():
-    logged_message(f'endpoint = /test/seed_db, method = GET, params = NONE, type = admin')
+    logged_message(f'endpoint = /test/seed_db, method = GET, params = NONE, type = admin')  # noqa
     return """
         <html>
             <body>
                 <h1>Devpost CSV DB Seeder</h1>
                 <h2>(Testing Page)</h2>
 
-                <form action="/parse_csv" method="post" enctype="multipart/form-data">
+                <form action="/parse_csv" method="post"
+                enctype="multipart/form-data">
                     <input type="file" name="projects_csv" />
                     <input type="submit" />
                 </form>
@@ -227,39 +257,46 @@ def csv_tester():
         </html>
     """
 
+
 @app.route('/parse_csv', methods=['POST'])
 @is_admin
 def parse_csv():
     # print("Loading file...")
     file = request.files['projects_csv']
 
-    logged_message(f'endpoint = /parse_csv, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /parse_csv, method = POST, params = NONE, type = admin')  # noqa
     if not file:
         return "No file"
     with file.stream as temp_file:
         fd = temp_file.fileno()
-        reader = csv.DictReader(io.open(fd, "rt", encoding="utf8", errors='ignore'))
+        reader = csv.DictReader(io.open(fd, "rt",
+                                        encoding="utf8",
+                                        errors='ignore'))
 
-        moving, not_moving = parse_csv_internal(reader, current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION'])
+        moving, not_moving = parse_csv_internal(reader, current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION'], 
+                                                current_app.config['VIRTUAL_ROW_NAME'])  # noqa
 
         bulk_add_projects_internal(get_project_list(not_moving))
         bulk_add_projects_internal(get_project_list(moving))
     # TODO(timothychen01): Just return the integer
     return "Seeded DB with " + str(len(moving) + len(not_moving)) + " projects"
 
+
 def get_project_list(projects_obj):
     project_data = []
-    logged_message(f'endpoint = /parse_csv, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /parse_csv, method = POST, params = NONE, type = admin')  # noqa
     for project_name in projects_obj:
         info = {
             'table_number': projects_obj[project_name].table_number,
             'project_name': project_name,
             'project_url': projects_obj[project_name].project_url,
             'challenges': projects_obj[project_name].challenges,
-            'challenges_won': []
+            'challenges_won': [],
+            'virtual': projects_obj[project_name].virtual,
         }
         project_data.append(info)
     return project_data
+
 
 def bulk_add_projects_internal(packet):
     if len(packet) != 0:
@@ -267,12 +304,24 @@ def bulk_add_projects_internal(packet):
         result = projects.insert_many(packet)
         return result
 
+def is_quantum(project):
+    challenges = project['challenges']
+    for challenge in challenges:
+        c_name = challenge['challenge_name']
+        c_company = challenge['company']
+
+        if 'quantum' in c_name.lower() or 'quantum' in c_company.lower():
+            return True
+    return False
+
+
+
 @app.route('/api/projects/assign_tables', methods=['POST'])
 @is_admin
 def assign_remaining_table_numbers():
     projects = mongo.db.projects
     all_projects = projects.find()
-    logged_message(f'endpoint = /api/projects/assign_tables, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/projects/assign_tables, method = POST, params = NONE, type = admin')  # noqa
     # Get all used table assignments
     used_tables_array = []
     for p in all_projects.clone():
@@ -282,15 +331,18 @@ def assign_remaining_table_numbers():
     # Check for existing duplicates
     used_tables_set = set(used_tables_array)
     if (len(used_tables_array) != len(used_tables_set)):
-        duplicates = list(set([x for x in used_tables_array if used_tables_array.count(x) > 1]))
-        return f'Error: there exists {len(duplicates)} duplicate table number(s) in the DB. Please resolve duplicate before continuing.\n{duplicates}'
+        duplicates = list(set([x for x in used_tables_array
+                               if used_tables_array.count(x) > 1]))
+        return f'Error: there exists {len(duplicates)} duplicate table number(s) in the DB. Please resolve duplicate before continuing.\n{duplicates}'  # noqa
 
-    available_tables_list = get_available_table_numbers(request.json, used_tables_set, all_projects.count())
+    available_tables_list = get_available_table_numbers(request.json,
+                                                        used_tables_set,
+                                                        all_projects.count(), request)
     i = 0
     db_update_operations = []
     for p in all_projects:
         # If table number hasn't been assigned yet, assign next available one
-        if p['table_number'] == '' and i < len(available_tables_list):
+        if not is_quantum(p) and not p['virtual'] and p['table_number'] == '' and i < len(available_tables_list):
             db_update_operations.append(UpdateOne(
                 {'_id': ObjectId(p['_id'])},
                 {'$set': {'table_number': available_tables_list[i]}}
@@ -300,14 +352,26 @@ def assign_remaining_table_numbers():
         result = projects.bulk_write(db_update_operations)
         print(result.bulk_api_result)
         num_modified = result.bulk_api_result.get('nModified')
-        return f'{num_modified} projects have been assigned tables. {len(used_tables_array)} projects maintain their old table.'
+        return f'{num_modified} projects have been assigned tables. {len(used_tables_array)} projects maintain their old table.'  # noqa
     else:
         return 'No projects have been assigned new tables.'
 
+
 # Valid schemas: 'numeric', 'evens', 'odds', 'custom'
-def get_available_table_numbers(request_params, used_tables_set, num_projects):
-    logged_message(f'endpoint = /api/projects/assign_tables, method = POST, params = {request_params},{used_tables_set},{num_projects}, type = admin')
-    table_assignment_schema = request_params['table_assignment_schema']
+def get_available_table_numbers(request_params, used_tables_set, num_projects, request):
+    def csv_cleaner(item):
+        item = item.strip()
+        if item.isdigit():
+            item = int(item)
+        return item
+    
+    logged_message(f'endpoint = /api/projects/assign_tables, method = POST, params = {request_params},{used_tables_set},{num_projects}, type = admin')  # noqa
+    
+    if not request_params:
+        table_assignment_schema = request.form['table_assignment_schema']
+    else:
+        table_assignment_schema = request_params['table_assignment_schema']
+    
     max_table_numbers_list = []
     num_tables_needed = num_projects + len(used_tables_set)
     if table_assignment_schema == 'evens':
@@ -317,11 +381,27 @@ def get_available_table_numbers(request_params, used_tables_set, num_projects):
     elif table_assignment_schema == 'numeric':
         max_table_numbers_list = range(1, num_tables_needed + 1)
     elif table_assignment_schema == 'custom':
-        for letter in char_range(request_params['table_start_letter'], request_params['table_end_letter']):
-            for number in range(request_params['table_start_number'], request_params['table_end_number'] + 1):
+        for letter in char_range(request_params['table_start_letter'],
+                                 request_params['table_end_letter']):
+            for number in range(request_params['table_start_number'],
+                                request_params['table_end_number'] + 1):
                 max_table_numbers_list.append(letter + str(number))
         if request_params['skip_every_other_table']:
             max_table_numbers_list = max_table_numbers_list[::2]
+    elif table_assignment_schema == 'custom_file':
+        file = request.files['table_file']
+        print('here')
+
+        if not file:
+            return "No file"
+
+        with io.StringIO(file.stream.read().decode('utf-8'), newline='') as temp_file:
+            csv_reader = csv.reader(temp_file, delimiter=',')
+            for row in csv_reader:
+                row = list(map(csv_cleaner, row))
+                max_table_numbers_list += row
+        max_table_numbers_list *= 2
+        
     # Remove used table numbers
     for table in max_table_numbers_list:
         if table in used_tables_set:
@@ -329,17 +409,19 @@ def get_available_table_numbers(request_params, used_tables_set, num_projects):
     print(max_table_numbers_list)
     return max_table_numbers_list
 
+
 def char_range(c1, c2):
     """Generates the characters from `c1` to `c2`, inclusive."""
     for c in range(ord(c1), ord(c2)+1):
         yield chr(c)
+
 
 @app.route('/api/projects/clear_table_assignments', methods=['POST'])
 @is_admin
 def remove_all_table_numbers():
     projects = mongo.db.projects
     all_projects = projects.find()
-    logged_message(f'endpoint = /api/projects/clear_table_assignments, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/projects/clear_table_assignments, method = POST, params = NONE, type = admin')  # noqa
     db_update_operations = []
     for p in all_projects:
         db_update_operations.append(UpdateOne(
@@ -350,39 +432,42 @@ def remove_all_table_numbers():
         result = projects.bulk_write(db_update_operations)
         num_modified = result.bulk_api_result.get('nModified')
         if current_app.config['CUSTOM_DEVPOST_STAY_AT_TABLE_QUESTION']:
-            return f'Cleared table assignments from {num_modified} projects. Remember to manually assign table numbers to projects requesting a specific table.'
+            return f'Cleared table assignments from {num_modified} projects. Remember to manually assign table numbers to projects requesting a specific table.'  # noqa
         else:
             return f'Cleared {num_modified} projects of table assignments.'
     else:
         return 'No table assignments were cleared.'
 
+
 @app.route('/api/publish_winners_status', methods=['POST'])
 @is_admin
 def update_publish_winners_flag():
-    logged_message(f'endpoint = /api/publish_winners_status, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/publish_winners_status, method = POST, params = NONE, type = admin')  # noqa
     global publish_winners  # Use the var defined at top of file
     publish_winners = request.json['publish_winners']
     return str(publish_winners)
 
+
 @app.route('/api/is_published_status', methods=['POST'])
 @is_admin
 def update_is_published_flag():
-    logged_message(f'endpoint = /api/is_published_status, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/is_published_status, method = POST, params = NONE, type = admin')  # noqa
     global is_published  # Use the var defined at top of file
     is_published = request.json['is_published']
     return str(is_published)
+
 
 @app.route('/api/projects/add', methods=['POST'])
 @is_admin
 def add_project():
     projects = mongo.db.projects
-    logged_message(f'endpoint = /api/projects/add, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/projects/add, method = POST, params = NONE, type = admin')  # noqa
     table_number = request.json['table_number']
     project_name = request.json['project_name']
     project_url = request.json['project_url']
     try:
         challenges = format_challenges(request.json['challenges'])
-    except:
+    except:  # noqa
         challenges = []
 
     project = {
@@ -390,29 +475,35 @@ def add_project():
         'project_name': project_name,
         'project_url': project_url,
         'challenges': challenges,
-        'challenges_won': []
+        'challenges_won': [],
+        'virtual': False
     }
 
     project_id = projects.insert(project)
     return str(project_id)
 
+
 @app.route('/api/projects/bulk_add', methods=['POST'])
 @is_admin
 def bulk_add_project():
-    logged_message(f'endpoint = /api/projects/bulk_add, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/projects/bulk_add, method = POST, params = NONE, type = admin')  # noqa
     packet = request.json['projects']
     return bulk_add_projects_internal(packet)
 
-@app.route('/api/projects/id/<project_id>', methods =['POST'])
+
+@app.route('/api/projects/id/<project_id>', methods=['POST'])
 @is_admin
 def update_project(project_id):
     projects = mongo.db.projects
-    logged_message(f'endpoint = /api/projects/id/{project_id}, method = POST, params = {project_id}, type = admin')
+    logged_message(f'endpoint = /api/projects/id/{project_id}, method = POST, params = {project_id}, type = admin')  # noqa
+
+    table_number = "" if request.json['virtual'] else request.json['table_number']
     updated_project_obj = {
-        'table_number': request.json['table_number'],
+        'table_number': table_number,
         'project_name': request.json['project_name'],
         'project_url': request.json['project_url'],
         'challenges': request.json['challenges'],
+        'virtual': request.json['virtual'], 
         # 'challenges_won': []  // Don't update challenges_won array
     }
 
@@ -421,13 +512,17 @@ def update_project(project_id):
         {'$set': updated_project_obj}
     )
 
-    return "The following project data was overridden: " + json.dumps(old_project_obj, default=json_util.default)
+    return "The following project data was overridden: " + \
+        json.dumps(old_project_obj, default=json_util.default)
+
 
 def get_all_attempted_challenge_strings(project_obj):
     output = []
     for challenge_obj in project_obj['challenges']:
-        output.append(challenge_obj['challenge_name'] + ' - ' + challenge_obj['company'])
+        output.append(challenge_obj['challenge_name'] + ' - ' +
+                      challenge_obj['company'])
     return output
+
 
 # Note: this helper not currently used
 def get_all_possible_challenges():
@@ -441,15 +536,16 @@ def get_all_possible_challenges():
     for comp in companies_list:
         try:
             challenges.append(comp['challenge_name'])
-        except:
+        except:  # noqa
             # Do nothing if no challenge in that comp
             None
     return challenges
 
+
 @app.route('/api/projects/id/<project_id>', methods=['DELETE'])
 @is_admin
 def delete_project(project_id):
-    logged_message(f'endpoint = /api/projects/id/{project_id}, method = DELETE, params = {project_id}, type = admin')
+    logged_message(f'endpoint = /api/projects/id/{project_id}, method = DELETE, params = {project_id}, type = admin')  # noqa
 
     projects = mongo.db.projects
     result = projects.delete_one({'_id': ObjectId(project_id)})
@@ -463,10 +559,10 @@ def delete_project(project_id):
 @is_admin
 def delete_all_projects():
     projects = mongo.db.projects
-    logged_message(f'endpoint = /api/projects/deleteAll, method = DELETE, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/projects/deleteAll, method = DELETE, params = NONE, type = admin')  # noqa
 
     projects.delete_many({})
-    delete_projects() # clear dictionary from seed_db
+    delete_projects()  # clear dictionary from seed_db
     return jsonify({'Delete': 'all'})
 
 
@@ -476,7 +572,6 @@ def delete_all_projects():
     # Challenge Name
     # Number of prizes they can choose per challenge
     # ProjectID that won the challenge
-
 @app.route('/api/seed-challenges-from-devpost', methods=['POST'])
 @is_admin
 def import_challenges():
@@ -491,24 +586,28 @@ def import_challenges():
     company_names = list(set([prize[1] for prize in prize_list]))
 
     for company_name in company_names:
-        challenge_info = [[prize[0],prize[2]] for prize in prize_list
-                         if prize[1] == company_name]
+        challenge_info = [[prize[0], prize[2]] for prize in prize_list
+                          if prize[1] == company_name]
 
-        #Autogenerate access_code
+        # Autogenerate access_code
         access_code = generate_random_access_code(8)
-        company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
+        company_obj = companies.find_one({'access_code':
+                                         {'$eq': access_code.upper()}})
         # Keep generating codes until unique
-        while company_obj != None:
+        while company_obj is not None:
             access_code = generate_random_access_code(8)
-            company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
+            company_obj = companies.find_one({'access_code':
+                                             {'$eq': access_code.upper()}})
 
         alphanumeric_company_name_no_spaces = re.sub(r'\W+', '', company_name)
         challenges_obj = {}
 
         # Go through all challenges
         for challenge_name, num_winners in challenge_info:
-            alphanumeric_challenge_name_no_spaces = re.sub(r'\W+', '', challenge_name)
-            challenge_id = alphanumeric_company_name_no_spaces + '_challenge' + \
+            alphanumeric_challenge_name_no_spaces = re.sub(r'\W+', '',
+                                                           challenge_name)
+            challenge_id = alphanumeric_company_name_no_spaces + \
+                '_challenge' + \
                 datetime.datetime.now().strftime('%Y%m%d%H%M%S') + \
                 '_' + alphanumeric_challenge_name_no_spaces
 
@@ -519,19 +618,20 @@ def import_challenges():
             }
 
         company_list.append({
-            'company_name':company_name,
-            'access_code':access_code.upper(),
-            'challenges':challenges_obj
+            'company_name': company_name,
+            'access_code': access_code.upper(),
+            'challenges': challenges_obj
         })
 
     companies.insert_many(company_list)
     return str(prize_list)
 
+
 @app.route('/api/companies/add', methods=['POST'])
 @is_admin
 def add_company():
     companies = mongo.db.companies
-    logged_message(f'endpoint = /api/companies/add, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/companies/add, method = POST, params = NONE, type = admin')  # noqa
 
     company_name = request.json['company_name']
     access_code = request.json['access_code'].upper()
@@ -539,15 +639,18 @@ def add_company():
     # Autogenerate 8-character access code if blank one was sent
     if access_code == '':
         access_code = generate_random_access_code(8)
-        company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
+        company_obj = companies.find_one({'access_code':
+                                         {'$eq': access_code.upper()}})
         # Keep generating codes until unique
-        while company_obj != None:
+        while company_obj is not None:
             access_code = generate_random_access_code(8)
-            company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
+            company_obj = companies.find_one({'access_code':
+                                             {'$eq': access_code.upper()}})
     else:
         # Check if user-defined access code is already used
-        company_obj = companies.find_one({'access_code': {'$eq': access_code.upper()}})
-        if company_obj != None:
+        company_obj = companies.find_one({'access_code':
+                                         {'$eq': access_code.upper()}})
+        if company_obj is not None:
             return "Access code already in use."
 
     company = {
@@ -558,15 +661,49 @@ def add_company():
     company_id = str(companies.insert(company))
     return company_id
 
+
 def generate_random_access_code(length):
     # Only allow characters that are not ambiguous (I, L, O, 1, 0)
-    return ''.join(random.choice('ABCDEFGHJKMNPQRTUVWXYZ2346789') for _ in range(length))
+    return ''.join(random.choice('ABCDEFGHJKMNPQRTUVWXYZ2346789')
+                   for _ in range(length))
+
+
+@app.route('/api/custom_assignment', methods=['POST']) 
+def assign_time():
+    index = int(request.json['index'])
+    group = request.json['group']
+    project_name = request.json['project_name'] 
+    c_name = request.json['challenge']
+    projects = mongo.db.projects
+
+    proj = projects.find_one(
+        {'project_name': project_name}
+    )
+
+    for i, challenge in enumerate(proj['challenges']):
+        if c_name.lower() in challenge['challenge_name'].lower() or c_name.lower() in challenge['company'].lower():
+            challenge = proj['challenges'][i]
+            challenge['time'] = index_to_time(index, 5, current_app.config['EXPO_START_TIME_DT'])
+
+            if group is not None:
+                challenge['group'] = group
+
+            projects.find_one_and_update(
+                {'_id': ObjectId(proj["_id"])},
+                {'$set': proj}
+            )
+            break
+        
+    
+    return "Success, 200"
+            
+
 
 @app.route('/api/companies/id/<company_id>', methods=['POST'])
 @is_admin
 def update_company_name_or_code(company_id):
     companies = mongo.db.companies
-    logged_message(f'endpoint = /api/companies/id/{company_id}, method = POST, params = {company_id}, type = admin')
+    logged_message(f'endpoint = /api/companies/id/{company_id}, method = POST, params = {company_id}, type = admin')  # noqa
 
     # winners_arr = []
     # if request.json.get('winners') != None:
@@ -582,13 +719,15 @@ def update_company_name_or_code(company_id):
         {'$set': updated_company}
     )
 
-    return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
+    return "The following company data was overridden: " + \
+        json.dumps(updated_company_obj, default=json_util.default)
+
 
 @app.route('/api/companies/id/<company_id>', methods=['DELETE'])
 @is_admin
 def delete_company(company_id):
     companies = mongo.db.companies
-    logged_message(f'endpoint = /api/companies/id/{company_id}, method = DELETE, params = {company_id}, type = admin')
+    logged_message(f'endpoint = /api/companies/id/{company_id}, method = DELETE, params = {company_id}, type = admin')  # noqa
 
     result = companies.delete_one({'_id': ObjectId(company_id)})
     # TODO(timothychen01): Explore adding additional side effect for challenges
@@ -597,26 +736,29 @@ def delete_company(company_id):
     else:
         return "Did not find company " + company_id
 
+
 @app.route('/api/companies/deleteAll', methods=['DELETE'])
 @is_admin
 def delete_all_companies():
-    logged_message(f'endpoint = /api/companies/deleteAll, method = DELETE, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/companies/deleteAll, method = DELETE, params = NONE, type = admin')  # noqa
     companies = mongo.db.companies
     companies.delete_many({})
     return jsonify({'Delete': 'all companies'})
+
 
 @app.route('/api/companies/id/<company_id>/challenges/add', methods=['POST'])
 @is_admin
 def add_challenge_to_company(company_id):
     companies = mongo.db.companies
-    logged_message(f'endpoint = api/companies/id/<company_id>/challenges/add, method = POST, params = NONE, type = admin')
+    logged_message(f'endpoint = api/companies/id/<company_id>/challenges/add, method = POST, params = NONE, type = admin')  # noqa
 
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     challenges_obj = company_obj['challenges']
 
     # TODO: Come up with better id creation method
     company_name_no_spaces = "".join(company_obj['company_name'].split())
-    challenge_id = company_name_no_spaces + '_challenge' + datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    challenge_id = company_name_no_spaces + '_challenge' + \
+        datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     challenges_obj[challenge_id] = {
         'challenge_name': request.json['challenge_name'],
         'num_winners': int(request.json['num_winners']),
@@ -631,13 +773,15 @@ def add_challenge_to_company(company_id):
         {'$set': updated_company}
     )
 
-    return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
+    return "The following company data was overridden: " + \
+        json.dumps(updated_company_obj, default=json_util.default)
 
-@app.route('/api/companies/id/<company_id>/challenges/<challenge_id>', methods=['POST', 'DELETE'])
+
+@app.route('/api/companies/id/<company_id>/challenges/<challenge_id>', methods=['POST', 'DELETE'])  # noqa
 @is_admin
 def update_company_challenge(company_id, challenge_id):
     companies = mongo.db.companies
-    logged_message(f'endpoint = /api/companies/id/{company_id}/challenges/{challenge_id}, method = POST, DELETE, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/companies/id/{company_id}/challenges/{challenge_id}, method = POST, DELETE, params = NONE, type = admin')  # noqa
 
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     challenges_obj = company_obj['challenges']
@@ -648,12 +792,15 @@ def update_company_challenge(company_id, challenge_id):
             if len(challenges_obj[challenge_id]['winners']) == 0:
                 del challenges_obj[challenge_id]
             else:
-                return "Cannot delete challenge " + challenge_id + " because winners have already been selected"
-        except:
+                return "Cannot delete challenge " + challenge_id + \
+                    " because winners have already been selected"
+        except:  # noqa
             return "Error deleting challenge " + challenge_id
     elif request.method == 'POST':
-        challenges_obj[challenge_id]['challenge_name'] = request.json['challenge_name']
-        challenges_obj[challenge_id]['num_winners'] = int(request.json['num_winners'])
+        challenges_obj[challenge_id]['challenge_name'] = \
+            request.json['challenge_name']
+        challenges_obj[challenge_id]['num_winners'] = \
+            int(request.json['num_winners'])
 
     updated_company = {
         'challenges': challenges_obj
@@ -664,28 +811,33 @@ def update_company_challenge(company_id, challenge_id):
     )
 
     if request.method == 'DELETE':
-        return challenge_id + " has been deleted from " + company_obj['company_name']
-    return "The following company data was overridden: " + json.dumps(updated_company_obj, default=json_util.default)
+        return challenge_id + " has been deleted from " + \
+            company_obj['company_name']
+    return "The following company data was overridden: " + \
+        json.dumps(updated_company_obj, default=json_util.default)
+
 
 @app.route('/api/companies/id/<company_id>', methods=['GET'])
 @is_admin
 def get_company(company_id):
     companies = mongo.db.companies
-    logged_message(f'endpoint = /api/companies/id/{company_id}, method = GET, params = NONE, type = admin')
+    logged_message(f'endpoint = /api/companies/id/{company_id}, method = GET, params = NONE, type = admin')  # noqa
 
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     return jsonify(format_company_obj_to_old_schema(company_obj))
+
 
 @app.route('/api/companies', methods=['GET'])
 @is_admin
 def get_all_companies():
     companies = mongo.db.companies
-    logged_message(f'endpoint =/api/companies, method = GET, params = NONE, type = admin')
+    logged_message(f'endpoint =/api/companies, method = GET, params = NONE, type = admin')  # noqa
     output = []
     for curr_company in companies.find():
         output.append(format_company_obj_to_old_schema(curr_company))
     flattened_output = [y for x in output for y in x]
     return jsonify(flattened_output)
+
 
 def format_company_obj_to_old_schema(company_obj):
     output = []
@@ -715,7 +867,7 @@ def format_company_obj_to_old_schema(company_obj):
 @is_admin
 def get_company_cleaner_schema(company_id):
     companies = mongo.db.companies
-    logged_message(f'endpoint =/api/v2/companies/id/{company_id}, method = GET, params = NONE, type = admin')
+    logged_message(f'endpoint =/api/v2/companies/id/{company_id}, method = GET, params = NONE, type = admin')  # noqa
     company_obj = companies.find_one({'_id': ObjectId(company_id)})
     output = {
         'company_id': str(company_obj['_id']),
@@ -725,11 +877,12 @@ def get_company_cleaner_schema(company_id):
     }
     return jsonify(output)
 
+
 @app.route('/api/v2/companies', methods=['GET'])
 @is_admin
 def get_all_companies_cleaner_schema():
     companies = mongo.db.companies
-    logged_message(f'endpoint =/api/v2/companies/id/{company_id}, method = GET, params = NONE, type = admin')
+    logged_message(f'endpoint =/api/v2/companies/id/{company_id}, method = GET, params = NONE, type = admin')  # noqa
     output = []
     for c in companies.find():
         temp_company = {
@@ -743,8 +896,9 @@ def get_all_companies_cleaner_schema():
     return jsonify(output)
 
 
-# Private / sponsor routes #####################################################
+# Private / sponsor routes ###################################################
 # All endpoints under the private routes should require the access token.
+
 
 # Second version of the company endpoints with cleaner output
 # Note: v2 is not used by frontend
@@ -752,8 +906,9 @@ def get_all_companies_cleaner_schema():
 def get_logged_in_company_cleaner_schema():
     if 'user_type' in session and session['user_type'] == 'sponsor':
         companies = mongo.db.companies
-        logged_message(f'endpoint =/api/v2/companies/current_sponsor, method = GET, params = NONE, type = sponsor')
-        company_obj = companies.find_one({'company_name': {'$eq': session['name']}})
+        logged_message(f'endpoint =/api/v2/companies/current_sponsor, method = GET, params = NONE, type = sponsor')  # noqa
+        company_obj = companies.find_one({'company_name':
+                                         {'$eq': session['name']}})
         output = {
             'company_id': str(company_obj['_id']),
             'company_name': company_obj['company_name'],
@@ -764,11 +919,12 @@ def get_logged_in_company_cleaner_schema():
     else:
         return 'Error: You are not authorized to complete that request.', 403
 
+
 @app.route('/api/projects/id/<project_id>/challenge_status', methods=['POST'])
 @is_sponsor_or_admin
 def update_project_challenge_status(project_id):
     projects = mongo.db.projects
-    logged_message(f'endpoint =/api/projects/id/{project_id}/challenge_status, method = POST, params = {project_id}, type = sponsor')
+    logged_message(f'endpoint =/api/projects/id/{project_id}/challenge_status, method = POST, params = {project_id}, type = sponsor')  # noqa
 
     company_name = request.json['company_name']
     challenge_name = request.json['challenge_name']
@@ -780,7 +936,8 @@ def update_project_challenge_status(project_id):
     challenges = project_obj['challenges']
 
     for ind, challenge in enumerate(challenges):
-        if challenge['company'] == company_name and challenge['challenge_name'] == challenge_name:
+        if challenge['company'] == company_name and \
+                challenge['challenge_name'] == challenge_name:
             print(str(ind), challenge)
             challenges[ind]['won'] = is_winner
             print(is_winner)
@@ -791,20 +948,25 @@ def update_project_challenge_status(project_id):
         {'$set': project_obj}
     )
 
-    return "The following project data was overridden: " + json.dumps(updated_project_obj, default=json_util.default)
+    return "The following project data was overridden: " + \
+        json.dumps(updated_project_obj, default=json_util.default)
 
 
-# NOTE: THIS API FORCES US TO NEVER NAME A CHALLENGE AS A SUBSTRING OF ANOTHER CHALLENGE
-def update_win_status(project_challenge_obj, company_name, challenge_name, didWin):
-    if (project_challenge_obj['company'] == company_name and project_challenge_obj['challenge_name'] in challenge_name):
+# NOTE: THIS API FORCES US TO NEVER NAME A CHALLENGE AS
+#       A SUBSTRING OF ANOTHER CHALLENGE
+def update_win_status(project_challenge_obj, company_name,
+                      challenge_name, didWin):
+    if (project_challenge_obj['company'] == company_name
+            and project_challenge_obj['challenge_name'] in challenge_name):
         project_challenge_obj['won'] = didWin
     return project_challenge_obj
+
 
 @app.route('/api/projects/id/<project_id>/makeWinner', methods=['POST'])
 @is_sponsor_or_admin
 def make_winner(project_id):
     projects = mongo.db.projects
-    logged_message(f'endpoint =/api/projects/id/{project_id}/makeWinner, method = POST, params = {project_id}, type = sponsor')
+    logged_message(f'endpoint =/api/projects/id/{project_id}/makeWinner, method = POST, params = {project_id}, type = sponsor')  # noqa
     companies = mongo.db.companies
     company_id = request.json['company_id']
     challenge_id = request.json['challenge_id']
@@ -814,15 +976,18 @@ def make_winner(project_id):
     challenge_obj = company_obj['challenges'][challenge_id]
     challenge_name = challenge_obj['challenge_name']
 
-    # Check if project has already won the same challenge (prevent duplicate form entry)
+    # Check if project has already won the same challenge
+    # (prevent duplicate form entry)
     if project_id in challenge_obj['winners']:
-        return "Error: Project " + project_id + " is already winner for " + challenge_name
+        return "Error: Project " + project_id + " is already winner for " + \
+               challenge_name
 
     # Error if the challenge cannot accept more winners
     challenge_winners_cap = challenge_obj['num_winners']
     curr_num_winners = len(challenge_obj['winners'])
     if curr_num_winners >= int(challenge_winners_cap):
-        return "Error: Challenge " + challenge_id + " is capped at " + str(challenge_winners_cap) + " winner(s)"
+        return "Error: Challenge " + challenge_id + \
+               " is capped at " + str(challenge_winners_cap) + " winner(s)"
 
     # Modify company object
     company_obj['challenges'][challenge_id]['winners'].append(project_id)
@@ -833,7 +998,11 @@ def make_winner(project_id):
 
     # Modify project object
     company_name = company_obj['company_name']
-    updated_challenges_list = list(map(lambda challenge_obj: update_win_status(challenge_obj, company_name, challenge_name, True), project_obj['challenges']))
+    updated_challenges_list = \
+        list(map(lambda challenge_obj:
+                 update_win_status(challenge_obj, company_name, challenge_name,
+                                   True),
+                 project_obj['challenges']))
     project_obj['challenges'] = updated_challenges_list
     project_obj['challenges_won'].append(challenge_id)
     projects.find_one_and_update(
@@ -843,11 +1012,12 @@ def make_winner(project_id):
 
     return "Updated project " + project_id
 
+
 @app.route('/api/projects/id/<project_id>/makeNonWinner', methods=['POST'])
 @is_sponsor_or_admin
 def make_non_winner(project_id):
     projects = mongo.db.projects
-    logged_message(f'endpoint =/api/projects/id/{project_id}/makeNonWinner, method = POST, params = {project_id}, type = sponsor')
+    logged_message(f'endpoint =/api/projects/id/{project_id}/makeNonWinner, method = POST, params = {project_id}, type = sponsor')  # noqa
     companies = mongo.db.companies
     company_id = request.json['company_id']
     challenge_id = request.json['challenge_id']
@@ -859,7 +1029,9 @@ def make_non_winner(project_id):
 
     # Modify company object
     old_winners_list = challenge_obj['winners']
-    company_obj['challenges'][challenge_id]['winners'] = list(filter(lambda winner_id: winner_id != project_id, old_winners_list))
+    company_obj['challenges'][challenge_id]['winners'] = \
+        list(filter(lambda winner_id: winner_id != project_id,
+                    old_winners_list))
     companies.find_one_and_update(
         {'_id': ObjectId(company_id)},
         {'$set': company_obj}
@@ -869,10 +1041,16 @@ def make_non_winner(project_id):
     if project_obj is None:
         return "Project does not exist, exiting early."
     company_name = company_obj['company_name']
-    updated_challenges_list = list(map(lambda challenge_obj: update_win_status(challenge_obj, company_name, challenge_name, False), project_obj['challenges']))
+    updated_challenges_list = \
+        list(map(lambda challenge_obj:
+                 update_win_status(challenge_obj, company_name, challenge_name,
+                                   False),
+                 project_obj['challenges']))
     project_obj['challenges'] = updated_challenges_list
     old_challenges_won_list = project_obj['challenges_won']
-    project_obj['challenges_won'] = list(filter(lambda c_id: c_id != challenge_id, old_challenges_won_list))
+    project_obj['challenges_won'] = \
+        list(filter(lambda c_id: c_id != challenge_id,
+                    old_challenges_won_list))
     projects.find_one_and_update(
         {'_id': ObjectId(project_id)},
         {'$set': project_obj}
@@ -880,7 +1058,8 @@ def make_non_winner(project_id):
 
     return "Updated project " + project_id
 
-@app.route('/api/companies/id/<company_id>/challenges/<challenge_id>/resetWinners', methods=['PUT'])
+
+@app.route('/api/companies/id/<company_id>/challenges/<challenge_id>/resetWinners', methods=['PUT'])  # noqa
 def resetChallenges(company_id, challenge_id):
     projects = mongo.db.projects
     companies = mongo.db.companies
@@ -890,22 +1069,28 @@ def resetChallenges(company_id, challenge_id):
     challenge_name = challenge_obj['challenge_name']
 
     for project_id in company_obj['challenges'][challenge_id]['winners']:
-            project_obj = projects.find_one({'_id': ObjectId(project_id)})
-            if project_obj is None:
-                continue
-            company_name = company_obj['company_name']
-            updated_challenges_list = list(map(lambda challenge_obj: update_win_status(challenge_obj, company_name, challenge_name, False), project_obj['challenges']))
-            project_obj['challenges'] = updated_challenges_list
-            old_challenges_won_list = project_obj['challenges_won']
-            project_obj['challenges_won'] = list(filter(lambda c_id: c_id != challenge_id, old_challenges_won_list))
-            projects.find_one_and_update(
-                {'_id': ObjectId(project_id)},
-                {'$set': project_obj}
-            )
-            print(project_obj)
+        project_obj = projects.find_one({'_id': ObjectId(project_id)})
+        if project_obj is None:
+            continue
+        company_name = company_obj['company_name']
+        updated_challenges_list = \
+            list(map(lambda challenge_obj:
+                     update_win_status(challenge_obj, company_name,
+                                       challenge_name, False),
+                     project_obj['challenges']))
+        project_obj['challenges'] = updated_challenges_list
+        old_challenges_won_list = project_obj['challenges_won']
+        project_obj['challenges_won'] = list(
+                filter(lambda c_id: c_id != challenge_id,
+                       old_challenges_won_list))
+        projects.find_one_and_update(
+            {'_id': ObjectId(project_id)},
+            {'$set': project_obj}
+        )
+        print(project_obj)
 
     # Modify company object
-    old_winners_list = challenge_obj['winners']
+    # old_winners_list = challenge_obj['winners']
     company_obj['challenges'][challenge_id]['winners'] = []
     companies.find_one_and_update(
         {'_id': ObjectId(company_id)},
@@ -914,30 +1099,32 @@ def resetChallenges(company_id, challenge_id):
     return "Reset Challenge winners " + str(company_obj)
 
 
-
-# Auth routes ##################################################################
+# Auth routes ################################################################
 # Modifies the user's session
+
 
 @app.route('/api/whoami', methods=['GET'])
 def return_session_info():
-    logged_message(f'endpoint =/api/whoami, method = GET, params = NONE, type = auth')
+    logged_message(f'endpoint =/api/whoami, method = GET, params = NONE, type = auth')  # noqa
     if 'user_type' in session:
         return json.dumps({
             'user_type': session['user_type'],  # sponsor or admin
             'name': session['name'],            # company name or "admin"
             'id': session['id']
         }, default=json_util.default)
-    return "{}" # Return empty object if not logged in
+    return "{}"  # Return empty object if not logged in
+
 
 @app.route('/api/login/sponsor', methods=['POST'])
 def sponsor_login():
     companies = mongo.db.companies
-    logged_message(f'endpoint =/api/login/sponsor, method = POST, params = NONE, type = auth')
+    logged_message(f'endpoint =/api/login/sponsor, method = POST, params = NONE, type = auth')  # noqa
     attempted_access_code = request.json['access_code'].upper()
     if attempted_access_code == '':
         return "Access denied."
-    company_obj = companies.find_one({'access_code': {'$eq': attempted_access_code.upper()}})
-    if company_obj == None:
+    company_obj = companies.find_one({'access_code':
+                                      {'$eq': attempted_access_code.upper()}})
+    if company_obj is None:
         return "Access denied."
     else:
         session['user_type'] = 'sponsor'
@@ -945,11 +1132,13 @@ def sponsor_login():
         session['id'] = str(company_obj['_id'])
         return "Logged in as " + company_obj['company_name']
 
+
 @app.route('/api/login/admin', methods=['POST'])
 def admin_login():
     attempted_access_code = request.json['access_code'].upper()
-    logged_message(f'endpoint =/api/login/admin, method = POST, params = NONE, type = auth')
-    if attempted_access_code != current_app.config['ADMIN_ACCESS_CODE'].upper():
+    logged_message(f'endpoint =/api/login/admin, method = POST, params = NONE, type = auth')  # noqa
+    if attempted_access_code != \
+            current_app.config['ADMIN_ACCESS_CODE'].upper():
         return "Access denied."
     else:
         session['user_type'] = 'admin'
@@ -957,16 +1146,231 @@ def admin_login():
         session['id'] = 'admin'
         return "Logged in as admin"
 
+
 @app.route('/api/logout', methods=['POST'])
 def logout():
-    logged_message(f'endpoint =/api/logout, method = POST, params = NONE, type = auth')
+    logged_message(f'endpoint =/api/logout, method = POST, params = NONE, type = auth')  # noqa
     session.pop('user_type', None)
     session.pop('name', None)
     session.pop('id', None)
     return "Logged out"
 
+@app.route('/api/schedule-judging', methods=['POST'])
+def scheduling():
+    """
+    scheduling()
+
+    API POST function: Assigns schedule to each project's challenges. 
+
+    Algorithmic approach:
+    This algorithm uses arrays to keep track of availability, where each index represents the time increment past
+    the start time. For example, if the judging_length is 5 and the index is 10, the scheduled time is 5*10 = 50 min
+    past the start time. 
+
+    The approach iterates through each project and through each project's challenges. It finds the earliest index 
+    (time slot) in common between the judges (challenge) and the project and assigns them the time slot. If all time 
+    slots are exhausted, then the judging time is too long and it returns a 400 error. 
+
+    The time is stored in the challenge instance variable within each project as a new dictionary field: challenge['time'].
+    """
+    # Retrieve projects
+    projects = mongo.db.projects
+    projects_all = projects.find()
+
+    # Minimum size before we split the judging group
+    block_size = 15
+
+    judge_block_size = 30
+
+    # Retrieves the judging_length from the POST request, which is set in the front-end admin console
+    judging_length = request.json['judging_length']
+    
+    # Length of expo: 150 min / 2.5 hours
+    total_time = 130
+
+    # Length of judging_length can't be greater than time allotted 
+    if judging_length > total_time:
+        error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
+        return jsonify(error_message), 400
+
+    # The availability of each challenge. Since we iterate through all projects and hence all possible challenges
+    # we can just keep a running dictionary
+    all_chlng_availability = {}
+    judge_availability = {}
+    challenge_count = get_challenge_count()
+
+    def sort_bitcamp_last(challenge_a, challenge_b):
+        company_a = challenge_a['company']
+        company_b = challenge_b['company']
+
+        if "bitcamp" in company_a.lower():
+            return 1
+        elif "bitcamp" in company_b.lower():
+            return -1
+        
+        return 0
+
+    # Loop through projects
+    for project in projects_all:
+        proj_id = project['_id']
+        
+        # Availability for project. We use total_time // judging_length to instantiate the possible time slots,
+        # which are True by default (available)
+        proj_availability = [True] * (total_time // judging_length)
+        proj_challenges = project['challenges']
+
+        proj_challenges.sort(key=cmp_to_key(sort_bitcamp_last))
+        # Loop through the project's challenges
+        if not is_quantum(project) and not project['virtual']:
+            for i in range(len(proj_challenges)):
+                challenge = proj_challenges[i]
+
+                # Temporary ID to identify challenge
+                challenge_id = get_challenge_id(challenge)
+                if "people's choice" not in challenge_id.lower():
+
+                    # Only allow judge splitting for Bitcamp hosted prizes
+                    if current_app.config['SPLIT_SPONSOR_JUDGING'] or "bitcamp" in challenge['company'].lower():
+                        block_multiple = ceil(challenge_count[challenge_id] / block_size)
+                    elif ("bloomberg" in challenge['company'].lower() or "bloomberg" in challenge['challenge_name'].lower()):
+                        block_multiple = ceil(challenge_count[challenge_id] / judge_block_size)
+                    else: 
+                        block_multiple = 1
+                    # If the challenge is not in the availability dictionary, add a default, same array
+                    # as project availability 
+                    if challenge_id not in all_chlng_availability:
+
+                        # int array
+                        all_chlng_availability[challenge_id] = [block_multiple] * (total_time // judging_length)
+                        judge_availability[challenge_id] = [[i for i in range(1, block_multiple+1)] for i in range(total_time // judging_length)]
+                    
+                    chlng_availability = all_chlng_availability[challenge_id]
+
+                    # Call method to find the earliest time slot where both parties are available.
+                    schedule_time = find_common_availability(proj_availability, chlng_availability)
+                    
+                    # The index time slot was not found. This means they're "fully booked", no available slot.
+                    # Shorten the judging length. This is not an exact process / it's not optimized.
+                    # The assumption that there are a lot of teams and few categories allows this to work
+                    if schedule_time == -1:
+                        error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
+                        return jsonify(error_message), 400
+                    
+                    # Set availabilities to False after successful scheduling
+                    proj_availability[schedule_time] = False
+                    chlng_availability[schedule_time] -= 1
+                    
+                    # Call method to convert index time slot to a real datetime object. Start time is taken from the config file
+                    challenge['time'] = index_to_time(schedule_time, judging_length, current_app.config['EXPO_START_TIME_DT'])
+                    if block_multiple > 1:
+                        group_num = judge_availability[challenge_id][schedule_time].pop(0)
+                        challenge['group'] = group_num
+        
+        # Update MongoDB
+        projects.find_one_and_update(
+            {'_id': ObjectId(proj_id)},
+            {'$set': project}
+        )
+
+    return 'Scheduling successful!', 200
+
+@app.route('/api/scheduling-v2', methods=['POST'])
+def scheduling_v2():
+    """
+    scheduling_v2()
+
+    API POST function: Assigns schedule to each project's challenges using a circular scheduling approach. 
+
+    Algorithmic approach:
+    This algorithm uses the most popular challenge to determine the judging window, as it cannot be any less than that.
+    It assigns a default index (time slot) to each challenge in a dictionary. Each project is given the time slot in the dictionary
+    as we loop through. After scheduling, we increment the time slot in the dictionary. 
+
+    This ensures that each judge only judges one team at a time, but we can end up with projects having multiple judges concurrently.
+    However, a large project size compared categories makes this occurrence rare. 
+
+    This allows judges to go in table order. There can be a lot of empty space, however. It also optimizes the judging time window. 
+    """
+
+    projects = mongo.db.projects
+    
+    # Expo length: 150 minutes = 2.5 hours 
+    total_time = 150
+    
+    # Get dictionary of the teams participating in each challenge
+    challenges_count = get_challenge_count()
+    # The number of slots is the maximal number of teams in one challenge
+    num_slots = max(challenges_count.values())
+    
+    # Set judging window accordingly
+    judging_length = total_time // num_slots
+
+    # Can't have judge window be 0. 
+    if judging_length < 1:
+        error_message = {'error': 'Invalid judging length. End time will be exceeded. Try a smaller value.'}
+        return jsonify(error_message), 400
+
+    # Set a default schedule where each challenge gets a unique index. 
+    # Can choose to maximize distance at the beginning to prevent judging conflict. 
+    schedule = {challenge_id: i for i, challenge_id in enumerate(challenges_count.keys())}
+    # increment = num_slots // len(challenges_count)
+    # schedule = {challenge_id: i*increment for i, challenge_id in enumerate(challenges_count.keys())}
+
+    # Iterate over projects
+    for project in projects.find():
+        proj_id = project['_id']
+        challenges = project['challenges']
+
+        # Iterate over challenges
+        for i in range(len(challenges)):
+            challenge = challenges[i]
+            challenge_id = get_challenge_id(challenge)
+            
+            # Get the slot and increment for next project
+            slot = schedule[challenge_id]
+            schedule[challenge_id] = (schedule[challenge_id] + 1) % num_slots
+
+            # Convert index time slot to time
+            challenge['time'] = index_to_time(slot, judging_length, current_app.config['EXPO_START_TIME_DT'])
+
+        # Update MongoDB
+        projects.find_one_and_update(
+            {'_id': ObjectId(proj_id)},
+            {'$set': project}
+        )
+
+    return 'Scheduling successful!', 200
+
+
+def get_challenge_count() -> dict:
+    projects = mongo.db.projects
+    challenges_count = {}
+
+    for project in projects.find():
+        for challenge in project['challenges']:
+            # Not a robust ID, but it's not available to projects by default
+            challenge_id = get_challenge_id(challenge)
+
+            if challenge_id not in challenges_count:
+                challenges_count[challenge_id] = 0
+            
+            challenges_count[challenge_id] += 1
+    
+    return challenges_count
+
+def get_challenge_id(challenge) -> str:
+    """
+        Get challenge_id
+        Just a combination of challenge name and company name because for some reason the unique ids
+        are not stored with the challenges within projects. 
+
+        Don't ask me, I didn't implement this - Eric Chen
+    """
+    return challenge['challenge_name'] + "," + challenge['company']
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
+
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.debug')

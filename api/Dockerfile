@@ -1,10 +1,12 @@
-From python:3.7
+FROM python:3.6
 
 ADD . /app
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+COPY requirements.txt /tmp/
+COPY . /app/
+RUN pip install --requirement /tmp/requirements.txt
 RUN pip install gunicorn
 
 EXPOSE 8000

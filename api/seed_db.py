@@ -1,8 +1,6 @@
 import csv
-import json
 import re
 import requests
-import time
 from typing import Dict, List
 
 """
@@ -36,10 +34,11 @@ assignments = ["None | "] * (num_tables * spots_per_table)
 
 class Project:
     """Project class to hold certain metadata regarding a given project."""
-    def __init__(self, project_url: str, challenges: List[str]):
+    def __init__(self, project_url: str, challenges: List[str], virtual: bool = False):
         self.project_url = project_url
         self.challenges = challenges
         self.table_number = ""
+        self.virtual = virtual
 
     def __str__(self) -> str:
         return str(self.table_number) + " " + str(self.project_url)
@@ -90,7 +89,7 @@ def check_if_needs_to_stay(response: str):
         Any found regular expression matches from the arg.
 
     """
-    return re.search('([a-zA-Z]*\d+)', response)
+    return re.search('([a-zA-Z]*\d+)', response)  # noqa
 
 
 def format_challenges(challenges) -> List[Dict[any, any]]:
@@ -104,22 +103,33 @@ def format_challenges(challenges) -> List[Dict[any, any]]:
         challenges: str of company challenge titles
 
     Returns:
-        list of dicts with 'company', 'challenge_name', and if it has been 'won'
+        list of dicts with 'company', 'challenge_name',
+        and if it has been 'won'
 
     """
+    bitcamp_counter = 0
     challenges_list = []
-    if challenges is not "":
+    if challenges:
         challenges = challenges.split(',')
         for challenge in challenges:
             # TODO: possibly look into creating a hash from companies DB
             # instead of hard coding the dash separator rule
             data = str.strip(challenge).split(' - ')
-            prize = {
-                'company': data[1],
-                'challenge_name': data[0],
-                'won': False
-            }
-            challenges_list.append(prize)
+            company = data[1]
+            challenge_name = data[0]
+
+            is_bitcamp = "bitcamp" in company.lower() or "bitcamp" in challenge_name.lower()
+
+            if is_bitcamp:
+                bitcamp_counter += 1
+            
+            if  not is_bitcamp or bitcamp_counter <= 3:
+                prize = {
+                    'company': company,
+                    'challenge_name': challenge_name,
+                    'won': False
+                }
+                challenges_list.append(prize)
     return challenges_list
 
 
@@ -139,7 +149,8 @@ def delete_projects():
     # print("size of moving: ", len(moving))
     # print("size of not moving: ", len(not_moving))
 
-def parse_csv_internal(reader, not_moving_question=None):
+
+def parse_csv_internal(reader, not_moving_question=None, virtual_row_name=None):
     """Parses a CSV exported from DevPort and seperates hackers based on if
     their hack needs to be stationary (i.e. can't move from table) or not.
 
@@ -149,39 +160,48 @@ def parse_csv_internal(reader, not_moving_question=None):
 
     Args:
         reader: CSV object
-        not_moving_question: str question to determine hackers' project mobility
+        not_moving_question: str question to determine hackers'
+                             project mobility
 
     Returns:
         tuple (moving, not_moving) of dicts mapping project names -> Project()
         objects.
 
     """
-    #already_stored = already_in_db()
+    # already_stored = already_in_db()
     for row in reader:
-        project_name = row["Submission Title"].strip()
-        project_url = row["Submission Url"].strip()
-        challenges = format_challenges(row["Desired Prizes"])
+        if row["Project Status"] is not None and row["Project Status"] != "Submitted (Hidden)" and row["Project Status"] != \
+             "Draft" and row["Project Status"] != "":
+            project_name = row["Project Title"].strip()
+            project_url = row["Submission Url"].strip()
+            challenges = format_challenges(row["Opt-In Prizes"])
+            
+            if virtual_row_name in row: 
+                virtual = row[virtual_row_name].strip() == 'No' # TODO: make sure this matches devpost format
+            else:
+                virtual = False
 
-        # Skip iteration if current project is not valid
-        if project_name == "" and project_url == "":
-            continue
+            # Skip iteration if current project is not valid
+            if project_name == "" and project_url == "":
+                continue
 
-        if not_moving_question is None:
-            needs_to_stay = None
-            response = None
-        else:
-            # If config file has a question string defined for Devpost question
-            # asking if project shouldn't move, then get curr row's response
-            response = row[not_moving_question]
-            needs_to_stay = check_if_needs_to_stay(response)
+            if not_moving_question is None:
+                needs_to_stay = None
+                response = None
+            else:
+                # If config file has a question string defined for Devpost question
+                # asking if project shouldn't move, then get curr row's response
+                response = row[not_moving_question]
+                needs_to_stay = check_if_needs_to_stay(response)
 
-        if needs_to_stay is not None:
-            not_moving[project_name] = Project(project_url, challenges)
-            assignments[table_to_number(needs_to_stay.group(0))] = project_name + " | "
-            not_moving[project_name].table_number = needs_to_stay.group(0)
-        else:
-            moving[project_name] = Project(project_url, challenges)
-    
+            if needs_to_stay is not None:
+                not_moving[project_name] = Project(project_url, challenges, virtual)
+                assignments[table_to_number(needs_to_stay.group(0))] = \
+                    project_name + " | "
+                not_moving[project_name].table_number = needs_to_stay.group(0)
+            else:
+                moving[project_name] = Project(project_url, challenges, virtual)
+
     return moving, not_moving
 
 
@@ -224,7 +244,7 @@ def bulk_add_projects_local(projects) -> None:
     packet = {
         'projects': project_data
     }
-    r = requests.post(url, json=packet)
+    requests.post(url, json=packet)
 
 
 def main() -> None:

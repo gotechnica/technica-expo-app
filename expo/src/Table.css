@@ -127,7 +127,10 @@
   margin-right: 25px;
 }
 
-@media screen and (max-width: 459px) {
+@media screen and (max-width: 999px) {
+  #Home tr td {
+    padding: 2.5rem 0px;
+  }
   #Sponsor table tbody tr.voting-row td:nth-of-type(1) {
     width: 50px;
   }
@@ -145,9 +148,9 @@
     font-size: 20px;
   }
   #Home div.attempted-challenges button {
-    text-align: center;
+    /* text-align: center; */
     font-size: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 18px;
   }
   #Home div.challenges-won,
   #Home div.attempted-challenges {
@@ -188,4 +191,20 @@
   #Home div.challenges-won div {
     word-break: break-word;
   }
+}
+
+.schedule-time {
+  float: right;
+  padding-right: 20px;
+}
+
+@media screen and (max-width: 999px) {
+  .schedule-time {
+    padding: 0px;
+  }
+}
+
+.mini-table {
+  padding-top: 20px;
+  padding-bottom: 5px;
 }

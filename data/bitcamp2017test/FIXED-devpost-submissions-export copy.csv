@@ -78,7 +78,7 @@ The creation of ScheduLit stems from the common dilemma of having to schedule ta
 
 What it does
 
-ScheduLit is a Google Chrome extension that allows users to input a list of tasks, which will then be organized into the most optimal schedule through the implementation of a greedy algorithm. The input consists of the task name and deadline, the estimated number of hours required to complete the task, and the userâ€™s preference for the task (on a scale from 1-10).
+ScheduLit is a Google Chrome extension that allows users to input a list of tasks, which will then be organized into the most optimal schedule through the implementation of a greedy algorithm. The input consists of the task name and deadline, the estimated number of hours required to complete the task, and the userÔøΩ€™s preference for the task (on a scale from 1-10).
 
 From there, we seed our greedy AI with our temporary starting schedule, and it then populates a new calendar with the best schedule. The schedule adheres to the most regular intervals of working hours while honoring limitations like sleep schedules, inactive hours, and permanent events that are already on the calendar. 
 
@@ -86,7 +86,7 @@ Our greedy heuristics factor in how early the tasks are completed in relation to
 
 How we built it
 
-The technologies we used to create ScheduLit include vanilla JavaScript, the Google Calendar API, and a Python to JavaScript transpiler called â€œTranscrypt.â€ù
+The technologies we used to create ScheduLit include vanilla JavaScript, the Google Calendar API, and a Python to JavaScript transpiler called ÔøΩÔøΩÔøΩTranscrypt.ÔøΩ€ù
     First, we discussed our vision for the project and the features we wanted. Then, we split up the work by having one front-end developer, two back-end developers, and one full-stack developer. We occasionally checked in with each other and used Git to ensure that we were all on the same page. Finally, we reconvened to combine the frontend and backend.
 
 Challenges we ran into
@@ -95,7 +95,7 @@ The challenges we encountered were both individual and team-based.
 
 Our team had very little experience in front-end development, and as a result, our front-end developer had to do a considerable amount of research before she could start stylizing the extension and implementing user input.
 
-Our back-end developers were not familiar with JavaScript at all, and as such resorted to Python. However, Google Chrome extensions are only compatible with JavaScript code, so the back-end developers researched ways to implement, or at least convert, python to javascript code. Luckily, they found a way, by using Transcrypt to transcompile the code. We ran into troubles when dealing with converting our Pythonâ€™s heapq library, so we ended up having to create our own.
+Our back-end developers were not familiar with JavaScript at all, and as such resorted to Python. However, Google Chrome extensions are only compatible with JavaScript code, so the back-end developers researched ways to implement, or at least convert, python to javascript code. Luckily, they found a way, by using Transcrypt to transcompile the code. We ran into troubles when dealing with converting our PythonÔøΩ€™s heapq library, so we ended up having to create our own.
 
 Our back-end developers also had a rough time determining the starting states for our heuristic, as well as what greedy algorithms to run in order to optimize trade-offs between efficiency and accuracy.
 
@@ -109,7 +109,7 @@ We are also proud that we were able to find solutions to most of the problems we
 
 What we learned
 
-We learned about the importance of task delegation and communication. While splitting up tasks between team members can accomplish a lot, it can also be confusing. There were some elements on the front end, such as the structure of the userâ€™s input, that were handled differently on the back end. As a result, we learned that we needed to keep each other notified of our progress.
+We learned about the importance of task delegation and communication. While splitting up tasks between team members can accomplish a lot, it can also be confusing. There were some elements on the front end, such as the structure of the userÔøΩ€™s input, that were handled differently on the back end. As a result, we learned that we needed to keep each other notified of our progress.
 
 We also learned that preparation is important. When we came into this hackathon, we had an idea picked out, but not necessarily which tools we needed. Oddly, the default Google API for JavaScript is incompatible with Chrome Extensions due to security requirements, knowing this would have saved hours of time Similarly, if we had known that we had to use JavaScript, we might have been able to prepare and spend more time on development.
 
@@ -378,7 +378,7 @@ It lives.
 
 How I built it
 
-You donâ€™t want to know.
+You donÔøΩ€™t want to know.
 
 Challenges I ran into
 
@@ -564,7 +564,7 @@ OpenCV is hard. Sketchup is hard.
 ",http://keasty.com/,"Best Domain Name - Domain.com, Most Unique Hack - 1517 Fund",,,,
 Close Call,http://bitcamp2018.devpost.com/submissions/92289-close-call,"Inspiration
 
-Accidents are scary. They can happen to anyone to anyone at any time, when we least expect. The best we can do is to take measures to better prepare for these situations. Through our potentially life-saving service we hope to offer real-time alert of accidents as they happen to police and emergency care facilities. By dramatically reducing the time needed to contact first responders, we will greatly enhance a victimâ€™s chance of survival. CloseCall is an app thatâ€™s going to look out for you when no one else will.
+Accidents are scary. They can happen to anyone to anyone at any time, when we least expect. The best we can do is to take measures to better prepare for these situations. Through our potentially life-saving service we hope to offer real-time alert of accidents as they happen to police and emergency care facilities. By dramatically reducing the time needed to contact first responders, we will greatly enhance a victimÔøΩ€™s chance of survival. CloseCall is an app thatÔøΩ€™s going to look out for you when no one else will.
 
 According to the Association for Safe International Road Travel, over 37,000 people die every year in the United States as a result of road crashes. In addition to individual lives being lost, fatal road accidents place economic burdens on the community- with an average cost of $820 per person or $230.6 billion per year (ASIRT). It is evident, that this is a huge problem that needs a solution. Indeed, this issue is not limited solely to the United States. According to the Annual Global Road Crash Statistics Report provided by ASIRT, an average of 1000 people dies every day in the world, with over 90% of the fatalities occurring in developing worlds. When it comes to life and death, we cannot discriminate against those who have the resources and those who do not. CloseCall is a highly integrated mobile application and full stack web service application that effectively connects victims with police and emergency medical personnel as an accident occurs. 
 
@@ -572,14 +572,14 @@ In the event of an accident the time needed for first respondents to come to the
 
 What it does
 
-CloseCall is a highly integrated mobile app and full stack web service that efficiently connects first responders to motor vehicle accident victims as an accident occurs. Traditional response in the event of an accident would involve the victim calling for emergency services themselves, or if they are incapable, a bystander/witness. The ability of this application to reach out to first responders as soon as possible dramatically improves the victimâ€™s chance of survival and recovery. Often times, there may not even be witnesses to help out in this situation at the time of the event. Thus, CloseCall is a safety app that is ready to respond when no one else will. The mobile aspect of our application will be used by the driver as they are driving. A crash is detected monitoring the acceleration of the vehicle over time periods. Measuring the jolt (the degree of change in acceleration) is an effective indicator of a crash situation. Once a crash event has been triggered, a voice message will alert the driver that 911 will be contacted in 20 seconds. The user can easily disable the trigger in the event of false-positives by voicing â€œstopâ€ù. If no response is given, 911 and the nearest hospital will be notified of the accident. On the web service interface, hospitals can track the location of accidents on an integrated map. Information such as name, time/date of accident, GPS location, and shortest route to the scene can be easily displayed. Monitoring of this data in aggregate will not only allow for hospitals to dispatch appropriate emergency response vehicles quickly, but will also allow them to extract useful information. Clustering of accidents on the map may help to signify the degree of the accident-thus allowing for more effective allocation of medical resources. Additionally, date/time statistics may be collected over a long period of time to reveal trends such as which hospitals tend to be over-burdened. 
+CloseCall is a highly integrated mobile app and full stack web service that efficiently connects first responders to motor vehicle accident victims as an accident occurs. Traditional response in the event of an accident would involve the victim calling for emergency services themselves, or if they are incapable, a bystander/witness. The ability of this application to reach out to first responders as soon as possible dramatically improves the victimÔøΩ€™s chance of survival and recovery. Often times, there may not even be witnesses to help out in this situation at the time of the event. Thus, CloseCall is a safety app that is ready to respond when no one else will. The mobile aspect of our application will be used by the driver as they are driving. A crash is detected monitoring the acceleration of the vehicle over time periods. Measuring the jolt (the degree of change in acceleration) is an effective indicator of a crash situation. Once a crash event has been triggered, a voice message will alert the driver that 911 will be contacted in 20 seconds. The user can easily disable the trigger in the event of false-positives by voicing ÔøΩÔøΩÔøΩstopÔøΩ€ù. If no response is given, 911 and the nearest hospital will be notified of the accident. On the web service interface, hospitals can track the location of accidents on an integrated map. Information such as name, time/date of accident, GPS location, and shortest route to the scene can be easily displayed. Monitoring of this data in aggregate will not only allow for hospitals to dispatch appropriate emergency response vehicles quickly, but will also allow them to extract useful information. Clustering of accidents on the map may help to signify the degree of the accident-thus allowing for more effective allocation of medical resources. Additionally, date/time statistics may be collected over a long period of time to reveal trends such as which hospitals tend to be over-burdened. 
 
 A service that provides immediate response for individuals that get into car accidents. Mobile device will prompt user to confirm/deny whether or not they are in an accident. We used voice confirmation to accomplish this. No response will prompt a call to 911 as well as a text message to an emergency contact. Confirming your safety will cancel the call and reset. If accident were to be detected, information will be sent to hospitals that support Close Call. Hospitals will receive the longitude and latitude location of the accident as well as time of the accident and name of user. They can also track the shortest route to the scene of the accident. 
 
 How we built it
 
 Our project is composed of two main components- the mobile app for the driver and the full stack web service for the hospitals. 
-The mobile application was built using Android Studio. We used intents for calling, texting, initiating text-to-speech, and voice recording. We tracked real-time pinpoint-accurate location, created and applied an algorithm using Androidâ€™s built-in accelerometer to determine the threshold for crashes
+The mobile application was built using Android Studio. We used intents for calling, texting, initiating text-to-speech, and voice recording. We tracked real-time pinpoint-accurate location, created and applied an algorithm using AndroidÔøΩ€™s built-in accelerometer to determine the threshold for crashes
 The web service component involved setting up an EC2 instance using AWS. The server would receive post messages from CloseCall app clients. The backend of the server was implemented using Express, Bootstrap, Mongoose (MongoDB), Handlebars templating, and arcGIS API integration. The front end was implemented using NodeJS and HTML. 
 
 Challenges we ran into
@@ -953,7 +953,7 @@ The app was built using react native with a node js backend and postgres databas
 
 Challenges we ran into
 
-The challenge we ran in to was mostly getting familiar with new technologies such as react native. One part was making the splash screen animation, it took almost 4 hours to do it. We also had trouble setting up the server on aws ec2, because the machine was Amazon Linux instead of Mac OS which Iâ€™m more familiar with.
+The challenge we ran in to was mostly getting familiar with new technologies such as react native. One part was making the splash screen animation, it took almost 4 hours to do it. We also had trouble setting up the server on aws ec2, because the machine was Amazon Linux instead of Mac OS which IÔøΩ€™m more familiar with.
 
 Accomplishments that we're proud of
 
@@ -1576,7 +1576,7 @@ By distributing tasks evenly
 Challenges we ran into
 
 Low internet speed
-Google cloud vision wasnâ€™t working the way we wanted. //Android version was tough and was not completed.
+Google cloud vision wasnÔøΩ€™t working the way we wanted. //Android version was tough and was not completed.
 GitHub
 Core Machine Learning modules were difficult to get working
 Combining speech recognition messed up the code
@@ -1596,7 +1596,7 @@ Using Google Cloud Vision API to do sentiment analysis on a picture of a person
 
 What's next for Smile
 
-The next step for our application is to use common interview questions in order to make the interviewee more comfortable at the real interview. For instance, we can use the â€œCracking the coding interviewâ€ù questions to make CS students more comfortable and ready for the interview questions. Furthermore, this app can help students and employees ready for presentations by giving tips according to their results that did estimate by Smile app. We are going to use heartbeat data, gesture data models, speech emotion recognition, text recognition and face recognition data to analyze the interviewee performance.
+The next step for our application is to use common interview questions in order to make the interviewee more comfortable at the real interview. For instance, we can use the ÔøΩÔøΩÔøΩCracking the coding interviewÔøΩ€ù questions to make CS students more comfortable and ready for the interview questions. Furthermore, this app can help students and employees ready for presentations by giving tips according to their results that did estimate by Smile app. We are going to use heartbeat data, gesture data models, speech emotion recognition, text recognition and face recognition data to analyze the interviewee performance.
 ",https://github.com/mmohades/Smile,"Most Futuristic Hack - Paypal, Best Designed Investor Education Product - Finra, Most Unique Hack - 1517 Fund, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",,yonaadug,,
 CardFree,http://bitcamp2018.devpost.com/submissions/92362-cardfree,"Inspiration
 
@@ -1721,9 +1721,9 @@ What it does
 
 We help facilitate borrowers and investors get microloans. We store all transactions in a blockchain so there is a permanent record to hopefully build:
 
-Unforgettable Credit Rating â€“ user unable to erase credit history
-Certification System â€“ other users testify if goal was achieved or not
-Fraud â€“ disincentivised as will be apparent across network
+Unforgettable Credit Rating ÔøΩÔøΩÔøΩ user unable to erase credit history
+Certification System ÔøΩÔøΩÔøΩ other users testify if goal was achieved or not
+Fraud ÔøΩÔøΩÔøΩ disincentivised as will be apparent across network
 
 How we built it
 
@@ -1909,7 +1909,7 @@ I performed a nesses scan on a Metasploitable VM to find vulnerabilities. I used
 HACK:
 The IP address of my Metaspolitable VM is 192.168.217.129.
 step 1: So the first step to get remote access to a computer is to get the IP address of that computer.
-Step 2: Perform a scan to check for vulnerabilities. I performed a Nessus scan. I first downloaded and installed Nessus on my kali VM. After installation, I opened Nessus in a browser in my host system for bigger screen size by going to this URL https://kali.ip:8834. The IP address of my kali VM is 192.168.217.137 so I used the URL https://192.168.217.137:8834 (port 8834 is a TCP/UDP port). After Nessus has been successfully installed we click on â€˜+ New Scanâ€™ in the main Web UI. We enter the IP address of our target machine.
+Step 2: Perform a scan to check for vulnerabilities. I performed a Nessus scan. I first downloaded and installed Nessus on my kali VM. After installation, I opened Nessus in a browser in my host system for bigger screen size by going to this URL https://kali.ip:8834. The IP address of my kali VM is 192.168.217.137 so I used the URL https://192.168.217.137:8834 (port 8834 is a TCP/UDP port). After Nessus has been successfully installed we click on ÔøΩÔøΩÔøΩ+ New ScanÔøΩ€™ in the main Web UI. We enter the IP address of our target machine.
 Step 3: SELECT A VULNERABILITY:
 I found many vulnerabilities in that system. I chose the Elastic Search vulnerability. The target machine is running an older version of Elastic Search v 1.1.1 which is an older and unpatched software running on the target machine. (it is advisable to update the software installed with new patches to avoid getting hacked).
 Step 4: use the command msfconsole to open Metasploit in Kali VM.
@@ -1923,7 +1923,7 @@ Step 6: I wrote this payload to get shell access.
 Step 7: we got shell access. Now we will add a user to the group so we can get an account in the target system and we can access the system anytime in the future.
 Step 8: username of the account: spring2018
     Password:spring2018
- use the command â€˜net user spring2018 spring2018 /addâ€™
+ use the command ÔøΩÔøΩÔøΩnet user spring2018 spring2018 /addÔøΩ€™
 
 We just owned a machine!!!!!!!
 ",,"Most Unique Hack - 1517 Fund, Best Digital Forensic Hack - Cipher Tech Solutions",R1-6,,,
@@ -2820,7 +2820,7 @@ Our inspiration was to create a means for people to step into the spotlight with
 
 What it does:
 
-Currently, Reflextion has the capabilities of recording a video of someone wearing the Myoâ„¢ Gesture Control Armband and mapping the movements of the said person. The mapping data is currently stored locally, and when played back against a person wearing the Myoâ„¢ it will calculate how closely they match the movements and intensity of the person in the video.
+Currently, Reflextion has the capabilities of recording a video of someone wearing the MyoÔøΩÔøΩ Gesture Control Armband and mapping the movements of the said person. The mapping data is currently stored locally, and when played back against a person wearing the MyoÔøΩÔøΩ it will calculate how closely they match the movements and intensity of the person in the video.
 
 Why we made it:
 
@@ -2828,9 +2828,9 @@ These functionalities were thought about for multi-use purposes. We designed a w
 
 How we built it:
 
-The initial step for our hack was to first and foremost mess around with the Myoâ„¢ band. This involved testing the capabilities and limitations of the product by coming up with test case motions and maneuvers and navigating through various applications to see its use.
+The initial step for our hack was to first and foremost mess around with the MyoÔøΩÔøΩ band. This involved testing the capabilities and limitations of the product by coming up with test case motions and maneuvers and navigating through various applications to see its use.
 
-After this test period, we figured out the configuration of the Myoâ„¢ and were able to extract the data from the device and interpret the results from the gyroscope, accelerometer and other measuring mechanisms. We then collected the data as JSON objects and then spent a good amount of time building the front end of the website application. We made it possible to record and upload videos that were then able to be used as mapping data to compare the user to the original video. Switching over to the backend, we managed to make the API that would receive the Myoâ„¢ data and then convert that data into a score of the user's performance to see how they compared to the model. 
+After this test period, we figured out the configuration of the MyoÔøΩÔøΩ and were able to extract the data from the device and interpret the results from the gyroscope, accelerometer and other measuring mechanisms. We then collected the data as JSON objects and then spent a good amount of time building the front end of the website application. We made it possible to record and upload videos that were then able to be used as mapping data to compare the user to the original video. Switching over to the backend, we managed to make the API that would receive the MyoÔøΩÔøΩ data and then convert that data into a score of the user's performance to see how they compared to the model. 
 
 Challenges we ran into:
 
@@ -2842,7 +2842,7 @@ Starting fresh in the wee hours of the morning, we began to work on Reflextion, 
 
 Accomplishments that we're proud of:
 
-We are proud that we managed to make an API that can receive the motion mapping data and return feedback as well as a score of the userâ€™s performance. 
+We are proud that we managed to make an API that can receive the motion mapping data and return feedback as well as a score of the userÔøΩ€™s performance. 
 
 What we learned:
 
@@ -2850,8 +2850,8 @@ We learned how to make an API as well as how to develop a model by utilizing mac
 
 What's next for Reflextion:
 
-The next step for Reflextion is to introduce a means for the data that is currently stored locally to stored in a globally accessible database. This way anyone with a Myoâ„¢ would be able to access and learn how anyone from across the world performs in almost all water-free activities. 
-Additionally, we want to incorporate multiple Myoâ„¢s so that users would be able to map all motions from the arms and legs to make it an incredibly comprehensive way to mimic motion. As well, we plan on making a mobile application for Reflextion.
+The next step for Reflextion is to introduce a means for the data that is currently stored locally to stored in a globally accessible database. This way anyone with a MyoÔøΩÔøΩ would be able to access and learn how anyone from across the world performs in almost all water-free activities. 
+Additionally, we want to incorporate multiple MyoÔøΩÔøΩs so that users would be able to map all motions from the arms and legs to make it an incredibly comprehensive way to mimic motion. As well, we plan on making a mobile application for Reflextion.
 ",,"Most Futuristic Hack - Paypal, Best Domain Name - Domain.com, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,acs3ss,AbhishekShinde,
 Holey Moley!,http://bitcamp2018.devpost.com/submissions/92475-holey-moley,"Inspiration
 
@@ -2906,7 +2906,7 @@ Voice Recognition.
 Gesture Recognition.
 Multiple Tools tracking
 
-",https://github.com/mayankpathak10/Bit-Lamp,"Housing insights â€œin-betweenâ€ù Datasets - Fannie Mae, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",Yes. Table number M11.,DarshanShah,,
+",https://github.com/mayankpathak10/Bit-Lamp,"Housing insights ÔøΩÔøΩÔøΩin-betweenÔøΩ€ù Datasets - Fannie Mae, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",Yes. Table number M11.,DarshanShah,,
 FindMe,http://bitcamp2018.devpost.com/submissions/92478-findme,"Inspiration
 
 ensuring drunk friends reach home safe
@@ -3200,7 +3200,7 @@ Design an investor education product for a specific audience
 
 What it does
 
-FinFree is a mobile application that aims to educate and simulate a userâ€™s financial situation with or without an investment. The app has an intuitive interface that follows a workflow that asks the required fields:
+FinFree is a mobile application that aims to educate and simulate a userÔøΩ€™s financial situation with or without an investment. The app has an intuitive interface that follows a workflow that asks the required fields:
 
 
 Age 
@@ -3208,12 +3208,12 @@ Salary
 Loans 
 City 
 Risk Appetite 
-Amount heâ€™s willing to invest
+Amount heÔøΩ€™s willing to invest
 
 
 The application generates real-time a hypothetical savings and estimated years to be debt-free before and after he makes an investment. The app is smart to derive cost of living figures (tax, housing, food etc.) based on the city input and is also able to update calculations based on the indicated risk appetite.
 
-Furthermore, a bar graph (savings across time) and pie graph (financial proportions) are generated to visualize the data. Userâ€™s can â€œplayâ€ù with his data (What-ifs) and the projections and visualization are updating real-time to the latest set parameters. Lastly, the app also has educational data regarding various investments a user can make.
+Furthermore, a bar graph (savings across time) and pie graph (financial proportions) are generated to visualize the data. UserÔøΩ€™s can ÔøΩÔøΩÔøΩplayÔøΩ€ù with his data (What-ifs) and the projections and visualization are updating real-time to the latest set parameters. Lastly, the app also has educational data regarding various investments a user can make.
 ",https://medium.com/@vijitbhati/bitcamp-2018-finra-design-challenge-9bd6d862455e,Best Designed Investor Education Product - Finra,,,,
 TravelBud,http://bitcamp2018.devpost.com/submissions/92497-travelbud,"TravelBud
 
@@ -3718,7 +3718,7 @@ That vectors are super convenient, and much less annoying than arrays.  Also tha
 
 What's next for BitByBit
 
-bug fixesâ€“especially better stability
+bug fixesÔøΩÔøΩÔøΩespecially better stability
 ",https://github.com/fyang9297/Platform,Best Hack (be passionate) - Facebook,,,,
 ChromaAR,http://bitcamp2018.devpost.com/submissions/92510-chromaar,"Inspiration
 
@@ -3869,7 +3869,7 @@ I have learned that software development can expand whole markets and industries
 What's next for HomefromHome: Housing Market GIS
 
 We plan on expanding the web application to run with ReactNative. This will allow users of all platforms to experience the visualization and gain more insight on the housing market's current status.
-",https://mongatech.maps.arcgis.com/apps/webappviewer/index.html?id=d387c2abff7e4668b9d2a834eeae2edd,"Best Hack with Esri APIs and SDKs - Esri, Housing insights â€œin-betweenâ€ù Datasets - Fannie Mae, Best Hack (be passionate) - Facebook",,,,
+",https://mongatech.maps.arcgis.com/apps/webappviewer/index.html?id=d387c2abff7e4668b9d2a834eeae2edd,"Best Hack with Esri APIs and SDKs - Esri, Housing insights ÔøΩÔøΩÔøΩin-betweenÔøΩ€ù Datasets - Fannie Mae, Best Hack (be passionate) - Facebook",,,,
 Stock Racer,http://bitcamp2018.devpost.com/submissions/92516-stock-racer,"How this idea came about
 
 As we were throwing together ideas, we realized a lot of companies wanted to see a project involving finance. A large aspect of finance in modern society is the stock market. It also quickly became clear how little we knew about this topic. It also sounded like a lot of other people had similar lack of knowledge in this area.  After researching for a little while, we had an idea to create an educational web app that could help the average person learn to become more comfortable choosing and investing in stock without the fear of losing their real money. The more that people are educated on the different aspects of finance, particularly stocks, the faster they can achieve financial security.
@@ -3938,7 +3938,7 @@ Challenges we ran into
 
 Connecting the back-end to the front-end.
 
-Accomplishments that weâ€™re proud of
+Accomplishments that weÔøΩ€™re proud of
 
 Making an extremely nice UI and UX. It took a lot of work, and we learned a lot.
 
@@ -3946,7 +3946,7 @@ What we learned
 
 We learned a lot of UX and UI, and a lot of backend technologies
 
-Whatâ€™s next for NextUp
+WhatÔøΩ€™s next for NextUp
 
 This coming Monday, one of our teammates will be presenting this idea to a person from industry. The idea came from a need that this guy pointed out.
 ",,"Best use of SparkPost API - SparkPost, Improving Healthcare with Mobile Technologies - Credible Behavioral Health, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft",No,BlakeJoynes,esteininger,
@@ -4046,7 +4046,7 @@ The facial features such as age, gender, can help us classify consumers intuitiv
 What's next for Face 2 Recommendation
 
 More squeezed Neural Network that can be deployed on iPhone or Android devices. A more robust model can be developed to recommend Clothing, Life-style, Music, Restaurants, Travel Destinations, etc.
-",https://github.com/dk67604/face_recommendation,"Housing insights â€œin-betweenâ€ù Datasets - Fannie Mae, Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,RakeshBhavsar,,
+",https://github.com/dk67604/face_recommendation,"Housing insights ÔøΩÔøΩÔøΩin-betweenÔøΩ€ù Datasets - Fannie Mae, Most Futuristic Hack - Paypal, Best Philanthropic Hack - Bloomberg, Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,RakeshBhavsar,,
 Gift It: An iOS and Android Native Platform for Gifts,http://bitcamp2018.devpost.com/submissions/92523-gift-it-an-ios-and-android-native-platform-for-gifts,"Inspiration
 
 This idea spawned off of our passion to do better at the exchange of gifts. I have always been a last minute gift buyer and I know that I can do better. Thus, Eric and I started a mobile platform to address this issue and have come to tackle and implement interesting features along the way
@@ -4111,7 +4111,7 @@ Career-Connectzy,http://bitcamp2018.devpost.com/submissions/92525-career-connect
 
 Our application simply helps students reach out to employers a little easier and more efficiently to land up in a dream company. 
 
-Being a college student, we have undergone the stress of applying for Jobs, reaching out to recruiters and passing resumes around in a career fair. Hard copies of resumes are generally collected by employers during career fairs, and it becomes a hassle handling them and tend to lose them. As we know every student could be a potential candidate and shouldnâ€™t miss on the opportunity of being reviewed and called for an interview we propose Career Connectzy
+Being a college student, we have undergone the stress of applying for Jobs, reaching out to recruiters and passing resumes around in a career fair. Hard copies of resumes are generally collected by employers during career fairs, and it becomes a hassle handling them and tend to lose them. As we know every student could be a potential candidate and shouldnÔøΩ€™t miss on the opportunity of being reviewed and called for an interview we propose Career Connectzy
 
 Our system not just helps students but also the organizers in handling the event and helping in collecting data which would help in generating post-career fair reports and analytics. This would be a valuable source of information for the employers to target on potential candidates. 
 
@@ -4121,13 +4121,13 @@ Career Connectzy interactive proximity-based application that simplifies the ent
 
 The system deployment has three major units which work in tandem to perform these operations. 
 
-1)  BLE Beacon Advertising Service â€“ Placed at each employerâ€™s booth during a fair and requires one time configuring. 
+1)  BLE Beacon Advertising Service ÔøΩÔøΩÔøΩ Placed at each employerÔøΩ€™s booth during a fair and requires one time configuring. 
 
-2)  Android Application (Students) â€“ They get suggestions based on their profile gets to know the recruiter's contact details. If interested, he/she can shoot a follow-up email with their resume immediately
+2)  Android Application (Students) ÔøΩÔøΩÔøΩ They get suggestions based on their profile gets to know the recruiter's contact details. If interested, he/she can shoot a follow-up email with their resume immediately
 
-3)  Android Application (Employers) â€“ Employers get to sign up and view real-time statistics about people who visited. 
+3)  Android Application (Employers) ÔøΩÔøΩÔøΩ Employers get to sign up and view real-time statistics about people who visited. 
 
-4)  Backend Cloud Server â€“ This server does the backend processing and updates data to a database, which can be retrieved on request based on filters.
+4)  Backend Cloud Server ÔøΩÔøΩÔøΩ This server does the backend processing and updates data to a database, which can be retrieved on request based on filters.
 
 How we built it
 
@@ -4137,7 +4137,7 @@ Resources from Hackathon
 1)  Mongo DB Stich API was used for backend processing and 
 2)  SPARKPOST API was used to send out emails with resume attachment to Recruiters. 
 3)  MLH Hardware Lab - An open source Arduino 101from with Intel Curie libraries were used to advertise BLE packets. 
-4)  MLH Hardware Lab â€“ A Domain name â€œCarrerConnectzy.comâ€ù was registered to support profiles and sending out emails. 
+4)  MLH Hardware Lab ÔøΩÔøΩÔøΩ A Domain name ÔøΩÔøΩÔøΩCarrerConnectzy.comÔøΩ€ù was registered to support profiles and sending out emails. 
 
 Challenges we ran into
 
@@ -4149,11 +4149,11 @@ We are proud that we were able to implement our solution in the given amount of 
 
 What we learned
 
-We are really happy that we learned to integrate MongoDB Stitch (Beta) and SharkPost APIâ€™s packages for an application in a very short period.
+We are really happy that we learned to integrate MongoDB Stitch (Beta) and SharkPost APIÔøΩ€™s packages for an application in a very short period.
 
 What's next for Career-Connectzy
 
-We feel Career Connectzy could be a really useful application and benefit students finding right jobs and internships during college studies. This application is not limited just for career fair implementation but also for out business tech expos who wish to collect statistical data. We are interested in bringing forward this solution and venture into other possibilities in todayâ€™s market. 
+We feel Career Connectzy could be a really useful application and benefit students finding right jobs and internships during college studies. This application is not limited just for career fair implementation but also for out business tech expos who wish to collect statistical data. We are interested in bringing forward this solution and venture into other possibilities in todayÔøΩ€™s market. 
 ",https://github.com/Aswinnatesh/Career-Connectzy,"Best use of SparkPost API - SparkPost, Best Designed Investor Education Product - Finra, Most Futuristic Hack - Paypal, Best Domain Name - Domain.com, Best Use of MongoDB Stitch - MongoDB, Best Hack (be passionate) - Facebook, Most Unique Hack - 1517 Fund",,,,
 Viper,http://bitcamp2018.devpost.com/submissions/92526-viper,"Inspiration
 
@@ -4179,7 +4179,7 @@ https://github.com/jpurviance/viper
 ",,,,,,
 PlanetTerp Scheduler,http://bitcamp2018.devpost.com/submissions/92527-planetterp-scheduler,"Inspiration
 
-Last November, I started a website called PlanetTerp, with the goal of creating a website that would help students at the University of Maryland â€” College Park make informed decisions. The website includes professor & TA reviews, a discussion board, grade data, and various tools.
+Last November, I started a website called PlanetTerp, with the goal of creating a website that would help students at the University of Maryland ÔøΩÔøΩÔøΩ College Park make informed decisions. The website includes professor & TA reviews, a discussion board, grade data, and various tools.
 
 The most common feedback I got about the website was that it was annoying to have to visit three, four, or even five different sites to create a schedule. Each website served a different purpose, and students relied on all of these websites to create their schedules. While PlanetTerp had professor/TA reviews and grade data, it did not have a scheduling feature.
 
@@ -4609,7 +4609,7 @@ Remove user option
 ",https://github.com/lan99/Hospital-Database,"Best Philanthropic Hack - Bloomberg, Best Use of MongoDB Stitch - MongoDB, Best Hack for Aiding Natural Disaster Recovery Efforts - Booz Allen Hamilton",no,sgarciabeech,,
 Augmented Reality to Overcome Dyslexia ,http://bitcamp2018.devpost.com/submissions/92588-augmented-reality-to-overcome-dyslexia,"The Problem
 
-1 out of 10 people worldwide are affected by learning disabilities and the most common one is dyslexiaâ€‹. Dyslexia lowers student self esteem and these students are 3 times more likely to drop out of school  and 2 times more likely to be suspended than that of their general education peers.â€‹ As well as making learning to read and write more difficult for individuals, it also affects their families and the surrounding community.
+1 out of 10 people worldwide are affected by learning disabilities and the most common one is dyslexiaÔøΩÔøΩÔøΩ. Dyslexia lowers student self esteem and these students are 3 times more likely to drop out of school  and 2 times more likely to be suspended than that of their general education peers.ÔøΩÔøΩÔøΩ As well as making learning to read and write more difficult for individuals, it also affects their families and the surrounding community.
 
 Our Solution
 
@@ -4629,7 +4629,7 @@ During BitCamp, we gained more experience working with Unity and Tesseract so th
 
 Timeline
 
-We came into BitCamp with the preliminary research done on this project. During our time here, we focused on learning how to best use Unity for the rendering we will need to do and Tesseract for the image processing component. Because we plan to continue working on this project over the next 2 years we are at UMD, we are willing to wait for customer feedback since it will ultimately better aid the design of the device. By the end of this semester, we are hoping to send out surveys to gather feedback from the target market. We will continue working to develop this device through all of next year and hope to test on participants in the year after. We plan to follow the iterative design process so we can continue to update and improve our deviceâ€™s performance during the testing stages. 
+We came into BitCamp with the preliminary research done on this project. During our time here, we focused on learning how to best use Unity for the rendering we will need to do and Tesseract for the image processing component. Because we plan to continue working on this project over the next 2 years we are at UMD, we are willing to wait for customer feedback since it will ultimately better aid the design of the device. By the end of this semester, we are hoping to send out surveys to gather feedback from the target market. We will continue working to develop this device through all of next year and hope to test on participants in the year after. We plan to follow the iterative design process so we can continue to update and improve our deviceÔøΩ€™s performance during the testing stages. 
 ",,"Best Hack (be passionate) - Facebook, Best Accessibility Hack - Microsoft, Most Unique Hack - 1517 Fund",,,,
 Mood Music,https://devpost.com/software/mood-music-mjsiv8,,,"Best Hack (be passionate) - Facebook, Best Social Media Hack - Facebook",A45,,,
 Mining Malware,https://devpost.com/software/mining-malware,,,Best Social Media Hack - Facebook,K29,,,

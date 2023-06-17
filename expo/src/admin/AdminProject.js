@@ -4,21 +4,22 @@ import axiosRequest from "Backend.js";
 import CreateProjectModal from "admin/CreateProjectModal";
 import EditProjectModal from "admin/EditProjectModal";
 import WarningModal from "admin/WarningModal";
+import Card from "components/Card";
 
 import "Admin.css";
 import "App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SmallerParentheses from "SmallerParentheses.js";
+import SmallerParentheses from "components/SmallerParentheses.js";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSquare } from "@fortawesome/fontawesome-free-regular";
+import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import {
   faCaretDown,
   faCaretUp,
   faCheckSquare,
-  faUpload
-} from "@fortawesome/fontawesome-free-solid";
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
 library.add(faUpload);
 library.add(faCaretDown);
 library.add(faCaretUp);
@@ -33,6 +34,7 @@ class ProjectModule extends Component {
       textSearch: "",
       projectIndexToEdit: -1,
       uploadStatus: "",
+      tableUploadStatus: "",
       projectsCSV: "",
       tableAssignmentStatus: "",
       tableAssignmentSchema: "",
@@ -41,14 +43,20 @@ class ProjectModule extends Component {
       tableEndLetter: "",
       tableEndNumber: 0,
       skipEveryOtherTable: true,
-      viewable: true
+      viewable: true,
+      judgingLength: 10,
+      tableAssignmentFile: "",
+      projectName:"",
+      myindex:"",
+      newGroup: "",
+      challengeName: "",
     };
   }
 
   createChallengesToCompanyMap(challenges_obj) {
     const allChallengesMapping = {};
     for (let company in challenges_obj) {
-      challenges_obj[company].forEach(challenge => {
+      challenges_obj[company].forEach((challenge) => {
         allChallengesMapping[challenge] = company;
       });
     }
@@ -58,7 +66,7 @@ class ProjectModule extends Component {
   createAllChallenges(obj) {
     let allChallenges = [];
     for (let key in obj) {
-      obj[key].forEach(item => {
+      obj[key].forEach((item) => {
         if (allChallenges.indexOf(item) === -1) {
           allChallenges.push(item);
         }
@@ -72,9 +80,9 @@ class ProjectModule extends Component {
     let data = this.props.projects;
     let finalProjectsData = [];
 
-    data.forEach(obj => {
+    data.forEach((obj) => {
       let challenge = [];
-      obj.challenges.forEach(item => {
+      obj.challenges.forEach((item) => {
         challenge.push(item.challenge_name);
       });
       finalProjectsData.push({
@@ -83,7 +91,8 @@ class ProjectModule extends Component {
         table_number: obj.table_number,
         url: obj.project_url,
         challenges: challenge,
-        company_challenge: obj.challenges
+        company_challenge: obj.challenges,
+        virtual: obj.virtual,
       });
     });
     return finalProjectsData;
@@ -93,30 +102,64 @@ class ProjectModule extends Component {
     e.preventDefault();
 
     const data = new FormData();
-    data.append("projects_csv", this.projects_csv.files[0]);
+    data.append("projects_csv", this.state.projects_csv.files[0]);
 
-    if (this.projects_csv.files[0] === null) {
+    if (this.state.projects_csv.files[0] == null) {
       this.setState({
-        uploadStatus: "Please select a file before hitting upload!"
+        uploadStatus: "Please select a file before hitting upload!",
       });
     } else {
       axiosRequest
         .post("parse_csv", data)
-        .then(response => {
-          this.projects_csv.value = ""; // Clear input field
+        .then((response) => {
           this.setState({
             // Flash success message and clear input display
             uploadStatus: response.data,
-            projectsCSV: ""
+            projectsCSV: "",
           });
           this.props.loadProjects();
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             // Flash error message
-            uploadStatus: "Oops! Something went wrong..."
+            uploadStatus: "Oops! Something went wrong...",
           });
         });
+    }
+  }
+
+  onUploadTableAssignment() {
+    const data = new FormData();
+    data.append("table_file", this.state.table_file.files[0]);
+    data.append("table_assignment_schema", 'custom_file');
+
+    if (this.state.table_file.files[0] == null) {
+      this.setState({
+        tableAssignmentStatus: "Please select a file before hitting upload!",
+      });
+    } else {
+      axiosRequest
+        .post("api/projects/assign_tables", data)
+        .then((data) => {
+        this.setState({
+          // Flash success message
+          tableAssignmentStatus: data,
+          tableAssignmentSchema: "",
+          tableStartLetter: "",
+          tableStartNumber: 0,
+          tableEndLetter: "",
+          tableEndNumber: 0,
+          skipEveryOtherTable: true,
+          tableAssignmentFile: "",
+        });
+        this.props.loadProjects();
+      })
+      .catch((error) => {
+        this.setState({
+          // Flash error message
+          tableAssignmentStatus: "Oops! Something went wrong...",
+        });
+      });
     }
   }
 
@@ -126,22 +169,51 @@ class ProjectModule extends Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
+  editTime(e) {
+    e.preventDefault();
+    console.log(this.state.projectName);
+    console.log(this.state.myindex)
+    console.log(this.state.newGroup);
+    console.log(this.state.challengeName);
+    axiosRequest
+      .post("api/custom_assignment", {
+        index: this.state.myindex,
+        project_name: this.state.projectName,
+        group: this.state.newGroup,
+        challenge: this.state.challengeName,
+      })
+      .then((data) => {
+        
+        this.props.loadProjects();
+      })
+      .catch((error) => {
+
+        // Flash error message
+          alert("FUCK YOU");
+
+      });
+    
+  }
   onAutoAssignTableNumbers(e) {
     e.preventDefault();
     if (this.state.tableAssignmentSchema === "") {
       this.setState({
         tableAssignmentStatus:
-          "Please first select a schema for assigning table numbers."
+          "Please first select a schema for assigning table numbers.",
       });
+      return;
+    }
+    if (this.state.tableAssignmentSchema === "custom_file") {
+      this.onUploadTableAssignment();
       return;
     }
     this.setState({
       tableAssignmentStatus:
-        "Processing your request to assign table numbers..."
+        "Processing your request to assign table numbers...",
     });
     axiosRequest
       .post("api/projects/assign_tables", {
@@ -150,9 +222,9 @@ class ProjectModule extends Component {
         table_start_number: parseInt(this.state.tableStartNumber, 10),
         table_end_letter: this.state.tableEndLetter,
         table_end_number: parseInt(this.state.tableEndNumber, 10),
-        skip_every_other_table: this.state.skipEveryOtherTable
+        skip_every_other_table: this.state.skipEveryOtherTable,
       })
-      .then(data => {
+      .then((data) => {
         this.setState({
           // Flash success message
           tableAssignmentStatus: data,
@@ -161,14 +233,15 @@ class ProjectModule extends Component {
           tableStartNumber: 0,
           tableEndLetter: "",
           tableEndNumber: 0,
-          skipEveryOtherTable: true
+          skipEveryOtherTable: true,
+          tableAssignmentFile: "",
         });
         this.props.loadProjects();
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           // Flash error message
-          tableAssignmentStatus: "Oops! Something went wrong..."
+          tableAssignmentStatus: "Oops! Something went wrong...",
         });
       });
   }
@@ -182,21 +255,21 @@ class ProjectModule extends Component {
     ) {
       this.setState({
         tableAssignmentStatus:
-          "Processing your request to remove table assignments..."
+          "Processing your request to remove table assignments...",
       });
       axiosRequest
         .post("api/projects/clear_table_assignments")
-        .then(data => {
+        .then((data) => {
           this.setState({
             // Flash success message
-            tableAssignmentStatus: data
+            tableAssignmentStatus: data,
           });
           this.props.loadProjects();
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             // Flash error message
-            tableAssignmentStatus: "Oops! Something went wrong..."
+            tableAssignmentStatus: "Oops! Something went wrong...",
           });
         });
     }
@@ -216,38 +289,48 @@ class ProjectModule extends Component {
     }
   }
 
-  renderEditProjectModal = (
-    elt,
-    index,
-    allChallenges,
-    challengesToCompanyMap
-  ) => {
-    return (
-      <EditProjectModal
-        index={index}
-        editID={"modalEditProject" + index.toString()}
-        projectID={elt.project_id}
-        project_name={elt.project_name}
-        project_table={elt.table_number}
-        url={elt.url}
-        challenges={elt.challenges}
-        toggle={elt.checkVal}
-        allChallenges={allChallenges}
-        company_map={challengesToCompanyMap}
-        onEdit={this.props.loadProjects}
-      />
-    );
-  };
+  scheduleJudging(e) {
+    e.preventDefault();
+    console.log("Here!");
+
+    axiosRequest.post("api/schedule-judging", {
+      judging_length: parseInt(this.state.judgingLength, 10),
+    })
+    .then((data) => {
+      this.props.loadProjects();
+      alert('Successfully generated!')
+    })
+    .catch((error) => {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error:', error.response.data);
+        // Display an error message to the user
+        alert(error.response.data.error);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('Error:', error.request);
+        // Display a generic error message to the user
+        alert('Oops! Something went wrong. Please try again later.');
+      } else {
+        // Something else happened in making the request that triggered an error
+        console.error('Error:', error.message);
+        // Display a generic error message to the user
+        alert('Oops! Something went wrong. Please try again later.');
+      }
+    });
+
+  }
 
   toggleView() {
     if (this.state.viewable) {
       this.setState({
-        viewable: false
+        viewable: false,
       });
       document.getElementById("project-content").style.display = "none";
     } else {
       this.setState({
-        viewable: true
+        viewable: true,
       });
       document.getElementById("project-content").style.display = "block";
     }
@@ -260,34 +343,47 @@ class ProjectModule extends Component {
       this.props.challenges
     );
     if (this.state.textSearch !== "" && this.state.textSearch !== undefined) {
-      filteredProjects = filteredProjects.filter(elt => {
+      filteredProjects = filteredProjects.filter((elt) => {
         const upperCaseTextSearch = this.state.textSearch.toUpperCase();
         return (
           elt.project_name.toUpperCase().includes(upperCaseTextSearch) ||
-          elt.table_number.toUpperCase().includes(upperCaseTextSearch)
+          elt.table_number.toString().toUpperCase().includes(upperCaseTextSearch)
         );
       });
     }
+    let editProjectModal;
+
+    if (this.state.projectIndexToEdit >= 0) {
+      const index = this.state.projectIndexToEdit;
+      const elt = filteredProjects[index];
+
+      editProjectModal = (
+        <EditProjectModal
+          index={index}
+          key={"editProjectModal" + index}
+          id={"modalEditProject" + index.toString()}
+          projectID={elt.project_id}
+          project_name={elt.project_name}
+          project_table={elt.table_number}
+          url={elt.url}
+          challenges={elt.challenges}
+          toggle={elt.checkVal}
+          allChallenges={allChallenges}
+          company_map={challengesToCompanyMap}
+          onEdit={this.props.loadProjects}
+          virtual={elt.virtual}
+        />
+      );
+    }
 
     return (
-      <div className="card">
-        <div className="card-header">
-          <div className="d-flex">
-            <h4>Projects</h4>
-            <span className="ml-auto">
-              <button
-                className="link-button"
-                type="button"
-                onClick={() => {
-                  this.toggleView();
-                }}
-              >
-                {!this.state.viewable ? "Show" : "Hide"}
-              </button>
-            </span>
-          </div>
-        </div>
-
+      <Card
+        title="Projects"
+        action={() => {
+          this.toggleView();
+        }}
+        actionName={!this.state.viewable ? "Show" : "Hide"}
+      >
         <div className="card-body" id="project-content">
           <h5>Seed Database</h5>
           <form
@@ -311,8 +407,8 @@ class ProjectModule extends Component {
                   id="file"
                   name="projectsCSV"
                   onChange={this.handleInputChange.bind(this)}
-                  ref={ref => {
-                    this.projects_csv = ref;
+                  ref={(ref) => {
+                    this.state.projects_csv = ref;
                   }}
                 />
                 {this.state.projectsCSV.replace("C:\\fakepath\\", "")}
@@ -330,6 +426,64 @@ class ProjectModule extends Component {
 
           <br />
           <br />
+          
+          {/* <h5>Add New Time</h5>
+          <form
+            method="post"
+            onSubmit={this.editTime.bind(this)}
+          >
+            <div className="form-group custom-table-assignment-container">
+                Project Name: 
+                <input
+                  type="text"
+                  name="projectName"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <div className="form-group custom-table-assignment-container">
+                Challenge Name: 
+                <input
+                  type="text"
+                  name="challengeName"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <div className="form-group custom-table-assignment-container">
+                 New Group: 
+                <input
+                  type="text"
+                  name="newGroup"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <div className="form-group custom-table-assignment-container">
+                Index: 
+                <input
+                  type="text"
+                  name="myindex"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <button
+              type="submit"
+              className="button button-primary m-r-m assign_button1"
+            >
+              Assign Time
+            </button>
+          </form> */}
+
 
           <h5>Auto Assign Table Numbers</h5>
           <form
@@ -368,13 +522,41 @@ class ProjectModule extends Component {
                 <input
                   type="radio"
                   name="tableAssignmentSchema"
-                  value="custom"
-                  checked={this.state.tableAssignmentSchema === "custom"}
+                  value="custom_file"
+                  checked={this.state.tableAssignmentSchema === "custom_file"}
                 />{" "}
                 Custom
               </div>
             </div>
-            {this.state.tableAssignmentSchema === "custom" && (
+            {this.state.tableAssignmentSchema === "custom_file" && (
+              <div className="m-b-m">
+                 
+            <div className="form-group">
+              <label>Custom Table Assignment File</label>
+              <br />
+              <div className="upload-btn-wrapper">
+                <button className="button button-primary font-weight-normal m-r-m">
+                  <FontAwesomeIcon
+                    icon="upload"
+                    className="upload_icon"
+                  ></FontAwesomeIcon>
+                  Choose a file
+                </button>
+                <input
+                  type="file"
+                  id="table-assignment-file"
+                  name="tableAssignmentFile"
+                  onChange={this.handleInputChange.bind(this)}
+                  ref={(ref) => {
+                    this.state.table_file = ref;
+                  }}
+                />
+                {this.state.tableAssignmentFile.replace("C:\\fakepath\\", "")}
+              </div>
+            </div>
+              </div>
+            )}
+            {/* {this.state.tableAssignmentSchema === "custom" && (
               <div className="m-b-m">
                 <p>
                   Enter the starting and ending/maximum alphanumeric
@@ -419,7 +601,8 @@ class ProjectModule extends Component {
                 />{" "}
                 Skip every other table? (Provides more spacious expo)
               </div>
-            )}
+            )} */}
+            
             <button
               type="submit"
               className="button button-primary m-r-m assign_button1"
@@ -433,7 +616,7 @@ class ProjectModule extends Component {
               Remove All Table Assignments
             </button>
             {this.state.tableAssignmentStatus !== "" && (
-              <div className="row col" style={{ "padding-top": "1rem" }}>
+              <div className="row col" style={{ "paddingTop": "1rem" }}>
                 <i>{this.state.tableAssignmentStatus}</i>
               </div>
             )}
@@ -442,14 +625,44 @@ class ProjectModule extends Component {
           <br />
           <br />
 
+          <h5>Generate Judging Schedule</h5>
+          <form
+            method="post"
+            onSubmit={this.scheduleJudging.bind(this)}
+          >
+            
+            <div className="form-group">
+            <div className="form-group custom-table-assignment-container">
+                Judging Length (min): 
+                <input
+                  type="text"
+                  name="judgingLength"
+                  className="form-control judging-schedule-child small-input"
+                  placeholder="10"
+                  autoComplete="off"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="button button-primary m-r-m assign_button1">
+                  Schedule
+              </button>
+
+            </div>
+          </form> 
+
+          <br />
+          <br />
+
           <h5>
             Projects{" "}
-            <SmallerParentheses font_size="15px">
+            <SmallerParentheses fontSize="15px">
               {filteredProjects.length}
             </SmallerParentheses>
           </h5>
           <CreateProjectModal
-            createID="modalCreateProject"
+            id="modalCreateProject"
             onCreate={this.props.loadProjects}
             allChallenges={allChallenges}
             company_map={challengesToCompanyMap}
@@ -472,16 +685,16 @@ class ProjectModule extends Component {
           </button>
           <WarningModal
             modalId="projectWipeWarningModal"
-            whatToDelete="Projects"
-            deleteAll={this.deleteAllProjects.bind(this)}
+            collection="Projects"
+            onDelete={this.deleteAllProjects.bind(this)}
           />
           <div className="form-group">
             <input
               type="text"
               id="txtProjectSearch"
               className="form-control"
-              placeholder="Search for a project name..."
-              onChange={event =>
+              placeholder="Search by project name or table number..."
+              onChange={(event) =>
                 this.setState({ textSearch: event.target.value })
               }
             />
@@ -499,7 +712,7 @@ class ProjectModule extends Component {
                 id={`project-${elt.project_id}`}
               >
                 <div className="col grow-5 break-word">{elt.project_name}</div>
-                <div className="col">{elt.table_number}</div>
+                <div className="col">{elt.virtual ? ('virtual'):(elt.table_number)}</div>
                 <div className="col">
                   <button
                     className="link-button"
@@ -507,28 +720,21 @@ class ProjectModule extends Component {
                     type="button"
                     data-toggle="modal"
                     data-target={"#modalEditProject" + index.toString()}
-                    // Hacky solution to only mount the modal when necessary
-                    // (helps if huge amount of projects in DB)
                     onMouseOver={() => {
-                      this.setState({ projectIndexToEdit: index });
+                      this.setState({
+                        projectIndexToEdit: index,
+                      });
                     }}
                   >
                     Edit
                   </button>
                 </div>
-                {this.state.projectIndexToEdit === index
-                  ? this.renderEditProjectModal(
-                      elt,
-                      index,
-                      allChallenges,
-                      challengesToCompanyMap
-                    )
-                  : null}
               </div>
             );
           })}
         </div>
-      </div>
+        {editProjectModal}
+      </Card>
     );
   }
 }

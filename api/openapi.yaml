@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  title: Technica Expo App
-  description: API documentation for the Technica Expo backend.
+  title: Bitcamp Expo App
+  description: API documentation for the Bitcamp Expo backend.
   version: "0.1"
 servers:
 - url: http://127.0.0.1:8000

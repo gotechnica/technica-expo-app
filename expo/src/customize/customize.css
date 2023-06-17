@@ -8,12 +8,12 @@
   --body-font: "Avenir", sans-serif;
 
   /* primary color scheme */
-  --primary-action: #00ffff;
-  --primary-action-darker: #00c7c7;
-  --cancel-action: #ff7bac;
-  --cancel-action-darker: #ff96bd;
-  --warning: #ff7bac;
-  --warning-darker: #ff96bd;
+  --primary-action: #ff8800;
+  --primary-action-darker: #ff8800;
+  --cancel-action: #324A79;
+  --cancel-action-darker: #324A79;
+  --warning: #324A79;
+  --warning-darker: #324A79;
   --accent: #528ca5;
 
   /* variable naming scheme:
@@ -21,11 +21,11 @@
 
   /* supporting color scheme */
   /* Technica: 2f2f2f, Bitcamp Midnight Blue: 1A2E33 */
-  --supporting-primary: #2f2f2f;
-  --supporting-primary-darker: #1c1c1c;
+  --supporting-primary: #10274f;
+  --supporting-primary-darker: #324A79;
 
   /* App.css styles */
-  --app_background_banner: url("./imgs/background.png");
+  --app_background_banner: url("./imgs/hero.png");
   --app_background_color: #2d2d2d;
   --app_modal_color: #222;
   --app_modal_border: rgba(0, 0, 0, 0.125);
@@ -73,7 +73,7 @@
 
   /* Table.css */
   --table_home_btn: var(--supporting-primary);
-  --table_home_tr_td: #222222;
+  --table_home_tr_td: rgba(255, 255, 255, 0.1);
   --table_att_challenges: #999999;
   --table_no_submissions: var(--supporting-primary-darker);
 
@@ -89,7 +89,7 @@
 @media (max-width: 500px) {
   .App::before {
     background-size: 100% 100% !important;
-    background-position-y: 28vh;
+    /* background-position-y: 28vh; */
   }
 }
 
